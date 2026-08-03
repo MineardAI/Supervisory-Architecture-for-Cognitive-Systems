@@ -1,0 +1,309 @@
+SACS Contract 012 — External Verification Profile and Evidence Interface
+Section 13 — Verification Evidence Package Construction
+Purpose
+
+Section 13 establishes the constitutional process by which a resolved collection of verification evidence is assembled into one canonical Verification Evidence Package.
+
+Where Section 12 determines which evidence SHALL participate in verification, this section defines how that evidence SHALL be organized into a single immutable constitutional artifact suitable for validation and eventual submission to an external verifier.
+
+Verification Evidence Package Construction is a deterministic constitutional transformation.
+
+Given identical constitutional inputs, every conforming implementation SHALL construct an identical Verification Evidence Package.
+
+This section does not evaluate verification claims.
+
+This section does not determine verification success.
+
+This section does not authorize external submission.
+
+Its sole responsibility is the deterministic construction of the constitutional evidence package.
+
+Constitutional Question
+
+How are the resolved evidence artifacts assembled into one canonical Verification Evidence Package?
+
+Verification Evidence Package Construction SHALL determine:
+
+package identity;
+package structure;
+package manifest;
+evidence ordering;
+evidence references;
+integrity bindings;
+provenance bindings;
+package metadata;
+serialization identity;
+package lineage; and
+cryptographic identity.
+
+Only successfully constructed packages MAY proceed to Validation.
+
+Constitutional Identity
+
+A Verification Evidence Package is one immutable, canonical constitutional artifact that assembles the complete Resolved Verification Evidence Set into a deterministic representation suitable for constitutional validation and eventual external verification.
+
+The package represents the evidence.
+
+It does not constitute the evidence itself.
+
+It does not establish verification truth.
+
+It does not establish verification success.
+
+It does not authorize external verification.
+
+Constitutional Authority
+
+Contract 012 SHALL exclusively own:
+
+package construction;
+package identity assignment;
+manifest construction;
+evidence organization;
+deterministic ordering;
+package metadata construction;
+provenance binding;
+integrity binding;
+package serialization identity; and
+Verification Evidence Package construction.
+
+Contract 012 SHALL NOT:
+
+modify evidence;
+reinterpret evidence;
+create evidence;
+evaluate verification claims;
+validate package correctness;
+authorize external submission; or
+determine verification outcomes.
+Construction Inputs
+
+Verification Evidence Package Construction SHALL consume only committed constitutional artifacts, including:
+
+Resolved Verification Evidence Set;
+Committed Verification Profile Binding;
+Committed Verification Requirement Set;
+Verification Method Definitions;
+Verification Claim references;
+committed registry snapshots;
+committed constitutional artifacts;
+package construction metadata; and
+applicable constitutional lineage.
+
+No uncommitted artifact SHALL participate in package construction.
+
+Package Identity
+
+Every Verification Evidence Package SHALL possess a unique constitutional identity.
+
+Package identity SHALL include:
+
+package identifier;
+package version;
+constitutional authority identifier;
+construction timestamp;
+package lineage identifier;
+serialization version;
+replay identity; and
+cryptographic package identity.
+
+Package identity SHALL remain immutable following successful construction.
+
+Evidence Manifest Construction
+
+Every Verification Evidence Package SHALL contain one canonical Evidence Manifest.
+
+The Evidence Manifest SHALL enumerate:
+
+every evidence instance;
+every evidence definition;
+evidence classifications;
+evidence references;
+required evidence;
+optional evidence;
+excluded evidence;
+package references;
+integrity references;
+provenance references; and
+constitutional lineage.
+
+The Evidence Manifest SHALL constitute the authoritative inventory of package contents.
+
+Evidence Organization
+
+Evidence SHALL be organized according to deterministic constitutional rules.
+
+Organization SHALL preserve:
+
+evidence identity;
+evidence class;
+authority;
+provenance;
+commitment order;
+constitutional lineage; and
+replay determinism.
+
+No implementation-defined organization SHALL be permitted.
+
+Evidence Ordering
+
+Every Verification Evidence Package SHALL employ one deterministic canonical ordering.
+
+Ordering SHALL include, where applicable:
+
+Package metadata;
+Verification Profile references;
+Verification Requirement Set references;
+Verification Claim references;
+Evidence Manifest;
+Required evidence;
+Optional evidence;
+Registry snapshots;
+Integrity bindings;
+Provenance bindings;
+Lineage references;
+Cryptographic identities.
+
+Implementations SHALL NOT reorder package contents according to implementation-specific preferences.
+
+Integrity Binding
+
+Verification Evidence Package Construction SHALL establish package integrity bindings.
+
+Integrity bindings SHALL include:
+
+evidence hashes;
+package hashes;
+manifest hashes;
+cryptographic signatures;
+commitment identities;
+integrity references; and
+immutable integrity relationships.
+
+Integrity bindings SHALL preserve authenticity without modifying evidence.
+
+Integrity binding establishes package integrity.
+
+It does not establish package validity.
+
+Provenance Binding
+
+Every package SHALL preserve complete constitutional provenance.
+
+Provenance bindings SHALL identify:
+
+producing contracts;
+producing artifacts;
+constitutional authorities;
+producing implementations;
+registry snapshots;
+commitment lineage;
+replay lineage; and
+historical lineage.
+
+No evidence SHALL enter a package without complete provenance.
+
+Package Metadata
+
+Every Verification Evidence Package SHALL include canonical metadata describing the package itself.
+
+Package metadata SHALL include:
+
+package identity;
+Verification Profile identity;
+Verification Requirement Set identity;
+verification subject identity;
+verification scope;
+serialization version;
+compatibility version;
+replay version;
+package creation metadata;
+package authority; and
+package lifecycle state.
+
+Package metadata SHALL remain immutable following construction.
+
+Canonical Serialization
+
+Verification Evidence Packages SHALL possess one canonical serialization representation.
+
+Canonical serialization SHALL ensure:
+
+deterministic encoding;
+deterministic hashing;
+deterministic replay;
+implementation independence;
+transport independence; and
+constitutional reproducibility.
+
+Equivalent constitutional packages SHALL always serialize identically.
+
+Construction Rules
+
+Verification Evidence Package Construction SHALL verify construction completeness before package production.
+
+Construction SHALL ensure:
+
+every required evidence instance is represented;
+every package reference is resolvable;
+every integrity reference exists;
+every provenance reference exists;
+every package identifier is unique;
+every manifest entry is complete;
+no prohibited content exists; and
+no unresolved construction dependencies remain.
+
+Construction SHALL NOT evaluate evidentiary sufficiency.
+
+Canonical Verification Evidence Package
+
+Successful construction SHALL produce one immutable constitutional artifact containing:
+
+package identity;
+package metadata;
+Evidence Manifest;
+Verification Profile references;
+Verification Requirement Set references;
+Verification Claim references;
+evidence inventory;
+evidence references;
+integrity bindings;
+provenance bindings;
+registry snapshot references;
+constitutional lineage;
+replay metadata;
+serialization identity; and
+cryptographic identity.
+
+This artifact SHALL become the exclusive constitutional package consumed by Validation.
+
+Construction Failure
+
+Verification Evidence Package Construction SHALL terminate immediately upon any constitutional construction failure, including but not limited to:
+
+incomplete evidence inventory;
+unresolved references;
+duplicate package identity;
+duplicate manifest entries;
+missing provenance;
+missing integrity bindings;
+invalid serialization identity;
+package hash construction failure;
+prohibited package content;
+manifest inconsistency; or
+nondeterministic package construction.
+
+Construction failure SHALL produce one explicit constitutional construction failure artifact.
+
+No partial Verification Evidence Package SHALL be produced.
+
+Constitutional Invariants
+
+For every successful Resolved Verification Evidence Set:
+
+exactly one Verification Evidence Package SHALL be constructed;
+every authorized evidence instance SHALL appear exactly once unless explicitly authorized otherwise by constitutional policy;
+every package SHALL preserve constitutional identity, authority, provenance, integrity, lineage, and replay determinism;
+no package SHALL contain unauthorized, unresolved, or prohibited content;
+package construction SHALL not modify the constitutional meaning of any evidence; and
+identical constitutional inputs SHALL always produce an identical Verification Evidence Package.

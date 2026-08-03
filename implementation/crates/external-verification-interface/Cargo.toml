@@ -1,0 +1,11 @@
+[package]
+name = "sacs-external-verification-interface"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+canonical-hashing = { package = "sacs-canonical-hashing", path = "../canonical-hashing" }
+canonical-serialization = { package = "sacs-canonical-serialization", path = "../canonical-serialization" }
+sacs-constitutional-history = { path = "../constitutional-history" }

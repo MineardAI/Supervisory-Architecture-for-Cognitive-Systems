@@ -1,0 +1,13 @@
+[package]
+name = "sacs-supervisory-continuity"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+canonical-hashing = { package = "sacs-canonical-hashing", path = "../canonical-hashing" }
+canonical-serialization = { package = "sacs-canonical-serialization", path = "../canonical-serialization" }
+sacs-operational-state-vector = { path = "../operational-state-vector" }
+sacs-governance = { path = "../governance" }
+sacs-execution-interface = { path = "../execution-interface" }

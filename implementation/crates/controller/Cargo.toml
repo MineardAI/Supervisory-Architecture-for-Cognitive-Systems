@@ -1,0 +1,14 @@
+[package]
+name = "sacs-controller"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+canonical-hashing = { package = "sacs-canonical-hashing", path = "../canonical-hashing" }
+canonical-serialization = { package = "sacs-canonical-serialization", path = "../canonical-serialization" }
+sacs-operational-state-vector = { path = "../operational-state-vector" }
+sacs-governance = { path = "../governance" }
+sacs-supervisory-objectives = { path = "../supervisory-objectives" }
+sacs-operational-profiles = { path = "../operational-profiles" }

@@ -1,0 +1,541 @@
+# SACS Contract 012 — External Verification Profile and Evidence Interface
+
+## Section 8 — Verification Requirement Set
+
+### Purpose
+
+Section 8 defines the canonical artifact that transforms a reusable Verification Profile into the exact obligations governing one verification operation.
+
+Where the Verification Profile defines the constitutional verification policy, the **Verification Requirement Set** defines the precise requirements that SHALL be satisfied before a Verifiable Claim may be submitted for external verification.
+
+The Verification Requirement Set is the deterministic realization of all verification obligations applicable to one:
+
+* verification subject;
+* claim set;
+* Verification Profile;
+* verification purpose;
+* implementation;
+* environment;
+* verifier.
+
+It establishes **what must exist**, **what must be validated**, and **what must be preserved** before evidence construction and submission may proceed.
+
+---
+
+# Constitutional Question
+
+Section 8 answers:
+
+> **Given one committed Verification Profile and one set of Verifiable Claims, what exact requirements govern this verification operation?**
+
+The answer SHALL be fully determined before evidence construction begins.
+
+The Verification Requirement Set SHALL establish obligations.
+
+It SHALL NOT determine whether those obligations are ultimately satisfied.
+
+---
+
+# Constitutional Identity
+
+The defining constitutional identity of the Verification Requirement Set is:
+
+> **A Verification Requirement Set is one immutable, operation-specific constitutional artifact that deterministically binds every evidence, scope, integrity, lineage, method, environment, version, verifier, and reporting obligation required for one external verification operation.**
+
+The Requirement Set is not reusable.
+
+Unlike the Verification Profile, it is constructed specifically for one verification operation.
+
+Formally:
+
+```text
+Verification Profile
+≠
+Verification Requirement Set
+```
+
+and
+
+```text
+Verification Requirement Set
+≠
+Verification Evidence Package
+```
+
+---
+
+# Constitutional Authority
+
+Contract 012 exclusively owns:
+
+* requirement resolution;
+* requirement normalization;
+* requirement validation;
+* requirement binding;
+* requirement commitment;
+* requirement replay;
+* requirement provenance.
+
+Contract 012 SHALL NOT:
+
+* weaken requirements after commitment;
+* omit mandatory requirements;
+* introduce undocumented requirements;
+* substitute implementation preferences for constitutional obligations;
+* remove requirements to improve verification success.
+
+---
+
+# Requirement Resolution
+
+Requirement resolution SHALL combine:
+
+* Committed Verification Profile;
+* Verifiable Claim Set;
+* verification purpose;
+* verification subject;
+* subject type;
+* implementation identity;
+* environment identity;
+* applicable versions;
+* verifier identity;
+* profile-authorized conditional rules.
+
+The result SHALL be exactly one:
+
+```text
+Committed Verification Requirement Set
+```
+
+---
+
+# Requirement Categories
+
+Every Requirement Set SHALL organize obligations into distinct constitutional categories.
+
+Mandatory categories SHALL include:
+
+```text
+Evidence Requirements
+Integrity Requirements
+Completeness Requirements
+Scope Requirements
+Version Requirements
+Environment Requirements
+Method Requirements
+Verifier Requirements
+Reporting Requirements
+Replay Requirements
+Audit Requirements
+Failure Requirements
+```
+
+No requirement SHALL exist outside one or more defined categories.
+
+---
+
+# Canonical Requirement Structure
+
+Every Committed Verification Requirement Set SHALL contain at minimum:
+
+```text
+verification_requirement_set_id
+verification_profile_id
+verification_profile_version
+verification_subject_id
+claim_set_hash
+verification_purpose
+required_evidence
+optional_evidence
+prohibited_evidence
+required_methods
+permitted_methods
+required_integrity_checks
+required_completeness_checks
+required_scope_constraints
+required_versions
+required_environment
+required_verifier_capabilities
+required_reporting_fields
+required_replay_capabilities
+required_audit_artifacts
+failure_rules
+requirement_set_hash
+```
+
+Each requirement SHALL possess:
+
+* unique identity;
+* category;
+* authority source;
+* satisfaction criteria;
+* failure consequence.
+
+---
+
+# Evidence Requirements
+
+Evidence requirements define every artifact that SHALL be available before submission.
+
+Evidence MAY be classified as:
+
+```text
+MANDATORY
+OPTIONAL
+CONDITIONAL
+PROHIBITED
+```
+
+Every mandatory evidence requirement SHALL identify:
+
+* evidence class;
+* minimum cardinality;
+* admissibility rule;
+* integrity requirement;
+* provenance requirement;
+* temporal requirement;
+* version requirement.
+
+Missing mandatory evidence SHALL prevent successful evidence-package construction.
+
+---
+
+# Integrity Requirements
+
+Integrity requirements SHALL define every integrity condition required for authoritative evidence.
+
+Examples include:
+
+* cryptographic hash validation;
+* digital signature validation;
+* commitment validation;
+* provenance validation;
+* immutable storage validation;
+* chain-of-custody validation;
+* schema validation.
+
+Integrity requirements SHALL be independently evaluable.
+
+Failure of one integrity requirement SHALL identify the exact failed obligation.
+
+---
+
+# Completeness Requirements
+
+Completeness requirements define when sufficient evidence exists to evaluate the submitted claims.
+
+Completeness SHALL address:
+
+* required artifacts;
+* required lineage;
+* required historical coverage;
+* required configuration;
+* required registry snapshots;
+* required verifier inputs;
+* required external references.
+
+Completeness SHALL NOT be evaluated using subjective judgment.
+
+---
+
+# Scope Requirements
+
+Every Requirement Set SHALL define the exact verification scope.
+
+Scope requirements SHALL include:
+
+* subject scope;
+* temporal scope;
+* implementation scope;
+* environment scope;
+* version scope;
+* evidence scope;
+* claim scope.
+
+Scope requirements SHALL remain identical throughout the verification lifecycle.
+
+---
+
+# Version Requirements
+
+Version requirements SHALL bind every version affecting verification meaning.
+
+Bindings MAY include:
+
+* contract versions;
+* schema versions;
+* registry versions;
+* profile version;
+* method versions;
+* implementation version;
+* runtime version.
+
+A Requirement Set SHALL never contain unresolved version references.
+
+---
+
+# Environment Requirements
+
+Environment requirements SHALL identify every environmental assumption necessary for meaningful verification.
+
+Examples include:
+
+* hardware;
+* operating system;
+* runtime;
+* dependency versions;
+* execution environment;
+* timing source;
+* resource constraints.
+
+Environment requirements SHALL remain explicit.
+
+---
+
+# Verification Method Requirements
+
+Method requirements SHALL identify:
+
+* mandatory methods;
+* optional methods;
+* prohibited methods;
+* execution ordering;
+* minimum coverage;
+* dependency rules.
+
+Method requirements SHALL not imply that every required method will succeed.
+
+They define only what is required for valid verification preparation.
+
+---
+
+# Verifier Capability Requirements
+
+Every Requirement Set SHALL identify the minimum capabilities required of the selected external verifier.
+
+Examples include:
+
+* formal proof capability;
+* replay capability;
+* symbolic execution capability;
+* provenance analysis capability;
+* cryptographic validation capability.
+
+A verifier lacking mandatory capabilities SHALL fail compatibility evaluation.
+
+---
+
+# Reporting Requirements
+
+Reporting requirements SHALL specify every field required in the External Verification Result.
+
+Examples include:
+
+* claim-level outcomes;
+* methods performed;
+* evidence consumed;
+* limitations;
+* exclusions;
+* uncertainties;
+* verifier identity;
+* integrity proof.
+
+Reporting requirements SHALL preserve unfavorable findings.
+
+---
+
+# Replay Requirements
+
+Replay requirements SHALL define which preparation activities must be deterministically reproducible.
+
+Replay SHALL include:
+
+* requirement resolution;
+* evidence resolution;
+* applicability evaluation;
+* requirement commitment.
+
+Replay SHALL NOT recreate the external verification judgment.
+
+---
+
+# Audit Requirements
+
+Audit requirements SHALL preserve sufficient evidence to reconstruct:
+
+* requirement derivation;
+* requirement authority;
+* requirement changes through supersession;
+* requirement satisfaction;
+* requirement failures.
+
+Audit SHALL demonstrate constitutional compliance.
+
+It SHALL NOT reinterpret verification outcomes.
+
+---
+
+# Conditional Requirements
+
+A Verification Profile MAY define conditional requirements.
+
+Conditional requirements SHALL identify:
+
+* triggering condition;
+* required obligation;
+* expiration condition;
+* interaction with other requirements.
+
+Conditional requirements SHALL resolve deterministically.
+
+Hidden runtime conditions are prohibited.
+
+---
+
+# Requirement Satisfaction
+
+Every requirement SHALL possess one satisfaction state.
+
+Permitted states MAY include:
+
+```text
+SATISFIED
+UNSATISFIED
+NOT_APPLICABLE
+CONDITION_NOT_TRIGGERED
+UNRESOLVED
+```
+
+A Requirement Set SHALL preserve the satisfaction state of every requirement independently.
+
+Aggregate success SHALL NOT conceal individual failures.
+
+---
+
+# Requirement Dependencies
+
+Requirements MAY depend upon other requirements.
+
+Dependency relationships SHALL be explicit.
+
+Permitted dependency types MAY include:
+
+```text
+REQUIRES
+OPTIONALLY_REQUIRES
+MUTUALLY_EXCLUSIVE
+CONDITIONAL
+ORDER_DEPENDENT
+```
+
+Cyclic dependencies SHALL produce explicit failure.
+
+---
+
+# Requirement Conflict
+
+Requirement conflicts occur when two resolved obligations cannot both be satisfied.
+
+Examples include:
+
+* one rule requiring evidence another prohibits;
+* incompatible version requirements;
+* conflicting verifier capability requirements;
+* incompatible reporting obligations.
+
+Contract 012 SHALL explicitly report requirement conflicts.
+
+It SHALL NOT silently resolve them.
+
+---
+
+# Requirement Commitment
+
+A Requirement Set becomes authoritative only after commitment.
+
+Before commitment:
+
+```text
+Resolved Requirement Set
+≠
+Committed Verification Requirement Set
+```
+
+Commitment establishes:
+
+* immutable identity;
+* deterministic replay;
+* operation-specific authority;
+* complete requirement inventory.
+
+---
+
+# Requirement Immutability
+
+After commitment, the Requirement Set SHALL NOT be modified.
+
+Changes to:
+
+* evidence obligations;
+* methods;
+* versions;
+* verifier capabilities;
+* reporting requirements;
+* scope;
+* failure rules;
+
+SHALL require construction of a new Requirement Set.
+
+---
+
+# Requirement Provenance
+
+Every requirement SHALL preserve:
+
+* originating Verification Profile;
+* originating claim;
+* originating authority;
+* originating policy rule;
+* originating registry snapshot.
+
+No requirement SHALL lose its constitutional origin.
+
+---
+
+# Failure Conditions
+
+Requirement resolution SHALL fail when:
+
+* mandatory profile rules are missing;
+* required claims cannot be resolved;
+* subject compatibility fails;
+* version compatibility fails;
+* environment compatibility fails;
+* verifier capability requirements cannot be satisfied;
+* requirement conflicts exist;
+* dependency cycles exist;
+* commitment identity cannot be established.
+
+Every failure SHALL be explicitly represented.
+
+---
+
+# Prohibitions
+
+Contract 012 SHALL NOT:
+
+* invent requirements;
+* weaken requirements after commitment;
+* remove unfavorable obligations;
+* merge conflicting requirements without explicit authority;
+* infer undocumented evidence requirements;
+* substitute implementation convenience for constitutional obligation;
+* allow mutable Requirement Sets.
+
+---
+
+# Section 8 Invariants
+
+> **Every Contract 012 verification operation SHALL possess exactly one Committed Verification Requirement Set that completely and immutably defines every evidence, integrity, completeness, scope, version, environment, verifier, reporting, replay, audit, and failure obligation required for that operation.**
+
+> **No mandatory requirement may be silently introduced, removed, weakened, or strengthened after commitment, and every verification decision within Contract 012 SHALL remain traceable to the exact committed Requirement Set from which it originated.**

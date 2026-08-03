@@ -1,0 +1,344 @@
+# SACS Contract 012 — External Verification Profile and Evidence Interface
+
+## Section 19 — Verification Result Certification and Commitment
+
+### Purpose
+
+Section 19 establishes the constitutional process by which a Constructed Verification Result becomes the sole authoritative verification representation within SACS constitutional history.
+
+Where Section 18 determines whether a foreign verification artifact may enter SACS constitutional custody and constructs its canonical internal representation, Section 19 determines whether that representation may become an immutable constitutional artifact of SACS.
+
+Verification Result Certification establishes constitutional commitment.
+
+It does not perform verification.
+
+It does not reinterpret the external verifier's judgment.
+
+It does not modify historical supervisory records.
+
+Its sole responsibility is to certify and atomically commit SACS' constitutional representation of the externally issued verification judgment.
+
+---
+
+# Constitutional Question
+
+> **Under what conditions does a Constructed Verification Result become the immutable Committed Verification Result within SACS constitutional history?**
+
+Certification SHALL determine:
+
+* constitutional admissibility;
+* verifier authority;
+* submission correspondence;
+* claim correspondence;
+* scope preservation;
+* integrity preservation;
+* commitment eligibility;
+* commitment uniqueness;
+* commitment atomicity;
+* constitutional readiness for historical commitment.
+
+---
+
+# Constitutional Identity
+
+The defining constitutional identity of Verification Result Certification is:
+
+> **Verification Result Certification is the deterministic constitutional process that certifies an admitted verification result and commits SACS' immutable representation of that result without altering the externally issued verification judgment.**
+
+Certification is not:
+
+* verification;
+* claim evaluation;
+* evidence interpretation;
+* verifier approval;
+* governance approval.
+
+Formally:
+
+```text
+Constructed Verification Result
+≠
+Committed Verification Result
+
+Foreign Verification Judgment
+≠
+Committed Verification Result
+```
+
+The former is a foreign constitutional artifact.
+
+The latter is SACS' authoritative constitutional representation of that artifact.
+
+---
+
+# Constitutional Authority
+
+Contract 012 exclusively owns:
+
+* verification result certification;
+* certification eligibility;
+* correspondence validation;
+* commitment authorization;
+* commitment atomicity;
+* commitment idempotency;
+* commitment lineage;
+* historical commitment.
+
+Contract 012 SHALL NOT:
+
+* modify verifier conclusions;
+* strengthen or weaken findings;
+* reinterpret limitations;
+* remove uncertainties;
+* rewrite verifier scope;
+* alter the externally issued judgment.
+
+---
+
+# Certification Inputs
+
+Certification SHALL consume only:
+
+* Constructed Verification Result;
+* Verification Result Admission Record;
+* Committed Verification Submission;
+* Verification Submission Commitment Record;
+* Verification Profile;
+* Verification Requirement Set;
+* constitutional lineage;
+* registry snapshot references.
+
+Only admitted verification results MAY participate in certification.
+
+---
+
+# Certification Eligibility
+
+Prior to commitment, the Constructed Verification Result SHALL satisfy every constitutional precondition.
+
+Eligibility SHALL verify:
+
+* successful admission;
+* authenticated verifier;
+* valid constitutional custody;
+* successful submission correlation;
+* preserved integrity;
+* preserved scope;
+* preserved limitations;
+* preserved uncertainties;
+* complete constitutional lineage;
+* commitment uniqueness.
+
+Failure of any mandatory criterion SHALL terminate certification.
+
+---
+
+# Correspondence Validation
+
+Certification SHALL establish one-to-one correspondence between:
+
+* Committed Verification Submission;
+* submitted Verification Claims;
+* submitted Verification Evidence Package;
+* submitted Verification Profile;
+* Verification Requirement Set;
+* Constructed Verification Result.
+
+No committed verification result SHALL correspond to multiple committed submissions.
+
+No committed submission SHALL silently acquire additional claims during certification.
+
+---
+
+# Scope Preservation
+
+Certification SHALL verify that the committed result does not exceed the submitted constitutional scope.
+
+Scope preservation SHALL validate:
+
+* subject scope;
+* claim scope;
+* temporal scope;
+* implementation scope;
+* environment scope;
+* version scope;
+* evidence scope.
+
+If the external verifier narrowed scope, the narrowed scope SHALL be preserved.
+
+Certification SHALL NOT broaden scope.
+
+---
+
+# Integrity Preservation
+
+Certification SHALL preserve:
+
+* verifier identity;
+* claim results;
+* methods performed;
+* reported limitations;
+* reported exclusions;
+* reported uncertainties;
+* integrity proofs;
+* provenance;
+* submission identity;
+* constitutional lineage.
+
+Certification SHALL introduce no semantic modification.
+
+---
+
+# Commitment Uniqueness
+
+Exactly one Committed Verification Result SHALL exist for one admitted verification operation.
+
+Certification SHALL verify:
+
+* unique verification-result identity;
+* unique submission identity;
+* absence of conflicting commitments;
+* absence of duplicate commitments.
+
+Duplicate constitutional commitments SHALL constitute failure.
+
+---
+
+# Commitment Atomicity
+
+Certification SHALL execute as one indivisible constitutional operation.
+
+Exactly one of the following SHALL occur:
+
+* one immutable Committed Verification Result is produced; or
+* one explicit Verification Result Certification Failure is produced.
+
+Partial commitment SHALL be constitutionally prohibited.
+
+---
+
+# Commitment Idempotency
+
+Repeated certification attempts using identical constitutional inputs SHALL produce identical constitutional results.
+
+If an identical Committed Verification Result already exists, subsequent certification attempts SHALL resolve deterministically without creating duplicate constitutional artifacts.
+
+Certification SHALL therefore remain replay-safe.
+
+---
+
+# Verification Result Certification Record
+
+Successful certification SHALL produce exactly one immutable constitutional artifact containing:
+
+```text
+verification_result_certification_id
+constructed_verification_result_id
+verification_submission_id
+verifier_identity
+certification_status
+correspondence_validation
+scope_validation
+integrity_validation
+lineage_validation
+commitment_timestamp
+certification_authority
+registry_snapshot_references
+replay_identity
+certification_hash
+```
+
+The Certification Record SHALL constitute the constitutional evidence that commitment has occurred.
+
+---
+
+# Canonical Committed Verification Result
+
+Successful certification SHALL produce one immutable constitutional artifact containing:
+
+* committed verification result identity;
+* verification submission identity;
+* verifier identity;
+* claim-level verification results;
+* methods performed;
+* evidence references;
+* reported limitations;
+* reported exclusions;
+* reported uncertainties;
+* validity scope;
+* validity interval;
+* integrity bindings;
+* provenance bindings;
+* constitutional lineage;
+* certification identity;
+* replay metadata;
+* cryptographic identity.
+
+The **Committed Verification Result** SHALL become the sole authoritative SACS representation of the external verification judgment.
+
+---
+
+# Constitutional Sovereignty
+
+Verification Result Certification SHALL preserve the constitutional sovereignty of both participating constitutional systems.
+
+The following doctrine SHALL hold:
+
+> **External verification authorities issue verification judgments. Only SACS may commit representations of those judgments into SACS constitutional history.**
+
+Accordingly:
+
+* the external verifier SHALL remain sovereign over its verification judgment;
+* SACS SHALL remain sovereign over its constitutional history;
+* neither constitutional system SHALL modify or commit artifacts belonging to the other;
+* commitment SHALL preserve constitutional independence while establishing verifiable correspondence.
+
+---
+
+# Commitment Failure
+
+Certification SHALL terminate immediately upon detection of:
+
+* failed admission;
+* verifier-authentication failure;
+* submission-correlation failure;
+* integrity failure;
+* scope violation;
+* correspondence failure;
+* duplicate commitment;
+* lineage inconsistency;
+* atomicity failure;
+* idempotency violation;
+* constitutional incompatibility.
+
+Certification failure SHALL produce one explicit **Verification Result Certification Failure** artifact.
+
+No partial Committed Verification Result SHALL exist following failure.
+
+---
+
+# Fundamental Certification Invariants
+
+For every admitted verification result:
+
+* exactly one Committed Verification Result SHALL exist;
+* exactly one Verification Result Certification Record SHALL exist;
+* certification SHALL be atomic, singular, immutable, and idempotent;
+* certification SHALL preserve verifier findings without reinterpretation;
+* certification SHALL preserve identity, integrity, provenance, lineage, and scope;
+* only SACS may commit constitutional representations into SACS historical records;
+* identical constitutional inputs SHALL always produce an identical Committed Verification Result.
+
+---
+
+## Constitutional Transition
+
+Section 19 completes the inter-constitutional trust exchange established by Contract 012.
+
+The external verifier has exercised its sovereign authority to issue a verification judgment.
+
+SACS has exercised its sovereign authority to admit, certify, and commit its own immutable constitutional representation of that judgment.
+
+Neither constitutional authority has exercised authority over the other's constitutional history.
+
+The following section, **Section 20 — Verification Record**, defines the permanent historical artifact that unifies the committed submission, the committed verification result, and their complete constitutional lineage into the authoritative historical record of external verification.

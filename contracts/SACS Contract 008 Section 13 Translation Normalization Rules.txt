@@ -1,0 +1,1769 @@
+13. Translation Normalization Rules
+
+Part A — Normalization Model
+
+13.1 Purpose
+
+This section defines the Translation Normalization Rules used by Contract 008.
+
+Translation Normalization Rules specify deterministic transformations that convert values, identifiers, structures, encodings, units, and serialized forms into canonical representations required by authorized Translation Definitions.
+
+Normalization exists because different representations may encode the same meaning.
+
+Normalization does not exist because different meanings may be considered equivalent.
+
+The defining identity is:
+
+A Translation Normalization Rule defines one deterministic, semantics-preserving transformation of representation. It may change representation domain, representation, or serialization, but it SHALL NOT change supervisory meaning.
+
+Translation Normalization Rules SHALL NOT:
+
+* select a Translation Definition;
+* reinterpret a Control Command;
+* infer supervisory intent;
+* broaden authority;
+* weaken restrictions;
+* alter target identity;
+* alter scope;
+* alter duration;
+* alter expiry;
+* alter ordering obligations;
+* alter transaction obligations;
+* repair unsupported runtime capability;
+* authorize execution.
+
+When preservation of supervisory meaning cannot be achieved through deterministic normalization, normalization SHALL fail rather than approximate.
+
+⸻
+
+13.2 Architectural Identity
+
+Translation normalization is the lowest-level reusable representational transformation authority in Contract 008.
+
+Its architectural position is:
+
+Committed Translation Configuration
+        ↓ authorizes
+Translation Profile
+        ↓ organizes
+Translation Definitions
+        ↓ reference
+Translation Normalization Rules
+        ↓ produce
+Canonical Representations
+        ↓ consumed during
+Translation Evaluation
+
+Normalization transforms representations.
+
+Translation Definitions declare semantic mappings.
+
+Translation Evaluation applies authorized mappings.
+
+Validation proves that applicable obligations were satisfied.
+
+Execution belongs to Contract 009.
+
+The distinction is:
+
+Normalization
+    transforms representation
+Translation Definition
+    maps one declared semantic domain
+    into one target-construction contract
+Translation Evaluation
+    constructs runtime commands
+Validation
+    proves correctness
+
+⸻
+
+13.3 Four-Layer Representation Model
+
+Contract 008 SHALL distinguish four architectural layers:
+
+Semantic Meaning
+        ↓
+Representation Domain
+        ↓
+Representation
+        ↓
+Serialization
+
+Semantic Meaning
+
+Semantic Meaning is the supervisory obligation, restriction, authority, scope, target, timing, ordering, or transaction requirement conveyed by the source Control Command.
+
+Examples include:
+
+Reduce update gain.
+Suspend adaptive writes.
+Apply only to model instance M.
+Expire after one request.
+Apply all commands atomically.
+
+Representation Domain
+
+A Representation Domain defines the formal system in which meaning is expressed.
+
+Examples MAY include:
+
+Canonical Decimal
+IEEE Binary Floating Point
+Fixed Point
+Signed Integer
+Unsigned Integer
+Boolean
+Canonical Enumeration
+UTC Timestamp
+Duration in Nanoseconds
+Canonical Identifier
+
+Representation
+
+A Representation is one value or structure within a Representation Domain.
+
+Examples include:
+
+0.25
+false
+PT2S
+2026-07-18T15:00:00Z
+model://runtime-a/instance-17
+
+Serialization
+
+Serialization is the byte-level or text-level encoding of a Representation.
+
+Examples include:
+
+UTF-8 JSON
+Canonical CBOR
+Canonical MessagePack
+Binary fixed-width encoding
+Canonical XML
+
+Normalization MAY change:
+
+* Representation Domain;
+* Representation;
+* Serialization.
+
+Normalization SHALL NOT change Semantic Meaning.
+
+⸻
+
+13.4 Representation Versus Meaning Invariant
+
+Representation is mutable.
+
+Meaning is not.
+
+Let:
+
+[
+M(x)
+]
+
+denote the supervisory meaning of representation (x).
+
+For a normalization function:
+
+[
+N(x)=y
+]
+
+faithful normalization requires:
+
+[
+M(x)=M(y)
+]
+
+Normalization succeeds only when the source and target representations encode identical supervisory meaning within the declared semantic and numeric profiles.
+
+If:
+
+[
+M(x)\neq M(y)
+]
+
+then the transformation is not normalization.
+
+It is either:
+
+* semantic translation;
+* approximation;
+* repair;
+* substitution;
+* authority modification;
+* invalid transformation.
+
+Such behavior SHALL NOT be performed under Section 13.
+
+⸻
+
+13.5 Representation Domain
+
+A Representation Domain SHALL define at least:
+
+representation_domain_id
+domain_name
+domain_class
+domain_version
+value_space
+canonical_form
+nullability_model
+ordering_model
+numeric_model_reference
+serialization_profile_references
+semantic_constraints
+artifact_hash
+
+A Representation Domain MAY describe:
+
+* numeric values;
+* identifiers;
+* enumerations;
+* timestamps;
+* durations;
+* binary structures;
+* collections;
+* mappings;
+* ordering metadata;
+* transaction metadata;
+* serialized objects.
+
+Movement between domains SHALL occur only through an authorized Translation Normalization Rule.
+
+⸻
+
+13.6 Representation Domain Identity
+
+Every Representation Domain SHALL possess a stable identity.
+
+A domain identity SHALL distinguish:
+
+* decimal from binary floating point;
+* signed from unsigned integer;
+* fixed point from floating point;
+* timestamp from duration;
+* identifier from free text;
+* absent from unsupported;
+* unordered collection from ordered sequence.
+
+Two domains SHALL NOT be considered equivalent solely because their current values appear similar.
+
+For example:
+
+Decimal 1.0
+IEEE Float 1.0
+Integer 1
+String "1.0"
+
+are distinct representations.
+
+Equivalence requires a declared normalization relationship.
+
+⸻
+
+13.7 Canonical Representation
+
+A Canonical Representation is the unique authorized representation of one value or structure within a declared canonical representation environment.
+
+Canonical representation SHALL eliminate implementation-dependent variation in:
+
+* field ordering;
+* identifier form;
+* whitespace;
+* numeric textual form;
+* timestamp notation;
+* unit notation;
+* enumeration labels;
+* encoding;
+* namespace syntax;
+* collection ordering where ordering is semantically irrelevant.
+
+Canonicalization SHALL NOT remove semantically relevant distinctions.
+
+⸻
+
+13.8 Canonical Representation Profile Reference
+
+Every Translation Normalization Rule SHALL declare the Canonical Representation Profile under which its target representation is interpreted.
+
+The profile reference SHALL include:
+
+canonical_representation_profile_id
+canonical_representation_profile_version
+canonical_representation_profile_hash
+
+The Canonical Representation Profile defines the shared conventions assumed by the normalization environment.
+
+Section 13 defines how rules conform to such a profile.
+
+The full Canonical Representation Profile is defined in Section 14.
+
+No Translation Normalization Rule SHALL silently invent its own conflicting canonical environment.
+
+⸻
+
+13.9 Normalization Authority Boundary
+
+Translation Normalization Rules MAY perform only representation-preserving operations.
+
+Authorized normalization classes MAY include:
+
+UNIT
+NUMERIC_REPRESENTATION
+IDENTIFIER
+ENUMERATION
+ENCODING
+SERIALIZATION
+TEMPORAL_REPRESENTATION
+ORDERING_METADATA
+NAMESPACE
+STRUCTURAL
+NULL_STATE
+REGISTERED_NORMALIZATION_CLASS
+
+Normalization SHALL NOT perform:
+
+* semantic approximation;
+* supervisory-policy adaptation;
+* capability negotiation;
+* runtime selection;
+* target substitution;
+* fallback selection;
+* goal reinterpretation;
+* authority expansion;
+* restriction removal;
+* unsupported-value repair;
+* best-effort degradation;
+* semantic inference.
+
+⸻
+
+13.10 One Rule, One Transformation Identity
+
+Every Translation Normalization Rule SHALL belong to exactly one primary transformation class.
+
+A rule SHALL define:
+
+one source Representation Domain
++
+one target Representation Domain
++
+one deterministic transformation contract
+
+A rule MAY perform several subordinate representational operations when those operations are part of one closed deterministic transformation.
+
+A rule SHALL NOT function as an unrestricted transformation program.
+
+⸻
+
+13.11 Transformation Classes
+
+Initial transformation classes are:
+
+UNIT
+NUMERIC_REPRESENTATION
+IDENTIFIER
+ENUMERATION
+ENCODING
+SERIALIZATION
+TEMPORAL_REPRESENTATION
+ORDERING_METADATA
+NAMESPACE
+STRUCTURAL
+NULL_STATE
+REGISTERED_NORMALIZATION_CLASS
+
+The class determines the primary representational responsibility of the rule.
+
+The class SHALL NOT alter:
+
+* rule authority;
+* cycle authority;
+* semantic-preservation obligations;
+* registry requirements;
+* hash requirements.
+
+⸻
+
+13.12 Unit Normalization
+
+A UNIT normalization rule converts between declared units representing the same physical, logical, temporal, or quantitative meaning.
+
+Examples MAY include:
+
+seconds → milliseconds
+ratio → percentage
+bytes → kibibytes
+meters → feet
+
+Every unit rule SHALL declare:
+
+source_unit_id
+target_unit_id
+conversion_function
+conversion_direction
+numeric_rule_reference
+source_domain
+target_domain
+boundary_behavior
+
+Unit conversion SHALL NOT alter the underlying quantity.
+
+Approximate conversion MAY occur only when explicitly permitted by the authorized Translation Numeric Rules.
+
+⸻
+
+13.13 Numeric Representation Normalization
+
+A NUMERIC_REPRESENTATION rule converts between numeric representation domains.
+
+Examples MAY include:
+
+Canonical Decimal → IEEE Float
+Integer → Fixed Point
+Rational → Decimal
+Unsigned Integer → Canonical Decimal
+
+Section 13 owns:
+
+* source domain;
+* target domain;
+* representational conversion identity;
+* canonical output form.
+
+Section 15 owns:
+
+* precision;
+* rounding;
+* tolerance;
+* comparison;
+* overflow;
+* underflow;
+* nonfinite handling;
+* interval semantics.
+
+A normalization rule SHALL NOT independently invent numeric behavior.
+
+⸻
+
+13.14 Identifier Normalization
+
+An IDENTIFIER normalization rule converts equivalent identifier representations into one canonical identity representation.
+
+It SHALL preserve identity equivalence.
+
+Identifier normalization SHALL NOT:
+
+* merge two distinct identifiers;
+* split one identifier into multiple identities;
+* infer identity from similarity;
+* substitute one target for another;
+* discard namespace;
+* discard version;
+* discard instance scope.
+
+Alias expansion SHALL occur only through an explicitly registered alias definition.
+
+An unresolved alias SHALL cause failure.
+
+⸻
+
+13.15 Namespace Normalization
+
+A NAMESPACE normalization rule standardizes namespace syntax while preserving namespace identity.
+
+It MAY normalize:
+
+* URI form;
+* prefix conventions;
+* case where case is declared non-semantic;
+* delimiter representation;
+* registered namespace aliases.
+
+It SHALL NOT:
+
+* move an identifier into another namespace;
+* infer namespace ownership;
+* collapse distinct namespaces;
+* discard tenant, deployment, runtime, model, session, or request scope.
+
+⸻
+
+13.16 Enumeration Normalization
+
+An ENUMERATION normalization rule maps one declared enumeration representation to another representation of the same semantic member.
+
+Every mapping SHALL be explicit.
+
+A rule SHALL NOT use:
+
+* nearest-value substitution;
+* label similarity;
+* lexical approximation;
+* ordinal coincidence;
+* implementation defaults.
+
+Unknown enumeration values SHALL produce explicit failure unless an explicit UNKNOWN member is part of the declared semantic model.
+
+⸻
+
+13.17 Encoding Normalization
+
+An ENCODING normalization rule converts between declared encodings without changing the represented value.
+
+Examples MAY include:
+
+UTF-16 → UTF-8
+binary → hexadecimal
+binary → base64
+UUID binary → canonical UUID text
+
+Encoding normalization SHALL detect:
+
+* invalid byte sequences;
+* invalid code points;
+* truncated values;
+* malformed padding;
+* incompatible normalization forms.
+
+Invalid encoding SHALL not be silently repaired.
+
+⸻
+
+13.18 Structural Normalization
+
+A STRUCTURAL normalization rule transforms one data structure into another structure representing identical meaning.
+
+Examples MAY include:
+
+ordered field map → canonical field map
+flat parameter set → canonical nested parameter structure
+tuple → named canonical record
+
+Structural normalization SHALL preserve:
+
+* field identity;
+* multiplicity;
+* required presence;
+* null-state distinctions;
+* ordering semantics;
+* transaction grouping;
+* scope.
+
+Structural normalization SHALL NOT omit fields merely because the target representation considers them optional.
+
+⸻
+
+13.19 Temporal Representation Normalization
+
+A TEMPORAL_REPRESENTATION rule converts between temporal representation domains.
+
+It MAY normalize:
+
+* timezone notation;
+* epoch representation;
+* date-time string format;
+* duration unit;
+* offset representation;
+* precision notation.
+
+It SHALL preserve:
+
+* exact instant;
+* duration;
+* effective time;
+* expiry;
+* deadline;
+* revocation point.
+
+Calendar interpretation, leap-second policy, and precision behavior SHALL be explicit.
+
+⸻
+
+13.20 Ordering Metadata Normalization
+
+An ORDERING_METADATA rule normalizes how ordering requirements are represented.
+
+It MAY normalize representations of:
+
+* precedence edges;
+* phase identifiers;
+* barriers;
+* partial orders;
+* total orders;
+* command-group positions.
+
+It SHALL NOT determine execution order.
+
+It SHALL NOT add, remove, or reinterpret precedence.
+
+Execution-order semantics belong to later ordering sections and Contract 009.
+
+⸻
+
+13.21 Null-State Normalization
+
+A NULL_STATE normalization rule SHALL preserve distinctions among:
+
+PRESENT
+MISSING
+UNKNOWN
+INVALID
+UNAVAILABLE
+UNSUPPORTED
+NOT_APPLICABLE
+EXPLICIT_NULL
+
+These states are not interchangeable.
+
+Examples:
+
+MISSING
+    The expected parameter is absent.
+UNKNOWN
+    The parameter exists but its value is unknown.
+INVALID
+    A value was supplied but violates its declared domain.
+UNAVAILABLE
+    The value could not be obtained in the current context.
+UNSUPPORTED
+    The target environment cannot represent or apply the value.
+NOT_APPLICABLE
+    The parameter does not apply under the declared semantics.
+
+Normalization SHALL NOT collapse these states into a generic null.
+
+⸻
+
+13.22 Missing Values
+
+Normalization SHALL NOT synthesize a missing value.
+
+A missing required value SHALL remain missing and cause explicit failure when required by the mapping.
+
+A missing optional value MAY remain absent only when the relevant schema explicitly permits absence.
+
+Absence SHALL NOT imply:
+
+* zero;
+* false;
+* empty string;
+* empty collection;
+* provider default;
+* inherited prior value.
+
+⸻
+
+13.23 Default Values
+
+A normalization rule SHALL NOT introduce a default value unless:
+
+* the source semantics explicitly contain that default;
+* the governing schema declares the default as semantically identical;
+* the default is bound by the authorized translation context;
+* no supervisory obligation is changed.
+
+Provider defaults and implementation defaults SHALL not be treated as source semantics.
+
+⸻
+
+13.24 Range Representation
+
+A normalization rule MAY convert between equivalent range representations.
+
+Examples MAY include:
+
+closed interval [a,b]
+minimum and maximum fields
+center and radius representation
+
+The rule SHALL preserve:
+
+* inclusive or exclusive boundaries;
+* lower and upper bounds;
+* interval orientation;
+* empty-range semantics;
+* unbounded-range semantics.
+
+Normalization SHALL NOT clamp an out-of-domain value into the permitted range.
+
+⸻
+
+13.25 Collection Representation
+
+A normalization rule MAY transform collection representation while preserving collection semantics.
+
+It SHALL preserve:
+
+* cardinality;
+* duplicate semantics;
+* ordering semantics;
+* membership;
+* key identity;
+* element scope.
+
+An unordered set SHALL not become an ordered sequence with semantic order.
+
+An ordered sequence SHALL not become an unordered set.
+
+⸻
+
+13.26 Canonical Serialization
+
+Canonical serialization SHALL occur after canonical representation has been established.
+
+The sequence is:
+
+Semantic Meaning
+        ↓
+Representation Domain
+        ↓
+Canonical Representation
+        ↓
+Canonical Serialization
+        ↓
+Artifact Hash
+        ↓
+Replay Identity
+
+Canonical serialization SHALL define:
+
+* encoding;
+* field ordering;
+* whitespace rules;
+* numeric textual form;
+* identifier textual form;
+* timestamp textual form;
+* null-state encoding;
+* collection representation;
+* escape behavior;
+* binary framing;
+* canonical byte sequence.
+
+Two conforming implementations given identical canonical representations SHALL produce identical canonical serialization bytes.
+
+⸻
+
+13.27 Serialization Before Hashing
+
+Every normalized artifact hash SHALL be calculated over the canonical serialized form.
+
+Hashing an implementation-native object representation is prohibited.
+
+The hash process SHALL be:
+
+[
+h =
+H\left(
+\operatorname{CanonicalSerialize}(x)
+\right)
+]
+
+where:
+
+* (x) is the canonical representation;
+* (H) is the bound hash algorithm;
+* (h) is the artifact hash.
+
+Different canonical byte sequences SHALL be treated as different serialized artifacts even when implementations claim semantic similarity.
+
+⸻
+
+13.28 Losslessness
+
+Every Translation Normalization Rule SHALL declare:
+
+lossless_required
+losslessness_definition
+losslessness_conditions
+
+When lossless_required == true, no source distinction relevant to supervisory meaning may be discarded.
+
+When exact bit-level reversibility is not required, the rule SHALL still preserve semantic meaning under the authorized Numeric Profile and representation profile.
+
+Lossiness SHALL never be implicit.
+
+⸻
+
+13.29 Reversibility
+
+Every normalization rule SHALL declare whether it is:
+
+BIDIRECTIONALLY_REVERSIBLE
+SEMANTICALLY_REVERSIBLE
+CANONICAL_ONE_WAY
+NONREVERSIBLE_BUT_LOSSLESS
+REGISTERED_REVERSIBILITY_CLASS
+
+A reversible rule SHALL identify its inverse.
+
+A canonical one-way rule MAY collapse non-semantic representational variation.
+
+It SHALL NOT collapse semantically relevant distinctions.
+
+⸻
+
+13.30 Determinism Level
+
+Every normalization rule SHALL declare one determinism level.
+
+Initial levels MAY include:
+
+EXACT_BYTE_DETERMINISTIC
+EXACT_VALUE_DETERMINISTIC
+NUMERIC_PROFILE_DETERMINISTIC
+REGISTERED_DETERMINISM_LEVEL
+
+Probabilistic normalization is prohibited.
+
+Implementation-defined normalization is prohibited.
+
+⸻
+
+13.31 Semantic Equivalence Claim
+
+Every normalization rule SHALL declare the semantic equivalence it claims to preserve.
+
+The claim SHALL identify:
+
+* source meaning model;
+* target meaning model;
+* preserved obligations;
+* preserved restrictions;
+* preserved authority;
+* preserved scope;
+* preserved target;
+* preserved temporal semantics;
+* preserved ordering metadata;
+* preserved transaction metadata.
+
+The claim SHALL be explicit and hash-bound.
+
+Registry presence does not externally verify the claim.
+
+⸻
+
+13.32 Authority Preservation
+
+Normalization SHALL preserve authority.
+
+Let:
+
+[
+\mathcal A(x)
+]
+
+denote the authority represented by source representation (x), and:
+
+[
+\mathcal A(N(x))
+]
+
+the authority represented after normalization.
+
+Faithful normalization requires:
+
+[
+\mathcal A(N(x))
+
+\mathcal A(x)
+]
+
+Normalization is not permitted to reduce or expand authority.
+
+If the target Representation Domain cannot represent the exact authority, normalization SHALL fail.
+
+⸻
+
+13.33 Restriction Preservation
+
+Normalization SHALL preserve every mandatory restriction.
+
+Restrictions SHALL not be:
+
+* removed;
+* weakened;
+* converted to advisory metadata;
+* replaced by provider defaults;
+* omitted because of target schema limitations.
+
+A transformation preserving the positive operation while losing a restriction SHALL fail.
+
+⸻
+
+13.34 Scope Preservation
+
+Normalization SHALL preserve:
+
+* subsystem;
+* runtime;
+* provider contract;
+* model family;
+* model instance;
+* session;
+* request;
+* layer range;
+* parameter family;
+* tool namespace;
+* duration;
+* expiry;
+* cardinality.
+
+A scope identifier MAY be reformatted.
+
+Its meaning SHALL not change.
+
+⸻
+
+13.35 Target Identity Preservation
+
+Target normalization SHALL preserve exact target identity.
+
+It SHALL NOT:
+
+* substitute another model;
+* broaden from one instance to a family;
+* broaden from one request to a session;
+* merge two targets;
+* resolve an unavailable target to a default target.
+
+Canonical alias resolution is permitted only through an authorized immutable identity mapping.
+
+⸻
+
+13.36 Temporal Preservation
+
+Normalization SHALL preserve temporal meaning.
+
+It SHALL preserve:
+
+* exact instant;
+* effective time;
+* duration;
+* deadline;
+* expiry;
+* timezone equivalence;
+* ordering of temporal events.
+
+Normalization SHALL NOT extend or reset validity.
+
+⸻
+
+13.37 Ordering Preservation
+
+Normalization SHALL preserve ordering metadata exactly.
+
+It SHALL not:
+
+* add precedence;
+* remove precedence;
+* convert partial order into total order;
+* convert ordered sequence into unordered collection;
+* treat serialization field order as execution order.
+
+⸻
+
+13.38 Transaction Preservation
+
+Normalization SHALL preserve transaction metadata.
+
+It SHALL not:
+
+* split an atomic group;
+* merge unrelated transactions;
+* remove rollback requirements;
+* remove compensation requirements;
+* convert all-or-none semantics into best effort.
+
+⸻
+
+13.39 Numeric Boundary
+
+Section 13 defines only the representational boundary of numeric normalization.
+
+Section 13 MAY identify:
+
+* source numeric Representation Domain;
+* target numeric Representation Domain;
+* canonical numeric form;
+* required Numeric Profile;
+* conversion formula identity.
+
+Section 13 SHALL NOT independently define:
+
+* rounding;
+* tolerance;
+* comparison;
+* overflow;
+* underflow;
+* nonfinite handling;
+* interval equivalence;
+* arithmetic behavior.
+
+Those authorities belong to Section 15 — Translation Numeric Rules.
+
+⸻
+
+13.40 Quantization Boundary
+
+Quantization SHALL not occur unless explicitly authorized by the governing Translation Numeric Rules.
+
+Normalization SHALL NOT independently:
+
+* reduce bit width;
+* choose a nearest representable value;
+* round to implementation precision;
+* truncate fractional values;
+* compress numeric range;
+* saturate values.
+
+When exact or authorized numeric preservation is impossible, normalization SHALL fail.
+
+⸻
+
+13.41 Detection Versus Proof
+
+Section 13 SHALL preserve the distinction:
+
+Normalization detects.
+Validation proves.
+
+Normalization MAY detect:
+
+* out-of-domain values;
+* invalid encoding;
+* impossible exact conversion;
+* identifier collision;
+* unsupported null state;
+* precision loss;
+* missing dependency;
+* nondeterministic output.
+
+Normalization SHALL produce explicit detection evidence.
+
+Section 17 — Translation Validation Rules determines how the relevant obligations are proven.
+
+Detection by a normalizer SHALL NOT be represented as final validation certification.
+
+⸻
+
+13.42 Fail-Before-Approximation Principle
+
+When a value cannot be transformed into the target Representation Domain without violating:
+
+* semantic equivalence;
+* authority;
+* restrictions;
+* scope;
+* identity;
+* temporal meaning;
+* ordering;
+* transaction semantics;
+* authorized numeric behavior;
+
+normalization SHALL fail.
+
+Normalization SHALL NOT approximate merely to produce a consumable target value.
+
+This requirement applies even when approximation would appear operationally convenient.
+
+⸻
+
+Part B — Normalization Registry
+
+13.43 Normalization Rule Identity
+
+A Translation Normalization Rule SHALL possess a stable immutable identity.
+
+Its canonical identity SHALL include:
+
+normalization_rule_id
+normalization_rule_version
+normalization_rule_hash
+normalization_registry_snapshot_id
+
+A matching identifier with a different hash is not the same rule.
+
+⸻
+
+13.44 Canonical Normalization Rule Schema
+
+Every Translation Normalization Rule SHALL include at least:
+
+normalization_rule_id
+rule_name
+rule_description
+rule_version
+rule_schema_version
+contract_version
+transformation_class
+representation_domain_source_id
+representation_domain_source_version
+representation_domain_source_hash
+representation_domain_target_id
+representation_domain_target_version
+representation_domain_target_hash
+canonical_representation_profile_id
+canonical_representation_profile_version
+canonical_representation_profile_hash
+transformation_specification_id
+transformation_expression
+transformation_function_ids
+source_domain
+target_domain
+source_preconditions
+target_postconditions
+semantic_equivalence_claim
+lossless_required
+reversibility_class
+determinism_level
+numeric_rule_references
+serialization_profile_references
+alias_definition_references
+dependency_rule_ids
+dependency_rule_hashes
+fragment_ids
+fragment_hashes
+failure_conditions
+test_profile_id
+proof_obligation_ids
+verification_claim_references
+registry_snapshot_id
+lifecycle_status
+created_at_context_id
+provenance_id
+semantic_payload_hash
+normalization_rule_hash
+
+Equivalent semantics MAY be serialized under different names.
+
+All required semantic categories SHALL remain represented.
+
+⸻
+
+13.45 Normalization Rule Registry
+
+The Translation Normalization Rule Registry is the immutable repository of reusable Translation Normalization Rules.
+
+It inherits the general registry semantics established by Section 12, including:
+
+* immutable entries;
+* exact identity;
+* versioning;
+* hash binding;
+* snapshots;
+* dependency closure;
+* lifecycle state;
+* deterministic lookup;
+* replay preservation;
+* prohibition on unrestricted selection.
+
+Section 13 adds normalization-specific requirements concerning:
+
+* Representation Domains;
+* transformation classes;
+* reversibility;
+* losslessness;
+* canonical representation;
+* canonical serialization;
+* semantic equivalence.
+
+Registry membership establishes existence, not cycle authority.
+
+⸻
+
+13.46 Registry Authority Boundary
+
+The Normalization Rule Registry MAY:
+
+* publish rules;
+* preserve rule identity;
+* publish snapshots;
+* expose deterministic indices;
+* record lifecycle state;
+* record test vectors;
+* record verification references.
+
+It SHALL NOT:
+
+* choose which rules govern a cycle;
+* search for a substitute after failure;
+* alter Translation Definitions;
+* determine runtime compatibility;
+* perform Translation Evaluation;
+* certify final semantic equivalence;
+* authorize execution.
+
+⸻
+
+13.47 Normalization Fragments
+
+A Normalization Fragment is an immutable reusable component of a complete Translation Normalization Rule.
+
+A fragment MAY define:
+
+* shared parsing;
+* unit factor lookup;
+* identifier formatting;
+* field-order canonicalization;
+* encoding conversion;
+* null-state representation;
+* reusable serialization behavior.
+
+A fragment possesses no direct cycle authority.
+
+A fragment SHALL be used only through a complete authorized normalization rule.
+
+⸻
+
+13.48 Composite Normalization Rules
+
+A Composite Normalization Rule MAY compose several subordinate rules or fragments.
+
+A composite rule SHALL define:
+
+composite_rule_id
+member_rule_ids
+member_rule_hashes
+dependency_edges
+evaluation_order
+aggregate_source_domain
+aggregate_target_domain
+aggregate_semantic_equivalence_claim
+aggregate_failure_behavior
+aggregate_hash
+
+Composite normalization SHALL be:
+
+* closed;
+* acyclic;
+* deterministic;
+* hash-bound;
+* snapshot-bound.
+
+A composite rule SHALL not search for alternative members during evaluation.
+
+⸻
+
+13.49 Resolved Normalization Graph
+
+Authorized normalization SHALL resolve into a Resolved Normalization Graph rather than an unordered rule set.
+
+Let:
+
+[
+G_N=(V_N,E_N)
+]
+
+where:
+
+* (V_N) is the set of resolved Translation Normalization Rules and fragments;
+* (E_N) is the set of declared dependency and evaluation-order edges.
+
+The graph SHALL be:
+
+* acyclic unless an explicitly registered cyclic normalization model exists;
+* closed;
+* deterministic;
+* hash-bound;
+* snapshot-bound;
+* ordered by declared dependencies.
+
+The graph determines the only permitted normalization evaluation order.
+
+⸻
+
+13.50 Normalization Graph Identity
+
+A Resolved Normalization Graph SHALL include:
+
+normalization_graph_id
+translation_cycle_id
+translation_configuration_id
+translation_profile_id
+translation_definition_ids
+canonical_representation_profile_id
+node_ids
+node_versions
+node_hashes
+edge_definitions
+root_rule_ids
+terminal_rule_ids
+evaluation_order
+normalization_registry_snapshot_id
+dependency_closure_hash
+graph_hash
+provenance_id
+
+Two graphs with different nodes, edges, order, or hashes SHALL be treated as different normalization environments.
+
+⸻
+
+13.51 Graph Closure
+
+A Resolved Normalization Graph is closed only when every rule, fragment, Representation Domain, serialization profile, alias definition, and numeric reference required for interpretation is immutably resolvable.
+
+Ambient dependencies are prohibited.
+
+Every dependency SHALL be:
+
+* present in the bound snapshot; or
+* present in another snapshot explicitly bound by the Committed Translation Configuration.
+
+⸻
+
+13.52 Normalization Registry Snapshot
+
+A Normalization Rule Registry Snapshot SHALL include:
+
+normalization_registry_snapshot_id
+registry_version
+rule_ids
+rule_versions
+rule_hashes
+fragment_ids
+fragment_versions
+fragment_hashes
+representation_domain_ids
+representation_domain_hashes
+dependency_closure_hash
+snapshot_created_at_context_id
+snapshot_hash
+provenance_id
+
+A snapshot SHALL be immutable.
+
+Corrections require a new rule version and new snapshot.
+
+⸻
+
+13.53 Registry Snapshot Binding
+
+Normalization resolution SHALL use the exact snapshot bound by the Committed Translation Configuration.
+
+Resolution SHALL verify:
+
+expected_normalization_registry_snapshot_id
+expected_snapshot_hash
+expected_rule_id
+expected_rule_version
+expected_rule_hash
+
+The implementation SHALL NOT:
+
+* use the latest registry;
+* use a mutable registry view;
+* substitute a newer rule;
+* resolve from an unbound cache;
+* merge snapshots implicitly.
+
+⸻
+
+13.54 Authorized Resolution Scope
+
+Normalization resolution SHALL operate only over rules reachable through:
+
+Committed Translation Configuration
+        ↓
+Authorized Translation Profile
+        ↓
+Authorized Translation Definition
+        ↓
+Bound Normalization Rule References
+
+The resolver SHALL NOT search the unrestricted registry for:
+
+* a more convenient rule;
+* a compatible-looking rule;
+* a lower-cost rule;
+* a provider-preferred rule;
+* an approximate rule;
+* a fallback rule.
+
+⸻
+
+13.55 Normalization Resolution Inputs
+
+Normalization resolution SHALL consume only:
+
+* Committed Translation Configuration;
+* authorized Translation Profile;
+* resolved Translation Definitions;
+* bound Normalization Registry Snapshot;
+* Canonical Representation Profile;
+* Translation Numeric Profile where referenced.
+
+It SHALL NOT consume:
+
+* live provider documentation;
+* implementation defaults;
+* runtime load;
+* cost data;
+* latency data;
+* latest registry state;
+* local preferences.
+
+⸻
+
+13.56 Normalization Resolution Result
+
+Normalization resolution SHALL produce either:
+
+RESOLVED_NORMALIZATION_GRAPH
+
+or:
+
+NORMALIZATION_RESOLUTION_FAILURE
+
+The resolution record SHALL include:
+
+normalization_resolution_id
+translation_cycle_id
+translation_configuration_id
+translation_profile_id
+translation_definition_ids
+resolved_rule_ids
+resolved_fragment_ids
+normalization_graph_id
+normalization_registry_snapshot_id
+resolution_status
+rejection_reasons
+artifact_hash
+provenance_id
+
+Resolution identifies the graph.
+
+It does not apply the graph.
+
+⸻
+
+13.57 Structural Detection
+
+Section 13 SHALL detect:
+
+* missing required fields;
+* unsupported schemas;
+* invalid identifiers;
+* invalid transformation classes;
+* missing Representation Domains;
+* missing dependencies;
+* dependency cycles;
+* hash mismatch;
+* incomplete graph closure;
+* unsupported lifecycle state.
+
+Structural detection does not constitute final validation proof.
+
+⸻
+
+13.58 Representation Detection
+
+Section 13 SHALL detect:
+
+* source-domain mismatch;
+* target-domain mismatch;
+* invalid encoding;
+* identifier collision;
+* unknown enumeration;
+* null-state collapse;
+* unsupported transformation;
+* impossible lossless conversion;
+* noncanonical serialization;
+* nondeterministic output.
+
+Detected failures SHALL terminate normalization.
+
+⸻
+
+13.59 Semantic-Preservation Detection
+
+Section 13 SHALL detect when the declared transformation would necessarily alter:
+
+* meaning;
+* authority;
+* restriction;
+* scope;
+* target;
+* duration;
+* expiry;
+* cardinality;
+* ordering metadata;
+* transaction metadata.
+
+Section 13 records this as a normalization failure.
+
+Section 17 later defines the proof requirements for successful preservation.
+
+⸻
+
+13.60 Versioning
+
+Translation Normalization Rules SHALL use semantic versioning.
+
+Major Version
+
+A major version change includes any change to:
+
+* source Representation Domain;
+* target Representation Domain;
+* transformation behavior;
+* semantic-equivalence claim;
+* losslessness behavior;
+* reversibility;
+* output canonical form;
+* dependencies;
+* failure behavior.
+
+Minor Version
+
+A minor version MAY add backward-compatible support without changing existing transformation results.
+
+Patch Version
+
+A patch version MAY correct:
+
+* documentation;
+* metadata;
+* non-semantic serialization defects;
+* test references.
+
+Any output-affecting change SHALL NOT be classified as a patch.
+
+⸻
+
+13.61 Compatibility Records
+
+Compatibility between normalization rule versions SHALL be explicit.
+
+A Normalization Rule Compatibility Record SHALL include:
+
+normalization_rule_compatibility_record_id
+source_rule_id
+source_rule_version
+source_rule_hash
+target_rule_id
+target_rule_version
+target_rule_hash
+compatibility_class
+compatibility_conditions
+known_exclusions
+test_evidence_ids
+record_hash
+
+Shared identifier family does not imply compatibility.
+
+⸻
+
+13.62 Deprecation
+
+A deprecated normalization rule SHALL:
+
+* remain immutable;
+* remain available for replay;
+* identify its replacement where applicable;
+* identify the effective deprecation context;
+* identify whether new configurations may reference it.
+
+Deprecation SHALL not alter historical snapshots.
+
+⸻
+
+13.63 Withdrawal
+
+A withdrawn normalization rule SHALL:
+
+* be unavailable for future authorization;
+* remain available for historical audit and replay where possible;
+* preserve prior registry identity;
+* identify withdrawal reason and authority;
+* identify affected configurations where known.
+
+Withdrawal SHALL not rewrite historical artifacts.
+
+⸻
+
+13.64 Test Vectors
+
+Every normalization rule SHOULD include deterministic test vectors.
+
+A test vector SHOULD include:
+
+normalization_test_vector_id
+normalization_rule_id
+source_representation_domain_id
+source_value
+target_representation_domain_id
+expected_target_value
+expected_canonical_serialization
+expected_artifact_hash
+expected_success_or_failure
+
+Test coverage SHOULD include:
+
+* nominal values;
+* boundary values;
+* invalid values;
+* null states;
+* unsupported states;
+* identifier collisions;
+* unknown enumerations;
+* encoding failures;
+* losslessness failures;
+* reversibility tests;
+* graph-order tests.
+
+⸻
+
+13.65 Proof Obligations
+
+A Translation Normalization Rule SHALL declare applicable proof obligations.
+
+Initial obligations MAY include:
+
+REPRESENTATION_DOMAIN_VALID
+TRANSFORMATION_DETERMINISTIC
+SEMANTIC_MEANING_PRESERVED
+AUTHORITY_PRESERVED
+RESTRICTIONS_PRESERVED
+SCOPE_PRESERVED
+TARGET_IDENTITY_PRESERVED
+TEMPORAL_SEMANTICS_PRESERVED
+ORDERING_METADATA_PRESERVED
+TRANSACTION_METADATA_PRESERVED
+NULL_STATE_DISTINCTIONS_PRESERVED
+LOSSLESSNESS_SATISFIED
+REVERSIBILITY_SATISFIED
+CANONICAL_SERIALIZATION_DETERMINISTIC
+DEPENDENCY_GRAPH_CLOSED
+
+Section 13 declares and detects conditions relevant to these obligations.
+
+Section 17 defines their validation.
+
+⸻
+
+13.66 Failure Classes
+
+Registry Failures
+
+NORMALIZATION_RULE_MISSING
+NORMALIZATION_RULE_HASH_MISMATCH
+NORMALIZATION_RULE_SCHEMA_INVALID
+NORMALIZATION_RULE_VERSION_INCOMPATIBLE
+NORMALIZATION_RULE_DEPENDENCY_MISSING
+NORMALIZATION_RULE_DEPENDENCY_HASH_MISMATCH
+NORMALIZATION_RULE_DEPENDENCY_CYCLE
+NORMALIZATION_RULE_REGISTRY_SNAPSHOT_MISSING
+NORMALIZATION_RULE_REGISTRY_SNAPSHOT_MISMATCH
+NORMALIZATION_RULE_DEPRECATED_NOT_AUTHORIZED
+NORMALIZATION_RULE_WITHDRAWN
+NORMALIZATION_RULE_REPLAY_UNAVAILABLE
+
+Representation Failures
+
+NORMALIZATION_SOURCE_DOMAIN_FAILURE
+NORMALIZATION_TARGET_DOMAIN_FAILURE
+NORMALIZATION_IDENTIFIER_COLLISION
+NORMALIZATION_IDENTIFIER_ALIAS_UNRESOLVED
+NORMALIZATION_ENUMERATION_UNKNOWN
+NORMALIZATION_ENCODING_INVALID
+NORMALIZATION_SERIALIZATION_NONCANONICAL
+NORMALIZATION_NULL_STATE_COLLAPSE
+NORMALIZATION_MISSING_VALUE
+NORMALIZATION_UNSUPPORTED_STATE
+NORMALIZATION_PRECISION_LOSS_DETECTED
+NORMALIZATION_NONFINITE_UNSUPPORTED
+
+Transformation Failures
+
+NORMALIZATION_UNSUPPORTED_TRANSFORMATION
+NORMALIZATION_NONDETERMINISTIC_RESULT
+NORMALIZATION_LOSSLESSNESS_FAILURE
+NORMALIZATION_REVERSIBILITY_FAILURE
+NORMALIZATION_SEMANTIC_PRESERVATION_FAILURE
+NORMALIZATION_AUTHORITY_PRESERVATION_FAILURE
+NORMALIZATION_RESTRICTION_PRESERVATION_FAILURE
+NORMALIZATION_SCOPE_PRESERVATION_FAILURE
+NORMALIZATION_TARGET_PRESERVATION_FAILURE
+NORMALIZATION_TEMPORAL_PRESERVATION_FAILURE
+NORMALIZATION_ORDERING_METADATA_FAILURE
+NORMALIZATION_TRANSACTION_METADATA_FAILURE
+NORMALIZATION_GRAPH_INCOMPLETE
+NORMALIZATION_GRAPH_CYCLE
+NORMALIZATION_RESOLUTION_FAILURE
+
+Numeric arithmetic failures belong primarily to Section 15.
+
+⸻
+
+13.67 Prohibited Practices
+
+Contract 008 SHALL NOT:
+
+* normalize by guessing;
+* normalize by approximation without numeric authority;
+* use nearest-value substitution;
+* clip values;
+* saturate values;
+* quantize values without authorization;
+* use implementation-native rounding;
+* merge distinct identifiers;
+* infer aliases;
+* collapse null states;
+* introduce provider defaults;
+* replace unsupported values;
+* select an alternative rule after failure;
+* resolve from the unrestricted registry;
+* use ambient configuration;
+* treat normalization as validation;
+* treat normalization as compatibility;
+* treat normalization as execution.
+
+⸻
+
+13.68 Fundamental Translation Normalization Invariant
+
+A Translation Normalization Rule SHALL define exactly one deterministic, semantics-preserving transformation from one declared Representation Domain to one declared target Representation Domain.
+
+It SHALL preserve:
+
+* supervisory meaning;
+* authority;
+* restrictions;
+* target identity;
+* scope;
+* cardinality;
+* temporal semantics;
+* expiry;
+* ordering metadata;
+* transaction metadata;
+* null-state distinctions.
+
+It SHALL declare:
+
+* transformation class;
+* source and target domains;
+* canonical representation profile;
+* determinism level;
+* losslessness requirements;
+* reversibility class;
+* dependencies;
+* failure conditions;
+* semantic-equivalence claim.
+
+Normalization SHALL NOT:
+
+* infer supervisory intent;
+* approximate unsupported behavior;
+* broaden authority;
+* weaken restrictions;
+* repair runtime capability deficiencies;
+* select translation mappings;
+* authorize execution.
+
+When faithful deterministic normalization is impossible, normalization SHALL fail.

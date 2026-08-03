@@ -1,0 +1,795 @@
+# SACS Contract 012 — External Verification Profile and Evidence Interface
+
+## Section 5 — Relationship to Contract 011 and NullBlade
+
+### Purpose
+
+Section 5 defines the exact constitutional relationship between:
+
+* Contract 011;
+* Contract 012;
+* the authorized external verification authority;
+* the verification-status consumers that follow.
+
+This section establishes the complete boundary chain from committed supervisory history to externally issued verification status.
+
+Its purpose is to ensure that:
+
+* Contract 011 remains the sole authority for committed supervisory history;
+* Contract 012 remains the sole SACS authority for verification preparation and registration;
+* NullBlade remains the external authority for verification judgment;
+* no downstream result modifies the upstream historical record;
+* every verification result remains bound to the exact submission from which it was produced.
+
+---
+
+# Constitutional Sequence
+
+The canonical sequence is:
+
+```text
+Contract 011
+Supervisory Cycle Commitment
+
+↓
+
+Committed Supervisory Cycle Record
+
+↓
+
+Contract 012
+Verification Preparation and Submission Commitment
+
+↓
+
+Committed Verification Submission
+
+↓
+
+NullBlade
+External Verification
+
+↓
+
+External Verification Result
+
+↓
+
+Contract 012
+Verification Result Registration
+
+↓
+
+Committed Verification Status Record
+```
+
+Each transition SHALL preserve:
+
+* artifact identity;
+* authority identity;
+* provenance;
+* scope;
+* version binding;
+* commitment status;
+* deterministic traceability.
+
+No stage SHALL silently absorb the authority of another.
+
+---
+
+# Contract 011 as Historical Authority
+
+Contract 011 is the terminal authority for one completed supervisory cycle.
+
+Its canonical success artifact is:
+
+```text
+Committed Supervisory Cycle Record
+```
+
+That record establishes the immutable constitutional history of the cycle.
+
+It SHALL contain or resolve the authoritative lineage necessary to determine:
+
+* what supervisory state was committed;
+* which governance and objectives applied;
+* which Operational Profile and Reference State applied;
+* which Control Command was committed;
+* which Translation Transaction was committed;
+* which Execution Disposition was committed;
+* what realization occurred;
+* what provenance and audit records were committed;
+* whether the cycle completed successfully or through an explicitly committed failure path.
+
+Contract 012 SHALL treat this record as authoritative and immutable.
+
+---
+
+# Contract 011 Completion Precondition
+
+Contract 012 SHALL NOT begin canonical verification preparation for a supervisory cycle unless Contract 011 has reached a terminal committed state.
+
+The required upstream condition is exactly one of:
+
+```text
+Committed Supervisory Cycle Record
+```
+
+or, where the Verification Profile expressly permits verification of a committed failure path:
+
+```text
+Committed Supervisory Cycle Failure Record
+```
+
+An incomplete, proposed, constructed, pending, or partially committed cycle record SHALL NOT qualify as canonical historical input.
+
+Contract 012 MAY report the absence of a terminal Contract 011 artifact.
+
+It SHALL NOT compensate for that absence.
+
+---
+
+# Historical Consumption Rule
+
+Contract 012 consumes Contract 011 history read-only.
+
+Read-only consumption means Contract 012 MAY:
+
+* resolve artifact identities;
+* verify hashes;
+* follow committed lineage;
+* extract profile-authorized evidence;
+* bind claims to historical facts;
+* construct evidence manifests;
+* identify missing or conflicting evidence;
+* preserve historical references.
+
+Contract 012 SHALL NOT:
+
+* insert new historical facts;
+* remove historical facts;
+* repair provenance;
+* replace failed artifacts;
+* alter timestamps;
+* recalculate committed outcomes;
+* reinterpret commitment meaning;
+* generate substitute history.
+
+The historical record remains unchanged regardless of whether verification succeeds, fails, or remains inconclusive.
+
+---
+
+# Contract 011 Artifacts as Evidence
+
+A Committed Supervisory Cycle Record is the primary verification subject for whole-cycle claims.
+
+Its constituent committed artifacts MAY become evidence where required by the applicable Verification Profile.
+
+Such artifacts MAY include:
+
+* Committed Observation Batch references;
+* Committed Operational State Vector;
+* Committed Governance Snapshot;
+* Committed Objective Set;
+* Committed Operational Profile;
+* Committed Reference State;
+* Committed Control Error;
+* Committed Control Command;
+* Committed Translation Transaction;
+* Committed Execution Disposition;
+* Committed Realization Record;
+* Committed Supervisory Continuity Record;
+* replay records;
+* audit records;
+* commitment records;
+* failure records;
+* registry snapshots;
+* configuration snapshots;
+* integrity proofs.
+
+The existence of an artifact within the historical lineage does not automatically make it admissible for every verification claim.
+
+Admissibility remains governed by the Verification Profile.
+
+---
+
+# Contract 011 Replay Relationship
+
+Contract 011 MAY provide deterministic replay artifacts or replay results.
+
+Contract 012 MAY include them as evidence where authorized.
+
+The distinction SHALL remain:
+
+```text
+Committed Historical Artifact
+≠
+Replay Artifact
+```
+
+Replay may demonstrate reproducibility.
+
+Replay does not replace original history.
+
+A replay mismatch MAY become evidence relevant to a verification claim.
+
+It SHALL NOT rewrite the committed cycle record.
+
+---
+
+# Contract 011 Audit Relationship
+
+Contract 011 MAY provide audit representations concerning the supervisory cycle.
+
+Contract 012 MAY include audit records as evidence where authorized.
+
+The distinction SHALL remain:
+
+```text
+Audit Representation
+≠
+Committed Supervisory History
+```
+
+Audit may explain, inspect, or test historical consistency.
+
+Audit does not become the source of historical authority.
+
+Contract 012 SHALL preserve the exact identity and role of each audit artifact.
+
+---
+
+# Contract 012 as Verification Interface Authority
+
+Contract 012 begins only after receiving an eligible committed subject.
+
+Its constitutional authority is limited to:
+
+* verification applicability;
+* Verification Profile binding;
+* claim binding;
+* evidence resolution;
+* evidence-package construction;
+* evidence completeness evaluation;
+* evidence integrity evaluation;
+* submission commitment;
+* external handoff;
+* result intake;
+* verification-status registration.
+
+Contract 012 SHALL not decide whether the submitted claim is true.
+
+That authority remains external.
+
+---
+
+# NullBlade Constitutional Identity
+
+NullBlade is the designated external verification authority for SACS unless another external authority is explicitly authorized through constitutional governance.
+
+NullBlade SHALL remain external to the SACS supervisory authority chain.
+
+Its purpose is to evaluate bounded verification claims without inheriting authority to:
+
+* operate SACS;
+* modify SACS history;
+* alter SACS governance;
+* amend SACS contracts;
+* commit SACS supervisory artifacts;
+* authorize execution;
+* adopt implementation changes.
+
+NullBlade verifies.
+
+It does not supervise.
+
+---
+
+# Externality Requirement
+
+For a verification result to qualify as externally issued, the verifier SHALL possess an authority identity separate from the SACS component that:
+
+* produced the verification subject;
+* assembled the supervisory history;
+* constructed the verification submission;
+* registered the verification result.
+
+Externality MAY be established through:
+
+* separate trust domain;
+* separate credentials;
+* separate signing authority;
+* separate execution environment;
+* separate organizational authority;
+* separately governed verification service;
+* cryptographically distinct issuer identity.
+
+Technical co-location alone does not necessarily invalidate externality.
+
+However, constitutional authority, credentials, records, and decision control SHALL remain independently distinguishable.
+
+---
+
+# NullBlade Input
+
+The canonical NullBlade input is:
+
+```text
+Committed Verification Submission
+```
+
+NullBlade SHALL NOT be expected to infer canonical verification scope from:
+
+* an uncommitted evidence package;
+* an informal request;
+* a historical artifact supplied without a submission manifest;
+* an operator description;
+* an incomplete claim;
+* an unbound evidence collection;
+* ambient SACS state.
+
+The submission SHALL provide the complete constitutional context required for the verification task.
+
+---
+
+# Submission Identity
+
+Every Committed Verification Submission SHALL possess a globally unique and immutable identity.
+
+That identity SHALL bind:
+
+```text
+verification_submission_id
+verification_configuration_id
+verification_profile_id
+verification_profile_version
+verification_requirement_set_id
+verification_subject_id
+verification_subject_type
+claim_set_hash
+evidence_package_id
+evidence_manifest_hash
+authorized_verifier_id
+submission_scope
+submission_timestamp
+submission_commitment_id
+submission_hash
+```
+
+NullBlade SHALL return the exact `verification_submission_id` in its result.
+
+A result lacking a resolvable submission identity SHALL NOT be registered as canonical.
+
+---
+
+# NullBlade Claim Boundary
+
+NullBlade SHALL evaluate only the claims included in the committed submission.
+
+It MAY:
+
+* verify a claim;
+* reject a claim;
+* report a claim as inconclusive;
+* report insufficient evidence;
+* report unsupported method requirements;
+* narrow a result;
+* attach limitations;
+* attach exclusions;
+* report verifier failure.
+
+NullBlade SHALL NOT silently add new claims to the canonical result.
+
+Additional observations MAY be returned separately.
+
+They SHALL NOT become canonical verification claims unless later authorized and submitted through a new Contract 012 operation.
+
+---
+
+# Verification Method Relationship
+
+Contract 012 identifies:
+
+* required methods;
+* permitted methods;
+* prohibited methods;
+* evidence dependencies;
+* reporting requirements.
+
+NullBlade determines:
+
+* which permitted methods it actually performs;
+* whether those methods satisfy the verification requirements;
+* what findings arise;
+* whether the claim is verified, rejected, limited, or inconclusive.
+
+Contract 012 SHALL not report a method as performed unless NullBlade reports it as performed and the result passes authenticity validation.
+
+---
+
+# External Verification Result
+
+NullBlade SHALL produce an `External Verification Result`.
+
+The result SHALL contain at minimum:
+
+```text
+external_verification_result_id
+verification_submission_id
+verifier_id
+verifier_version
+issuer_identity
+issuer_signature_or_integrity_proof
+result_timestamp
+claim_results
+methods_performed
+evidence_consumed
+evidence_rejected
+limitations
+exclusions
+uncertainties
+validity_scope
+validity_interval, where applicable
+result_status
+result_hash
+```
+
+Each claim result SHALL remain independently identifiable.
+
+---
+
+# Claim Result Classes
+
+A claim result SHALL use one registered result class.
+
+Permitted classes MAY include:
+
+```text
+VERIFIED
+VERIFIED_WITH_LIMITATIONS
+NOT_VERIFIED
+REJECTED
+INCONCLUSIVE
+INSUFFICIENT_EVIDENCE
+UNSUPPORTED_METHOD
+OUT_OF_SCOPE
+VERIFIER_FAILURE
+WITHDRAWN
+EXPIRED
+```
+
+The exact result vocabulary SHALL be defined by the applicable Verification Profile or result schema.
+
+Contract 012 SHALL not translate an unfavorable or inconclusive class into a favorable class.
+
+---
+
+# Result Authenticity
+
+Before registration, Contract 012 SHALL validate:
+
+* recognized verifier identity;
+* result signature or integrity proof;
+* submission identity;
+* claim identities;
+* profile identity;
+* result schema;
+* result hash;
+* declared result scope;
+* timestamp validity;
+* method reporting;
+* limitation reporting.
+
+Authenticity validation establishes that the result was issued by the recognized verifier and corresponds to the committed submission.
+
+It does not establish that the result is substantively correct.
+
+---
+
+# Result Scope Preservation
+
+The registered result SHALL not exceed:
+
+* the submitted subject scope;
+* the submitted claim scope;
+* the submitted temporal scope;
+* the submitted version scope;
+* the submitted implementation scope;
+* the submitted environment scope.
+
+Where NullBlade returns a narrower scope, Contract 012 SHALL preserve the narrower scope.
+
+Where NullBlade appears to return a broader scope, Contract 012 SHALL:
+
+* reject the excess scope;
+* register only the valid bounded portion where the profile permits partial registration; or
+* fail result registration.
+
+It SHALL not grant authority to the excess scope.
+
+---
+
+# Result Registration
+
+After successful validation, Contract 012 SHALL construct:
+
+```text
+Committed Verification Status Record
+```
+
+The record SHALL preserve:
+
+* submission identity;
+* external result identity;
+* verifier identity;
+* claim-level results;
+* verification methods;
+* limitations;
+* exclusions;
+* validity scope;
+* validity interval;
+* result provenance;
+* registration timestamp;
+* registration commitment identity.
+
+The record SHALL not rewrite the external result.
+
+---
+
+# Verification Status and Historical Status
+
+Verification status is separate from historical status.
+
+Formally:
+
+```text
+Historical Commitment Status
+≠
+External Verification Status
+```
+
+A cycle may remain historically committed while a claim concerning that cycle is:
+
+* verified;
+* not verified;
+* inconclusive;
+* unsupported;
+* expired.
+
+External verification status does not change whether the cycle occurred or was historically committed.
+
+---
+
+# Negative Verification Results
+
+A negative result SHALL be preserved with the same integrity as a positive result.
+
+Contract 012 SHALL NOT:
+
+* delete a negative result;
+* conceal a negative result;
+* retry without preserving the prior result;
+* replace a negative result with a later favorable result;
+* mark a claim unverified only internally while publishing it as verified.
+
+Multiple results MAY exist for different submissions or verification attempts.
+
+Each SHALL retain its own immutable identity and lineage.
+
+---
+
+# Reverification
+
+A new verification attempt SHALL require a new Committed Verification Submission where any of the following changes:
+
+* claim;
+* evidence package;
+* Verification Profile;
+* Verification Requirement Set;
+* verifier;
+* method requirements;
+* subject version;
+* implementation version;
+* environment;
+* scope.
+
+A prior submission SHALL not be mutated for reverification.
+
+The relationship SHALL be represented explicitly:
+
+```text
+Prior Verification Submission
+        ↓
+Reverification Relationship
+        ↓
+New Verification Submission
+```
+
+---
+
+# Result Supersession
+
+A later result MAY supersede an earlier result only where the applicable Verification Profile permits supersession.
+
+Supersession SHALL NOT erase the prior result.
+
+It SHALL identify:
+
+```text
+superseding_result_id
+superseded_result_id
+supersession_basis
+scope_relationship
+effective_time
+```
+
+A later result with different scope does not automatically supersede an earlier result.
+
+---
+
+# Verification Expiration
+
+A verification result MAY expire where validity depends upon:
+
+* time;
+* implementation version;
+* environment;
+* profile version;
+* evidence currency;
+* verifier policy;
+* cryptographic validity;
+* deployment state.
+
+Expiration SHALL modify only the current registered verification status.
+
+It SHALL not modify the original external result.
+
+The historical fact that the result was issued remains immutable.
+
+---
+
+# NullBlade Unavailability
+
+Where NullBlade is unavailable, Contract 012 MAY:
+
+* preserve a committed pending submission;
+* retry handoff according to committed retry rules;
+* record transmission failure;
+* record acknowledgment failure;
+* register verifier unavailability.
+
+Contract 012 SHALL NOT:
+
+* perform the verification itself;
+* substitute an unauthorized verifier;
+* declare the claim verified by timeout;
+* infer a result from prior submissions;
+* discard the committed submission.
+
+---
+
+# Unauthorized Verifier Result
+
+A result issued by an unrecognized verifier SHALL NOT become a canonical Committed Verification Status Record.
+
+It MAY be retained as non-authoritative external material where policy permits.
+
+Such retention SHALL clearly indicate:
+
+```text
+UNAUTHORIZED_VERIFIER_RESULT
+```
+
+No consumer SHALL treat it as Contract 012 verification authority.
+
+---
+
+# Disagreement Between SACS and NullBlade
+
+Contract 012 SHALL not override NullBlade because an internal SACS check disagrees with the external result.
+
+Where disagreement exists:
+
+* the internal check SHALL remain an internal conformance record;
+* the external result SHALL remain the external verification result;
+* the disagreement SHALL be preserved;
+* a new verification submission MAY be authorized;
+* human governance MAY review the conflict.
+
+Contract 012 SHALL not resolve the disagreement by rewriting either record.
+
+---
+
+# Human Governance Relationship
+
+Human governance determines:
+
+* whether a verifier is authorized;
+* whether a Verification Profile is adopted;
+* whether a result is sufficient for deployment or certification;
+* whether a negative result requires action;
+* whether reverification is required;
+* whether a contract or implementation should change.
+
+Contract 012 provides committed verification evidence and status.
+
+It does not make the governance decision.
+
+---
+
+# Complete Authority Chain
+
+The complete authority chain is:
+
+| Constitutional Function                         | Authority         |
+| ----------------------------------------------- | ----------------- |
+| Supervisory operation                           | Contracts 001–009 |
+| Historical certification                        | Contract 010      |
+| Supervisory-cycle assembly and commitment       | Contract 011      |
+| Verification preparation                        | Contract 012      |
+| Verification-submission commitment              | Contract 012      |
+| External verification judgment                  | NullBlade         |
+| Verification-result registration                | Contract 012      |
+| Deployment, adoption, amendment, or remediation | Human Governance  |
+
+This allocation SHALL remain explicit in every conforming implementation.
+
+---
+
+# Failure Conditions
+
+The Contract 011-to-Contract 012 boundary SHALL fail when:
+
+* no terminal committed cycle artifact exists;
+* multiple conflicting terminal cycle artifacts exist;
+* the subject identity cannot be resolved;
+* required lineage is unavailable;
+* the subject hash is invalid;
+* the subject has been altered after commitment;
+* the requested claim exceeds the committed history.
+
+The Contract 012-to-NullBlade boundary SHALL fail when:
+
+* no committed submission exists;
+* verifier identity is unresolved;
+* verifier authorization is absent;
+* transmission integrity cannot be established;
+* submission acknowledgment conflicts with the committed identity.
+
+The NullBlade-to-Contract 012 boundary SHALL fail when:
+
+* result issuer identity is invalid;
+* the result signature is invalid;
+* submission identity is missing or conflicting;
+* claim identity is unknown;
+* result scope exceeds permitted scope;
+* mandatory result fields are absent;
+* the result has been altered.
+
+Every failure SHALL be explicitly represented.
+
+---
+
+# Prohibitions
+
+Contract 012 SHALL NOT:
+
+* begin canonical verification from incomplete Contract 011 history;
+* treat Contract 011 audit as NullBlade verification;
+* allow NullBlade to modify Contract 011 history;
+* send uncommitted evidence as a canonical submission;
+* accept a result that cannot identify its submission;
+* register results from unauthorized verifiers;
+* broaden a NullBlade result;
+* hide negative results;
+* erase superseded results;
+* substitute internal replay for external reverification;
+* infer governance approval from verification status.
+
+---
+
+# Section 5 Invariants
+
+> **Contract 011 SHALL remain the sole authority for immutable supervisory-cycle history; Contract 012 SHALL remain the sole SACS authority for verification preparation, submission commitment, and result registration; and NullBlade SHALL remain the separate external authority that issues the verification judgment.**
+
+> **Every External Verification Result SHALL resolve to exactly one Committed Verification Submission, and every Committed Verification Status Record SHALL preserve that submission, the verifier-issued result, its exact scope, and its complete provenance without modifying the underlying supervisory history.**

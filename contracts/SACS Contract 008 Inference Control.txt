@@ -1,0 +1,1154 @@
+SACS Contract 008 — Inference Control
+
+Project: SACS — Supervisory Architecture for Cognitive Systems
+Contract: 008
+Title: Inference Control
+Version: 1.0.0
+Status: ADOPTED - SACS v1.0.0 BASELINE
+Normative Authority: Semantic-Preserving Inference Command Translation
+Verification Authority: External — NullBlade Verification Engine
+
+Depends On:
+
+* Contract 000 — Architecture and Authority
+* Contract 004 — Governance
+* Contract 006 — Operational Profiles and Reference States
+* Contract 007 — Controller
+
+Canonical Supervisory Decision Input:
+
+* one Committed Control Command identified by one valid Controller Commitment Record
+
+Required Committed Translation Context:
+
+* Committed Runtime Capability Profile
+* Committed Translation Configuration
+* Committed Translation Numeric Profile
+* Committed Registry Snapshot Set or exact immutable definition hashes
+
+Referential Authority Context:
+
+* Authority Certificate reference
+* Action Space Definition reference
+* Control Constraint Set reference
+* committed Governance Snapshot reference, when required
+* controller commitment lineage reference
+
+Canonical Success Output:
+
+* one Committed Translation Transaction
+
+Canonical Failure Output:
+
+* one immutable Inference Translation Failure
+
+Canonical Consumer:
+
+* Contract 009 — Execution Interface
+
+⸻
+
+1. Purpose
+
+This contract defines the canonical Inference Control layer of SACS.
+
+It establishes the deterministic lifecycle by which SACS translates one Committed Control Command into one runtime-specific Inference Command Set without altering the command’s supervisory meaning, authority, restrictions, scope, ordering requirements, or bounded behavior.
+
+Inference Control is the architectural boundary between canonical supervisory control and runtime-specific command representation.
+
+It receives an already-authorized supervisory correction from Contract 007.
+
+It determines how that exact correction is represented for one declared runtime under one committed translation context.
+
+It does not determine whether the correction should exist.
+
+It does not determine whether the correction was mathematically correct.
+
+It does not determine whether the runtime should execute the translated instructions.
+
+It does not determine whether execution succeeded.
+
+Inference Control SHALL preserve both the positive requirements and the restrictive semantics of the Committed Control Command.
+
+Preserved semantics SHALL include, where applicable:
+
+* required actions;
+* prohibited actions;
+* parameter bounds;
+* command scope;
+* target scope;
+* temporal scope;
+* expiry;
+* cardinality;
+* ordering;
+* partial-order constraints;
+* atomicity requirements;
+* transaction boundaries;
+* failure conditions;
+* compensation requirements;
+* mandatory restrictions;
+* authority limits;
+* numeric tolerances;
+* declared serialization semantics.
+
+Inference Control SHALL NOT reinterpret supervisory intent.
+
+Inference Control SHALL NOT recompute controller output.
+
+Inference Control SHALL NOT re-evaluate objective or profile selection.
+
+Inference Control SHALL NOT silently broaden supervisory authority.
+
+Inference Control SHALL NOT remove mandatory restrictions.
+
+Inference Control SHALL NOT substitute an approximate action for an unsupported action.
+
+Inference Control SHALL NOT execute the translated result.
+
+Its defining identity is:
+
+Contract 008 deterministically transforms one Committed Control Command into one semantically and authoritatively equivalent runtime-specific Inference Command Set using only committed translation artifacts, without reconsidering the supervisory decision, expanding authority, removing mandatory restrictions, or assuming execution authority.
+
+⸻
+
+1.1 Translation Authority
+
+Contract 008 owns semantic-preserving translation.
+
+A conforming implementation MAY realize translation through:
+
+* compilation;
+* lowering;
+* mapping;
+* encoding;
+* command construction;
+* deterministic decomposition;
+* deterministic parameter conversion;
+* registered instruction selection;
+* another explicitly registered translation mechanism.
+
+Implementation technique does not alter Contract 008 authority.
+
+Regardless of mechanism, the translated artifact SHALL satisfy the same semantic-preservation, authority-preservation, restriction-preservation, determinism, and commitment requirements.
+
+⸻
+
+1.2 Translation Equivalence
+
+Two command representations are translation-equivalent when the resulting Inference Command Set:
+
+1. preserves the intended supervisory effect of the Committed Control Command;
+2. introduces no authority absent from the Committed Control Command;
+3. removes no mandatory obligation, restriction, bound, or prohibition;
+4. preserves the command’s target and scope;
+5. preserves required ordering and atomicity semantics;
+6. remains within the declared runtime capability and action model;
+7. remains within the committed translation and numeric profiles;
+8. is produced through an explicitly registered translation definition;
+9. can be deterministically replayed from the same committed inputs;
+10. is valid for submission to Contract 009 without requiring Contract 009 to reinterpret supervisory meaning.
+
+Translation equivalence does not require structural identity.
+
+One Control Command MAY translate into:
+
+* one Inference Command;
+* multiple totally ordered Inference Commands;
+* multiple partially ordered Inference Commands;
+* one atomic command bundle;
+* one transactional command sequence;
+* one runtime-native command carrying several bound parameters.
+
+Structural decomposition is permitted only when the resulting set remains translation-equivalent.
+
+⸻
+
+1.3 Fundamental Translation Obligations
+
+Every successful Contract 008 evaluation SHALL prove two independent obligations.
+
+Authority Non-Expansion
+
+Let:
+
+[
+U_t
+]
+
+denote the Committed Control Command, and let:
+
+[
+I_t
+]
+
+denote the resulting Inference Command Set.
+
+Then:
+
+[
+\mathcal{A}(I_t)
+\preceq
+\mathcal{A}(U_t)
+]
+
+where (\mathcal{A}) denotes the authority expressed by the artifact.
+
+The resulting Inference Command Set SHALL NOT express greater authority than the Committed Control Command.
+
+Semantic Obligation Preservation
+
+Let:
+
+[
+\mathcal{O}(U_t)
+]
+
+denote the mandatory actions, restrictions, prohibitions, bounds, sequencing rules, and preservation obligations expressed by the Committed Control Command.
+
+Then:
+
+[
+\mathcal{O}(U_t)
+\subseteq
+\mathcal{O}(I_t)
+]
+
+within the declared translation model.
+
+The translation SHALL preserve every mandatory obligation required for faithful representation.
+
+Authority reduction alone does not establish valid translation.
+
+A translation that omits a mandatory restriction, required action, ordering constraint, or atomicity requirement SHALL fail semantic equivalence.
+
+⸻
+
+1.4 Success and Failure Outcomes
+
+A Contract 008 evaluation SHALL produce exactly one of:
+
+Committed Translation Transaction
+
+or:
+
+Inference Translation Failure
+
+A Committed Inference Command Set is an intermediate committed semantic translation artifact. It is not the terminal Contract 008 output or the Contract 009 handoff artifact.
+
+A proposed or partially constructed Inference Command Set is not canonical.
+
+An unsuccessful translation SHALL NOT expose an executable partial command set.
+
+An unsupported or incompatible command SHALL NOT be approximated.
+
+A translation failure is the correct outcome whenever registered translation equivalence cannot be established.
+
+⸻
+
+2. Normative Language
+
+The key words MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, and OPTIONAL are normative conformance terms.
+
+A requirement marked MUST, MUST NOT, SHALL, or SHALL NOT is binding on every conforming implementation within the applicable capability profile.
+
+A requirement marked SHOULD or SHOULD NOT may be departed from only when the implementation records a justified reason and preserves all higher-order invariants established by Contract 000 and this contract.
+
+A requirement marked MAY is optional.
+
+No implementation-specific convention, provider behavior, adapter assumption, or deployment preference may override normative language in this contract.
+
+⸻
+
+3. Architectural Identity
+
+Inference Control is the SACS authority responsible for changing command representation without changing supervisory meaning.
+
+Its defining architectural question is:
+
+How must this already-canonical supervisory command be represented for this exact declared runtime?
+
+Inference Control does not ask:
+
+Should this command have been produced?
+
+That question was resolved by Contract 007.
+
+Inference Control does not ask:
+
+Should the runtime execute these instructions?
+
+That question belongs to Contract 009.
+
+The constitutional boundary is:
+
+Contract 007
+Committed Control Command
+        ↓
+Contract 008
+Committed Inference Command Set
+                ->
+Constructed Translation Transaction
+                ->
+Committed Translation Transaction
+                ->
+Execution Interface Handoff Envelope
+        ↓
+Contract 009
+Execution Evaluation, Disposition, Submission, and Receipt
+
+⸻
+
+3.1 Inference Control Is a Translation Layer
+
+Inference Control is:
+
+* deterministic;
+* cycle-bound;
+* capability-constrained;
+* configuration-bound;
+* registry-bound;
+* semantics-preserving;
+* authority-monotonic;
+* restriction-preserving;
+* implementation-specific at its output boundary;
+* execution-neutral.
+
+Inference Control is not:
+
+* a Controller;
+* a Governance evaluator;
+* an Objective evaluator;
+* an Operational Profile selector;
+* a Reference State builder;
+* a runtime router;
+* a provider selector;
+* an optimizer;
+* a scheduler;
+* a retry manager;
+* a transport layer;
+* an execution gate;
+* an execution adapter;
+* a receipt processor;
+* a task-content generator;
+* a verification authority.
+
+⸻
+
+3.2 Representation Versus Decision
+
+The Committed Control Command and the resulting Inference Command Set are different artifact classes.
+
+The Committed Control Command expresses canonical supervisory correction.
+
+The Inference Command Set expresses the exact runtime instructions that represent that correction for one declared runtime.
+
+For example:
+
+Committed Control Command:
+Reduce update gain to 0.35 within the authorized target scope.
+Committed Runtime Capability Profile:
+The target runtime supports direct update-gain restriction.
+Committed Translation Configuration:
+Map canonical update_gain_limit to runtime field delta_gain_limit.
+Inference Command:
+Set delta_gain_limit = 0.35 for the declared target scope.
+
+The field name changes.
+
+The representation changes.
+
+The supervisory meaning does not change.
+
+The target scope does not change.
+
+The authority does not expand.
+
+The restriction does not weaken.
+
+⸻
+
+3.3 Capability Awareness
+
+Inference Control MAY determine:
+
+* whether the declared runtime can faithfully represent the command;
+* whether a registered equivalent translation exists;
+* whether the command may be validly decomposed;
+* whether the required parameter domain is representable;
+* whether ordering requirements can be represented;
+* whether atomicity requirements can be represented;
+* whether required failure semantics can be represented;
+* whether all mandatory restrictions can be preserved.
+
+Inference Control SHALL NOT determine:
+
+* whether another runtime should be selected;
+* whether another model should be selected;
+* whether a weaker action is preferable;
+* whether a less restrictive action is sufficient;
+* whether a different Control Command would be easier to execute;
+* whether provider cost justifies semantic alteration;
+* whether latency justifies semantic alteration;
+* whether implementation convenience justifies semantic alteration;
+* whether unsupported restrictions may be omitted;
+* whether an approximate replacement should be generated.
+
+Capability awareness answers:
+
+Can this runtime faithfully represent the committed command?
+
+It does not answer:
+
+What different action should be used if it cannot?
+
+⸻
+
+3.4 Translation Difficulty Does Not Create Authority
+
+Translation difficulty, provider preference, runtime inconvenience, cost, latency, implementation limitation, unavailable optimization, or adapter simplicity SHALL NOT permit Inference Control to:
+
+* reinterpret supervisory intent;
+* weaken a restriction;
+* broaden a parameter;
+* narrow a mandatory effect without authorization;
+* replace the target;
+* change the runtime;
+* omit an instruction;
+* add an instruction;
+* alter ordering;
+* alter atomicity;
+* substitute a different supervisory action.
+
+When faithful translation is unavailable, Contract 008 SHALL fail.
+
+⸻
+
+3.5 Fundamental Architectural Invariant
+
+The fundamental invariant of Contract 008 is:
+
+Inference Control changes representation only. It SHALL preserve supervisory meaning, mandatory restrictions, scope, ordering, atomicity, numeric obligations, and authority while producing a runtime-specific command representation.
+
+This invariant governs every translation definition, compatibility evaluation, binding, normalization, validation, certification, commitment, replay, and handoff defined by this contract.
+
+⸻
+
+4. Authority Boundary
+
+4.1 Contract 008 Owns
+
+Contract 008 owns:
+
+* Inference Command identity;
+* Inference Command Set identity;
+* Translation Definition identity;
+* Translation Definition Registry requirements;
+* Runtime Capability Profile requirements for translation;
+* Translation Configuration requirements;
+* Translation Numeric Profile requirements;
+* translation-context binding;
+* runtime-command compatibility evaluation;
+* translation-definition compatibility evaluation;
+* capability-constrained equivalent command construction;
+* deterministic command lowering;
+* registered command decomposition;
+* semantics-preserving parameter normalization;
+* canonical unit conversion;
+* enum encoding;
+* field-name mapping;
+* deterministic precision conversion within declared tolerance;
+* runtime-specific parameter construction;
+* Inference Command ordering semantics;
+* partial-order representation;
+* transaction-boundary representation;
+* atomicity requirement representation;
+* proposed Inference Command Set construction;
+* semantic-equivalence validation;
+* authority non-expansion validation;
+* mandatory-restriction preservation validation;
+* scope-preservation validation;
+* ordering-preservation validation;
+* atomicity-preservation validation;
+* Translation Equivalence Certificate construction;
+* Inference Command Set commitment;
+* Inference Translation Failure construction;
+* Contract 008 lineage;
+* deterministic translation replay;
+* Contract 009 handoff requirements;
+* Contract 008 conformance declarations.
+
+⸻
+
+4.2 Contract 008 Does Not Own
+
+Contract 008 does not own:
+
+* observation collection;
+* state estimation;
+* OSV construction;
+* Governance authorship;
+* Governance modification;
+* Governance re-evaluation of the Control Command;
+* Objective declaration;
+* Objective evaluation;
+* Operational Profile selection;
+* Reference State construction;
+* Control Error evaluation;
+* controller computation;
+* Controller State;
+* Control Command authorization;
+* runtime selection;
+* provider selection;
+* model selection;
+* tool selection;
+* resource allocation;
+* runtime scheduling;
+* transport;
+* dispatch;
+* execution gating;
+* retry policy;
+* destination availability;
+* execution acceptance;
+* execution rejection;
+* execution restriction;
+* execution deferral;
+* execution receipt construction;
+* execution-success determination;
+* execution-result interpretation;
+* external verification verdicts.
+
+⸻
+
+4.3 Translation Authority Versus Execution Authority
+
+Contract 008 defines what runtime instructions faithfully represent the Committed Control Command.
+
+Contract 009 determines whether and how those instructions may enter execution.
+
+Contract 008 MAY define required:
+
+* command order;
+* partial order;
+* atomicity;
+* transaction grouping;
+* all-or-none semantics;
+* compensation semantics;
+* expiry;
+* preconditions;
+* target binding.
+
+Contract 009 SHALL enforce, reject, defer, or otherwise disposition those requirements according to its own authority.
+
+Contract 008 SHALL NOT:
+
+* dispatch instructions;
+* reserve runtime resources;
+* test live destination availability as execution authority;
+* retry failed execution;
+* reorder instructions for operational convenience;
+* split an atomic bundle;
+* merge independent bundles;
+* treat acknowledgement as execution success;
+* construct execution receipts.
+
+The terminal artifact of Contract 008 is a canonical Inference Command Set.
+
+It is not an Execution Package.
+
+⸻
+
+4.4 Semantics-Preserving Parameter Normalization
+
+Contract 008 MAY normalize runtime parameters only when semantic identity is preserved.
+
+Permitted normalization MAY include:
+
+* exact unit conversion;
+* exact scale conversion;
+* registered enum encoding;
+* canonical field-name mapping;
+* deterministic serialization conversion;
+* deterministic precision conversion within a committed tolerance;
+* explicit representation of absent optional values;
+* canonical ordering of semantically unordered fields;
+* registered expansion of one canonical parameter into several coupled runtime parameters.
+
+Normalization SHALL NOT include:
+
+* clipping to runtime limits;
+* silently replacing unsupported values;
+* rounding beyond authorized tolerance;
+* widening a bound;
+* narrowing a required effect;
+* changing target scope;
+* changing temporal scope;
+* changing cardinality;
+* changing parameter interaction;
+* inserting runtime defaults that alter meaning;
+* omitting unsupported restrictions;
+* resolving ambiguity through provider convention;
+* coercing incompatible units;
+* converting failure into a weaker command.
+
+Any transformation that changes supervisory meaning is not normalization.
+
+It is an unauthorized substitution.
+
+⸻
+
+4.5 Translation Configuration Authority
+
+The Translation Configuration SHALL be selected and committed outside the translation evaluation itself by an authorized operational, deployment, or configuration authority.
+
+Contract 008 MAY:
+
+* consume the committed Translation Configuration;
+* verify its integrity;
+* bind its referenced definitions;
+* validate its applicability;
+* apply its approved translation rules.
+
+Contract 008 SHALL NOT:
+
+* select among translation strategies based on runtime preference;
+* search for an easier Translation Configuration;
+* synthesize a missing Translation Configuration;
+* mutate the committed Translation Configuration;
+* substitute a different Translation Configuration after incompatibility;
+* resolve an unspecified strategy using implementation defaults.
+
+A Translation Configuration authorizes representation rules.
+
+It does not authorize a new supervisory action.
+
+⸻
+
+4.6 Authority Monotonicity
+
+Contract 008 SHALL be authority-monotonic.
+
+Successful translation SHALL not produce more authority than the Committed Control Command.
+
+Failed translation SHALL produce no executable Inference Command Set.
+
+Fallback translation SHALL be permitted only when the fallback representation:
+
+1. was selected or authorized by the committed Translation Configuration;
+2. is explicitly registered as translation-equivalent;
+3. preserves every mandatory restriction and obligation;
+4. passes the same equivalence and authority-preservation validation;
+5. does not select a new runtime, target, or supervisory action.
+
+A merely safer, weaker, cheaper, faster, or more available command is not automatically translation-equivalent.
+
+⸻
+
+5. Canonical Inputs and Translation Context
+
+Contract 008 distinguishes between:
+
+1. the sole canonical supervisory decision input;
+2. required committed translation-context artifacts;
+3. referential authority context;
+4. immutable reusable definitions;
+5. prohibited inputs.
+
+These categories SHALL NOT be conflated.
+
+⸻
+
+5.1 Sole Canonical Supervisory Decision Input
+
+Contract 008 SHALL consume exactly one Committed Control Command as its sole supervisory decision input.
+
+The Committed Control Command SHALL:
+
+* be produced by Contract 007;
+* be identified by one valid Controller Commitment Record;
+* belong to the same supervisory cycle as the translation evaluation;
+* be immutable;
+* include or reference its canonical schema version;
+* include or reference its command type;
+* include or reference its target scope;
+* include or reference its authority bounds;
+* include or reference its mandatory restrictions;
+* include or reference its ordering and atomicity requirements;
+* include or reference its Numeric Profile;
+* include or reference its Action Space Definition;
+* include or reference its Authority Certificate;
+* include or reference its controller commitment lineage;
+* include a valid artifact hash.
+
+Contract 008 SHALL NOT treat any other artifact as supervisory command authority.
+
+The Committed Control Command answers:
+
+What supervisory correction is canonical?
+
+No translation-context artifact may answer that question again.
+
+⸻
+
+5.2 Required Committed Translation Context
+
+A successful Contract 008 evaluation SHALL consume the following committed translation-context artifacts.
+
+5.2.1 Committed Runtime Capability Profile
+
+The Committed Runtime Capability Profile declares what the exact target runtime can faithfully represent for the translation cycle.
+
+It SHALL include or resolve at least:
+
+runtime_capability_profile_id
+runtime_target_id
+runtime_type
+runtime_version
+supported_inference_command_types
+supported_parameter_domains
+supported_target_scope_models
+supported_ordering_model
+supported_atomicity_model
+supported_transaction_model
+supported_failure_semantics
+supported_expiry_semantics
+supported_acknowledgement_model
+supported_constraint_preservation_classes
+supported_translation_profiles
+supported_numeric_profiles
+schema_version
+registry_version
+definition_hash
+commitment_id
+artifact_hash
+
+The Runtime Capability Profile SHALL be:
+
+* immutable;
+* cycle-bound or explicitly valid for the cycle;
+* bound to one exact runtime target or runtime class;
+* versioned;
+* hash-addressable;
+* produced by an authority external to the translation evaluation;
+* sufficiently complete to evaluate faithful representability.
+
+The Runtime Capability Profile SHALL NOT be inferred from live runtime behavior during canonical translation.
+
+Uncommitted capability discovery SHALL NOT create canonical translation authority.
+
+Transient destination availability belongs to Contract 009 unless a later contract explicitly assigns otherwise.
+
+The Runtime Capability Profile answers:
+
+What can this exact declared runtime faithfully represent?
+
+⸻
+
+5.2.2 Committed Translation Configuration
+
+The Committed Translation Configuration identifies which approved translation definitions, bindings, profiles, and policies apply to the cycle.
+
+It SHALL include or resolve at least:
+
+translation_configuration_id
+translation_profile_id
+authorized_translation_definition_ids
+control_command_type_bindings
+runtime_command_type_bindings
+target_binding
+normalization_profile_id
+ordering_policy_id
+atomicity_policy_id
+transaction_policy_id
+equivalence_validation_profile_id
+failure_policy_id
+numeric_profile_id
+registry_snapshot_ids
+configuration_authority_id
+configuration_commitment_id
+schema_version
+artifact_hash
+
+The Translation Configuration SHALL NOT contain a new supervisory decision.
+
+It SHALL NOT select a different Control Command.
+
+It SHALL NOT authorize runtime routing unless runtime selection authority is explicitly assigned elsewhere and already committed before Contract 008 begins.
+
+The Translation Configuration answers:
+
+Which approved representation rules apply to this command and runtime?
+
+⸻
+
+5.2.3 Committed Registry Snapshot Set
+
+The Committed Registry Snapshot Set identifies the immutable definitions used during translation.
+
+It MAY include snapshots or exact definition hashes for:
+
+* Control Command Type Registry;
+* Inference Command Type Registry;
+* Runtime Capability Registry;
+* Translation Definition Registry;
+* Translation Profile Registry;
+* Parameter Definition Registry;
+* Unit Registry;
+* Enum Registry;
+* Ordering Semantics Registry;
+* Atomicity Semantics Registry;
+* Transaction Semantics Registry;
+* Numeric Profile Registry;
+* Equivalence Validation Registry;
+* Failure Code Registry;
+* serialization definitions.
+
+Contract 008 SHALL NOT resolve “latest,” “current,” “default,” or mutable registry state during translation.
+
+Every consumed definition SHALL be resolved through:
+
+* a committed immutable registry snapshot; or
+* an exact definition identifier, version, and definition hash already bound into a committed input.
+
+Silent registry substitution is prohibited.
+
+Silent cross-version coercion is prohibited.
+
+The Registry Snapshot Set answers:
+
+Which exact definitions govern this translation?
+
+⸻
+
+5.2.4 Committed Translation Numeric Profile
+
+The Committed Translation Numeric Profile defines the numeric semantics applicable to translation.
+
+It SHALL define, where applicable:
+
+* supported numeric types;
+* canonical precision;
+* runtime precision;
+* rounding mode;
+* overflow behavior;
+* underflow behavior;
+* quantization behavior;
+* unit-conversion rules;
+* tolerance semantics;
+* equality semantics;
+* interval-preservation rules;
+* bound-preservation rules;
+* deterministic serialization rules;
+* prohibited numeric coercions.
+
+The Translation Numeric Profile SHALL NOT authorize a change beyond the tolerance already permitted by the Committed Control Command and its applicable authority artifacts.
+
+When numeric representation cannot preserve the authorized command within the declared tolerance, translation SHALL fail.
+
+⸻
+
+5.3 Referential Authority Context
+
+Contract 008 MAY consume exact references to upstream authority artifacts when required to preserve the already-committed command.
+
+These MAY include:
+
+* Authority Certificate;
+* Action Space Definition;
+* Committed Control Constraint Set;
+* committed Governance Snapshot identifier;
+* Committed Operational Profile identifier;
+* controller Numeric Profile reference;
+* applicable translation bounds;
+* serialization profile;
+* Controller Commitment Record;
+* controller commitment lineage.
+
+These artifacts are referential authority context.
+
+They do not become new supervisory decision inputs.
+
+Contract 008 MAY use them to:
+
+* verify identity;
+* verify cycle coherence;
+* verify hash integrity;
+* resolve command semantics;
+* preserve bounds;
+* preserve mandatory restrictions;
+* preserve scope;
+* preserve ordering;
+* preserve atomicity;
+* prove that the translation remains within the authority already certified by Contract 007.
+
+Contract 008 SHALL NOT use referential authority context to:
+
+* reopen controller evaluation;
+* recompute Control Error;
+* reinterpret the Reference State;
+* reconsider the Operational Profile;
+* re-evaluate Objective selection;
+* independently authorize the Control Command;
+* weaken Governance;
+* add Governance-derived actions absent from the command;
+* replace the command with another authorized action.
+
+⸻
+
+5.4 Governance Snapshot Consumption
+
+The preferred Core model is that Contract 008 does not directly consume the full Governance Snapshot.
+
+Contract 008 SHOULD instead consume:
+
+* the Authority Certificate;
+* the Control Constraint Set reference;
+* the Action Space Definition reference;
+* the committed Governance Snapshot identifier;
+* the exact governance-derived restrictions already bound into the Committed Control Command.
+
+Contract 008 MAY consume the committed Governance Snapshot only when:
+
+1. a registered Translation Definition requires one explicitly identified governance field;
+2. that field was not reducible into the Committed Control Command or Authority Certificate;
+3. the Translation Configuration authorizes that exact reference;
+4. the exact Governance Snapshot is cycle-bound and immutable;
+5. the field is used solely to preserve the existing command;
+6. the translation does not reconsider command authorization;
+7. the consumption is recorded in lineage.
+
+Direct Governance consumption SHALL NOT permit Contract 008 to produce a different supervisory decision.
+
+Governance may constrain representation.
+
+It may not be reinterpreted to rewrite the command.
+
+⸻
+
+5.5 Immutable Reusable Definitions
+
+Contract 008 MAY consume reusable definitions including:
+
+* Translation Definitions;
+* Inference Command Definitions;
+* Runtime Command Definitions;
+* Parameter Definitions;
+* unit-conversion definitions;
+* ordering definitions;
+* atomicity definitions;
+* transaction definitions;
+* equivalence-validation definitions;
+* serialization definitions.
+
+Reusable definitions are not cycle-bound decisions.
+
+They become applicable only when selected through the Committed Translation Configuration and resolved through the Committed Registry Snapshot Set.
+
+Technical availability of a Translation Definition grants no authority to use it.
+
+Registry presence is not configuration selection.
+
+Capability is not permission.
+
+⸻
+
+5.6 Prohibited Inputs
+
+Contract 008 SHALL NOT consume as canonical translation input:
+
+* raw observations;
+* Observation Records;
+* Observation Batches;
+* open Observation Windows;
+* Estimated State;
+* estimator internals;
+* uncommitted OSV state;
+* Committed OSV except by an explicitly authorized non-decisional reference;
+* Objective Definitions;
+* Objective evaluation internals;
+* Objective Set as translation authority;
+* Operational Profile selection internals;
+* Reference State values as translation authority;
+* Control Error;
+* Controller State;
+* Intermediate Controller Outputs;
+* branch outputs;
+* arbitration diagnostics;
+* fallback internals;
+* Proposed Control Commands;
+* uncommitted Authority Certificates;
+* prepared but unpublished Controller Commitment artifacts;
+* live provider defaults;
+* mutable runtime configuration;
+* transient runtime availability;
+* uncommitted capability discovery;
+* mutable registry state;
+* latest-version registry resolution;
+* provider documentation as canonical authority;
+* undocumented adapter behavior;
+* execution receipts from a future stage;
+* prior execution success as authorization for the current translation;
+* task content;
+* model-generated suggestions;
+* probabilistic translation output.
+
+Contract 008 SHALL NOT reconstruct missing translation inputs from prohibited artifacts.
+
+Missing committed input SHALL produce translation failure.
+
+⸻
+
+5.7 Input Coherence Requirements
+
+Before translation binding begins, Contract 008 SHALL verify that:
+
+* exactly one Committed Control Command is present;
+* the command is identified by one valid Controller Commitment Record;
+* the command and Controller Commitment Record belong to the same cycle;
+* the Runtime Capability Profile applies to the declared runtime target;
+* the Translation Configuration applies to the command type and runtime target;
+* the Translation Numeric Profile is compatible with the command’s Numeric Profile;
+* all required registry snapshots are present;
+* every referenced definition resolves by exact identifier, version, and hash;
+* all authority references resolve to the same upstream commitment lineage;
+* no required artifact is mutable;
+* no required artifact is stale under its declared validity rules;
+* no required artifact belongs to a different supervisory cycle unless explicitly declared reusable;
+* no incompatible registry versions are combined;
+* no command restriction is missing from the translation context;
+* no target ambiguity exists;
+* no translation strategy remains unspecified.
+
+Failure of input coherence SHALL prevent translation evaluation.
+
+⸻
+
+5.8 Constitutional Non-Substitution Invariant
+
+Contract 008 SHALL consume exactly one Committed Control Command as its sole supervisory decision input.
+
+It MAY additionally consume only the committed capability, translation, numeric, authority-reference, and registry artifacts required to represent that command for one declared runtime.
+
+Inference Control SHALL NOT:
+
+* revisit controller mathematics;
+* reconsider supervisory intent;
+* re-evaluate objective selection;
+* re-evaluate profile selection;
+* reauthorize the Control Command;
+* select a different Control Command;
+* select a different runtime;
+* select a different target;
+* expand authority;
+* remove mandatory restrictions;
+* relax command bounds;
+* replace unsupported values;
+* substitute an approximate supervisory action;
+* omit unsupported command requirements;
+* use provider defaults to resolve missing semantics;
+* generate a best-effort executable command.
+
+When exact registered translation equivalence cannot be established, Contract 008 SHALL produce one explicit Inference Translation Failure and no canonical Inference Command Set.
+
+⸻
+
+5.9 Initial Translation Failure Classes
+
+The initial Contract 008 failure classes SHALL include:
+
+CONTROL_COMMAND_UNSUPPORTED
+CONTROL_COMMAND_INVALID
+CONTROLLER_COMMITMENT_INVALID
+TRANSLATION_CONTEXT_INCOMPLETE
+RUNTIME_CAPABILITY_PROFILE_MISSING
+RUNTIME_CAPABILITY_PROFILE_INVALID
+RUNTIME_CAPABILITY_INCOMPATIBLE
+TRANSLATION_DEFINITION_UNAVAILABLE
+TRANSLATION_DEFINITION_INCOMPATIBLE
+TRANSLATION_CONFIGURATION_MISSING
+TRANSLATION_CONFIGURATION_INVALID
+TRANSLATION_CONFIGURATION_INAPPLICABLE
+TRANSLATION_NUMERIC_PROFILE_MISSING
+TRANSLATION_NUMERIC_PROFILE_INCOMPATIBLE
+PARAMETER_DOMAIN_INCOMPATIBLE
+TARGET_SCOPE_UNREPRESENTABLE
+SEMANTIC_EQUIVALENCE_FAILURE
+AUTHORITY_EXPANSION_DETECTED
+MANDATORY_RESTRICTION_LOSS
+SCOPE_PRESERVATION_FAILURE
+ORDERING_UNREPRESENTABLE
+ORDERING_PRESERVATION_FAILURE
+ATOMICITY_UNREPRESENTABLE
+ATOMICITY_PRESERVATION_FAILURE
+TRANSACTION_SEMANTICS_UNREPRESENTABLE
+EXPIRY_SEMANTICS_UNREPRESENTABLE
+NUMERIC_TRANSLATION_FAILURE
+NUMERIC_TOLERANCE_EXCEEDED
+REGISTRY_SNAPSHOT_MISSING
+REGISTRY_DEFINITION_UNRESOLVED
+REGISTRY_INCOMPATIBLE
+INPUT_CYCLE_MISMATCH
+INPUT_HASH_MISMATCH
+PROVENANCE_INCOMPLETE
+TRANSLATION_VALIDATION_FAILURE
+TRANSLATION_CERTIFICATION_FAILURE
+COMMITMENT_FAILURE
+
+These failure classes SHALL NOT be interpreted as Execution Dispositions.
+
+Execution Dispositions belong to Contract 009.
+
+⸻
+
+5.10 Section 5 Invariant
+
+The governing invariant for all Contract 008 inputs is:
+
+The Committed Control Command is the sole supervisory decision consumed by Inference Control. Every other permitted input exists only to establish how that exact command can be faithfully represented for one declared runtime. No supporting artifact may reopen, replace, weaken, or expand the committed supervisory decision.
+
+⸻
+
+Opening Constitutional Flow
+
+The opening sections establish the following immutable boundary:
+
+Canonical Controller Commitment Bundle
+        │
+        ├── Committed Control Command
+        │       sole supervisory decision input
+        │
+        ├── Authority Certificate reference
+        ├── Action Space Definition reference
+        ├── Control Constraint Set reference
+        └── Controller Commitment Lineage
+                +
+Committed Runtime Capability Profile
+                +
+Committed Translation Configuration
+                +
+Committed Translation Numeric Profile
+                +
+Committed Registry Snapshot Set
+                ↓
+Contract 008 Input Coherence Evaluation
+                ↓
+Either:
+Translation lifecycle may begin
+                or
+Inference Translation Failure
+
+No runtime-specific instruction has yet been created at the conclusion of Section 5.
+
+Sections 1–5 establish only:
+
+* Contract 008 identity;
+* translation authority;
+* non-authorities;
+* translation equivalence;
+* authority monotonicity;
+* semantic-obligation preservation;
+* canonical input taxonomy;
+* committed context requirements;
+* Governance non-reconsideration;
+* input coherence;
+* non-substitution;
+* initial failure boundaries.

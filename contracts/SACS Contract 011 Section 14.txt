@@ -1,0 +1,161 @@
+SACS Contract 011 — Realization Certification, Supervisory Provenance, and Audit
+Section 14 — Committed Realization Record
+Purpose
+
+Section 14 establishes the constitutional identity, authority, and semantics of the Committed Realization Record.
+
+Upon successful Realization Commitment, the Committed Realization Record becomes the exclusive authoritative historical representation of one certified supervisory realization.
+
+This section defines what the committed artifact constitutionally is, independent of the process that constructed or committed it.
+
+Constitutional Identity
+
+The Committed Realization Record is the immutable constitutional representation of one certified supervisory realization.
+
+It is the authoritative historical artifact that preserves:
+
+the certified realization outcome;
+the constitutional history supporting that outcome;
+the identity of the supervisory realization;
+the integrity and authority established during Realization Certification.
+
+No alternate artifact SHALL possess equivalent constitutional authority.
+
+Constitutional Authority
+
+The Committed Realization Record SHALL serve as the exclusive historical authority for:
+
+supervisory realization history;
+historical replay;
+supervisory audit;
+historical disclosure;
+supervisory retention;
+whole-cycle provenance construction.
+
+Every subsequent constitutional process SHALL reference the committed artifact rather than reconstructing supervisory history.
+
+Canonical Contents
+
+Every Committed Realization Record SHALL contain, at minimum:
+
+Constitutional Identity
+Realization Record Identifier
+Supervisory Cycle Identifier
+Realization Identifier
+Commitment Identifier
+Constitutional Version
+Schema Version
+Registry Snapshot References
+Historical Certification
+Certified Realization Outcome
+Certification Status
+Certification Timestamp
+Historical Timeline
+Canonical Realization Timeline
+Temporal Relationships
+Preserved Temporal Uncertainty
+Constitutional References
+Committed Execution Disposition
+Committed Supervisory Continuity Record
+Supporting Certification References
+Integrity
+Integrity References
+Commitment Timestamp
+Commitment Authority
+Immutability Status
+
+These elements constitute the minimum constitutional representation.
+
+Implementations MAY append non-constitutional metadata provided it is clearly distinguished from constitutional content.
+
+Constitutional Properties
+
+Every Committed Realization Record SHALL possess the following properties:
+
+Uniqueness
+
+Each supervisory realization SHALL possess exactly one Committed Realization Record.
+
+Immutability
+
+Once committed, the record SHALL NOT be:
+
+modified;
+rewritten;
+corrected;
+replaced;
+silently updated.
+Determinism
+
+Identical committed constitutional evidence SHALL produce identical Committed Realization Records.
+
+Implementation architecture SHALL NOT affect constitutional identity.
+
+Traceability
+
+Every constitutional determination represented by the record SHALL resolve to committed constitutional evidence.
+
+No historical conclusion SHALL exist without constitutional lineage.
+
+Replay Fidelity
+
+The record SHALL preserve sufficient constitutional information to support deterministic replay in accordance with this contract.
+
+Replay SHALL consume the committed artifact.
+
+Replay SHALL NOT recreate it.
+
+Constitutional Relationships
+
+The Committed Realization Record SHALL reference—but SHALL NOT replace—the constitutional artifacts from which it was derived.
+
+Specifically:
+
+Committed Execution Disposition
+                │
+                ▼
+Committed Supervisory Continuity Record
+                │
+                ▼
+Committed Realization Record
+                │
+                ▼
+Committed Supervisory Cycle Record
+
+Each artifact retains its original constitutional owner.
+
+The Committed Realization Record organizes historical authority.
+
+It does not absorb the authority of referenced artifacts.
+
+Consumption Rules
+
+Subsequent constitutional stages SHALL consume only the Committed Realization Record.
+
+They SHALL NOT consume:
+
+the Constructed Realization Record;
+intermediate adjudication artifacts;
+internal working artifacts;
+implementation-specific representations.
+
+The Committed Realization Record SHALL be the exclusive constitutional historical input to Stage Two.
+
+Architectural Constraints
+
+The Committed Realization Record SHALL NOT:
+
+authorize execution;
+modify supervisory continuity;
+alter execution disposition;
+create supervisory objectives;
+reconstruct historical evidence;
+establish external truth.
+
+Its authority is limited to preserving certified constitutional history.
+
+Fundamental Artifact Principle
+
+The defining principle of this section is:
+
+The Committed Realization Record is the exclusive immutable constitutional representation of one certified supervisory realization. It preserves every constitutional determination established during Stage One without modification and serves as the sole authoritative historical input to Supervisory Provenance, Replay, Audit, Disclosure, and Historical Retention.

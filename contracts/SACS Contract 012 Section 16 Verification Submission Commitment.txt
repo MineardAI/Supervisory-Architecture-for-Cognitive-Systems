@@ -1,0 +1,278 @@
+SACS Contract 012 — External Verification Profile and Evidence Interface
+Section 16 — Verification Submission Commitment
+Purpose
+
+Section 16 establishes the constitutional process by which a constructed Verification Submission becomes the sole authoritative submission eligible for delegation to an external verification authority.
+
+Where Section 15 constructs the canonical Verification Submission, this section determines whether that submission may become an immutable constitutional artifact of SACS.
+
+Verification Submission Commitment establishes constitutional authority.
+
+It does not perform external verification.
+
+It does not transmit the submission beyond SACS.
+
+It does not delegate constitutional authority.
+
+Its sole responsibility is to atomically commit the Verification Submission, producing the Committed Verification Submission that alone may proceed to the constitutional boundary defined by the following section.
+
+Constitutional Question
+
+What verification artifact becomes the sole authoritative submission?
+
+Verification Submission Commitment SHALL determine:
+
+submission identity;
+submission uniqueness;
+commitment eligibility;
+commitment authority;
+commitment preconditions;
+commitment atomicity;
+commitment idempotency;
+commitment lineage;
+commitment integrity; and
+constitutional readiness for delegation.
+
+Only a successfully committed Verification Submission MAY proceed beyond the constitutional boundary.
+
+Constitutional Identity
+
+A Committed Verification Submission is one immutable constitutional artifact representing the sole authoritative verification submission for a specific supervisory realization.
+
+A Committed Verification Submission establishes constitutional authority for delegation.
+
+It does not establish verification success.
+
+It does not establish verification truth.
+
+It does not establish acceptance by an external verifier.
+
+It authorizes only the delegation of verification responsibility.
+
+Constitutional Authority
+
+Contract 012 SHALL exclusively own:
+
+Verification Submission Commitment;
+commitment authorization;
+commitment eligibility evaluation;
+commitment uniqueness verification;
+commitment atomicity;
+commitment idempotency;
+commitment lineage preservation;
+commitment integrity certification; and
+construction of the Verification Submission Commitment Record.
+
+Contract 012 SHALL NOT:
+
+modify the Verification Submission;
+alter Verification Claims;
+alter Verification Evidence;
+alter Validation Reports;
+perform external verification;
+transmit submissions externally; or
+transfer constitutional authority.
+Commitment Inputs
+
+Verification Submission Commitment SHALL consume only committed constitutional artifacts, including:
+
+Verification Submission;
+Verification Evidence Validation Report;
+Verification Evidence Package;
+Committed Verification Profile Binding;
+Committed Verification Requirement Set;
+committed Verification Claims;
+registry snapshot references;
+constitutional lineage; and
+applicable commitment metadata.
+
+No partially constructed or unvalidated submission SHALL participate in commitment.
+
+Commitment Eligibility
+
+Prior to commitment, the Verification Submission SHALL satisfy every constitutional precondition.
+
+Eligibility SHALL verify:
+
+successful Submission Construction;
+successful Verification Evidence Validation;
+complete Verification Evidence Package;
+complete Verification Claims;
+complete Submission Manifest;
+complete integrity bindings;
+complete provenance bindings;
+complete constitutional lineage;
+unique submission identity; and
+constitutional consistency.
+
+Failure of any eligibility criterion SHALL terminate commitment.
+
+Commitment Identity Verification
+
+Commitment SHALL verify the constitutional identity of the Verification Submission.
+
+Identity verification SHALL confirm:
+
+submission identifier;
+submission version;
+verification subject;
+verifier identity;
+package identity;
+Validation Report identity;
+constitutional lineage;
+replay identity; and
+cryptographic identity.
+
+Identity SHALL remain immutable following commitment.
+
+Commitment Uniqueness
+
+Exactly one Committed Verification Submission SHALL exist for a given Verification Submission.
+
+Commitment SHALL verify that:
+
+no previously committed submission possesses the same constitutional identity;
+no conflicting commitment exists;
+no competing commitment exists; and
+no duplicate commitment may be created.
+
+Duplicate commitment SHALL constitute a constitutional failure.
+
+Commitment Atomicity
+
+Verification Submission Commitment SHALL execute as one indivisible constitutional operation.
+
+Exactly one of the following SHALL occur:
+
+one immutable Committed Verification Submission is produced; or
+one explicit Verification Submission Commitment Failure is produced.
+
+Partial commitment SHALL be constitutionally prohibited.
+
+Commitment Idempotency
+
+Repeated commitment attempts using identical constitutional inputs SHALL produce identical constitutional results.
+
+If a matching Committed Verification Submission already exists, subsequent commitment attempts SHALL resolve deterministically without producing duplicate constitutional artifacts.
+
+Commitment SHALL therefore remain replay-safe and historically deterministic.
+
+Commitment Integrity
+
+Commitment SHALL preserve:
+
+submission identity;
+Verification Claims;
+Verification Evidence Package references;
+Validation Report references;
+Submission Manifest;
+integrity bindings;
+provenance bindings;
+registry snapshot references;
+replay metadata; and
+constitutional lineage.
+
+Commitment SHALL introduce no modification to any submitted artifact.
+
+Commitment Lineage
+
+Every Committed Verification Submission SHALL preserve complete constitutional lineage.
+
+Lineage SHALL include references to:
+
+Verification Profile;
+Verification Requirement Set;
+Verification Methods;
+Verification Claims;
+Verification Evidence Package;
+Verification Evidence Validation Report;
+Submission Manifest;
+producing supervisory realization;
+producing constitutional contracts; and
+registry snapshots.
+
+Commitment SHALL preserve lineage without reinterpretation.
+
+Verification Submission Commitment Record
+
+Successful commitment SHALL produce one immutable constitutional artifact containing:
+
+commitment identifier;
+commitment timestamp;
+commitment authority;
+Verification Submission identity;
+commitment status;
+commitment eligibility results;
+uniqueness verification;
+integrity certification;
+lineage certification;
+replay identity;
+registry snapshot references;
+constitutional lineage;
+commitment metadata; and
+cryptographic identity.
+
+The Verification Submission Commitment Record SHALL constitute the authoritative constitutional evidence that commitment has occurred.
+
+Canonical Committed Verification Submission
+
+Successful commitment SHALL produce one immutable constitutional artifact containing:
+
+submission identity;
+Submission Manifest;
+Verification Claims;
+Verification Evidence Package reference;
+Verification Evidence Validation Report reference;
+Verification Profile reference;
+Verification Requirement Set reference;
+Verification Method references;
+verifier identity;
+integrity bindings;
+provenance bindings;
+constitutional lineage;
+replay metadata;
+submission metadata;
+commitment identity; and
+cryptographic identity.
+
+The Committed Verification Submission SHALL become the exclusive constitutional artifact eligible to cross the external verification boundary.
+
+No uncommitted Verification Submission SHALL be eligible for delegation.
+
+Commitment Failure
+
+Verification Submission Commitment SHALL terminate immediately upon any constitutional failure, including but not limited to:
+
+failed Submission Construction;
+failed Verification Evidence Validation;
+incomplete Submission Manifest;
+duplicate submission identity;
+conflicting commitment;
+incomplete integrity bindings;
+incomplete provenance;
+invalid constitutional lineage;
+commitment atomicity failure;
+idempotency violation; or
+nondeterministic commitment.
+
+Commitment failure SHALL produce one explicit Verification Submission Commitment Failure artifact.
+
+No partial Committed Verification Submission SHALL exist following failure.
+
+Constitutional Invariants
+
+For every successfully constructed Verification Submission:
+
+exactly one Committed Verification Submission SHALL exist;
+every successful commitment SHALL produce exactly one Verification Submission Commitment Record;
+commitment SHALL be atomic, singular, immutable, and idempotent;
+commitment SHALL preserve constitutional identity, authority, integrity, provenance, lineage, and replay determinism without modification;
+no uncommitted Verification Submission SHALL cross the external verification boundary; and
+identical constitutional inputs SHALL always produce an identical Committed Verification Submission.
+Constitutional Transition
+
+Section 16 completes the final internal commitment of Contract 012.
+
+At this point, the Verification Submission has become an immutable constitutional artifact within SACS. It is now eligible—but not yet authorized by transport—to participate in an inter-constitutional trust exchange.
+
+The following section, Section 17 — External Verification Boundary and Constitutional Custody, defines the constitutional boundary across which verification responsibility may be delegated while constitutional authority, artifact ownership, commitment authority, and historical sovereignty remain exclusively within their originating constitutional systems. This marks the first explicit inter-constitutional boundary in the SACS architecture and establishes the doctrine of constitutional custody that governs all subsequent interactions with external verification authorities.

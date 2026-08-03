@@ -1,0 +1,706 @@
+# SACS Contract 008 — Section 18
+
+# Translation Transaction Rules
+
+## 18.1 Purpose
+
+This section defines the **Translation Transaction Rules** used by Contract 008.
+
+Translation Transaction Rules establish the deterministic rules governing construction of one immutable Constructed Translation Transaction from a completely constructed and successfully validated translated result.
+
+These rules define:
+
+* transaction-envelope construction;
+* transaction membership;
+* transaction grouping;
+* transaction boundaries;
+* translation construction atomicity;
+* transaction identity;
+* transaction completeness;
+* transaction integrity;
+* transaction status;
+* transaction construction evidence.
+
+Translation Transaction Rules define construction semantics only.
+
+The Translation Transaction Constructor applies those rules.
+
+The resulting Constructed Translation Transaction records the immutable constructed result.
+
+Translation Transaction Rules SHALL NOT:
+
+* normalize representations;
+* construct translated commands;
+* interpret numeric values;
+* establish canonical ordering;
+* perform semantic validation;
+* reevaluate compatibility;
+* repair translation defects;
+* decide runtime acceptance;
+* assign execution dispositions;
+* authorize execution;
+* apply runtime commands;
+* commit, publish, or hand off transactions.
+
+---
+
+## 18.2 Architectural Identity
+
+Translation Transaction Rules are immutable declarative artifacts.
+
+Their defining identity is:
+
+> **Translation Transaction Rules define how a completely constructed and successfully validated translated result is grouped into one deterministic, immutable Constructed Translation Transaction suitable for canonical commitment under Section 19.**
+
+Transaction construction organizes validated artifacts.
+
+It does not change them.
+
+The Constructed Translation Transaction is an immutable transaction artifact eligible for canonical commitment under Section 19.
+
+It preserves the translation exactly as validated.
+
+It does not constitute runtime acceptance, execution commitment, execution authorization, execution itself, canonical commitment, publication, or handoff.
+
+---
+
+## 18.3 Declarative Rules, Construction, and Result
+
+Contract 008 SHALL distinguish among:
+
+### Translation Transaction Rule Set
+
+The immutable declarative artifact that defines transaction membership, grouping, boundary, atomicity, completeness, integrity, status, and construction requirements.
+
+### Translation Transaction Constructor
+
+The deterministic component that applies the committed Translation Transaction Rule Set to validated translation inputs.
+
+### Constructed Translation Transaction
+
+The immutable transaction artifact produced by successful transaction construction and eligible for canonical commitment under Section 19.
+
+### Translation Transaction Construction Report
+
+The immutable evidence artifact recording whether transaction construction succeeded, failed, remained incomplete, or faulted.
+
+The Rule Set SHALL NOT be treated as an active constructor.
+
+The Constructor SHALL NOT modify the committed Rule Set.
+
+The Constructed Translation Transaction SHALL NOT contain undeclared executable content.
+
+---
+
+## 18.4 Authority Boundary
+
+Translation Transaction Rules own:
+
+* transaction construction;
+* transaction-envelope semantics;
+* transaction-membership semantics;
+* transaction-grouping semantics;
+* transaction-boundary semantics;
+* translation construction atomicity;
+* atomic-group preservation;
+* transaction-completeness semantics;
+* member-integrity requirements;
+* envelope-integrity requirements;
+* transaction-status semantics;
+* transaction-construction evidence requirements.
+
+Translation Transaction Rules SHALL NOT own:
+
+* canonical selection;
+* transaction commitment;
+* commitment finality;
+* publication;
+* handoff attempts;
+* handoff status;
+* delivery evidence;
+* source Control Command interpretation;
+* Translation Definition selection;
+* translation construction inputs;
+* normalization;
+* numeric interpretation;
+* ordering construction;
+* semantic validation;
+* compatibility evaluation;
+* runtime scheduling;
+* transport batching;
+* provider queue management;
+* runtime retry behavior;
+* resource assignment;
+* execution acceptance;
+* execution restriction;
+* execution deferral;
+* execution rejection;
+* command application.
+
+Contract 008 Section 18 constructs the immutable transaction artifact.
+
+Section 19 owns commitment and handoff.
+
+Contract 009 owns runtime acceptance, rejection, deferral, restriction, application, and execution disposition.
+
+---
+
+## 18.5 Translation Transaction Rule Set Identity
+
+Every Translation Transaction Rule Set SHALL possess immutable identity.
+
+At minimum, it SHALL contain:
+
+* translation_transaction_rules_id;
+* transaction_profile_id;
+* rule_set_name;
+* rule_set_version;
+* schema_version;
+* contract_version;
+* committed_translation_configuration_id;
+* canonical_representation_profile_id;
+* translation_numeric_rules_id;
+* translation_ordering_rules_id;
+* translation_validation_rules_id;
+* grouping_policy_id;
+* atomicity_policy_id;
+* boundary_policy_id;
+* completeness_policy_id;
+* failure_policy_id;
+* registry_snapshot_ids;
+* provenance_id;
+* rule_set_hash.
+
+The rule-set hash SHALL uniquely identify the committed transaction-construction environment.
+
+Every translation cycle SHALL use exactly one committed Translation Transaction Rule Set bound by the Committed Translation Configuration.
+
+---
+
+## 18.6 Transaction Construction Preconditions
+
+Translation Transaction Construction SHALL begin only when all required preconditions are satisfied.
+
+Required preconditions SHALL include:
+
+* a Committed Control Command exists;
+* a Committed Translation Configuration exists;
+* a Validated Translation Binding exists;
+* a proposed translated artifact set exists;
+* a Canonical Translation Order exists;
+* a Translation Validation Report exists;
+* the Translation Validation Report overall result is VALID;
+* accepted compatibility evidence exists;
+* the committed Translation Transaction Rule Set exists;
+* all applicable registry snapshots are available;
+* all required authoritative identities and hashes remain unchanged.
+
+The constructor SHALL verify that:
+
+```text
+validation_report.input_artifact_hashes
+=
+transaction_candidate.member_hashes
+```
+
+and:
+
+```text
+validation_report.canonical_translation_order_hash
+=
+transaction_candidate.canonical_translation_order_hash
+```
+
+and:
+
+```text
+validation_report.committed_translation_configuration_hash
+=
+active_translation_configuration_hash
+```
+
+and that all binding, definition, profile, registry, and rule-set identities match.
+
+These checks constitute binding verification.
+
+They SHALL NOT be treated as a second semantic validation stage.
+
+Failure of any mandatory precondition SHALL prevent construction of a Constructed Translation Transaction.
+
+---
+
+## 18.7 Transaction Identity
+
+Every Constructed Translation Transaction SHALL possess immutable identity.
+
+At minimum, its identity SHALL include:
+
+* translation_transaction_id;
+* translation_cycle_id;
+* transaction_status;
+* committed_control_command_id;
+* committed_control_command_hash;
+* committed_translation_configuration_id;
+* committed_translation_configuration_hash;
+* validated_translation_binding_id;
+* validated_translation_binding_hash;
+* transaction_rule_set_id;
+* transaction_rule_set_version;
+* transaction_rule_set_hash;
+* translation_validation_report_id;
+* translation_validation_report_hash;
+* canonical_translation_order_id;
+* canonical_translation_order_hash;
+* schema_version;
+* contract_version;
+* registry_snapshot_ids;
+* provenance_id;
+* constructed_at_context_id;
+* artifact_hash.
+
+Permitted transaction statuses are limited to construction-state vocabulary:
+
+* CONSTRUCTED;
+* INVALIDATED;
+* SUPERSEDED.
+
+A transaction identifier SHALL never be reused for semantically different transaction content.
+
+---
+
+## 18.8 One Transaction Per Translation Cycle
+
+One translation cycle MAY produce one or more construction attempts, but SHALL produce at most one commitment-eligible Constructed Translation Transaction unless the committed Translation Transaction Rule Set explicitly defines deterministic candidate resolution.
+
+Successful Section 18 construction SHALL produce exactly one Constructed Translation Transaction for the active translation cycle.
+
+No Constructed Translation Transaction SHALL contain artifacts from more than one translation cycle.
+
+---
+
+## 18.9 Closed Transaction Membership
+
+Transaction membership SHALL be closed.
+
+Membership SHALL be determined entirely from:
+
+* the validated translated artifact set;
+* the Validated Translation Binding;
+* the Canonical Translation Order;
+* declared grouping metadata;
+* transaction metadata preserved through validation;
+* the committed Translation Transaction Rule Set.
+
+No ambient artifact may be added.
+
+No artifact may be included because of:
+
+* implementation convenience;
+* provider defaults;
+* filesystem availability;
+* database retrieval;
+* transport arrival;
+* queue state;
+* runtime preference;
+* operator convenience.
+
+The membership closure requirement is:
+
+\operatorname{ValidatedArtifacts}(R_v)
+
+for all validated executable artifacts required by the binding.
+
+Envelope metadata MAY be added where it introduces no executable content and is required by the committed transaction schema.
+
+---
+
+## 18.10 Membership Eligibility
+
+A translated artifact SHALL be eligible for transaction membership only if it:
+
+* appears in the validated artifact set;
+* is referenced by the VALID Translation Validation Report;
+* belongs to the same translation cycle;
+* belongs to the same Committed Control Command;
+* belongs to the same Committed Translation Configuration;
+* is covered by the same Validated Translation Binding;
+* appears in the Canonical Translation Order where applicable;
+* retains the same validated artifact hash;
+* satisfies committed grouping requirements.
+
+An artifact SHALL NOT migrate between transactions.
+
+An artifact from another cycle, configuration, binding, or validation report SHALL be rejected.
+
+---
+
+## 18.11 Artifact Uniqueness
+
+Every validated executable artifact SHALL appear exactly once in transaction membership.
+
+For every executable artifact (a):
+
+\operatorname{Count}_{T_x}(a)=1
+
+unless an authorized Translation Definition explicitly permits non-executable reference reuse.
+
+Transaction construction SHALL distinguish:
+
+* repeated references to one artifact;
+* duplicated executable membership.
+
+Repeated references MAY be represented where authorized.
+
+Duplicated executable membership is prohibited.
+
+Grouping SHALL NOT duplicate commands.
+
+---
+
+## 18.12 Transaction Groups
+
+A Constructed Translation Transaction MAY contain one or more declared transaction groups.
+
+Each transaction group SHALL possess immutable identity and SHALL include, at minimum:
+
+* transaction_group_id;
+* member_artifact_ids;
+* member_artifact_hashes;
+* group_type;
+* group_ordering_requirements;
+* dependency_edges;
+* phase_assignments;
+* atomic_group_references;
+* source_requirement_ids;
+* group_hash.
+
+Transaction groups SHALL be derived only from explicit authoritative metadata.
+
+They SHALL NOT be invented from runtime convenience.
+
+Transaction-group boundaries SHALL preserve all validated obligations, restrictions, dependencies, scope, ordering, and authority.
+
+---
+
+## 18.13 Atomicity Categories
+
+Contract 008 SHALL distinguish three forms of atomicity.
+
+### Translation Construction Atomicity
+
+The validated translated result is constructed completely or no Constructed Translation Transaction is produced.
+
+### Commitment and Handoff Atomicity
+
+Section 19 owns atomic canonical selection and indivisible handoff of the committed artifact.
+
+### Execution Atomicity
+
+The runtime applies all specified commands or none.
+
+Section 18 owns Translation Construction Atomicity.
+
+Section 18 does not guarantee Execution Atomicity.
+
+Execution Atomicity SHALL be treated as a required execution property carried by the Constructed Translation Transaction and evaluated by Contract 009.
+
+---
+
+## 18.14 Declared Atomic Groups
+
+Translation Transaction Construction SHALL preserve every validated atomic-group relationship.
+
+An atomic group SHALL include, at minimum:
+
+* atomic_group_id;
+* member_artifact_ids;
+* member_artifact_hashes;
+* atomicity_class;
+* source_requirement_id;
+* required_execution_atomicity;
+* fallback_policy_reference, where declared;
+* group_hash.
+
+The constructor SHALL NOT:
+
+* infer undeclared atomic groups;
+* dissolve declared atomic groups;
+* weaken atomic requirements;
+* invent fallback behavior;
+* emit a proper subset of a required atomic group as valid.
+
+If any required atomic-group member is missing, invalid, duplicated, cross-cycle, or hash-mismatched, transaction construction SHALL fail.
+
+---
+
+## 18.15 Atomic-Group Closure
+
+Atomic grouping SHALL be resolved deterministically.
+
+Unless explicitly declared otherwise by the owning authoritative definition, ATOMIC_WITH SHALL be treated as transitive.
+
+If:
+
+```text
+A ATOMIC_WITH B
+B ATOMIC_WITH C
+```
+
+then the closed atomic group SHALL be:
+
+```text
+{A, B, C}
+```
+
+The constructor SHALL compute the complete connected atomic-group closure before transaction construction.
+
+Non-transitive atomic grouping SHALL be permitted only where:
+
+* explicitly declared;
+* structurally unambiguous;
+* validated by Section 17;
+* supported by the committed Translation Transaction Rule Set.
+
+---
+
+## 18.16 No Partial Transaction Construction
+
+Transaction construction SHALL be all-or-none with respect to required validated membership.
+
+If any required member is unavailable, invalid, missing, duplicated, or integrity-failed:
+
+* the Constructed Translation Transaction SHALL not be produced;
+* remaining members SHALL not be emitted as a reduced successful transaction;
+* failure evidence SHALL be recorded.
+
+Contract 008 SHALL NOT silently weaken a transaction to obtain construction success.
+
+---
+
+## 18.17 Transaction Boundaries
+
+Transaction boundaries SHALL be derived only from explicit authoritative sources.
+
+Permitted sources include:
+
+* the Committed Control Command;
+* authorized Translation Definitions;
+* the Validated Translation Binding;
+* transaction metadata preserved through ordering and validation;
+* the committed Translation Transaction Rule Set.
+
+Transaction boundaries SHALL NOT be derived from:
+
+* provider message limits;
+* transport batch sizes;
+* runtime queue capacity;
+* worker availability;
+* latency preference;
+* throughput optimization;
+* implementation convenience;
+* scheduling preference.
+
+---
+
+## 18.18 Boundary Preservation
+
+Transaction boundaries SHALL preserve:
+
+* command identity;
+* target identity;
+* scope;
+* authority bounds;
+* obligations;
+* restrictions;
+* dependency relations;
+* phase membership;
+* canonical ordering;
+* atomic-group relations;
+* temporal requirements;
+* transaction metadata;
+* failure requirements;
+* provenance.
+
+No validated artifact may silently cross an authoritative transaction boundary.
+
+No transaction boundary may divide a required atomic group.
+
+---
+
+## 18.19 Transaction Completeness
+
+Transaction construction SHALL confirm that:
+
+* every required validated executable artifact is included;
+* every required artifact is included exactly once;
+* every required dependency target is present;
+* every required ordering relation is represented;
+* every required transaction group is complete;
+* every declared atomic group is complete;
+* every required phase assignment is preserved;
+* every required target is preserved;
+* every required obligation is preserved;
+* every required restriction is preserved;
+* every required temporal condition is preserved;
+* every required transaction metadata element is present;
+* no unauthorized executable artifact is inserted.
+
+Incomplete transaction construction SHALL fail.
+
+---
+
+## 18.20 Member Integrity
+
+Each transaction member SHALL retain its validated identity and hash.
+
+For every member artifact (a):
+
+\operatorname{HashAfter}(a)
+
+Transaction construction SHALL NOT:
+
+* rewrite a member artifact;
+* renormalize it;
+* reserialize it into a semantically distinct form;
+* recompute it from source;
+* replace it with an equivalent-looking artifact;
+* refresh it from a registry;
+* mutate metadata covered by its validated hash.
+
+Any member-integrity failure SHALL prevent successful transaction construction.
+
+---
+
+## 18.21 Envelope Integrity
+
+The Constructed Translation Transaction envelope SHALL possess its own canonical hash.
+
+The transaction hash SHALL bind all required identity, membership, ordering, grouping, atomicity, authority, obligation, restriction, scope, target, temporal, provenance, and registry elements.
+
+---
+
+## 18.22 Authority, Obligation, and Restriction Preservation
+
+Transaction construction SHALL preserve the validated authority, obligation, and restriction model without modification.
+
+---
+
+## 18.23 Ordering and Dependency Preservation
+
+The Constructed Translation Transaction SHALL preserve the Canonical Translation Order and all dependency relations without modification.
+
+---
+
+## 18.24 Required Execution Properties
+
+The Constructed Translation Transaction SHALL carry all validated execution-related requirements needed by Contract 009.
+
+These describe required properties only and do not constitute execution dispositions.
+
+---
+
+## 18.25 Translation Transaction Status
+
+Permitted Section 18 transaction statuses are:
+
+* CONSTRUCTED;
+* INVALIDATED;
+* SUPERSEDED.
+
+Statuses indicating commitment, handoff, or execution belong to Section 19 or Contract 009.
+
+---
+
+## 18.26 Constructed Translation Transaction
+
+Successful transaction construction SHALL produce one immutable **Constructed Translation Transaction** eligible for canonical commitment under Section 19.
+
+At minimum, it SHALL contain all required identity, membership, grouping, atomicity, dependency, authority, obligation, restriction, scope, target, temporal, execution-property, compatibility, registry, provenance, and integrity elements.
+
+The Constructed Translation Transaction SHALL be the sole transaction artifact eligible for canonical commitment under Section 19.
+
+An uncommitted transaction SHALL NOT be submitted to Contract 009.
+
+---
+
+## 18.27 Translation Transaction Construction Report
+
+Every completed transaction-construction attempt SHALL produce one immutable **Translation Transaction Construction Report**.
+
+---
+
+## 18.28 Failure Evidence
+
+Failure evidence SHALL NOT be submitted to Contract 009.
+
+Only a construction result of CONSTRUCTED may produce a Constructed Translation Transaction.
+
+---
+
+## 18.29 Lifecycle and Immutability
+
+A Constructed Translation Transaction SHALL be immutable after construction.
+
+Construction does not confer canonical Contract 008 output status.
+
+Canonical finality is established only by a successful Translation Commitment Record under Section 19.
+
+---
+
+## 18.30 Preparation for Commitment and Downstream Handoff
+
+The Constructed Translation Transaction SHALL contain all validated command, ordering, dependency, authority, scope, atomicity, compatibility, and provenance information required for commitment under Section 19 and later consumption by Contract 009.
+
+Section 18 SHALL NOT publish, commit, transmit, or record delivery of the transaction.
+
+---
+
+## 18.31 Versioning and Capability
+
+Translation Transaction Rule Sets SHALL be immutable after publication.
+
+---
+
+## 18.32 Failure Classes
+
+Any mandatory failure SHALL prevent creation of the Constructed Translation Transaction.
+
+---
+
+## 18.33 Mathematical Interpretation
+
+Let:
+
+T_x = ConstructTransaction(U_c, T_v, O_c, R_v, B_v, T_r)
+
+where T_x is the immutable Constructed Translation Transaction.
+
+Section 18 mathematics proves:
+
+* closed membership;
+* uniqueness;
+* ordering preservation;
+* atomic-group preservation;
+* authority preservation;
+* obligation preservation;
+* restriction preservation;
+* non-mutation;
+* deterministic construction.
+
+---
+
+## 18.34 Fundamental Translation Transaction Invariant
+
+Translation Transaction Rules SHALL define exactly one deterministic construction interpretation for every successfully validated translated result.
+
+The resulting Constructed Translation Transaction SHALL preserve all validated elements without modification.
+
+Transaction atomicity under Section 18 guarantees complete and indivisible construction.
+
+The Constructed Translation Transaction is the sole transaction artifact eligible for canonical commitment under Section 19.
+
+It SHALL NOT be submitted to Contract 009 unless and until a successful Translation Commitment Record establishes it as the Committed Translation Transaction.
+
+Section 19 owns commitment and handoff.
+
+Contract 009 determines execution disposition.

@@ -1,0 +1,582 @@
+SACS Contract 002 — State Estimation
+
+Project: SACS — Supervisory Architecture for Cognitive Systems
+Contract: 002
+Title: State Estimation
+Version: 1.0.0
+Status: ADOPTED - SACS v1.0.0 BASELINE
+Normative Authority: State estimation, estimator uncertainty, and Estimated State production
+Upstream Dependency: Contract 001 — Observation
+Downstream Dependency: Contract 003 — Operational State Vector
+
+⸻
+
+1. Purpose
+
+This contract defines how SACS transforms one immutable Observation Batch into an uncertainty-aware estimate of operational state.
+
+State Estimation interprets committed evidence.
+
+It does not publish the canonical supervisory state.
+
+The canonical product of this contract is the Estimated State.
+
+The Estimated State is consumed only by the OSV Publisher defined by Contract 003.
+
+⸻
+
+2. Defining Invariant
+
+State Estimation determines what operational state is reasonably supported by the committed observations without deciding what supervisory action should follow.
+
+State Estimation MUST NOT:
+
+* apply governance;
+* select supervisory objectives;
+* activate an operational profile;
+* construct a reference state;
+* issue control commands;
+* authorize execution;
+* publish a committed OSV;
+* silently consume uncommitted telemetry.
+
+⸻
+
+3. Canonical Estimation Flow
+
+Immutable Observation Batch
+        ↓
+Input Compatibility Validation
+        ↓
+Estimator Profile Resolution
+        ↓
+Prior-State Resolution
+        ↓
+Observation Interpretation
+        ↓
+State Prediction
+        ↓
+Measurement Update / Fusion
+        ↓
+Uncertainty Propagation
+        ↓
+Validity and Quality Evaluation
+        ↓
+Estimated State Construction
+        ↓
+OSV Publisher Handoff
+
+Every estimation cycle MUST either produce one canonical Estimated State or terminate with an explicit estimator disposition.
+
+⸻
+
+4. State Estimation Authority
+
+State Estimation owns:
+
+* interpretation of canonical observations as evidence of operational state;
+* hidden-state inference;
+* state prediction;
+* measurement fusion;
+* estimator priors;
+* estimator update rules;
+* uncertainty propagation;
+* covariance production;
+* conflict treatment;
+* stale-input treatment;
+* missing-input treatment;
+* estimator lifecycle;
+* Estimated State construction;
+* estimator provenance;
+* OSV Publisher handoff.
+
+State Estimation does not own:
+
+* observation collection;
+* observation normalization;
+* observation-window closure;
+* OSV field semantics;
+* OSV publication;
+* governance;
+* objective selection;
+* profile selection;
+* controller behavior;
+* execution authority;
+* verification verdicts.
+
+⸻
+
+5. Canonical Input Contract
+
+A conforming estimator MUST consume one canonical Observation Batch for each supervisory cycle.
+
+The estimator input MUST include:
+
+observation_batch_id
+cycle_id
+window_id
+observation_cutoff
+ordered_observation_records
+expected_observation_manifest
+availability_summary
+quality_summary
+late_data_summary
+observation_registry_versions
+observation_schema_versions
+observation_provenance_reference
+
+State Estimation MUST NOT consume:
+
+* observations received after the committed cutoff;
+* adapter-local values not present in the batch;
+* hidden transport metadata with supervisory meaning;
+* unregistered side-channel telemetry;
+* execution results that bypass Observation;
+* mutable observation collections.
+
+If the input batch is incompatible with the active estimator profile, the estimator MUST fail explicitly.
+
+⸻
+
+6. Estimated State
+
+The Estimated State is the canonical output of State Estimation.
+
+An Estimated State MUST include at least:
+
+estimated_state_id
+cycle_id
+observation_batch_id
+observation_cutoff
+estimator_profile_id
+estimator_profile_version
+estimator_implementation_ids
+state_basis_profile_id
+state_components
+uncertainty_representation
+covariance_reference
+component_validity
+component_quality
+input_coverage
+estimation_status
+prior_estimated_state_id
+schema_version
+registry_versions
+numeric_profile_id
+provenance_id
+created_at
+
+The Estimated State MUST be immutable after construction.
+
+A correction or re-estimation MUST produce a new Estimated State with explicit supersession lineage.
+
+⸻
+
+7. Estimated State Is Not the OSV
+
+The Estimated State and the Operational State Vector are distinct artifacts.
+
+Estimated State
+- estimator-owned
+- may contain latent variables
+- may contain internal basis components
+- may contain full covariance
+- may expose estimator-specific diagnostics
+- is not visible to general higher layers
+Committed OSV
+- OSV Publisher-owned
+- registry-defined
+- publication-profile constrained
+- temporally atomic
+- immutable
+- sole state interface for higher supervisory layers
+
+Governance, Objectives, Profiles, Controllers, and Execution interfaces MUST NOT consume the Estimated State directly.
+
+⸻
+
+8. State Basis Profiles
+
+Every Estimated State MUST declare a registered State Basis Profile.
+
+A State Basis Profile defines:
+
+state_basis_profile_id
+state_component_ids
+component_semantics
+component_types
+units
+valid_ranges
+dependency_structure
+uncertainty_model
+covariance_ordering
+initialization_rules
+update_rules
+compatibility_rules
+schema_version
+registry_version
+
+A State Basis Profile MAY define:
+
+* independent components;
+* jointly estimated components;
+* continuous state;
+* categorical state;
+* hybrid state;
+* latent variables;
+* directly measured components;
+* model-derived components.
+
+Contract 002 MUST NOT require one independent estimator per state component.
+
+A single estimator MAY produce multiple correlated components.
+
+Multiple estimators MAY jointly contribute to one component when the fusion rule is explicit and deterministic.
+
+⸻
+
+9. Initial Candidate Basis Profile
+
+The following earlier state basis is retained as a candidate profile rather than declared universal:
+
+sacs.estimator_basis.core5.v1
+coherence
+entropy
+drift
+instability
+activation
+
+This basis remains non-normative until its component semantics, units, ranges, update equations, and uncertainty behavior are adopted through a registered State Basis Profile.
+
+The Core5 basis MUST NOT be assumed to map directly or completely to the published OSV without a Contract 003 projection profile.
+
+⸻
+
+10. Estimator Profiles
+
+Every estimator execution MUST resolve to one registered Estimator Profile.
+
+An Estimator Profile MUST declare:
+
+estimator_profile_id
+estimator_profile_version
+accepted_observation_batch_versions
+required_observation_types
+optional_observation_types
+state_basis_profile_id
+prior_state_policy
+missing_data_policy
+stale_data_policy
+conflict_policy
+fusion_policy
+uncertainty_policy
+numeric_profile_id
+initialization_policy
+reset_policy
+failure_policy
+output_schema_version
+
+An implementation MAY support multiple estimator profiles.
+
+Profile selection MUST be deterministic and MUST occur before estimation begins.
+
+The estimator MUST NOT select a profile based on uncommitted telemetry.
+
+⸻
+
+11. Estimator Registry
+
+Every canonical estimator implementation MUST be registered.
+
+The Estimator Registry MUST include:
+
+estimator_id
+estimator_version
+estimator_profile_ids
+produced_state_components
+required_observation_types
+algorithm_class
+numeric_profile_ids
+determinism_claim
+stateful_or_stateless
+initialization_requirements
+reset_requirements
+compatibility_versions
+implementation_hash
+
+Estimator registration does not establish correctness or external verification.
+
+⸻
+
+12. Missing Data
+
+Missing observations MUST remain explicit during estimation.
+
+An estimator MAY:
+
+* increase uncertainty;
+* retain a prior estimate under a declared prediction rule;
+* produce an unavailable state component;
+* produce a partially resolved state;
+* terminate estimation when a required evidence threshold is not met.
+
+An estimator MUST NOT:
+
+* replace a missing value with zero unless zero is produced by an explicit registered inference rule;
+* infer normality from absence;
+* infer safety from absence;
+* silently copy the prior state;
+* invent source confidence;
+* erase the fact that evidence was missing.
+
+Any prior-state carry-forward MUST be recorded as estimator prediction, not observation.
+
+⸻
+
+13. Stale Data
+
+A stale observation MAY be consumed only when permitted by the active Estimator Profile.
+
+When stale data is consumed, the estimator MUST preserve:
+
+observation_id
+observation_age
+freshness_limit
+stale_input_rule_id
+uncertainty_adjustment
+state_components_affected
+
+Stale evidence MUST NOT be treated as current evidence.
+
+⸻
+
+14. Conflicting Observations
+
+Conflicting observations MUST be preserved through estimator input.
+
+A conflict-resolution rule MAY use:
+
+* source reliability;
+* declared measurement uncertainty;
+* temporal relevance;
+* source independence;
+* causal ordering;
+* registered source priority;
+* robust statistical fusion;
+* unresolved multi-hypothesis state.
+
+A conflict MUST NOT be silently collapsed.
+
+The Estimated State provenance MUST identify the conflict rule and the affected components.
+
+⸻
+
+15. Confidence and Uncertainty
+
+Confidence and uncertainty are distinct.
+
+Confidence expresses the declared or calculated support for an estimate.
+
+Uncertainty expresses the range, dispersion, ambiguity, or unresolved alternatives associated with that estimate.
+
+A conforming estimator MUST support at least one registered uncertainty representation:
+
+BOUNDED_INTERVAL
+VARIANCE
+COVARIANCE
+FINITE_DISTRIBUTION
+QUALITATIVE_CLASS
+UNKNOWN
+UNSUPPORTED
+
+The active Estimator Profile MUST define how source confidence and source uncertainty contribute to estimator uncertainty.
+
+Source confidence MUST NOT be treated as estimator confidence without a declared transformation.
+
+⸻
+
+16. Covariance
+
+A multivariate estimator SHOULD produce covariance when cross-component dependence is material.
+
+A covariance artifact MUST declare:
+
+covariance_id
+estimated_state_id
+component_order
+matrix_dimensions
+matrix_values
+numeric_precision
+numeric_profile_id
+positive_semidefinite_policy
+missing_component_policy
+schema_version
+
+If covariance is not produced, the Estimated State MUST explicitly declare:
+
+covariance_status: NOT_PRODUCED
+
+Absence of covariance MUST NOT be interpreted as component independence.
+
+⸻
+
+17. Estimator State Lifecycle
+
+An estimator state MUST have an explicit lifecycle.
+
+The initial lifecycle vocabulary is:
+
+UNINITIALIZED
+INITIALIZING
+ACTIVE
+DEGRADED
+RESET_PENDING
+FAULTED
+RETIRED
+
+Transitions MUST be deterministic and provenance-recorded.
+
+A reset MUST NOT erase the previous estimator state or Estimated State lineage.
+
+⸻
+
+18. Estimation Status
+
+Each Estimated State MUST declare one status:
+
+COMPLETE
+PARTIAL
+DEGRADED
+UNRESOLVED
+FAULTED
+
+A COMPLETE status means all mandatory state components were resolved according to the active profile.
+
+It does not imply that uncertainty is low.
+
+A PARTIAL or DEGRADED Estimated State MAY be handed to the OSV Publisher only when the active publication profile permits it.
+
+A FAULTED Estimated State MUST NOT be published as a nominal OSV.
+
+⸻
+
+19. Determinism
+
+For identical:
+
+Observation Batch
+prior Estimated State
+Estimator Profile
+State Basis Profile
+estimator implementations
+registry versions
+schema versions
+numeric profile
+
+a conforming estimator MUST produce the same canonical Estimated State.
+
+Any randomized algorithm MUST use a declared deterministic seed and deterministic execution profile.
+
+Undeclared nondeterminism is prohibited.
+
+⸻
+
+20. OSV Publisher Handoff
+
+The estimator MUST hand the OSV Publisher one immutable Estimated State.
+
+The handoff MUST include:
+
+estimated_state_id
+cycle_id
+observation_batch_id
+observation_cutoff
+state_basis_profile_id
+state_components
+component_validity
+component_quality
+uncertainty_representation
+covariance_reference
+input_coverage
+estimation_status
+estimator_registry_versions
+estimated_state_schema_version
+numeric_profile_id
+provenance_reference
+
+The OSV Publisher MUST NOT access estimator-local state not included in this handoff.
+
+The estimator MUST NOT determine which higher-layer actions are appropriate.
+
+⸻
+
+21. Architectural Prohibitions
+
+A conforming State Estimation implementation MUST NOT:
+
+* consume open observation windows;
+* consume uncommitted telemetry;
+* alter an Observation Batch;
+* alter source observations;
+* hide missing or stale evidence;
+* discard uncertainty without a registered rule;
+* silently assume independence when covariance is unknown;
+* apply governance;
+* select objectives;
+* select operational profiles;
+* construct reference states;
+* issue control commands;
+* publish an OSV;
+* expose estimator internals directly to higher supervisory layers;
+* claim external verification based solely on estimator output.
+
+⸻
+
+22. Initial Conformance Tests
+
+ET-001 — Canonical Batch Enforcement
+ET-002 — Uncommitted Telemetry Rejection
+ET-003 — Batch Immutability Preservation
+ET-004 — Missing Data Non-Substitution
+ET-005 — Stale Input Policy Enforcement
+ET-006 — Conflict Preservation
+ET-007 — Confidence/Uncertainty Separation
+ET-008 — Covariance Ordering
+ET-009 — Deterministic Replay
+ET-010 — Prior-State Lineage
+ET-011 — Reset Non-Erasure
+ET-012 — Estimated State Immutability
+ET-013 — Explicit Estimation Status
+ET-014 — Registry Compatibility
+ET-015 — OSV Publisher Handoff Completeness
+ET-016 — Higher-Layer Isolation
+
+⸻
+
+23. Required Next Contract
+
+The next required contract is:
+
+Contract 003 — Operational State Vector
+
+Contract 003 MUST define:
+
+* OSV authority;
+* OSV Publisher authority;
+* OSV field registry;
+* publication profiles;
+* projection from Estimated State;
+* field validity;
+* uncertainty publication;
+* atomic commitment;
+* immutability;
+* serialization;
+* compatibility;
+* supersession;
+* OSV history references;
+* higher-layer access;
+* OSV conformance tests.
+
+⸻
+
+End of Initial Contract 002 Kernel

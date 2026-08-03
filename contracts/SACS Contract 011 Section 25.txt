@@ -1,0 +1,226 @@
+SACS Contract 011 — Realization Certification, Supervisory Provenance, and Audit
+Section 25 — Committed Supervisory Provenance Failure
+Purpose
+
+Section 25 defines the constitutional failure artifact produced when Stage Two cannot successfully complete Supervisory Cycle Commitment.
+
+A Committed Supervisory Provenance Failure provides the single immutable, authoritative representation of an unsuccessful supervisory provenance cycle.
+
+It preserves constitutional traceability, determinism, accountability, and auditability without allowing partial commitment, alternate historical representations, or ambiguity regarding supervisory outcome.
+
+This section defines the failure artifact itself. It does not authorize commitment, repair failures, reconstruct lineage, perform replay, or conduct audit.
+
+Constitutional Identity
+
+The Committed Supervisory Provenance Failure is the exclusive constitutional artifact representing an unsuccessful completion of Stage Two.
+
+It exists only when the Supervisory Cycle Commitment defined in Section 23 cannot be constitutionally completed.
+
+Its defining constitutional identity is:
+
+Every unsuccessful Stage Two supervisory cycle SHALL produce exactly one immutable Committed Supervisory Provenance Failure and SHALL produce no Committed Supervisory Cycle Record.
+
+Constitutional Responsibility
+
+Section 25 SHALL:
+
+define the authoritative Stage Two failure artifact;
+establish the constitutional identity of supervisory provenance failure;
+preserve the complete failure context;
+preserve upstream constitutional lineage;
+establish deterministic failure representation;
+provide authoritative evidence for replay and audit.
+
+Section 25 SHALL NOT:
+
+modify committed upstream artifacts;
+repair commitment failures;
+authorize supervisory continuation;
+reconstruct provenance;
+reopen execution adjudication;
+reinterpret supervisory authority.
+Canonical Inputs
+
+A Committed Supervisory Provenance Failure SHALL be derived exclusively from:
+
+one failed Supervisory Cycle Commitment;
+one Constructed Supervisory Cycle Record (where available);
+one Supervisory Cycle Commitment Record;
+one or more verified constitutional failure conditions;
+applicable contract, schema, serialization, and registry versions.
+
+No additional information may be introduced after failure determination.
+
+Failure Authority
+
+The Committed Supervisory Provenance Failure SHALL become the sole authoritative constitutional representation of the unsuccessful Stage Two cycle.
+
+No alternate supervisory history SHALL be constructed following its commitment.
+
+The failure artifact SHALL permanently terminate the supervisory provenance lifecycle for that supervisory cycle.
+
+Required Contents
+
+Every Committed Supervisory Provenance Failure SHALL contain, directly or by immutable reference:
+
+Supervisory Identity
+Supervisory Cycle Identifier
+Supervisory Session Identifier
+Constitutional Cycle Identifier
+Failure Identity
+Failure Identifier
+Failure Timestamp
+Failure Classification
+Failure Severity
+Failure Status
+Commitment Context
+Commitment Identifier
+Commitment Attempt Identifier
+Commitment Verification Results
+Constitutional Context
+Contract Versions
+Schema Versions
+Registry Snapshot Versions
+Serialization Version
+Hash Algorithm
+Canonical Hash
+Failure Evidence
+Verified Failure Conditions
+Failure Codes
+Failure Diagnostics
+Integrity Verification Results
+Completeness Verification Results
+Provenance References
+
+Immutable references to every committed constitutional artifact successfully produced before failure, including:
+
+Operational Profile
+Reference State
+Control Command
+Translation Transaction
+Execution Disposition
+Supervisory Continuity Record
+Committed Realization Record
+
+If a Constructed Supervisory Cycle Record exists, it SHALL be referenced as historical implementation evidence only and SHALL possess no constitutional authority.
+
+Failure Classification
+
+Every failure SHALL be classified using one or more constitutional failure classes, including:
+
+Commitment Failure
+Identity Conflict
+Integrity Failure
+Completeness Failure
+Exclusivity Violation
+Serialization Failure
+Hash Verification Failure
+Version Conflict
+Registry Conflict
+Internal Constitutional Failure
+
+Implementations MAY define subordinate diagnostic classifications provided they do not alter constitutional meaning.
+
+Exclusivity
+
+For every Supervisory Cycle Identifier:
+
+Exactly one of the following SHALL exist:
+
+Committed Supervisory Cycle Record
+
+OR
+
+Committed Supervisory Provenance Failure
+
+Both SHALL never exist simultaneously.
+
+Neither SHALL ever be absent following termination of Stage Two.
+
+Preservation Requirements
+
+The Committed Supervisory Provenance Failure SHALL preserve:
+
+supervisory identity;
+failure identity;
+commitment context;
+constitutional lineage;
+verified diagnostics;
+authoritative failure reasoning;
+temporal ordering;
+provenance references.
+
+Failure representation SHALL preserve historical truth without reconstructing or extending supervisory authority.
+
+Immutability
+
+Following commitment:
+
+the failure artifact SHALL never be modified;
+failure classifications SHALL never change;
+identifiers SHALL never change;
+hashes SHALL never change;
+commitment context SHALL remain immutable.
+
+Subsequent supervisory activity SHALL require initiation of a new supervisory cycle.
+
+Relationship to Replay
+
+Deterministic replay SHALL consume the Committed Supervisory Provenance Failure exactly as committed.
+
+Replay SHALL reproduce the constitutional failure state without reconstructing an alternate successful history.
+
+Replay SHALL NOT infer a Committed Supervisory Cycle Record when a Committed Supervisory Provenance Failure exists.
+
+Relationship to Audit
+
+Audit SHALL consume the Committed Supervisory Provenance Failure as the authoritative historical representation of unsuccessful supervisory completion.
+
+Audit SHALL evaluate the recorded constitutional failure without modifying its meaning or authority.
+
+Determinism
+
+Identical constitutional failure conditions SHALL always produce identical Committed Supervisory Provenance Failures.
+
+Implementation architecture, execution platform, serialization mechanism, storage technology, or deployment environment SHALL not influence constitutional failure identity.
+
+Prohibitions
+
+Section 25 SHALL NOT:
+
+authorize supervisory continuation;
+create alternate supervisory histories;
+reinterpret committed artifacts;
+perform replay;
+perform audit;
+repair constitutional failures;
+broaden supervisory authority;
+modify upstream committed artifacts.
+Relationship to Neighboring Sections
+Section 23
+Supervisory Cycle Commitment
+          │
+          ├───────────────┐
+          │               │
+          ▼               ▼
+Section 24         Section 25
+Committed          Committed
+Supervisory        Supervisory
+Cycle Record       Provenance Failure
+          │               │
+          └───────┬───────┘
+                  ▼
+Section 26
+Deterministic Replay Authority
+
+Section 23 determines the constitutional outcome.
+
+Section 24 defines the authoritative artifact produced by successful commitment.
+
+Section 25 defines the authoritative artifact produced by unsuccessful commitment.
+
+Section 26 consumes exactly one of these mutually exclusive constitutional outcomes.
+
+Fundamental Constitutional Principle
+
+Every terminated Stage Two supervisory cycle SHALL produce exactly one immutable constitutional outcome: either one Committed Supervisory Cycle Record or one Committed Supervisory Provenance Failure. This exclusive outcome SHALL preserve supervisory identity, provenance, commitment authority, and historical truth without ambiguity, duplication, reinterpretation, or partial representation.

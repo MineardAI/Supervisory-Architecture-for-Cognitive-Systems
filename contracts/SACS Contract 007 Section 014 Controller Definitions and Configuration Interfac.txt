@@ -1,0 +1,359 @@
+Section 14 — Controller Definitions and Configuration Interface
+
+This section should become the constitutional interface between Contract 006 and Contract 007.
+
+Its defining identity should be:
+
+The Controller Configuration Interface deterministically binds one Committed Operational Profile to one immutable Controller Configuration suitable for Controller evaluation.
+
+It should define:
+
+* Controller Definition
+* Controller Configuration
+* Controller Definition Registry
+* Configuration Registry
+* Definition hashes
+* Registry snapshots
+* Version compatibility
+* Capability declarations
+* Required interfaces
+* Configuration identity
+* Configuration partitions
+* Configuration inheritance prohibition
+* Default parameter prohibition
+* Runtime modification prohibition
+
+It should explicitly distinguish:
+
+Controller Definition
+
+from
+
+Committed Controller Configuration
+
+The former is reusable.
+
+The latter is cycle-bound.
+
+⸻
+
+Section 15 — Controller State and Memory
+
+This becomes the integrated replacement for the previous Section 4.
+
+Rather than “Controller State,” it should formally define:
+
+Controller State Set
+
+which contains:
+
+* instance partitions
+* shared partitions
+* arbitration partitions
+* safety partitions
+* fallback partitions
+
+Every partition should declare:
+
+* owner
+* write authority
+* read authority
+* schema
+* version
+* lifecycle
+* eligibility
+
+The state lifecycle should become:
+
+Committed State Set
+↓
+Evaluation
+↓
+Proposed State Outcome
+↓
+Validation
+↓
+Committed Next State Set
+↓
+Eligible for cycle t+1
+
+That terminology remains consistent through Sections 7–9.
+
+⸻
+
+Section 16 — Control Error
+
+This section integrates the previous mathematical work while cleaning terminology.
+
+The output should become:
+
+Committed Control Error
+
+with:
+
+* Error Representation Definition
+* Representation Configuration
+* Error confidence
+* Error uncertainty
+* Coordinate mapping
+* Projection semantics
+
+It should explicitly prohibit:
+
+* policy
+* optimization
+* controller tuning
+* gain scheduling
+
+Those belong later.
+
+⸻
+
+Section 17 — Control Authority
+
+This section should become the normative definition of:
+
+Committed Control Constraint Set
+
+Everything regarding:
+
+* authority space
+* admissible action space
+* hard constraints
+* soft constraints
+* rate limits
+* saturation
+* coupled constraints
+* projection operators
+
+belongs here.
+
+The contract should establish one powerful invariant:
+
+Every mandatory constraint shall have one authoritative enforcement path.
+
+That becomes the basis for Section 8.
+
+⸻
+
+Section 18 — Compatibility Binding
+
+This becomes the revised Section 7.
+
+Incorporate every Council recommendation:
+
+* registry snapshots
+* definition hashes
+* graph validation
+* controller instance bindings
+* constraint assignments
+* evaluation order
+* topology validation
+* state partition validation
+* numeric profile validation
+
+Its output becomes:
+
+Committed Validated Controller Composition
+
+No other term should remain.
+
+⸻
+
+Section 19 — Controller Composition Evaluation
+
+This replaces the previous Section 8.
+
+Its primary output should no longer be merely:
+
+Proposed Control Command
+
+Instead it should produce one first-class artifact:
+
+Controller Evaluation Result
+
+containing:
+
+Controller Evaluation Result
+├── Proposed Control Command
+├── Proposed Next Controller State Outcome
+├── Intermediate Outputs
+├── Constraint Results
+├── Arbitration Results
+├── Safety Results
+├── Evaluation Evidence
+
+Everything downstream consumes this single object.
+
+⸻
+
+Section 20 — Validation
+
+Separate mathematical validation from commitment.
+
+Validation proves:
+
+* command integrity
+* state integrity
+* artifact integrity
+* schema integrity
+* numeric integrity
+
+It does not prove authority.
+
+⸻
+
+Section 21 — Authority Certification
+
+Authority Certification should become a dedicated section.
+
+It should define:
+
+Authority Certificate
+
+using the Council’s improved wording:
+
+certifies command authorization and constraint conformance within the committed SACS supervisory authority model.
+
+Never use “legal.”
+
+⸻
+
+Section 22 — Atomic Commitment
+
+This section adopts the Council’s strongest recommendation.
+
+Instead of committing several artifacts independently, define:
+
+Controller Commitment Bundle
+Controller Commitment Bundle
+├── Committed Control Command
+├── Committed Next State Outcome
+├── Authority Certificate
+├── Validation Results
+└── Commitment Record
+
+The contract should explicitly state:
+
+The Commitment Record is the sole canonicalization switch.
+
+That single sentence resolves almost every distributed-systems concern.
+
+⸻
+
+Section 23 — Failure Semantics
+
+Rather than scattering failures throughout the document, consolidate them.
+
+Define:
+
+* Evaluation Failure
+* Commitment Failure
+* Incomplete Cycle
+* Infrastructure Failure
+* Canonical Decision Conflict
+* Duplicate Commitment
+* Authority Failure
+
+Each should have deterministic dispositions.
+
+⸻
+
+Section 24 — Lineage
+
+Add the controller-specific lineage chain recommended by the Council.
+
+This becomes the bridge into Contract 011 without depending upon Contract 011.
+
+⸻
+
+Section 25 — Deterministic Replay
+
+Move replay into one dedicated section.
+
+Define:
+
+* semantic hashes
+* storage envelopes
+* deterministic IDs
+* registry snapshots
+* canonical serialization
+* replay equivalence
+
+⸻
+
+Section 26 — Conformance
+
+Define exactly what implementations must demonstrate.
+
+Separate:
+
+* Definition conformance
+* Artifact validity
+* Compatibility
+* Evaluation
+* Commitment
+
+This matches the Council’s recommendation.
+
+⸻
+
+Section 27 — Cross-Contract Interfaces
+
+Document only the public interfaces.
+
+Incoming
+
+From Contract 006:
+
+Committed Operational Profile
+Committed Controller Configuration
+Committed Reference State
+
+Outgoing
+
+To Contract 008:
+
+Committed Control Command
+Authority Certificate
+Commitment Record Reference
+Action Space Definition
+Numeric Profile Reference
+
+Importantly:
+
+Controller State Set
+
+does not cross into Contract 008.
+
+It remains internal to Contract 007 and feeds the next controller cycle.
+
+⸻
+
+Section 28 — Contract Invariants
+
+Gather every SHALL-level invariant into one normative section.
+
+Examples:
+
+* one authority per transformation
+* one committed command per cycle
+* one commitment record
+* exact artifact binding
+* replay equivalence
+* failure monotonicity
+* no hidden mutable state
+* no authority expansion
+* no runtime substitution
+
+⸻
+
+Section 29 — Verification Claims
+
+Provide a checklist suitable for formal verification, model checking, and certification.
+
+⸻
+
+Section 30 — Contract Completion
+
+Conclude with a statement that Contract 007 delivers a single canonical supervisory decision and a complete controller state outcome, leaving translation and execution entirely to downstream contracts.

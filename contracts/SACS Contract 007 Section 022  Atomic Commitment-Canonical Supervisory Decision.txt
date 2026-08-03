@@ -1,0 +1,255 @@
+Contract 007 — Section 22
+
+Atomic Commitment and Canonical Supervisory Decision
+
+22.1 Purpose
+
+This section defines the deterministic process by which a Certified Controller Decision is atomically committed into the canonical supervisory artifacts consumed by downstream contracts.
+
+Its defining identity is:
+
+Atomic Commitment deterministically transforms one Certified Controller Decision into one canonical supervisory decision through a single indivisible commitment operation.
+
+Atomic Commitment is the only stage authorized to create canonical Controller artifacts.
+
+⸻
+
+22.2 Architectural Position
+
+Certified Controller Decision
+        ↓
+Atomic Commitment
+        ↓
+Committed Control Command
+        +
+Committed Controller State Set
+        +
+Controller Commitment Record
+        ↓
+Contract 008
+Inference Control
+
+Commitment SHALL consume exactly one Certified Controller Decision.
+
+⸻
+
+22.3 Constitutional Authority
+
+This section owns:
+
+* canonical commitment;
+* atomic publication;
+* canonical identifiers;
+* commitment lineage;
+* supervisory commitment evidence;
+* publication ordering.
+
+This section SHALL NOT:
+
+* recompute controller mathematics;
+* reinterpret governance;
+* modify certified decisions;
+* translate runtime instructions;
+* execute runtime commands.
+
+⸻
+
+22.4 Atomic Commitment
+
+Atomic Commitment SHALL be indivisible.
+
+Either every canonical Controller artifact becomes committed together, or none become committed.
+
+Partial commitment is prohibited.
+
+⸻
+
+22.5 Canonical Controller Artifacts
+
+Successful commitment SHALL publish exactly one canonical instance of each applicable artifact:
+
+* Committed Control Command;
+* Committed Controller State Set (when a next state exists);
+* Controller Commitment Record.
+
+No duplicate canonical publication is permitted.
+
+⸻
+
+22.6 Commitment Consistency
+
+Every committed artifact SHALL reference the same:
+
+* supervisory cycle;
+* Controller Evaluation Result;
+* Certified Controller Decision;
+* Governance Snapshot;
+* Operational Profile;
+* Controller Configuration;
+* Numeric Profile.
+
+Cross-artifact inconsistency SHALL terminate commitment.
+
+⸻
+
+22.7 Controller Commitment Record
+
+Every successful commitment SHALL create one immutable Controller Commitment Record.
+
+The record SHALL include:
+
+controller_commitment_id
+cycle_id
+certified_controller_decision_id
+committed_control_command_id
+committed_controller_state_set_id
+commit_timestamp
+schema_version
+artifact_hash
+provenance_id
+
+The Controller Commitment Record is the canonical supervisory evidence that the Controller phase completed successfully.
+
+⸻
+
+22.8 Commitment Ordering
+
+Atomic Commitment SHALL publish artifacts in one deterministic logical transaction.
+
+The logical publication order SHALL be:
+
+Controller Commitment Record
+        +
+Committed Control Command
+        +
+Committed Controller State Set
+
+Publication order SHALL be deterministic across conforming implementations.
+
+⸻
+
+22.9 Commitment Failure
+
+Commitment SHALL terminate if:
+
+* any canonical artifact cannot be published;
+* artifact hashes cannot be finalized;
+* lineage cannot be completed;
+* publication ordering cannot be preserved;
+* atomicity cannot be guaranteed.
+
+No partially committed supervisory state SHALL exist.
+
+⸻
+
+22.10 Commitment Dispositions
+
+Exactly one commitment disposition SHALL be recorded.
+
+The disposition vocabulary SHALL include:
+
+COMMITTED
+ABORTED
+FAILED
+ROLLED_BACK
+
+A disposition SHALL apply to the entire commitment transaction.
+
+⸻
+
+22.11 Canonical Control Command
+
+The Committed Control Command becomes the sole canonical supervisory command for the supervisory cycle.
+
+All downstream consumers SHALL reference this committed artifact.
+
+No downstream contract may consume a Proposed Control Command or Certified Controller Decision directly.
+
+⸻
+
+22.12 Canonical Controller State
+
+If a Proposed Next Controller State Set was certified, Atomic Commitment SHALL publish exactly one Committed Controller State Set.
+
+This state becomes the sole mathematical memory eligible for the next supervisory cycle.
+
+Stateless compositions SHALL publish no Controller State Set while still producing a valid Controller Commitment Record.
+
+⸻
+
+22.13 Architectural Prohibitions
+
+Atomic Commitment SHALL NOT:
+
+* alter controller mathematics;
+* alter certification results;
+* weaken governance;
+* reorder published artifacts;
+* publish provisional commands;
+* expose partially committed controller state.
+
+Only canonical artifacts may leave this section.
+
+⸻
+
+22.14 Fundamental Commitment Invariant
+
+Atomic Commitment SHALL transform one Certified Controller Decision into one canonical supervisory decision through one indivisible publication operation.
+
+Following successful commitment, the Committed Control Command and Committed Controller State Set SHALL become the exclusive Controller artifacts visible to downstream contracts.
+
+No partially committed Controller decision may exist.
+
+⸻
+
+22.15 Controller Completion
+
+Upon successful Atomic Commitment:
+
+* the Controller phase SHALL be complete;
+* Controller authority SHALL terminate;
+* canonical Controller artifacts SHALL become immutable;
+* Contract 008 SHALL become the sole owner of command translation.
+
+The Controller SHALL retain no further authority over the committed supervisory decision.
+
+⸻
+
+Architectural Consequence
+
+Contract 007 now has a complete constitutional lifecycle:
+
+Controller Configuration
+        +
+Controller State Set
+        +
+Control Error
+        +
+Control Constraint Set
+        ↓
+Compatibility Evaluation
+        ↓
+Validated Controller Composition
+        ↓
+Controller Composition Evaluation
+        ↓
+Controller Evaluation Result
+        ↓
+Controller Result Validation
+        ↓
+Validated Controller Evaluation Result
+        ↓
+Controller Authority Certification
+        ↓
+Certified Controller Decision
+        ↓
+Atomic Commitment
+        ↓
+Committed Control Command
+        +
+Committed Controller State Set
+        +
+Controller Commitment Record
+        ↓
+Contract 008
+Inference Control

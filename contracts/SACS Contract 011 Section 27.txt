@@ -1,0 +1,243 @@
+SACS Contract 011 — Realization Certification, Supervisory Provenance, and Audit
+Section 27 — Audit Authority and Audit Representation
+Purpose
+
+Section 27 establishes the constitutional authority governing audit of completed supervisory cycles.
+
+Audit evaluates committed constitutional artifacts to determine whether a completed supervisory cycle conforms to constitutional requirements, governance obligations, regulatory policies, contractual commitments, and implementation conformance criteria.
+
+Audit SHALL evaluate constitutional history exactly as committed.
+
+Audit SHALL never create, modify, reinterpret, or replace constitutional authority.
+
+Constitutional Identity
+
+Audit is the constitutional process by which completed supervisory cycles are evaluated using committed constitutional artifacts to determine conformance without altering constitutional history.
+
+Its defining constitutional identity is:
+
+Audit SHALL evaluate constitutional history without becoming a source of constitutional authority.
+
+Audit is evaluative.
+
+Audit is never constitutive.
+
+Constitutional Responsibility
+
+Section 27 SHALL:
+
+establish constitutional audit authority;
+define audit inputs;
+define audit outputs;
+establish audit representation;
+define conformance evaluation;
+preserve constitutional independence.
+
+Section 27 SHALL NOT:
+
+modify committed artifacts;
+authorize supervisory execution;
+reconstruct history;
+reinterpret supervisory intent;
+repair constitutional failures;
+replace replay verification.
+Canonical Inputs
+
+Audit SHALL consume exactly one completed Stage Two outcome:
+
+one Committed Supervisory Cycle Record; or
+one Committed Supervisory Provenance Failure.
+
+Audit MAY additionally consume constitutional evidence produced by replay, including:
+
+Replay Verification Result;
+Deterministic Replay diagnostics.
+
+Replay evidence SHALL remain advisory.
+
+Replay SHALL never replace constitutional audit.
+
+Audit SHALL also consume every committed constitutional artifact necessary to evaluate supervisory conformance, including:
+
+Committed Operational Profile;
+Committed Reference State;
+Committed Control Command;
+Committed Translation Transaction;
+Committed Execution Disposition;
+Committed Supervisory Continuity Record;
+Committed Realization Record.
+Audit Authority
+
+Audit SHALL determine whether constitutional obligations were satisfied.
+
+Audit SHALL NOT determine new supervisory intent.
+
+Audit SHALL NOT authorize execution.
+
+Audit SHALL NOT alter constitutional history.
+
+Audit conclusions SHALL describe constitutional conformance only.
+
+Audit Evaluation
+
+Audit SHALL evaluate:
+
+constitutional identity;
+supervisory authority;
+commitment integrity;
+artifact lineage;
+provenance completeness;
+provenance integrity;
+commitment ordering;
+replay equivalence (where available);
+contract conformance;
+governance conformance;
+implementation conformance.
+
+Audit MAY evaluate additional implementation evidence provided it does not alter constitutional meaning.
+
+Audit Representation
+
+Every audit SHALL produce one immutable Audit Representation.
+
+An Audit Representation SHALL contain:
+
+Audit Identity
+Audit Identifier
+Audit Timestamp
+Audit Version
+Audit Scope
+Evaluated Supervisory Cycle Identifier
+Evaluated Contract Versions
+Evaluated Schema Versions
+Evaluated Registry Snapshots
+Audit Results
+Constitutional Conformance
+Governance Conformance
+Provenance Conformance
+Replay Conformance (if applicable)
+Integrity Conformance
+Completeness Conformance
+Findings
+Findings
+Observations
+Exceptions
+Recommendations
+
+Recommendations SHALL possess no constitutional authority unless separately adopted through constitutional governance mechanisms.
+
+Supporting Evidence
+
+Immutable references to:
+
+evaluated committed artifacts;
+replay verification results;
+applicable governance artifacts;
+regulatory evidence;
+implementation evidence.
+Audit Status
+
+Exactly one terminal audit status SHALL be assigned:
+
+CONFORMANT
+
+NON_CONFORMANT
+
+INCONCLUSIVE
+
+These statuses describe evaluation results only.
+
+They SHALL NOT modify constitutional authority.
+
+Audit Independence
+
+Audit SHALL remain constitutionally independent from:
+
+supervisory execution;
+replay;
+governance decisions;
+implementation architecture.
+
+Audit conclusions SHALL not depend upon implementation-specific behavior outside the committed constitutional record.
+
+Preservation Requirements
+
+Audit SHALL preserve:
+
+constitutional identity;
+supervisory identity;
+artifact identity;
+provenance relationships;
+evaluation evidence;
+finding traceability;
+historical ordering.
+
+Audit SHALL never obscure or replace constitutional history.
+
+Determinism
+
+Identical committed constitutional artifacts SHALL always produce identical audit conclusions when evaluated under identical audit rules.
+
+Audit SHALL remain deterministic regardless of:
+
+implementation platform;
+storage architecture;
+deployment topology;
+execution environment.
+Relationship to Governance
+
+Audit findings MAY inform future governance actions.
+
+Audit SHALL NOT itself enact governance.
+
+Governance remains exclusively responsible for constitutional policy modification.
+
+Audit therefore provides evidence for governance rather than governance itself.
+
+Prohibitions
+
+Section 27 SHALL NOT:
+
+execute supervisory control;
+authorize runtime behavior;
+modify committed artifacts;
+reconstruct constitutional history;
+reinterpret supervisory authority;
+repair failures;
+replace governance;
+create new constitutional records.
+Relationship to Neighboring Sections
+Section 24
+Committed Supervisory Cycle Record
+           │
+           ├──────────────┐
+           │              │
+Section 25 │              │
+Committed  │              │
+Supervisory│              │
+Provenance │              │
+Failure    │              │
+           └──────┬───────┘
+                  ▼
+Section 26
+Deterministic Replay Authority
+                  │
+                  ▼
+Section 27
+Audit Authority and Audit Representation
+                  │
+                  ▼
+Section 28
+Fundamental Constitutional Invariant
+
+Sections 24 and 25 establish the authoritative supervisory outcome.
+
+Section 26 verifies that the committed outcome is constitutionally reproducible.
+
+Section 27 evaluates that committed outcome for constitutional, governance, regulatory, and implementation conformance.
+
+Section 28 concludes the contract by expressing the single constitutional property preserved by every preceding section.
+
+Fundamental Constitutional Principle
+
+Audit SHALL evaluate completed supervisory cycles exclusively through committed constitutional artifacts, preserving constitutional identity, supervisory authority, provenance, commitment integrity, and historical truth without creating, modifying, replacing, or reinterpreting constitutional authority.

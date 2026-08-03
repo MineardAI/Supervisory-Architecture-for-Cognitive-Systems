@@ -1,0 +1,569 @@
+Section 19 — Lineage Graph Construction
+Purpose
+
+Section 19 establishes the constitutional authority responsible for constructing one canonical supervisory lineage from the artifacts resolved under Section 17 and the relationships resolved under Section 18.
+
+This section organizes the resolved constitutional artifacts and relationships into one coherent lineage representation for the supervisory cycle.
+
+It answers exactly one constitutional question:
+
+What canonical supervisory lineage is formed by the resolved committed artifacts and their resolved constitutional relationships?
+
+Lineage Graph Construction does not determine whether the lineage is complete, whether it is internally valid, whether its evidence is authentic, or whether it may be committed as authoritative supervisory history.
+
+Architectural Identity
+
+Lineage Graph Construction deterministically assembles resolved committed artifacts and resolved constitutional relationships into one canonical lineage without introducing new artifacts, new relationships, new authority, or reconstructed history.
+
+Its defining identity is:
+
+Lineage Graph Construction organizes resolved constitutional information into one canonical supervisory lineage without changing what belongs or how it is related.
+
+Constitutional Responsibility
+
+Lineage Graph Construction SHALL:
+
+consume the resolved artifact membership;
+consume the resolved constitutional relationships;
+construct one canonical directed lineage graph;
+preserve every artifact identity;
+preserve every relationship identity;
+preserve relationship direction;
+preserve originating authority;
+preserve cycle and commitment bindings;
+preserve deterministic graph ordering;
+produce exactly one Constructed Supervisory Lineage.
+
+Successful construction authorizes progression to Lineage Completeness Evaluation.
+
+Construction Authority
+
+Lineage Graph Construction SHALL consume only:
+
+the Canonical Artifact Resolution Set;
+the Resolved Constitutional Relationship Set;
+the Committed Realization Record;
+applicable lineage-representation definitions;
+applicable contract and schema versions.
+
+It SHALL determine only:
+
+canonical graph membership;
+canonical graph structure;
+canonical vertex ordering;
+canonical edge ordering;
+canonical root and terminal representation;
+canonical graph identity.
+
+It SHALL NOT determine:
+
+whether required artifacts are missing;
+whether required relationships are missing;
+whether hashes or signatures are correct;
+whether authority was properly exercised;
+whether evidence is authentic;
+whether the lineage is complete;
+whether the lineage is valid;
+whether external verification succeeds.
+Canonical Lineage Domain
+
+The direct Constructed Supervisory Lineage SHALL contain the committed artifacts resolved by Section 17.
+
+The minimum direct lineage domain is:
+
+Committed Operational Profile
+
+Committed Reference State
+
+Committed Control Error
+
+Committed Control Command
+
+Committed Translation Transaction
+
+Committed Execution Disposition
+
+Committed Supervisory Continuity Record
+
+Committed Realization Record
+
+These artifacts form the direct Contract 006–011 supervisory spine.
+
+Earlier constitutional artifacts, including:
+
+committed observations;
+estimated state artifacts;
+Committed Operational State Vector;
+Committed Governance Snapshot;
+Committed Objective Set;
+
+MAY remain reachable through upstream references preserved by the direct lineage artifacts.
+
+They SHALL NOT automatically become direct lineage members unless the applicable lineage requirements explicitly require them.
+
+Canonical Supervisory Spine
+
+The constructed lineage SHALL preserve the minimum constitutional progression established by the resolved artifacts and relationships:
+
+Committed Operational Profile
+        │
+        ▼
+Committed Reference State
+        │
+        ▼
+Committed Control Error
+        │
+        ▼
+Committed Control Command
+        │
+        ▼
+Committed Translation Transaction
+        │
+        ▼
+Committed Execution Disposition
+        │
+        ├───────────────┐
+        ▼               │
+Committed Supervisory   │
+Continuity Record       │
+        │               │
+        └───────┬───────┘
+                ▼
+Committed Realization Record
+
+The graph MAY contain additional resolved edges where the owning contracts establish multiple dependencies, references, authority-preservation paths, or continuity relationships.
+
+The visual progression SHALL NOT be interpreted as replacing the exact resolved relationship types.
+
+Graph Model
+
+The Constructed Supervisory Lineage SHALL be represented as a directed, typed, identity-preserving graph.
+
+Let:
+
+[
+L = (V,E)
+]
+
+where:
+
+(V) is the set of resolved committed artifacts;
+(E) is the set of resolved constitutional relationships.
+
+Every vertex SHALL correspond to exactly one resolved committed artifact.
+
+Every edge SHALL correspond to exactly one resolved constitutional relationship identity.
+
+No vertex or edge may be introduced solely during graph construction.
+
+Vertex Construction
+
+Each artifact vertex SHALL contain or reference:
+
+artifact identifier;
+artifact class;
+owning contract;
+commitment identifier;
+supervisory cycle identifier;
+schema version;
+artifact hash;
+canonical status;
+direct or external-reference classification;
+source resolution entry.
+
+A committed artifact SHALL appear exactly once as a canonical vertex.
+
+Multiple references to the same artifact SHALL resolve to the same vertex identity.
+
+Edge Construction
+
+Each relationship edge SHALL contain or reference:
+
+relationship identifier;
+source vertex;
+target vertex;
+relationship category;
+relationship direction;
+originating contract;
+cycle binding;
+commitment bindings;
+relationship-definition version;
+relationship hash;
+source relationship-resolution entry.
+
+A resolved relationship SHALL appear exactly once as a canonical edge.
+
+Distinct constitutional relationships between the same vertices SHALL remain distinct edges.
+
+Direct Members and External References
+
+The lineage representation SHALL distinguish:
+
+Direct Lineage Members
+
+Committed artifacts included within the Canonical Artifact Resolution Set and represented as vertices in the Constructed Supervisory Lineage.
+
+External Lineage References
+
+Committed artifacts or historical references preserved by direct members but not independently resolved as direct vertices.
+
+External references SHALL:
+
+preserve exact referenced identity;
+preserve owning contract;
+preserve cycle binding where known;
+preserve commitment identity where required;
+remain distinguishable from direct members;
+never be promoted to direct membership by graph construction alone.
+
+External references provide reachability.
+
+They do not automatically establish direct lineage membership.
+
+Root Representation
+
+The constructed lineage SHALL identify one canonical direct-lineage root or root set according to the applicable lineage-definition rules.
+
+For the minimum direct supervisory spine, the root is normally the earliest directly resolved artifact required by Stage Two:
+
+Committed Operational Profile
+
+Where multiple constitutionally independent roots are explicitly permitted, the lineage-definition rules SHALL define their canonical ordering and convergence requirements.
+
+An unexplained multiple-root condition SHALL be represented for later completeness evaluation or construction failure where construction cannot proceed deterministically.
+
+Terminal Representation
+
+The constructed lineage SHALL identify the terminal direct-lineage artifact:
+
+Committed Realization Record
+
+The Committed Realization Record is the terminal Stage One artifact from which Stage Two supervisory provenance is assembled.
+
+The Constructed Supervisory Cycle Record and Committed Supervisory Cycle Record do not yet exist at this stage and SHALL NOT appear as vertices in the Constructed Supervisory Lineage.
+
+Canonical Ordering
+
+The lineage graph SHALL possess deterministic canonical ordering for:
+
+vertices;
+edges;
+relationship categories;
+parallel edges;
+external references;
+root declarations;
+terminal declarations.
+
+Canonical ordering SHALL be determined by committed lineage-representation rules.
+
+A representative deterministic ordering may use:
+
+constitutional contract order;
+artifact role order;
+artifact identifier;
+commitment identifier;
+relationship type order;
+relationship identifier.
+
+No storage insertion order, traversal accident, hash-map ordering, or ambient runtime behavior may determine canonical graph order.
+
+Graph Connectivity
+
+Every direct lineage member SHALL participate in at least one resolved constitutional relationship unless explicitly permitted as an isolated constitutional member.
+
+The graph construction process SHALL detect:
+
+disconnected vertices;
+disconnected components;
+unresolved root connectivity;
+unresolved terminal connectivity;
+edge references to absent vertices.
+
+Graph construction SHALL report these conditions.
+
+It SHALL NOT repair them.
+
+Whether such conditions make the lineage constitutionally incomplete belongs to Section 20.
+
+Cycles Within the Graph
+
+The direct supervisory derivation spine SHOULD ordinarily remain acyclic.
+
+However, a reference, continuity, or cross-cycle relationship may create a non-derivational cycle in the broader representation.
+
+The graph SHALL therefore distinguish:
+
+derivation edges;
+dependency edges;
+reference edges;
+continuity edges;
+authority-preservation edges.
+
+A cycle composed of derivation edges SHALL be prohibited unless an owning contract explicitly defines such semantics.
+
+A cycle involving permitted reference or continuity edges SHALL be represented explicitly and evaluated according to the applicable lineage rules.
+
+Authority Paths
+
+The Constructed Supervisory Lineage SHALL preserve every resolved authority-preservation relationship.
+
+Graph construction SHALL expose authority paths but SHALL NOT evaluate whether those paths are complete or valid.
+
+No edge may transfer authority ownership from the originating contract to Contract 011.
+
+The graph records authority lineage.
+
+It does not reassign authority.
+
+Temporal Representation
+
+Where committed artifacts preserve constitutional timestamps or ordering markers, the lineage graph SHALL preserve those references.
+
+Graph construction SHALL NOT:
+
+create missing timestamps;
+correct timestamps;
+infer execution order from timestamps alone;
+use wall-clock order to override constitutional relationship order.
+
+Constitutional order and temporal order SHALL remain distinguishable.
+
+Constructed Supervisory Lineage
+
+Successful graph construction SHALL produce exactly one internal constitutional artifact:
+
+Constructed Supervisory Lineage
+
+The artifact SHALL contain:
+
+lineage identifier;
+supervisory cycle identifier;
+Canonical Artifact Resolution Set identifier;
+Resolved Constitutional Relationship Set identifier;
+Committed Realization Record identifier;
+direct vertex set;
+external reference set;
+directed edge set;
+root declaration;
+terminal declaration;
+canonical vertex ordering;
+canonical edge ordering;
+authority-path representation;
+temporal-reference representation;
+graph-construction timestamp;
+lineage hash.
+
+The Constructed Supervisory Lineage is an internal constitutional working artifact.
+
+It is not a Committed Supervisory Cycle Record.
+
+Construction Status
+
+Lineage Graph Construction SHALL produce exactly one terminal status:
+
+CONSTRUCTED
+
+CONSTRUCTION_FAILED
+
+A lineage SHALL be CONSTRUCTED only where one deterministic graph representation can be produced from the resolved artifacts and relationships.
+
+Construction success does not imply completeness.
+
+Construction success does not imply integrity.
+
+Construction Failure Conditions
+
+Representative failures include:
+
+LINEAGE_VERTEX_CONSTRUCTION_FAILED
+
+LINEAGE_EDGE_CONSTRUCTION_FAILED
+
+EDGE_REFERENCES_UNKNOWN_VERTEX
+
+DUPLICATE_VERTEX_IDENTITY
+
+DUPLICATE_RELATIONSHIP_IDENTITY
+
+NONDETERMINISTIC_VERTEX_ORDER
+
+NONDETERMINISTIC_EDGE_ORDER
+
+UNRESOLVABLE_ROOT_REPRESENTATION
+
+UNRESOLVABLE_TERMINAL_REPRESENTATION
+
+PROHIBITED_DERIVATION_CYCLE
+
+LINEAGE_REPRESENTATION_DEFINITION_MISSING
+
+LINEAGE_REPRESENTATION_DEFINITION_CONFLICT
+
+GRAPH_IDENTITY_CONFLICT
+
+CONSTRUCTED_ARTIFACT_INTRODUCED_WITHOUT_RESOLUTION
+
+CONSTRUCTED_RELATIONSHIP_INTRODUCED_WITHOUT_RESOLUTION
+
+A disconnected lineage does not necessarily constitute construction failure if it can still be represented deterministically.
+
+It SHALL, however, remain visible for completeness evaluation.
+
+Failure Consequences
+
+If the Constructed Supervisory Lineage cannot be deterministically constructed:
+
+Lineage Completeness Evaluation SHALL NOT begin;
+Lineage Integrity Evaluation SHALL NOT begin;
+no Constructed Supervisory Cycle Record SHALL be created;
+Supervisory Cycle Commitment SHALL NOT begin;
+no Committed Supervisory Cycle Record SHALL exist;
+Stage Two SHALL progress toward Committed Supervisory Provenance Failure.
+
+Failure SHALL NOT authorize:
+
+artifact insertion;
+edge insertion;
+graph repair;
+relationship inference;
+root fabrication;
+terminal fabrication;
+cycle deletion;
+component merging;
+authority reassignment.
+Prohibitions
+
+Lineage Graph Construction SHALL NOT:
+
+resolve artifact membership;
+resolve new relationships;
+infer missing relationships;
+add missing artifacts;
+evaluate completeness;
+evaluate integrity;
+validate artifact contents;
+reinterpret authority;
+merge supervisory cycles;
+reconstruct earlier history;
+replace external references with direct members;
+create the Constructed Supervisory Cycle Record;
+commit the supervisory cycle;
+perform replay;
+perform audit;
+perform external verification.
+Determinism
+
+For identical:
+
+Canonical Artifact Resolution Set;
+Resolved Constitutional Relationship Set;
+lineage-representation definitions;
+contract versions;
+schema versions;
+
+Lineage Graph Construction SHALL produce an identical Constructed Supervisory Lineage.
+
+Formally:
+
+[
+Construct(A,E,D) = L
+]
+
+For identical (A), (E), and (D), the resulting lineage (L) SHALL be identical.
+
+No implementation-specific graph traversal or storage ordering may alter the canonical lineage representation.
+
+Immutability
+
+Once constructed, the Constructed Supervisory Lineage SHALL be immutable.
+
+A correction SHALL produce:
+
+a new lineage identifier;
+explicit supersession lineage;
+preserved reference to the prior lineage;
+no in-place modification.
+
+The construction of a revised lineage does not alter any committed artifact or resolved constitutional relationship.
+
+Relationship to Neighboring Sections
+
+The constitutional progression SHALL be:
+
+Section 18
+Cross-Contract Relationship Resolution
+        │
+        ▼
+Section 19
+Lineage Graph Construction
+        │
+        ▼
+Section 20
+Lineage Completeness Evaluation
+
+These sections answer distinct constitutional questions:
+
+Section 18 — How are the resolved artifacts related?
+Section 19 — What lineage graph is constructed from those artifacts and relationships?
+Section 20 — Does that lineage contain every constitutionally required element?
+
+Resolved relationships are not yet a lineage graph.
+
+A constructed lineage graph is not yet a complete lineage.
+
+Mathematical Interpretation
+
+Let:
+
+(A) be the Canonical Artifact Resolution Set;
+(E) be the Resolved Constitutional Relationship Set;
+(D) be the lineage-representation definition;
+(L) be the Constructed Supervisory Lineage.
+
+Then:
+
+[
+L = Construct(A,E,D)
+]
+
+Subject to:
+
+[
+V(L) = A
+]
+
+for direct resolved artifacts, and:
+
+[
+E(L) = E
+]
+
+for resolved constitutional relationships.
+
+No additional direct vertex may be introduced:
+
+[
+V(L) - A = \varnothing
+]
+
+No additional constitutional edge may be introduced:
+
+[
+E(L) - E = \varnothing
+]
+
+Construction does not imply completeness:
+
+[
+Constructed(L) \nRightarrow Complete(L)
+]
+
+Construction does not imply integrity:
+
+[
+Constructed(L) \nRightarrow IntegrityValid(L)
+]
+
+Fundamental Lineage Construction Principle
+
+Lineage Graph Construction SHALL deterministically assemble the resolved committed artifacts and resolved constitutional relationships of one supervisory cycle into exactly one canonical, directed, typed, identity-preserving supervisory lineage while preserving artifact identity, relationship identity, originating authority, cycle binding, commitment binding, and canonical ordering without adding, removing, repairing, inferring, reconstructing, or reinterpreting constitutional information.

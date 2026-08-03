@@ -1,0 +1,1290 @@
+SACS Contract 004 — Governance
+
+Project: SACS — Supervisory Architecture for Cognitive Systems
+Contract: 004
+Title: Governance
+Version: 1.0.0
+Status: ADOPTED - SACS v1.0.0 BASELINE
+Normative Authority: Governance snapshots, constraints, permissions, prohibitions, eligibility, and governance dispositions
+Depends On: Contract 000 — Architecture and Authority
+Canonical State Input: Committed Operational State Vector
+Canonical Governance Source: External Governance Authority
+Canonical Producer: Governance Adapter
+Canonical Consumers: Supervisory Objectives, Operational Profiles, Controller, Inference Control, and Execution Gate
+
+⸻
+
+1. Purpose
+
+This contract defines the canonical governance model for SACS.
+
+It establishes:
+
+* governance authority;
+* external governance-source requirements;
+* governance adapters;
+* immutable Governance Snapshots;
+* permissions;
+* prohibitions;
+* obligations;
+* limits;
+* execution eligibility;
+* state-conditional constraints;
+* conflict resolution;
+* precedence;
+* validity;
+* failure behavior;
+* provenance;
+* deterministic governance evaluation;
+* downstream enforcement requirements.
+
+Governance defines the authority within which supervision may operate.
+
+Governance does not determine the system’s desired operating condition, select an operational profile, calculate control error, generate control commands, or execute runtime actions.
+
+⸻
+
+2. Normative Language
+
+The key words MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, and OPTIONAL are normative conformance terms as defined by Contract 000.
+
+⸻
+
+3. Governance Identity
+
+Governance is the canonical representation of externally supplied constraints, permissions, prohibitions, obligations, limits, and execution eligibility applicable to a SACS supervisory cycle.
+
+The defining identity of Governance is:
+
+Governance determines what supervisory and execution authority exists, not what operational outcome should be pursued.
+
+Governance MAY constrain:
+
+* supervisory objectives;
+* operational-profile eligibility;
+* reference-state bounds;
+* controller output space;
+* inference-command translation;
+* tool access;
+* model-routing authority;
+* adaptive-update authority;
+* memory-write authority;
+* data-access authority;
+* execution eligibility;
+* escalation requirements;
+* audit requirements.
+
+Governance MUST NOT:
+
+* estimate operational state;
+* redefine OSV fields;
+* select supervisory objectives;
+* activate operational profiles;
+* compute controller outputs;
+* generate task content;
+* directly perform execution;
+* alter observations;
+* mutate the committed OSV.
+
+⸻
+
+4. Separation of Governance Authority
+
+SACS consumes governance.
+
+SACS does not author foundational governance content.
+
+A conforming implementation MUST distinguish:
+
+External Governance Authority
+        ↓
+Governance Source Artifact
+        ↓
+Governance Adapter
+        ↓
+Canonical Governance Snapshot
+        ↓
+SACS Supervisory Consumers
+
+The External Governance Authority owns the originating policy, rule, permission, prohibition, or constraint semantics.
+
+The Governance Adapter owns transformation into the canonical SACS governance representation.
+
+SACS owns application of the resulting Governance Snapshot within the supervisory architecture.
+
+The Governance Adapter MUST NOT create authority absent from the external source.
+
+SACS MUST NOT modify, weaken, expand, reinterpret, or silently substitute the Governance Snapshot.
+
+⸻
+
+5. Canonical Governance Flow
+
+A conforming implementation MUST preserve the following logical flow:
+
+Governance Source Registration
+        ↓
+Authority and Trust Validation
+        ↓
+Governance Artifact Receipt
+        ↓
+Schema and Signature Validation
+        ↓
+Adapter Normalization
+        ↓
+Conflict and Precedence Resolution
+        ↓
+Applicability Resolution
+        ↓
+Governance Snapshot Construction
+        ↓
+Atomic Commitment
+        ↓
+Immutable Governance Snapshot
+        ↓
+Objectives / Profiles / Controller / Execution Gate
+
+Every supervisory cycle requiring governance MUST resolve to one committed Governance Snapshot.
+
+A cycle MUST NOT combine partially resolved governance artifacts.
+
+⸻
+
+6. External Governance Authority
+
+Every canonical Governance Snapshot MUST originate from at least one registered External Governance Authority.
+
+An authority registration MUST include:
+
+governance_authority_id
+authority_type
+authority_name
+authority_version
+trust_domain_id
+jurisdiction_or_scope
+supported_governance_artifact_types
+signing_profile_id
+priority_class
+delegation_policy_id
+revocation_endpoint_or_method
+registry_version
+
+An External Governance Authority MAY be:
+
+* IBOS;
+* an organizational policy authority;
+* a legal or regulatory authority;
+* a deployment administrator;
+* a system owner;
+* a security authority;
+* a safety authority;
+* a privacy authority;
+* an authorized human operator;
+* a delegated machine-readable policy service.
+
+Authority registration does not imply that every artifact from that authority is valid.
+
+Each artifact MUST still pass integrity, applicability, compatibility, and lifecycle checks.
+
+⸻
+
+7. Governance Source Artifact
+
+A Governance Source Artifact is the externally authored governance object received before canonical normalization.
+
+It MUST include or resolve to:
+
+source_artifact_id
+governance_authority_id
+artifact_type
+artifact_version
+issued_at
+effective_from
+effective_until
+scope
+subject
+rules
+priority
+revocation_status
+signature
+schema_version
+registry_version
+
+The source artifact MAY contain domain-specific or authority-specific syntax.
+
+Source syntax MUST NOT be exposed directly to downstream SACS consumers unless explicitly permitted by a compatibility profile.
+
+⸻
+
+8. Governance Adapter
+
+A Governance Adapter transforms one or more validated Governance Source Artifacts into the canonical SACS governance representation.
+
+Every adapter MUST declare:
+
+governance_adapter_id
+adapter_version
+supported_authority_types
+supported_input_schemas
+supported_output_schema
+normalization_rule_ids
+conflict_mapping_rules
+precedence_mapping_rules
+scope_mapping_rules
+failure_mapping
+compatibility_profile_id
+implementation_hash
+
+A Governance Adapter MUST:
+
+* preserve source authority identity;
+* preserve source rule identifiers;
+* preserve explicit prohibitions;
+* preserve applicability conditions;
+* preserve effective-time boundaries;
+* preserve priority and precedence metadata;
+* preserve revocation state;
+* record every transformation;
+* fail toward reduced authority.
+
+A Governance Adapter MUST NOT:
+
+* invent permissions;
+* remove prohibitions;
+* convert absence into permission;
+* convert advisory language into mandatory language without an explicit source rule;
+* broaden scope;
+* extend expiration;
+* suppress conflict;
+* silently substitute local policy;
+* infer legal authority.
+
+⸻
+
+9. Governance Rule Classes
+
+The initial governance rule classes are:
+
+PERMISSION
+PROHIBITION
+OBLIGATION
+LIMIT
+ELIGIBILITY
+REQUIREMENT
+ESCALATION
+AUDIT
+RETENTION
+DISCLOSURE
+REDUCTION
+
+9.1 Permission
+
+A PERMISSION declares that an action or authority MAY be exercised when all applicable conditions are satisfied.
+
+Permission does not require that the action occur.
+
+9.2 Prohibition
+
+A PROHIBITION declares that an action, authority, transition, or execution MUST NOT occur under the applicable scope.
+
+A prohibition overrides a permission of equal or lower precedence.
+
+9.3 Obligation
+
+An OBLIGATION declares that a required action, record, notification, review, or constraint MUST be satisfied.
+
+Failure to satisfy an obligation MUST produce an explicit governance fault or restricted disposition.
+
+9.4 Limit
+
+A LIMIT bounds a value, rate, duration, magnitude, count, resource, or authority.
+
+Examples include:
+
+* maximum tool-call count;
+* maximum adaptive-update magnitude;
+* maximum model temperature;
+* maximum memory-retention duration;
+* maximum execution duration;
+* maximum recursion allowance.
+
+9.5 Eligibility
+
+An ELIGIBILITY rule declares whether a governed capability, profile, command class, tool, model, or execution path may be considered.
+
+Eligibility does not activate that capability.
+
+9.6 Requirement
+
+A REQUIREMENT defines a prerequisite that MUST be satisfied before a governed action may proceed.
+
+9.7 Escalation
+
+An ESCALATION rule requires referral to another authority, human reviewer, safety process, or external system.
+
+9.8 Audit
+
+An AUDIT rule defines required recording, evidence, traceability, or reporting.
+
+9.9 Retention
+
+A RETENTION rule constrains how long data, state, logs, or artifacts may or must be retained.
+
+9.10 Disclosure
+
+A DISCLOSURE rule defines required or prohibited disclosure of system status, limitations, provenance, or decision basis.
+
+9.11 Reduction
+
+A REDUCTION rule requires decreased execution authority under specified conditions.
+
+⸻
+
+10. Canonical Governance Rule
+
+Every canonical governance rule MUST include:
+
+governance_rule_id
+rule_class
+source_artifact_id
+governance_authority_id
+semantic_definition
+subject
+resource_or_capability
+action_or_authority
+scope
+conditions
+effect
+priority
+precedence_class
+effective_from
+effective_until
+revocation_state
+required_evidence
+failure_disposition
+schema_version
+registry_version
+provenance_id
+
+Optional fields MAY include:
+
+osv_condition
+objective_condition
+profile_condition
+command_condition
+execution_condition
+jurisdiction
+delegation_chain
+exception_rule_ids
+supersedes_rule_id
+sensitivity_label
+
+A rule identifier MUST NOT be reused for semantically different governance.
+
+⸻
+
+11. Governance Conditions
+
+A governance rule MAY be unconditional or conditional.
+
+A conditional rule MAY reference:
+
+* committed OSV fields;
+* committed OSV validity states;
+* committed OSV uncertainty;
+* declared system identity;
+* deployment context;
+* capability profile;
+* external authorization state;
+* active objective identifiers;
+* candidate profile identifiers;
+* candidate control-command classes;
+* candidate inference-command classes;
+* execution target;
+* time;
+* jurisdiction;
+* operator role;
+* data sensitivity;
+* tool or model identity.
+
+Governance evaluation MUST NOT consume:
+
+* raw observations;
+* uncommitted telemetry;
+* estimator-local state;
+* mutable OSV construction state;
+* hidden model activations unless represented in the committed OSV;
+* unregistered context.
+
+Where operational state is required, governance MUST reference only the committed OSV.
+
+⸻
+
+12. Governance Snapshot
+
+The Governance Snapshot is the canonical governance artifact for one supervisory cycle.
+
+A Governance Snapshot MUST include:
+
+governance_snapshot_id
+cycle_id
+osv_id
+governance_source_artifact_ids
+governance_authority_ids
+governance_adapter_ids
+effective_time
+validity_interval
+scope
+canonical_rule_ids
+permissions
+prohibitions
+obligations
+limits
+eligibility_rules
+requirements
+escalation_rules
+audit_rules
+retention_rules
+disclosure_rules
+reduction_rules
+conflict_summary
+precedence_resolution
+snapshot_status
+schema_version
+registry_versions
+compatibility_profile_id
+provenance_id
+committed_at
+artifact_hash
+
+The Governance Snapshot MUST be immutable after commitment.
+
+A correction or replacement MUST produce a new Governance Snapshot with explicit supersession lineage.
+
+⸻
+
+13. Snapshot Binding
+
+A Governance Snapshot MUST be bound to:
+
+* one supervisory cycle;
+* one committed OSV;
+* one effective-time context;
+* one declared governance-source set;
+* one compatibility profile;
+* one canonical rule set.
+
+The same source governance MAY produce different snapshots when:
+
+* the committed OSV changes;
+* effective time changes;
+* scope changes;
+* the deployment context changes;
+* a rule is revoked;
+* a higher-precedence rule becomes applicable;
+* the governance source set changes.
+
+A snapshot MUST NOT be retroactively modified when these conditions change.
+
+⸻
+
+14. Snapshot Status
+
+Every Governance Snapshot MUST declare one status:
+
+VALID
+VALID_RESTRICTED
+DEGRADED
+INCOMPLETE
+WITHHELD
+FAULTED
+REVOKED
+
+14.1 VALID
+
+All mandatory governance sources, rules, signatures, versions, and applicability conditions are resolved.
+
+14.2 VALID_RESTRICTED
+
+The snapshot is valid but permits only reduced authority due to applicable governance constraints.
+
+14.3 DEGRADED
+
+The snapshot is usable only under an explicitly registered degraded-governance policy.
+
+14.4 INCOMPLETE
+
+One or more required governance inputs are unresolved.
+
+14.5 WITHHELD
+
+The snapshot was constructed but is not eligible for downstream use.
+
+14.6 FAULTED
+
+Construction failed because integrity, compatibility, precedence, or authority could not be resolved.
+
+14.7 REVOKED
+
+The governing authority revoked the snapshot or a mandatory source artifact.
+
+A WITHHELD, FAULTED, or REVOKED snapshot MUST NOT authorize execution.
+
+⸻
+
+15. Permissions Are Not Defaults
+
+Permission MUST be explicit.
+
+The absence of a prohibition MUST NOT be interpreted as permission.
+
+The absence of a permission MUST NOT be interpreted as prohibition unless the active governance profile declares a closed-world policy.
+
+Every Governance Snapshot MUST declare one authority model:
+
+CLOSED_WORLD
+OPEN_WORLD_RESTRICTED
+HYBRID
+
+15.1 Closed-World Governance
+
+Only explicitly permitted authority is available.
+
+15.2 Open-World Restricted Governance
+
+Authority is available unless explicitly prohibited, but only within declared baseline limits and capability bounds.
+
+15.3 Hybrid Governance
+
+Different capability classes use different authority models.
+
+The selected model MUST be explicit, registered, versioned, and deterministic.
+
+⸻
+
+16. Governance Precedence
+
+Governance rules MUST be resolved using an explicit precedence model.
+
+The initial precedence dimensions are:
+
+1. revocation
+2. mandatory prohibition
+3. mandatory obligation
+4. safety or legal limit
+5. explicit eligibility restriction
+6. scoped permission
+7. default governance profile
+
+This ordering is illustrative until adopted through a Governance Precedence Profile.
+
+A precedence profile MUST define:
+
+precedence_profile_id
+rule_class_order
+authority_priority_order
+specificity_rules
+scope_rules
+time_rules
+exception_rules
+tie_breaking_rules
+unresolved_conflict_behavior
+schema_version
+registry_version
+
+No rule conflict may be resolved by undocumented implementation order.
+
+⸻
+
+17. Conflict Resolution
+
+A governance conflict exists when two applicable rules produce incompatible effects over the same subject, resource, capability, or action.
+
+A conforming implementation MUST distinguish:
+
+DIRECT_CONFLICT
+SCOPE_CONFLICT
+AUTHORITY_CONFLICT
+TEMPORAL_CONFLICT
+VERSION_CONFLICT
+EXCEPTION_CONFLICT
+UNRESOLVED_CONFLICT
+
+Conflicts MUST be preserved in provenance.
+
+A conflict MAY be resolved by:
+
+* higher authority;
+* explicit rule priority;
+* narrower scope;
+* later valid supersession;
+* mandatory prohibition precedence;
+* explicit exception relationship;
+* registered tie-break rule.
+
+If conflict remains unresolved, the snapshot MUST fail toward reduced authority.
+
+An unresolved conflict MUST NOT produce increased permission.
+
+⸻
+
+18. Governance Disposition Vocabulary
+
+Contract 004 owns governance disposition semantics.
+
+Contract 009 owns execution disposition semantics.
+
+The initial governance disposition vocabulary is:
+
+BLOCK
+STABILIZE_REQUIRED
+DEFER
+RESTRICT
+ALLOW
+ESCALATE
+REVIEW_REQUIRED
+
+18.1 BLOCK
+
+The governed action or authority is prohibited.
+
+No downstream component may override BLOCK.
+
+18.2 STABILIZE_REQUIRED
+
+The current authority is insufficient for nominal continuation, and the supervisory path MUST move toward a stabilization-compatible condition defined by later contracts.
+
+This disposition does not itself select a profile or issue a control command.
+
+18.3 DEFER
+
+The governed action is not currently authorized but MAY be reconsidered when specified evidence or conditions become available.
+
+18.4 RESTRICT
+
+The governed action MAY proceed only within explicitly declared reduced limits.
+
+18.5 ALLOW
+
+The governed action is eligible within all applicable limits and requirements.
+
+ALLOW does not require execution.
+
+18.6 ESCALATE
+
+The governed action requires referral to a declared external or human authority.
+
+18.7 REVIEW_REQUIRED
+
+The governed action requires formal review before authorization.
+
+The default conservative ordering is:
+
+BLOCK
+    >
+STABILIZE_REQUIRED
+    >
+ESCALATE
+    >
+REVIEW_REQUIRED
+    >
+DEFER
+    >
+RESTRICT
+    >
+ALLOW
+
+The exact precedence MUST be declared by the active Governance Disposition Profile.
+
+⸻
+
+19. Governance Evaluation
+
+Governance evaluation determines the applicable governance effect for a candidate supervisory or execution artifact.
+
+A governance evaluation MUST include:
+
+governance_evaluation_id
+governance_snapshot_id
+candidate_artifact_type
+candidate_artifact_id
+candidate_action
+candidate_scope
+applicable_rule_ids
+satisfied_condition_ids
+unsatisfied_condition_ids
+conflict_ids
+resulting_disposition
+resulting_limits
+required_obligations
+required_escalations
+evaluation_profile_id
+provenance_id
+
+Governance evaluation MUST be deterministic for identical canonical inputs.
+
+Governance evaluation MUST NOT:
+
+* generate a supervisory objective;
+* select an operational profile;
+* calculate control error;
+* create a control command;
+* rewrite a candidate artifact;
+* expand authority.
+
+It MAY return constraints or eligibility results consumed by later layers.
+
+⸻
+
+20. Objective Eligibility
+
+Contract 005 defines Supervisory Objectives.
+
+Contract 004 defines whether an objective is governance-eligible.
+
+Governance MAY:
+
+* permit an objective;
+* prohibit an objective;
+* require an objective;
+* limit an objective’s scope;
+* require review before activation;
+* constrain objective priority;
+* require stabilization-compatible objectives;
+* prohibit objectives under specific OSV conditions.
+
+Governance MUST NOT define the objective’s operational semantics or evaluation logic.
+
+⸻
+
+21. Operational Profile Eligibility
+
+Contract 006 defines Operational Profiles.
+
+Contract 004 defines whether a profile is governance-eligible.
+
+Governance MAY constrain:
+
+* eligible profile identifiers;
+* prohibited profile identifiers;
+* profile transition eligibility;
+* gain limits;
+* reference-state bounds;
+* tool permissions;
+* execution classes;
+* dwell-time maxima or minima where externally imposed;
+* stabilization requirements.
+
+Governance MUST NOT select the active profile.
+
+⸻
+
+22. Controller Constraint Boundary
+
+Contract 007 defines controller behavior.
+
+The controller MUST compute only within the action space permitted by the active Governance Snapshot.
+
+Let:
+
+[
+\mathcal{G}_t
+
+\operatorname{GovernanceSnapshot}(t)
+]
+
+and let:
+
+[
+\mathcal{U}_{\mathrm{allowed}}(\mathcal{G}_t)
+]
+
+denote the control-command set permitted by governance.
+
+Then every candidate controller output (u_t) MUST satisfy:
+
+[
+u_t
+\in
+\mathcal{U}_{\mathrm{allowed}}(\mathcal{G}_t)
+]
+
+A candidate outside the allowed set MUST be rejected, restricted, deferred, escalated, or blocked according to the active governance rules.
+
+The controller MUST NOT reinterpret the Governance Snapshot.
+
+⸻
+
+23. Inference-Control Constraint Boundary
+
+Contract 008 defines translation from control commands to inference commands.
+
+Inference Control MUST NOT broaden governance authority.
+
+If a control command permits a bounded instruction, translation MUST NOT produce a stronger instruction.
+
+Every translated command MUST retain:
+
+governance_snapshot_id
+governance_evaluation_id
+applicable_limit_ids
+applicable_prohibition_ids
+required_obligation_ids
+
+Translation failure MUST fail toward reduced authority.
+
+⸻
+
+24. Execution-Gate Boundary
+
+Contract 009 defines execution dispositions and execution receipts.
+
+The Execution Gate MUST independently enforce the Governance Snapshot applicable to the cycle.
+
+The Execution Gate MUST reject any instruction that:
+
+* lacks a valid Governance Snapshot reference;
+* references a revoked snapshot;
+* exceeds a governance limit;
+* violates a prohibition;
+* lacks required approval;
+* lacks required evidence;
+* violates scope;
+* uses an incompatible governance version;
+* has been broadened during translation.
+
+Execution enforcement is defense in depth.
+
+It does not authorize earlier layers to ignore governance.
+
+⸻
+
+25. Governance Validity
+
+A governance rule or snapshot MAY be valid only within a declared:
+
+* time interval;
+* jurisdiction;
+* deployment;
+* model;
+* tool;
+* user role;
+* data class;
+* capability profile;
+* system identity;
+* session;
+* supervisory cycle;
+* operational condition.
+
+Validity MUST be evaluated before commitment.
+
+Expired governance MUST NOT be treated as current.
+
+Future governance MUST NOT be applied early.
+
+Unknown validity MUST fail toward reduced authority.
+
+⸻
+
+26. Revocation
+
+Governance authorities MUST be able to revoke governance artifacts according to their registered revocation policy.
+
+Revocation MUST produce:
+
+revocation_id
+governance_authority_id
+revoked_artifact_id
+revoked_rule_ids
+effective_time
+reason_code
+replacement_artifact_id
+signature
+provenance_id
+
+A revocation MUST NOT mutate an earlier committed Governance Snapshot.
+
+A later cycle MUST construct a new snapshot reflecting the revocation.
+
+If immediate revocation enforcement is required between cycles, the runtime MUST terminate, pause, or enter a reduced-authority path defined by the active governance profile.
+
+⸻
+
+27. Governance Updates During a Cycle
+
+A committed Governance Snapshot is immutable for its supervisory cycle.
+
+A governance update received after snapshot commitment MUST NOT modify that snapshot.
+
+A conforming implementation MAY:
+
+* apply the update to the next cycle;
+* terminate the current cycle;
+* initiate an emergency governance cycle;
+* block execution pending new snapshot commitment.
+
+The selected behavior MUST be defined by a registered Governance Update Policy.
+
+⸻
+
+28. Missing Governance
+
+Required governance that is missing, unavailable, invalid, expired, revoked, incompatible, or unauthenticated MUST NOT be treated as permission.
+
+A conforming implementation MUST produce one of:
+
+VALID_RESTRICTED
+INCOMPLETE
+WITHHELD
+FAULTED
+
+according to the active governance profile.
+
+Missing governance MUST fail toward reduced authority.
+
+⸻
+
+29. Governance Uncertainty
+
+Governance content SHOULD be explicit rather than probabilistic.
+
+A governance source MAY include uncertainty about applicability, interpretation, authority, or jurisdiction.
+
+Such uncertainty MUST be preserved.
+
+Probabilistic governance MUST NOT directly authorize execution unless a later profile defines a deterministic normalization threshold and conservative resolution rule.
+
+Unknown governance applicability MUST NOT increase authority.
+
+⸻
+
+30. Governance Provenance
+
+Every canonical Governance Snapshot MUST be traceable to its external sources, authorities, adapters, rules, conflict resolutions, and commitment process.
+
+Governance provenance MUST include at least:
+
+provenance_id
+governance_snapshot_id
+source_artifact_ids
+governance_authority_ids
+governance_adapter_ids
+input_schema_versions
+output_schema_version
+normalization_rule_ids
+applicability_rule_ids
+precedence_profile_id
+conflict_ids
+conflict_resolution_rule_ids
+revocation_checks
+signature_validation_results
+osv_id
+cycle_id
+committed_at
+
+No Governance Snapshot is canonical without provenance.
+
+⸻
+
+31. Security and Integrity
+
+Governance interfaces SHOULD support:
+
+* authority authentication;
+* artifact signing;
+* signature verification;
+* replay protection;
+* tamper-evident storage;
+* sequence validation;
+* revocation checking;
+* trust-domain separation;
+* sensitivity labeling;
+* least-privilege adapter execution;
+* independent execution-gate verification.
+
+A failed integrity check MUST NOT produce a VALID Governance Snapshot.
+
+⸻
+
+32. Privacy and Confidential Governance
+
+Governance artifacts MAY contain confidential or sensitive constraints.
+
+A governance sensitivity profile SHOULD define:
+
+* permitted consumers;
+* disclosure restrictions;
+* storage requirements;
+* retention rules;
+* redaction rules;
+* audit requirements.
+
+Redaction MUST NOT hide the existence of an applicable prohibition or required restriction from a downstream enforcement component.
+
+A redacted snapshot MAY expose a constraint identifier and enforcement effect without exposing protected policy text.
+
+⸻
+
+33. Determinism
+
+For identical:
+
+committed OSV
+governance source artifacts
+authority registrations
+adapter versions
+precedence profile
+conflict-resolution profile
+compatibility profile
+registry versions
+effective-time context
+
+a conforming implementation MUST produce the same canonical Governance Snapshot.
+
+Undeclared implementation-order dependence is prohibited.
+
+Randomized policy resolution is prohibited in the canonical governance path.
+
+⸻
+
+34. Failure Principle
+
+Governance MUST fail toward reduced authority.
+
+When authority, identity, integrity, applicability, validity, revocation, precedence, compatibility, provenance, or scope is uncertain, governance MUST NOT increase execution freedom.
+
+The conservative governance ordering is:
+
+BLOCK
+    >
+STABILIZE_REQUIRED
+    >
+ESCALATE
+    >
+REVIEW_REQUIRED
+    >
+DEFER
+    >
+RESTRICT
+    >
+ALLOW
+
+This ordering expresses authority conservatism.
+
+It does not imply semantic equivalence between dispositions.
+
+⸻
+
+35. Architectural Prohibitions
+
+A conforming Governance implementation MUST NOT:
+
+* author foundational governance on behalf of an external authority;
+* mutate a committed Governance Snapshot;
+* consume raw telemetry instead of the committed OSV;
+* modify the committed OSV;
+* infer permission from silence unless explicitly allowed by the authority model;
+* suppress prohibitions;
+* broaden permissions;
+* extend validity without authority;
+* ignore revocation;
+* silently resolve conflicts;
+* silently merge incompatible versions;
+* select supervisory objectives;
+* activate operational profiles;
+* compute controller actions;
+* issue inference commands;
+* execute runtime instructions;
+* permit downstream layers to override BLOCK;
+* treat adapter health telemetry as governance content;
+* claim external verification based solely on internal governance evaluation.
+
+⸻
+
+36. Governance Registries
+
+A complete implementation will require:
+
+Governance Authority Registry
+Governance Artifact Type Registry
+Governance Rule Class Registry
+Governance Rule Registry
+Governance Adapter Registry
+Governance Scope Registry
+Governance Precedence Profile Registry
+Governance Conflict Resolution Registry
+Governance Disposition Registry
+Governance Update Policy Registry
+Governance Compatibility Registry
+Governance Revocation Registry
+Governance Snapshot Schema
+Governance Provenance Schema
+
+These registries MAY be maintained separately but MUST remain version-compatible with this contract.
+
+⸻
+
+37. Initial Conformance Tests
+
+GT-001 — External Authority Enforcement
+GT-002 — Source Artifact Integrity
+GT-003 — Adapter Non-Invention
+GT-004 — Permission Non-Assumption
+GT-005 — Prohibition Preservation
+GT-006 — Snapshot Immutability
+GT-007 — OSV-Only State Consumption
+GT-008 — Applicability Resolution
+GT-009 — Effective-Time Enforcement
+GT-010 — Revocation Enforcement
+GT-011 — Conflict Preservation
+GT-012 — Precedence Determinism
+GT-013 — Missing Governance Reduction
+GT-014 — Version Compatibility
+GT-015 — Objective Eligibility Boundary
+GT-016 — Profile Eligibility Boundary
+GT-017 — Controller Constraint Boundary
+GT-018 — Translation Non-Broadening
+GT-019 — Execution-Gate Revalidation
+GT-020 — Provenance Completeness
+GT-021 — Deterministic Replay
+GT-022 — Downstream BLOCK Non-Override
+
+⸻
+
+38. Assumptions Discharged
+
+This contract discharges the Contract 000 assumption that governance snapshots are immutable during a supervisory cycle by defining:
+
+* snapshot construction;
+* atomic commitment;
+* cycle binding;
+* validity;
+* update behavior;
+* correction behavior;
+* revocation handling;
+* downstream use.
+
+This contract retains the assumptions that:
+
+* external governance authorities can authenticate their artifacts;
+* external governance semantics can be represented through registered adapters;
+* downstream components can enforce governance constraints;
+* the Execution Gate can reject unauthorized instructions.
+
+⸻
+
+39. Non-Goals
+
+This contract does not define:
+
+* constitutional policy content;
+* laws or regulations;
+* organizational policy substance;
+* IBOS internal governance logic;
+* supervisory objective semantics;
+* objective evaluation;
+* profile-selection algorithms;
+* reference-state construction;
+* controller mathematics;
+* inference-command schemas;
+* execution-adapter behavior;
+* mode guards;
+* audit-store implementation;
+* external verification proofs.
+
+These belong to external authorities or later SACS contracts.
+
+⸻
+
+40. Required Next Contracts
+
+Contract 004 directly constrains the following contracts:
+
+Contract 005 — Supervisory Objectives
+Contract 006 — Operational Profiles and Reference States
+Contract 007 — Controller
+Contract 008 — Inference Control
+Contract 009 — Execution Interface
+
+The next required contract in dependency order is:
+
+Contract 005 — Supervisory Objectives
+
+Contract 005 MUST define:
+
+* objective authority;
+* objective declarations;
+* objective-set construction;
+* objective eligibility under governance;
+* objective priority;
+* objective conflict handling;
+* objective applicability;
+* objective satisfaction;
+* objective status;
+* objective provenance;
+* deterministic objective evaluation;
+* profile-selector handoff;
+* objective conformance tests.
+
+Contract 005 MUST NOT create an objective prohibited by the active Governance Snapshot.
+
+⸻
+
+41. Current Canonical Status
+
+Project:
+SACS — Supervisory Architecture for Cognitive Systems
+System Role:
+Deterministic supervisory control plane
+Contract:
+004 — Governance
+Version:
+0.1.0
+Status:
+Initial Draft for Council Review
+Governance Authority:
+External
+Canonical Governance Artifact:
+Immutable Governance Snapshot
+Operational State Input:
+Committed OSV only
+Governance Mutation:
+Prohibited
+Permission Expansion:
+Prohibited
+Conflict Handling:
+Explicit and deterministic
+Failure Direction:
+Reduced authority
+Primary Consumers:
+Objectives, Profiles, Controller, Inference Control, Execution Gate
+Next Contract:
+005 — Supervisory Objectives
+
+⸻
+
+42. Adoption Criteria
+
+Contract 004 may advance from Draft to Adopted when:
+
+1. external governance authority is accepted;
+2. the Governance Adapter boundary is accepted;
+3. the Governance Snapshot schema is accepted;
+4. governance rule classes are accepted;
+5. explicit permission semantics are accepted;
+6. precedence and conflict rules are accepted;
+7. governance dispositions are accepted;
+8. OSV-only operational-state consumption is accepted;
+9. snapshot immutability is accepted;
+10. revocation behavior is accepted;
+11. missing-governance failure behavior is accepted;
+12. downstream enforcement boundaries are accepted;
+13. Contract 005 can consume governance without redefining it;
+14. Contract 009 can enforce governance without overriding it;
+15. no Governance rule overlaps Objective, Profile, Controller, or Execution authority.
+
+Upon adoption, all SACS governance adapters, snapshots, evaluations, registries, and downstream consumers MUST conform to this contract.
+
+⸻
+
+End of Contract 004

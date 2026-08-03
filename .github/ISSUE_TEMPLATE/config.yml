@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Security reporting
+    url: https://github.com/MineardAI/Supervisory-Architecture-for-Cognitive-Systems/security/advisories/new
+    about: Use private reporting for suspected vulnerabilities when enabled.

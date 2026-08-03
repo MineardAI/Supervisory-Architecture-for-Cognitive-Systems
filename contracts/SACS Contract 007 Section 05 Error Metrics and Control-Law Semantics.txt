@@ -1,0 +1,549 @@
+Contract 007 — Controller
+
+Section 5 — Error Metrics and Control-Law Semantics
+
+⸻
+
+5.1 Purpose
+
+This section establishes the mathematical semantics governing Control Error interpretation and Controller evaluation.
+
+Its defining identity is:
+
+Contract 007 defines how supervisory deviation is represented and how conforming controllers transform that deviation into bounded corrective action without prescribing any particular control algorithm.
+
+This section governs:
+
+* error metric semantics;
+* error representation;
+* controller conformance;
+* control-law interfaces;
+* deterministic controller evaluation;
+* algorithm neutrality.
+
+It does not prescribe:
+
+* PID;
+* LQR;
+* MPC;
+* Sliding Mode;
+* Adaptive Control;
+* Reinforcement Control;
+* Hybrid Control.
+
+Those become conforming implementations.
+
+⸻
+
+5.2 Fundamental Controller Equation
+
+Every Controller Definition SHALL implement a deterministic control operator.
+
+For stateless controllers:
+
+[
+u_t
+
+\mathcal{K}
+\left(
+e_t,
+x_t,
+r_t,
+g_t,
+p_t,
+c_t,
+n_t
+\right)
+]
+
+For stateful controllers:
+
+[
+(u_t,\hat z_{t+1})
+
+\mathcal{K}
+\left(
+e_t,
+x_t,
+r_t,
+g_t,
+p_t,
+c_t,
+n_t,
+z_t
+\right)
+]
+
+where:
+
+* (e_t) = Committed Control Error
+* (x_t) = Committed Operational State Vector
+* (r_t) = Committed Reference State
+* (g_t) = Committed Governance Snapshot
+* (p_t) = Committed Operational Profile
+* (c_t) = Committed Controller Configuration
+* (n_t) = Committed Numeric Profile
+* (z_t) = Committed Controller State
+
+The Controller SHALL produce:
+
+* proposed Control Command
+* proposed next Controller State (when stateful)
+
+No additional hidden mathematical inputs are permitted.
+
+⸻
+
+5.3 Controller Semantics
+
+A conforming Controller SHALL satisfy exactly one mathematical purpose:
+
+Compute bounded corrective action that reduces registered supervisory deviation while preserving supervisory authority.
+
+The Controller SHALL NOT:
+
+* redefine deviation;
+* redefine Governance;
+* redefine Objectives;
+* redefine Reference State;
+* reinterpret Profile authority.
+
+⸻
+
+5.4 Error Metric Identity
+
+An Error Metric defines how supervisory deviation is represented mathematically.
+
+Its defining identity is:
+
+An Error Metric deterministically maps committed operational state and committed reference state into a canonical Control Error representation.
+
+The Error Metric defines deviation.
+
+It does not define correction.
+
+⸻
+
+5.5 Registered Error Metrics
+
+Every Error Metric SHALL be registered.
+
+A registered metric SHALL declare:
+
+error_metric_id
+metric_version
+metric_name
+metric_class
+representation_type
+supported_state_space
+supported_numeric_profiles
+determinism_class
+schema_version
+definition_hash
+
+⸻
+
+5.6 Initial Error Metric Classes
+
+The initial registry SHALL include:
+
+EUCLIDEAN
+WEIGHTED_VECTOR
+ANGULAR
+GEODESIC
+MANIFOLD
+SIMPLEX
+HYBRID
+CUSTOM_REGISTERED
+
+These identify representation families.
+
+They do not prescribe implementation equations.
+
+⸻
+
+5.7 Error Representation
+
+Every Error Metric SHALL produce one canonical representation.
+
+Possible representations include:
+
+scalar
+vector
+weighted vector
+tensor
+manifold tangent
+angular displacement
+set residual
+constraint residual
+hybrid representation
+
+Representation SHALL be deterministic.
+
+⸻
+
+5.8 Metric Conformance
+
+A registered Error Metric SHALL define:
+
+* mathematical domain;
+* codomain;
+* dimensionality;
+* units;
+* normalization;
+* singularity handling;
+* undefined-state handling;
+* uncertainty behavior;
+* numeric profile.
+
+The Controller SHALL consume the representation exactly as published.
+
+Controllers SHALL NOT reinterpret Error Metrics.
+
+⸻
+
+5.9 Control-Law Neutrality
+
+Contract 007 SHALL remain neutral with respect to controller implementation.
+
+A conforming Controller MAY implement:
+
+* PID
+* PI
+* PD
+* LQR
+* MPC
+* Sliding Mode
+* Adaptive
+* Gain Scheduled
+* Hybrid
+* Predictive
+* Robust
+* Observer-Based
+* Research Controllers
+
+No controller family possesses normative priority.
+
+Only conformance matters.
+
+⸻
+
+5.10 Controller Definition
+
+Every registered Controller Definition SHALL identify:
+
+controller_definition_id
+controller_version
+controller_class
+supported_error_metrics
+supported_numeric_profiles
+supported_state_schema
+supported_composition_classes
+stability_claims
+conformance_claims
+definition_hash
+
+The definition SHALL remain reusable.
+
+It SHALL NOT contain runtime state.
+
+⸻
+
+5.11 Controller Conformance
+
+Every Controller Definition SHALL declare:
+
+* supported Error Metrics;
+* supported Controller State schema;
+* supported Numeric Profiles;
+* supported Composition classes;
+* stability assumptions;
+* boundedness assumptions;
+* operating domains.
+
+Controllers SHALL reject unsupported inputs.
+
+⸻
+
+5.12 Error Consumption
+
+Controllers SHALL consume:
+
+* committed Control Error;
+* committed Controller State (when applicable);
+* committed Controller Configuration.
+
+Controllers SHALL NOT reconstruct:
+
+* Control Error;
+* Reference State;
+* OSV;
+* Governance;
+* Objectives.
+
+⸻
+
+5.13 Deterministic Evaluation
+
+Controller evaluation SHALL satisfy:
+
+[
+K(I)=O
+]
+
+where identical committed inputs produce identical mathematical outputs.
+
+Determinism SHALL include:
+
+* numeric profile;
+* controller state;
+* controller configuration;
+* registered Error Metric;
+* composition policy.
+
+Implementation order SHALL NOT alter canonical output.
+
+⸻
+
+5.14 Mathematical Purity
+
+The mathematical output SHALL depend only upon committed mathematical artifacts.
+
+No implementation-local cache may alter:
+
+* Control Command;
+* Controller State;
+* Authority Certificate.
+
+Undocumented stochastic behavior is prohibited.
+
+⸻
+
+5.15 Numeric Profiles
+
+Every Controller SHALL reference one committed Numeric Profile.
+
+Numeric Profiles SHALL define:
+
+* floating-point precision;
+* rounding behavior;
+* tolerances;
+* overflow behavior;
+* NaN handling;
+* convergence tolerances;
+* matrix precision;
+* normalization rules.
+
+Controllers SHALL NOT silently substitute Numeric Profiles.
+
+⸻
+
+5.16 Domain Compatibility
+
+Before evaluation, the Controller SHALL verify:
+
+* Error Metric compatibility;
+* Numeric Profile compatibility;
+* Controller State compatibility;
+* Composition compatibility;
+* Configuration compatibility.
+
+Unsupported combinations SHALL terminate evaluation before computation begins.
+
+⸻
+
+5.17 Error Metric Compatibility
+
+Every Controller Definition SHALL explicitly identify supported Error Metric classes.
+
+Example:
+
+PID
+supports
+EUCLIDEAN
+WEIGHTED_VECTOR
+does not support
+MANIFOLD
+
+Compatibility SHALL be deterministic.
+
+⸻
+
+5.18 Mathematical Failure
+
+Controller mathematics SHALL fail deterministically.
+
+Registered mathematical failures include:
+
+UNSUPPORTED_METRIC
+DOMAIN_ERROR
+NUMERIC_OVERFLOW
+NUMERIC_UNDERFLOW
+NONFINITE_RESULT
+DIMENSION_MISMATCH
+INCOMPATIBLE_CONFIGURATION
+INVALID_STATE
+UNSUPPORTED_NUMERIC_PROFILE
+CONVERGENCE_FAILURE
+UNRESOLVED
+
+Failure SHALL NOT broaden supervisory authority.
+
+⸻
+
+5.19 Control-Law Independence
+
+Error representation SHALL remain independent from Controller implementation.
+
+Therefore:
+
+Control Error
+↓
+Controller A
+↓
+Control Command A
+
+and
+
+Control Error
+↓
+Controller B
+↓
+Control Command B
+
+consume identical Control Error artifacts.
+
+The Error Metric SHALL NOT change because a different Controller Definition is selected.
+
+⸻
+
+5.20 Mathematical Replay
+
+Replay SHALL consume:
+
+* identical Control Error;
+* identical Controller State;
+* identical Configuration;
+* identical Numeric Profile;
+* identical Composition Policy.
+
+Replay SHALL reproduce:
+
+* identical proposed Control Command;
+* identical proposed Controller State;
+* identical mathematical failures.
+
+⸻
+
+5.21 Error Metric Invariants
+
+Every registered Error Metric SHALL preserve:
+
+Determinism
+
+Identical inputs produce identical deviation.
+
+Referential Integrity
+
+One Control Error references one Reference State.
+
+State Integrity
+
+One Control Error references one committed OSV.
+
+Metric Identity
+
+Every deviation identifies exactly one Error Metric.
+
+Numeric Identity
+
+Deviation SHALL identify one Numeric Profile.
+
+Replayability
+
+Deviation SHALL replay identically.
+
+⸻
+
+5.22 Controller Mathematics Invariants
+
+Every Controller SHALL preserve:
+
+Algorithm Neutrality
+
+Contract 007 specifies interfaces, not algorithms.
+
+Determinism
+
+Evaluation SHALL be deterministic.
+
+Authority Preservation
+
+Mathematics SHALL never broaden authority.
+
+Configuration Integrity
+
+Controllers SHALL consume committed configuration only.
+
+State Visibility
+
+Hidden controller memory is prohibited.
+
+Metric Integrity
+
+Controllers SHALL consume registered Error Metrics.
+
+Replayability
+
+Independent conforming implementations SHALL reproduce identical mathematical outputs.
+
+⸻
+
+5.23 Fundamental Mathematical Invariant
+
+For every supervisory cycle:
+
+A conforming Controller SHALL deterministically transform one committed Control Error, one committed Controller Configuration, and one committed Controller State (when applicable) into one bounded proposed Control Command and one proposed next Controller State using exactly one registered Error Metric and one committed Numeric Profile.
+
+No hidden mathematical assumptions, undocumented state, or implementation-local semantics may influence canonical controller output.
+
+⸻
+
+Architectural Result
+
+With Sections 1–5, Contract 007 now establishes the complete constitutional and mathematical framework for supervisory control:
+
+Committed Operational State Vector
++
+Committed Reference State
+        │
+        ▼
+Registered Error Metric
+        │
+        ▼
+Committed Control Error
+        │
+        ▼
+Committed Controller Configuration
++
+Committed Controller State
++
+Committed Numeric Profile
+        │
+        ▼
+Deterministic Controller Evaluation
+        │
+        ▼
+Proposed Control Command
++
+Proposed Next Controller State
+        │
+        ▼
+Validation & Atomic Commitment
+        │
+        ▼
+Committed Control Command
++
+Committed Controller State (next cycle)
+
+This completes the controller’s mathematical interface while remaining completely algorithm-neutral. Every future controller family—classical, optimal, adaptive, robust, predictive, hybrid, or yet to be invented—can now be evaluated against the same deterministic conformance model, preserving the authority boundaries and replay guarantees established by the SACS architecture.

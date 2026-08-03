@@ -1,0 +1,456 @@
+# SACS Contract 012 — External Verification Profile and Evidence Interface
+
+## Section 21 — Verification Provenance, Replay, and Audit
+
+### Purpose
+
+Section 21 establishes the constitutional mechanisms for reconstructing, tracing, and independently examining completed verification exchanges without modifying constitutional history.
+
+Following the commitment of the Committed Verification Exchange Record in Section 20, all verification processing has concluded.
+
+The remaining constitutional responsibilities are retrospective.
+
+This section governs:
+
+* verification provenance;
+* deterministic replay;
+* constitutional audit;
+* historical correspondence;
+* replay comparison;
+* exchange traceability.
+
+Section 21 SHALL preserve constitutional history.
+
+It SHALL NOT recreate, replace, or reinterpret external verification judgments.
+
+---
+
+# Constitutional Question
+
+> **Can one completed verification exchange be independently traced, deterministically reconstructed within SACS constitutional authority, and audited without recreating external judgment or altering committed constitutional history?**
+
+The answer SHALL preserve the distinction between:
+
+* historical reconstruction;
+* replay;
+* audit;
+* constitutional commitment.
+
+---
+
+# Constitutional Identity
+
+The defining constitutional identity of Verification Provenance, Replay, and Audit is:
+
+> **Verification Provenance, Replay, and Audit constitute retrospective constitutional processes that examine completed verification exchanges while preserving immutable history, constitutional sovereignty, authority separation, and externally issued verification judgments.**
+
+These processes are investigative.
+
+They are never constitutive.
+
+Formally:
+
+```text id="w8epf2"
+Replay
+≠
+Historical Reconstruction
+
+Replay
+≠
+Verification
+
+Audit
+≠
+Commitment
+
+Audit
+≠
+Historical Authority
+```
+
+---
+
+# Constitutional Authority
+
+Contract 012 exclusively owns:
+
+* verification provenance;
+* replay execution;
+* replay comparison;
+* audit construction;
+* correspondence evaluation;
+* replay reporting.
+
+Contract 012 SHALL NOT:
+
+* recreate undisclosed external reasoning;
+* modify committed exchange records;
+* alter externally issued judgments;
+* replace historical artifacts;
+* generate substitute constitutional history.
+
+---
+
+# Verification Provenance
+
+Verification provenance SHALL preserve the complete constitutional lineage of one verification exchange.
+
+Provenance SHALL include:
+
+* claim origin;
+* Verification Profile binding;
+* Verification Requirement Set derivation;
+* applicability determination;
+* evidence-package construction;
+* submission construction;
+* submission commitment;
+* custody transfer;
+* external verifier identity;
+* externally issued verification judgment;
+* admission determination;
+* certification determination;
+* exchange-record commitment.
+
+Every provenance relationship SHALL remain explicitly represented.
+
+---
+
+# Dual Sovereign Lineage
+
+Verification provenance SHALL preserve two independent constitutional lineage domains.
+
+The first domain is:
+
+```text id="lg2j8f"
+SACS Constitutional Lineage
+```
+
+The second domain is:
+
+```text id="hvj4mh"
+External Verifier Lineage
+```
+
+SACS Constitutional Lineage SHALL preserve constitutional processing performed by SACS.
+
+External Verifier Lineage SHALL preserve only the externally asserted provenance explicitly disclosed by the verifier.
+
+Contract 012 SHALL NOT reconstruct or infer undisclosed verifier reasoning.
+
+---
+
+# Replay Identity
+
+Every Committed Verification Exchange Record SHALL possess one immutable replay identity.
+
+Replay identity SHALL bind:
+
+```text id="jexvuk"
+verification_exchange_id
+verification_submission_id
+claim_set_hash
+verification_profile_binding
+verification_requirement_set
+evidence_package_identity
+submission_identity
+custody_identity
+external_result_identity
+committed_verification_result_identity
+exchange_record_identity
+replay_hash
+```
+
+Replay identity SHALL remain immutable.
+
+---
+
+# Replay Scope
+
+Verification replay SHALL reproduce only constitutional processing performed within SACS authority.
+
+Replay SHALL include:
+
+* claim normalization;
+* Verification Profile resolution;
+* Requirement Set construction;
+* applicability evaluation;
+* evidence selection;
+* evidence-package construction;
+* submission construction;
+* submission commitment;
+* custody processing;
+* result admission;
+* result certification;
+* exchange-record construction.
+
+Replay SHALL NOT reproduce:
+
+* external verifier reasoning;
+* undisclosed verifier algorithms;
+* internal verifier state;
+* verifier implementation details.
+
+---
+
+# Replay Boundary
+
+Replay SHALL preserve the constitutional doctrine:
+
+```text id="6bcm2n"
+Replay
+What SACS Constructed
+
+Replay
+What SACS Committed
+
+Replay
+What SACS Transmitted
+
+Replay
+What SACS Received
+
+Replay
+What SACS Admitted
+
+Replay
+What SACS Certified
+
+Replay
+What SACS Recorded
+```
+
+Replay SHALL NOT recreate the sovereign constitutional reasoning of the external verifier.
+
+---
+
+# Replay Execution
+
+Replay SHALL execute using:
+
+* committed historical artifacts;
+* registry snapshots;
+* schema versions;
+* configuration identities;
+* committed lineage;
+* immutable replay metadata.
+
+Replay SHALL remain deterministic.
+
+Replay SHALL preserve identical constitutional ordering.
+
+---
+
+# Replay Correspondence
+
+Replay SHALL compare reconstructed artifacts with committed historical artifacts.
+
+Correspondence SHALL validate:
+
+* artifact identity;
+* lineage;
+* scope;
+* integrity;
+* custody;
+* submission identity;
+* exchange identity;
+* commitment identity.
+
+Replay correspondence SHALL not compare undisclosed verifier reasoning.
+
+---
+
+# Verification Exchange Replay Result
+
+Every replay SHALL produce exactly one:
+
+```text id="hvd7y4"
+Verification Exchange Replay Result
+```
+
+Canonical replay classes SHALL include:
+
+```text id="trpp0w"
+REPRODUCED
+REPRODUCED_WITH_DECLARED_VARIANCE
+MISMATCH
+INCOMPLETE
+UNAVAILABLE
+NONREPLAYABLE_EXTERNAL_SEGMENT
+REPLAY_FAILURE
+```
+
+Replay classes describe replay quality.
+
+They SHALL NOT reinterpret verification outcomes.
+
+---
+
+# Replay Variance
+
+Replay variance SHALL identify:
+
+* source of variance;
+* constitutional significance;
+* affected artifacts;
+* replay boundary;
+* historical impact.
+
+Replay variance SHALL NOT alter committed history.
+
+Variance SHALL become historical evidence.
+
+---
+
+# Replay Failure
+
+Replay failure SHALL identify failures including:
+
+* missing committed artifacts;
+* unresolved registry snapshots;
+* incompatible schema versions;
+* corrupted replay identity;
+* incomplete historical lineage;
+* constitutional inconsistency.
+
+Replay failure SHALL never replace historical artifacts.
+
+---
+
+# Constitutional Audit
+
+Audit SHALL independently examine completed verification exchanges.
+
+Audit SHALL evaluate:
+
+* constitutional correspondence;
+* authority preservation;
+* custody chronology;
+* commitment chronology;
+* identity preservation;
+* provenance completeness;
+* replay findings;
+* scope preservation;
+* integrity preservation;
+* constitutional invariants.
+
+Audit SHALL remain observational.
+
+Audit SHALL possess no constitutional authority to modify history.
+
+---
+
+# Verification Exchange Audit Representation
+
+Every audit SHALL produce exactly one:
+
+```text id="rxvr2n"
+Verification Exchange Audit Representation
+```
+
+The Audit Representation SHALL contain:
+
+```text id="83ms8n"
+audit_representation_id
+verification_exchange_id
+audit_scope
+artifact_inventory
+custody_timeline
+authority_transitions
+commitment_events
+provenance_summary
+replay_summary
+replay_findings
+correspondence_findings
+scope_findings
+integrity_findings
+credential_status
+supersession_state
+audit_timestamp
+audit_authority
+audit_hash
+```
+
+The Audit Representation SHALL preserve observations.
+
+It SHALL not constitute constitutional history.
+
+---
+
+# Audit Independence
+
+Audit SHALL remain constitutionally independent of:
+
+* verification execution;
+* admission;
+* certification;
+* exchange commitment.
+
+Audit SHALL evaluate historical artifacts.
+
+Audit SHALL never become the source of constitutional authority.
+
+---
+
+# Historical Preservation
+
+Replay and Audit SHALL preserve:
+
+* immutable history;
+* constitutional sovereignty;
+* authority separation;
+* verifier independence;
+* custody chronology;
+* commitment chronology;
+* deterministic traceability.
+
+Historical preservation SHALL remain unchanged regardless of replay findings.
+
+---
+
+# Replay and Audit Constraints
+
+Replay and Audit SHALL NOT:
+
+* modify committed artifacts;
+* replace verification judgments;
+* reconstruct undisclosed verifier reasoning;
+* conceal unfavorable findings;
+* broaden constitutional authority;
+* invalidate historical commitments.
+
+All observations SHALL remain additive.
+
+---
+
+# Fundamental Replay and Audit Invariants
+
+For every Committed Verification Exchange Record:
+
+* exactly one replay identity SHALL exist;
+* replay SHALL remain retrospective;
+* replay SHALL reproduce only SACS constitutional processing;
+* replay SHALL never recreate undisclosed verifier reasoning;
+* audit SHALL remain observational and non-constitutive;
+* replay findings SHALL never modify historical artifacts;
+* audit findings SHALL never alter constitutional history;
+* constitutional sovereignty SHALL remain preserved across all retrospective activities.
+
+---
+
+# Constitutional Transition
+
+Section 21 concludes every retrospective constitutional activity governed by Contract 012.
+
+Verification has been:
+
+* performed;
+* admitted;
+* certified;
+* committed;
+* historically preserved;
+* replayed;
+* audited.
+
+Only one constitutional responsibility remains.
+
+Section 22 establishes the **Fundamental Inter-Constitutional Trust Exchange Invariant**, expressing the single constitutional law preserved by every verification exchange governed under Contract 012.

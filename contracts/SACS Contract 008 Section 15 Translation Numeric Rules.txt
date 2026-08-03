@@ -1,0 +1,404 @@
+SACS Contract 008 — Section 15
+
+Translation Numeric Rules
+
+15.1 Purpose
+
+This section defines the Translation Numeric Rules used by Contract 008.
+
+Translation Numeric Rules establish the deterministic mathematical semantics governing the interpretation of canonical numeric representations during one translation cycle.
+
+These rules define how canonical numeric representations are interpreted, compared, rounded, bounded, and preserved while producing faithful runtime-specific numeric representations.
+
+Translation Numeric Rules operate exclusively on representations conforming to the committed Canonical Representation Profile.
+
+They define numeric interpretation only.
+
+They do not define supervisory mathematics.
+
+They do not alter supervisory meaning.
+
+⸻
+
+15.2 Architectural Identity
+
+Translation Numeric Rules are immutable declarative artifacts.
+
+Their defining identity is:
+
+Translation Numeric Rules define how canonical numeric representations are mathematically interpreted during translation. They preserve supervisory meaning but never redefine supervisory mathematics.
+
+Translation Numeric Rules standardize numeric interpretation.
+
+They do not determine supervisory decisions.
+
+⸻
+
+15.3 Authority Boundary
+
+Translation Numeric Rules own:
+
+* numeric interpretation;
+* numeric domains;
+* precision models;
+* rounding behavior;
+* comparison semantics;
+* tolerance models;
+* interval interpretation;
+* probability interpretation;
+* overflow handling;
+* underflow handling;
+* non-finite numeric interpretation;
+* numeric equivalence;
+* constraints governing permissible numeric interpretation during translation.
+
+Translation Definitions determine when numeric conversions occur.
+
+Translation Numeric Rules constrain how those conversions are interpreted mathematically.
+
+Translation Numeric Rules SHALL NOT:
+
+* perform normalization;
+* define canonical representation;
+* determine semantic equivalence;
+* define Translation Definitions;
+* compute controller equations;
+* modify controller gains;
+* redefine reference-state computation;
+* redefine control-error computation;
+* redefine controller stability;
+* redefine convergence behavior;
+* redefine supervisory optimization;
+* reinterpret Control Commands;
+* alter supervisory meaning;
+* compensate for unsupported runtime capabilities;
+* broaden supervisory authority;
+* authorize execution.
+
+⸻
+
+15.4 Translation Numeric Rule Identity
+
+Every Translation Numeric Rule Set SHALL possess immutable identity.
+
+At minimum the rule set SHALL define:
+
+* translation_numeric_rules_id;
+* numeric_profile_id;
+* rule_set_name;
+* rule_set_version;
+* schema_version;
+* canonical_representation_profile_id;
+* registry_snapshot_ids;
+* contract_version;
+* provenance_id;
+* rule_set_hash.
+
+The rule set hash SHALL uniquely identify the committed numeric interpretation environment.
+
+⸻
+
+15.5 Numeric Domains
+
+Translation Numeric Rules SHALL define deterministic interpretation for supported canonical numeric domains including, where applicable:
+
+* signed integers;
+* unsigned integers;
+* arbitrary-precision integers;
+* fixed-point values;
+* decimal floating-point values;
+* binary floating-point values;
+* rational values;
+* percentages;
+* normalized scalars;
+* bounded scalars;
+* intervals;
+* probabilities;
+* dimensionless ratios.
+
+Capability profiles MAY support subsets of these domains.
+
+⸻
+
+15.6 Numeric Interpretation
+
+Translation Numeric Rules SHALL define deterministic mathematical interpretation for canonical numeric representations.
+
+Numeric interpretation SHALL preserve supervisory meaning exactly as committed by Contract 007.
+
+Interpretation SHALL operate only upon canonical numeric representations.
+
+Interpretation SHALL NOT alter supervisory intent.
+
+⸻
+
+15.7 Precision Model
+
+Translation Numeric Rules SHALL distinguish between:
+
+* representation precision;
+* stored precision;
+* effective precision;
+* required precision;
+* minimum preserved precision.
+
+Measurement uncertainty SHALL remain owned by earlier contracts.
+
+Translation Numeric Rules SHALL NOT infer measurement certainty from numeric precision.
+
+Required precision SHALL NOT be silently reduced.
+
+Unauthorized precision expansion that could alter runtime behavior is prohibited.
+
+⸻
+
+15.8 Rounding
+
+The committed rule set SHALL define deterministic rounding behavior including:
+
+* rounding mode;
+* decimal scaling;
+* exponent normalization;
+* significant-figure policy;
+* tie-breaking policy;
+* canonical negative-zero handling.
+
+Equivalent canonical inputs SHALL always produce identical rounded values.
+
+⸻
+
+15.9 Numeric Comparison
+
+Translation Numeric Rules SHALL define deterministic comparison semantics including:
+
+* representation equality;
+* numeric equality;
+* tolerance equality;
+* interval containment;
+* ordering comparisons.
+
+Comparison semantics SHALL preserve supervisory meaning.
+
+⸻
+
+15.10 Translation Tolerances
+
+Translation tolerances SHALL exist solely to preserve faithful translation of already-established supervisory values.
+
+Translation tolerances SHALL NOT modify supervisory decisions.
+
+The committed rule set SHALL define:
+
+* absolute tolerance;
+* relative tolerance;
+* interval tolerance;
+* comparison precedence.
+
+⸻
+
+15.11 Interval Interpretation
+
+Translation Numeric Rules SHALL define deterministic interpretation for:
+
+* closed intervals;
+* open intervals;
+* half-open intervals;
+* degenerate intervals;
+* unbounded intervals.
+
+Interval interpretation SHALL NOT define supervisory policy.
+
+⸻
+
+15.12 Probability Interpretation
+
+Where probabilities are present, Translation Numeric Rules SHALL define deterministic interpretation governing:
+
+* probability normalization;
+* probability precision;
+* probability comparison;
+* summation constraints.
+
+Translation Numeric Rules SHALL NOT define what probabilities mean.
+
+⸻
+
+15.13 Overflow and Underflow
+
+The committed rule set SHALL define deterministic behavior for:
+
+* overflow;
+* underflow;
+* saturation;
+* clamping;
+* explicit translation failure.
+
+Silent overflow is prohibited.
+
+Silent underflow behavior is prohibited.
+
+Implementation-defined numeric behavior is prohibited.
+
+⸻
+
+15.14 Non-Finite Values
+
+The committed rule set SHALL define deterministic interpretation for supported non-finite values including:
+
+* positive infinity;
+* negative infinity;
+* quiet NaN;
+* signaling NaN;
+* implementation-defined NaN payloads.
+
+Unsupported non-finite values SHALL result in explicit translation failure.
+
+⸻
+
+15.15 Numeric Equivalence
+
+Numeric equivalence SHALL apply only to values already established as semantically equivalent by their owning Translation Definitions.
+
+Translation Numeric Rules SHALL NOT establish semantic equivalence independently.
+
+⸻
+
+15.16 Relationship Model
+
+Translation Numeric Rules consume:
+
+* Committed Translation Configuration;
+* Canonical Representation Profile.
+
+They are consumed by:
+
+* Translation Ordering Rules;
+* Translation Validation Rules;
+* Translation Transaction Rules;
+* Translation Evaluation.
+
+Translation Numeric Rules SHALL NOT directly interact with runtime execution.
+
+⸻
+
+15.17 Capability Profiles
+
+Implementations MAY support numeric capability profiles including, for example:
+
+* STRICT_DECIMAL;
+* STRICT_BINARY;
+* HIGH_PRECISION;
+* EMBEDDED;
+* SAFETY_CRITICAL.
+
+Within a declared capability profile, numeric interpretation SHALL remain deterministic.
+
+⸻
+
+15.18 Versioning and Lifecycle
+
+Translation Numeric Rule Sets SHALL be immutable after publication.
+
+Changes SHALL require:
+
+* new version;
+* new hash;
+* explicit compatibility declaration.
+
+Historical rule sets SHALL remain replayable.
+
+⸻
+
+15.19 Failure Classes
+
+Implementations SHOULD distinguish failures including:
+
+* TRANSLATION_NUMERIC_RULES_MISSING
+* TRANSLATION_NUMERIC_RULES_INCOMPATIBLE
+* NUMERIC_PROFILE_MISMATCH
+* NUMERIC_PRECISION_LOSS_UNAUTHORIZED
+* NUMERIC_PRECISION_UNSUPPORTED
+* NUMERIC_OVERFLOW
+* NUMERIC_UNDERFLOW
+* NUMERIC_INTERVAL_INVALID
+* NUMERIC_NEGATIVE_ZERO_UNSUPPORTED
+* NUMERIC_SCALE_UNSUPPORTED
+* NUMERIC_EXPONENT_UNSUPPORTED
+* NUMERIC_CANONICALIZATION_MISMATCH
+* NUMERIC_NONFINITE_UNSUPPORTED
+* NUMERIC_COMPARISON_AMBIGUOUS
+* NUMERIC_EQUIVALENCE_UNDEFINED
+
+Unsupported numeric behavior SHALL result in explicit translation failure.
+
+⸻
+
+15.20 Mathematical Interpretation
+
+Let:
+
+* N_c denote a canonical numeric representation.
+* T_n denote the committed Translation Numeric Rule Set.
+
+The interpreted numeric value is:
+
+V_n
+=
+\operatorname{Interpret}
+(N_c,T_n)
+
+subject to:
+
+Determinism
+
+\operatorname{Interpret}
+(N_c,T_n)
+=
+\operatorname{Interpret}
+(N_c,T_n)
+
+for identical canonical inputs.
+
+Idempotence
+
+\operatorname{Interpret}
+\left(
+\operatorname{Interpret}(N_c,T_n),
+T_n
+\right)
+=
+\operatorname{Interpret}(N_c,T_n)
+
+Meaning Preservation
+
+\operatorname{Meaning}
+\left(
+V_n
+\right)
+=
+\operatorname{Meaning}
+\left(
+N_c
+\right)
+
+Precision Preservation
+
+Required representation precision SHALL NOT be silently reduced.
+
+Numeric Closure
+
+Every interpreted value SHALL remain within a numeric domain supported by the committed Translation Numeric Rule Set.
+
+⸻
+
+15.21 Fundamental Translation Numeric Invariant
+
+Translation Numeric Rules SHALL define exactly one deterministic mathematical interpretation for every canonical numeric representation processed during one translation cycle.
+
+They SHALL preserve supervisory meaning, representational integrity, precision requirements, ordering prerequisites, and execution constraints while producing mathematically consistent numeric interpretations suitable for downstream translation mechanisms.
+
+Translation Numeric Rules SHALL NOT redefine canonical representation, establish semantic equivalence, define controller mathematics, compute controller equations, modify controller gains, redefine supervisory optimization, alter supervisory intent, compensate for unsupported runtime capabilities, broaden supervisory authority, or authorize execution.
+
+Every translation cycle SHALL use exactly one committed Translation Numeric Rule Set bound by the Committed Translation Configuration.
+
+Mixing, substituting, dynamically selecting, or modifying Translation Numeric Rule Sets during a translation cycle is prohibited.

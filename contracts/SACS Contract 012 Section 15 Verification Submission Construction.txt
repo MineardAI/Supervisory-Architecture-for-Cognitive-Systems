@@ -1,0 +1,366 @@
+SACS Contract 012 — External Verification Profile and Evidence Interface
+Section 15 — Verification Submission Construction
+Purpose
+
+Section 15 establishes the constitutional process by which a validated Verification Evidence Package is transformed into the canonical Verification Submission.
+
+Where Section 14 determines that a Verification Evidence Package is constitutionally complete and valid, this section constructs the immutable constitutional artifact that represents the complete request for external verification.
+
+Verification Submission Construction is the final internal transformation performed by Contract 012.
+
+It does not perform external verification.
+
+It does not interpret verification results.
+
+It does not communicate with external verification systems.
+
+Its sole responsibility is to construct the canonical Verification Submission that may subsequently be committed and delivered across the constitutional boundary.
+
+Constitutional Question
+
+How is the validated Verification Evidence Package transformed into the canonical object delivered to the external verifier?
+
+Verification Submission Construction SHALL determine:
+
+submission identity;
+submission authority;
+verifier identity;
+submission manifest;
+claim inventory;
+evidence inventory;
+profile references;
+Verification Requirement Set references;
+Verification Method references;
+package references;
+integrity bindings;
+provenance bindings;
+submission metadata;
+serialization identity;
+constitutional lineage; and
+cryptographic identity.
+
+Only a successfully constructed Verification Submission MAY proceed to constitutional commitment.
+
+Constitutional Identity
+
+A Verification Submission is one immutable constitutional artifact that represents the complete, validated, authoritative request for external verification.
+
+The Verification Submission SHALL contain every constitutional component required for an external verifier to evaluate the submitted verification claims without requiring additional constitutional interpretation.
+
+A Verification Submission is:
+
+complete;
+immutable;
+deterministic;
+self-describing;
+replayable;
+transport-independent; and
+constitutionally authoritative.
+
+A Verification Submission is not:
+
+an external verification request;
+an implementation-specific protocol message;
+a transport payload;
+a verification result; or
+authorization for an external verifier to modify constitutional history.
+Constitutional Authority
+
+Contract 012 SHALL exclusively own:
+
+Verification Submission construction;
+submission identity assignment;
+submission manifest construction;
+submission metadata construction;
+verifier binding;
+package referencing;
+claim inventory construction;
+evidence inventory construction;
+integrity binding;
+provenance binding;
+serialization identity; and
+construction of the Verification Submission.
+
+Contract 012 SHALL NOT:
+
+perform external verification;
+modify verification claims;
+modify evidence;
+modify the Verification Evidence Package;
+reinterpret constitutional authority;
+communicate with external systems; or
+authorize historical modification.
+Construction Inputs
+
+Verification Submission Construction SHALL consume only committed constitutional artifacts, including:
+
+Verification Evidence Validation Report;
+Verification Evidence Package;
+Committed Verification Profile Binding;
+Committed Verification Requirement Set;
+Verification Method Definitions;
+committed Verification Claims;
+verifier identity;
+submission metadata;
+registry snapshots; and
+applicable constitutional lineage.
+
+No unvalidated package SHALL participate in Submission Construction.
+
+Submission Identity
+
+Every Verification Submission SHALL possess one immutable constitutional identity.
+
+Submission identity SHALL include:
+
+submission identifier;
+submission version;
+submission authority identifier;
+verification subject identifier;
+verifier identifier;
+construction timestamp;
+serialization version;
+replay identity;
+lineage identifier; and
+cryptographic submission identity.
+
+Submission identity SHALL remain immutable following successful construction.
+
+Verifier Binding
+
+Every Verification Submission SHALL identify exactly one constitutional verification destination.
+
+Verifier binding SHALL specify:
+
+verifier identity;
+verifier class;
+supported Verification Methods;
+supported protocol version;
+constitutional capability profile;
+trust relationship;
+communication constraints; and
+verification compatibility.
+
+Verifier binding identifies the intended verification authority.
+
+It does not initiate communication.
+
+Submission Manifest Construction
+
+Every Verification Submission SHALL contain one canonical Submission Manifest.
+
+The Submission Manifest SHALL enumerate:
+
+submission identity;
+verification subject;
+Verification Claims;
+Verification Profile;
+Verification Requirement Set;
+Verification Methods;
+Verification Evidence Package;
+evidence inventory;
+integrity references;
+provenance references;
+constitutional lineage; and
+replay identity.
+
+The Submission Manifest SHALL constitute the authoritative inventory of submission contents.
+
+Claim Inventory
+
+The Verification Submission SHALL contain a complete inventory of every Verification Claim presented for external evaluation.
+
+Claim inventory SHALL preserve:
+
+claim identity;
+claim version;
+claim authority;
+supported evidence references;
+applicable Verification Methods;
+profile applicability;
+Requirement Set applicability; and
+constitutional lineage.
+
+Claims SHALL NOT be modified during Submission Construction.
+
+Evidence Inventory
+
+The Verification Submission SHALL reference the complete Verification Evidence Package.
+
+Evidence inventory SHALL preserve:
+
+package identity;
+evidence references;
+evidence definitions;
+evidence classes;
+manifest references;
+integrity references;
+provenance references; and
+replay references.
+
+Evidence SHALL be referenced rather than reconstructed.
+
+Reference Binding
+
+Submission Construction SHALL bind every constitutional dependency required for external verification.
+
+Bindings SHALL include:
+
+Verification Profile reference;
+Verification Requirement Set reference;
+Verification Method references;
+Verification Evidence Package reference;
+Verification Evidence Validation Report reference;
+registry snapshot references;
+constitutional artifact references; and
+applicable constitutional lineage.
+
+Every reference SHALL remain immutable.
+
+Integrity Binding
+
+Submission Construction SHALL establish complete submission integrity.
+
+Integrity bindings SHALL include:
+
+submission hash;
+manifest hash;
+package hash;
+Validation Report hash;
+claim inventory hash;
+cryptographic signatures;
+immutable identifiers; and
+integrity relationships.
+
+Integrity bindings preserve authenticity.
+
+They do not establish verification success.
+
+Provenance Binding
+
+Every Verification Submission SHALL preserve complete constitutional provenance.
+
+Provenance SHALL identify:
+
+producing contract;
+producing implementation;
+producing authority;
+producing constitutional artifacts;
+producing registry snapshots;
+commitment lineage;
+replay lineage; and
+historical lineage.
+
+No component SHALL enter the submission without complete provenance.
+
+Submission Metadata
+
+Every Verification Submission SHALL contain canonical metadata describing the submission.
+
+Submission metadata SHALL include:
+
+submission identity;
+verification subject;
+verifier identity;
+Verification Profile identity;
+Verification Requirement Set identity;
+Verification Method identities;
+submission version;
+serialization version;
+replay version;
+construction metadata;
+constitutional authority;
+package identity;
+Validation Report identity; and
+lifecycle state.
+Canonical Serialization
+
+Every Verification Submission SHALL possess one canonical serialization.
+
+Canonical serialization SHALL preserve:
+
+deterministic encoding;
+deterministic decoding;
+deterministic hashing;
+deterministic replay;
+implementation independence; and
+transport independence.
+
+Equivalent constitutional submissions SHALL serialize identically.
+
+Construction Rules
+
+Verification Submission Construction SHALL verify construction completeness before producing the Verification Submission.
+
+Construction SHALL ensure:
+
+every required constitutional reference exists;
+every required Validation Report exists;
+every required Verification Claim is represented;
+every required package reference exists;
+every integrity binding exists;
+every provenance binding exists;
+verifier identity is complete;
+no prohibited content exists; and
+no unresolved constitutional dependency remains.
+
+Submission Construction SHALL NOT evaluate verification claims.
+
+Submission Construction SHALL NOT authorize external communication.
+
+Canonical Verification Submission
+
+Successful Submission Construction SHALL produce one immutable constitutional artifact containing:
+
+submission identity;
+Submission Manifest;
+verifier binding;
+Verification Claim inventory;
+Verification Profile reference;
+Verification Requirement Set reference;
+Verification Method references;
+Verification Evidence Package reference;
+Verification Evidence Validation Report reference;
+integrity bindings;
+provenance bindings;
+registry snapshot references;
+constitutional lineage;
+replay metadata;
+serialization identity;
+submission metadata; and
+cryptographic identity.
+
+This Verification Submission SHALL become the exclusive constitutional artifact eligible for commitment and external delivery.
+
+Submission Construction Failure
+
+Verification Submission Construction SHALL terminate immediately upon any constitutional construction failure, including but not limited to:
+
+missing Validation Report;
+missing Verification Evidence Package;
+missing Verification Claims;
+incomplete Submission Manifest;
+unresolved constitutional references;
+verifier incompatibility;
+missing integrity bindings;
+missing provenance;
+serialization failure;
+duplicate submission identity;
+prohibited submission content; or
+nondeterministic construction.
+
+Submission Construction failure SHALL produce one explicit constitutional construction failure artifact.
+
+No partial Verification Submission SHALL be produced.
+
+Constitutional Invariants
+
+For every successful Verification Evidence Validation Report:
+
+exactly one Verification Submission SHALL be constructed;
+every Verification Claim SHALL be represented exactly once;
+every constitutional dependency SHALL be explicitly referenced;
+every submission SHALL preserve constitutional identity, authority, provenance, integrity, lineage, and replay determinism;
+no submission SHALL contain unauthorized, unresolved, or implementation-defined content;
+Submission Construction SHALL not alter the meaning, authority, or structure of any Verification Claim or Verification Evidence; and
+identical constitutional inputs SHALL always produce an identical Verification Submission.

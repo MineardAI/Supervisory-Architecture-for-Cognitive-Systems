@@ -1,0 +1,413 @@
+SACS Contract 008 — Section 16
+
+Translation Ordering Rules
+
+16.1 Purpose
+
+This section defines the Translation Ordering Rules used by Contract 008.
+
+Translation Ordering Rules establish the deterministic ordering semantics governing canonical translated artifacts during one translation cycle.
+
+These rules define how declared dependencies, precedence relationships, collections, phases, and ordering metadata are interpreted to produce one deterministic canonical ordering.
+
+Translation Ordering Rules operate exclusively on artifacts conforming to the committed Canonical Representation Profile and interpreted according to the committed Translation Numeric Rules.
+
+They define ordering semantics only.
+
+They do not perform ordering evaluation.
+
+They do not alter supervisory meaning.
+
+⸻
+
+16.2 Architectural Identity
+
+Translation Ordering Rules are immutable declarative artifacts.
+
+Their defining identity is:
+
+Translation Ordering Rules define the deterministic ordering semantics applied to canonical translated commands, collections, dependencies, and sequencing relationships during translation. They preserve supervisory intent and execution constraints while ensuring that all conforming implementations produce the same canonical ordering from identical canonical inputs.
+
+Translation Ordering Rules standardize ordering semantics.
+
+They do not determine supervisory decisions.
+
+⸻
+
+16.3 Authority Boundary
+
+Translation Ordering Rules own:
+
+* ordering interpretation;
+* dependency interpretation;
+* precedence interpretation;
+* deterministic sequencing semantics;
+* collection traversal semantics;
+* stable tie-breaking semantics;
+* topological ordering semantics;
+* ordering metadata interpretation;
+* logical command-group interpretation.
+
+Translation Ordering Rules SHALL NOT:
+
+* perform normalization;
+* define canonical representation;
+* define numeric interpretation;
+* establish semantic equivalence;
+* construct translated artifacts;
+* compute controller outputs;
+* redefine supervisory intent;
+* validate translation results;
+* define transaction semantics;
+* assign runtime schedules;
+* assign execution resources;
+* define transport queues;
+* define retry policy;
+* define concurrency policy;
+* authorize execution.
+
+⸻
+
+16.4 Translation Ordering Rule Identity
+
+Every Translation Ordering Rule Set SHALL possess immutable identity including, at minimum:
+
+* translation_ordering_rules_id;
+* ordering_profile_id;
+* rule_set_name;
+* rule_set_version;
+* schema_version;
+* canonical_representation_profile_id;
+* translation_numeric_rules_id;
+* registry_snapshot_ids;
+* provenance_id;
+* rule_set_hash.
+
+The rule set hash SHALL uniquely identify the committed ordering semantics.
+
+⸻
+
+16.5 Ordering Domains
+
+Translation Ordering Rules SHALL define deterministic semantics for:
+
+* translated commands;
+* logical command groups;
+* dependency graphs;
+* precedence relations;
+* ordering metadata;
+* translation phases;
+* ordered collections;
+* unordered collections;
+* sets;
+* multisets;
+* queues;
+* stacks.
+
+Semantic ordering and representational ordering SHALL remain distinct.
+
+Imposing canonical serialization order SHALL NOT convert an unordered semantic collection into an ordered semantic collection.
+
+⸻
+
+16.6 Dependency Interpretation
+
+Dependencies SHALL originate only from:
+
+* committed Control Command semantics;
+* authorized Translation Definitions;
+* committed Translation Profile structure;
+* transaction metadata explicitly referenced by the Committed Translation Configuration.
+
+Implementation-derived dependencies are prohibited.
+
+Dependency relations MAY include:
+
+* MUST_PRECEDE
+* MUST_FOLLOW
+* REQUIRES_COMPLETION_OF
+* REQUIRES_PRESENCE_OF
+* SAME_PHASE_AS
+* DIFFERENT_PHASE_FROM
+* INDEPENDENT_OF
+* ATOMIC_WITH
+
+The meaning of ATOMIC_WITH is defined by Section 18.
+
+⸻
+
+16.7 Ordering Categories
+
+Translation Ordering Rules distinguish three ordering classes.
+
+Semantic Order
+
+Ordering changes supervisory meaning.
+
+Canonical Representation Order
+
+Ordering exists solely for deterministic representation, hashing, replay, validation, comparison, and provenance.
+
+Canonical representation order SHALL NOT imply execution precedence.
+
+Runtime Execution Order
+
+Runtime dispatch, scheduling, concurrency, retries, timing, transport, and resource allocation belong exclusively to Contract 009.
+
+⸻
+
+16.8 Collection Ordering
+
+Translation Ordering Rules SHALL preserve native semantic ordering where defined.
+
+Queues SHALL preserve FIFO semantics.
+
+Stacks SHALL preserve LIFO semantics.
+
+Sets SHALL remain semantically unordered.
+
+Multisets SHALL preserve multiplicity.
+
+Deterministic serialization SHALL NOT alter collection semantics.
+
+Equal ordering keys SHALL NOT merge distinct artifacts.
+
+⸻
+
+16.9 Stable Tie-Breaking
+
+The committed Translation Ordering Rule Set SHALL define a complete deterministic tie-break sequence.
+
+Tie-breaking MAY use:
+
+* explicit ordering rank;
+* phase identifier;
+* dependency depth;
+* Translation Definition identifier;
+* canonical artifact identifier;
+* canonical artifact hash.
+
+Stable tie-breaking resolves representational ambiguity only.
+
+It SHALL NOT create supervisory priority, semantic dependency, execution precedence, or transaction authority.
+
+If two distinct artifacts remain indistinguishable after every declared key, ordering SHALL fail.
+
+⸻
+
+16.10 Ordering Constraints
+
+Ordering constraints SHALL preserve:
+
+* dependency meaning;
+* precedence;
+* restrictions;
+* phase membership;
+* scope;
+* independence declarations;
+* transaction metadata.
+
+Ordering SHALL preserve supervisory intent exactly as committed.
+
+⸻
+
+16.11 Dependency Cycles
+
+Dependency cycles SHALL result in explicit translation failure by default.
+
+Cycle resolution SHALL be permitted only when:
+
+* explicitly authorized by the owning Translation Definition;
+* declared representational rather than semantic;
+* deterministic;
+* meaning-preserving.
+
+Translation Ordering Rules SHALL NOT invent cycle resolution authority.
+
+⸻
+
+16.12 Determinism
+
+Given identical:
+
+* canonical translated artifacts;
+* declared dependency graph;
+* phase metadata;
+* Translation Definitions;
+* Translation Numeric Rules;
+* Canonical Representation Profile;
+* Committed Translation Configuration;
+
+every conforming implementation SHALL produce identical canonical ordering.
+
+Ambient ordering sources including container iteration order, registry insertion order, database retrieval order, filesystem order, thread completion order, or transport arrival order SHALL NOT influence canonical ordering.
+
+⸻
+
+16.13 Ordering Stability
+
+Applying ordering evaluation to identical artifact identities, dependency relations, and ordering metadata SHALL always produce the identical canonical ordering.
+
+Ordering evaluation is therefore idempotent.
+
+⸻
+
+16.14 Relationship Model
+
+The Translation Ordering Rule Set SHALL be bound by the Committed Translation Configuration, interpreted within the committed Canonical Representation Profile and Translation Numeric Rule Set, and applied only to ordering metadata declared by authorized Translation Definitions and constructed translation artifacts.
+
+The resulting Canonical Translation Order SHALL be submitted to Translation Validation Rules.
+
+⸻
+
+16.15 Capability Profiles
+
+Ordering capability profiles describe implementation support only.
+
+They SHALL NOT select, weaken, replace, or modify the committed Translation Ordering Rule Set.
+
+If the required rule set exceeds implementation capability, translation SHALL fail.
+
+⸻
+
+16.16 Versioning and Lifecycle
+
+Translation Ordering Rule Sets SHALL be immutable after publication.
+
+Changes SHALL require:
+
+* new version;
+* new hash;
+* explicit compatibility declaration.
+
+Historical rule sets SHALL remain replayable.
+
+⸻
+
+16.17 Canonical Translation Order
+
+Ordering evaluation SHALL produce one immutable Canonical Translation Order artifact.
+
+At minimum the artifact SHALL contain:
+
+* canonical_translation_order_id;
+* translation_cycle_id;
+* translation_configuration_id;
+* ordering_rule_set_id;
+* ordering_rule_set_hash;
+* canonical_representation_profile_id;
+* translation_numeric_rules_id;
+* input_artifact_ids;
+* input_artifact_hashes;
+* dependency_graph;
+* precedence_graph;
+* phase_assignments;
+* semantic_order_classifications;
+* canonical_linearization;
+* canonical_serialization_orders;
+* tie_break_evidence;
+* cycle_analysis_result;
+* provenance_id;
+* artifact_hash.
+
+The Canonical Translation Order is evidence.
+
+It is not an execution schedule.
+
+⸻
+
+16.18 Mathematical Interpretation
+
+Let:
+
+* A_c denote the canonical translated artifact set;
+* G=(V,E) denote the declared dependency graph;
+* T_o denote the committed Translation Ordering Rule Set.
+
+The canonical ordering is:
+
+O_c
+=
+\operatorname{Order}
+(A_c,G,T_o)
+
+subject to:
+
+Completeness
+
+\operatorname{Set}(O_c)=A_c
+
+Uniqueness
+
+Each artifact appears exactly once whenever canonical linearization is required.
+
+Dependency Preservation
+
+(a,b)\in E
+\Rightarrow
+\operatorname{pos}_{O_c}(a)
+<
+\operatorname{pos}_{O_c}(b)
+
+Determinism
+
+Identical canonical inputs SHALL produce identical canonical ordering.
+
+Idempotence
+
+Applying ordering evaluation to identical artifact identities and dependency graphs SHALL produce the identical canonical ordering.
+
+Semantic Preservation
+
+Declared dependency, precedence, phase, restriction, and independence relationships SHALL remain invariant.
+
+Authority Preservation
+
+Ordering SHALL neither increase nor reduce supervisory authority.
+
+⸻
+
+16.19 Failure Classes
+
+Implementations SHOULD distinguish failures including:
+
+* TRANSLATION_ORDERING_RULES_MISSING
+* TRANSLATION_ORDERING_RULES_INCOMPATIBLE
+* ORDERING_PROFILE_MISMATCH
+* ORDERING_DEPENDENCY_TARGET_MISSING
+* ORDERING_DEPENDENCY_INVALID
+* ORDERING_DEPENDENCY_CYCLE
+* ORDERING_SELF_DEPENDENCY
+* ORDERING_PHASE_CONFLICT
+* ORDERING_PRECEDENCE_AMBIGUOUS
+* ORDERING_TIEBREAK_UNDEFINED
+* ORDERING_ARTIFACT_MISSING
+* ORDERING_ARTIFACT_DUPLICATED
+* ORDERING_LINEARIZATION_INCOMPLETE
+* ORDERING_LINEARIZATION_NONUNIQUE
+* ORDERING_UNORDERED_COLLECTION_REINTERPRETED
+* ORDERING_SEMANTIC_ORDER_LOST
+* ORDERING_AMBIENT_ORDER_DEPENDENCY
+* ORDERING_NONDETERMINISTIC
+
+Unsupported ordering behavior SHALL result in explicit translation failure.
+
+⸻
+
+16.20 Fundamental Translation Ordering Invariant
+
+Translation Ordering Rules SHALL define exactly one deterministic interpretation of every declared ordering, dependency, precedence, phase, collection, and traversal relation applicable during one translation cycle.
+
+When semantic ordering is declared, the resulting Canonical Translation Order SHALL preserve every required predecessor, successor, dependency, phase, restriction, and independence relationship.
+
+When semantic ordering is not declared, any deterministic ordering introduced solely for serialization, hashing, replay, validation, or provenance SHALL remain representational only and SHALL NOT create execution precedence, supervisory priority, transaction semantics, or runtime scheduling implications.
+
+Translation Ordering Rules SHALL NOT infer undeclared dependencies, alter supervisory meaning, redefine numeric interpretation, define validation outcomes, establish transaction semantics, assign runtime schedules, allocate execution resources, repair runtime incompatibility, or authorize execution.
+
+Every translation cycle SHALL use exactly one committed Translation Ordering Rule Set bound by the Committed Translation Configuration. Mixing, substituting, dynamically selecting, or modifying Translation Ordering Rule Sets during a translation cycle is prohibited.
+
+For identical canonical translated artifacts, declared dependency graphs, phase metadata, Translation Definitions, Translation Numeric Rules, Canonical Representation Profile, and Committed Translation Configuration, every conforming implementation SHALL produce the same Canonical Translation Order.
+
+The Canonical Translation Order SHALL constitute the sole ordering evidence submitted to Section 17 — Translation Validation Rules.
+
+It SHALL NOT constitute an execution schedule. This preserves the constitutional separation established by Contract 000 between translation and execution authority. 

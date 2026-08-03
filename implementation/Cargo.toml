@@ -1,0 +1,35 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/constitutional-conformance",
+    "crates/canonical-identity",
+    "crates/canonical-serialization",
+    "crates/canonical-hashing",
+    "crates/canonical-versioning",
+    "crates/canonical-artifacts",
+    "crates/commitment-engine",
+    "crates/lineage-core",
+    "crates/deterministic-ordering",
+    "crates/failure-model",
+    "crates/observation",
+    "crates/state-estimation",
+    "crates/operational-state-vector",
+    "crates/governance",
+    "crates/supervisory-objectives",
+    "crates/operational-profiles",
+    "crates/controller",
+    "crates/inference-control",
+    "crates/execution-interface",
+    "crates/supervisory-continuity",
+    "crates/constitutional-history",
+    "crates/external-verification-interface",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "Apache-2.0"
+publish = false
+
+[workspace.dependencies]
+sha2 = "0.10"

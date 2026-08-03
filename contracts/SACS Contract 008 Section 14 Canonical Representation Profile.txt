@@ -1,0 +1,411 @@
+SACS Contract 008 — Section 14
+
+Canonical Representation Profile
+
+14.1 Purpose
+
+This section defines the Canonical Representation Profile used by Contract 008.
+
+The Canonical Representation Profile establishes the single canonical representation environment used during one translation cycle.
+
+It defines the representational conventions assumed by all authorized Translation Definitions, Translation Numeric Rules, Translation Ordering Rules, Translation Validation Rules, Translation Transaction Rules, Compatibility Evaluations, and Translation Evaluations operating under the active Committed Translation Configuration.
+
+The Canonical Representation Profile standardizes representation.
+
+It does not define supervisory meaning.
+
+⸻
+
+14.2 Architectural Identity
+
+The Canonical Representation Profile is an immutable declarative artifact.
+
+It defines the canonical representation environment used during translation.
+
+Its defining identity is:
+
+The Canonical Representation Profile defines exactly one deterministic representation environment for one translation cycle. It standardizes how information is represented, not what that information means.
+
+The profile defines the target representation produced after authorized normalization.
+
+It does not perform normalization.
+
+It defines canonical representation.
+
+It does not execute against representations.
+
+⸻
+
+14.3 Authority Boundary
+
+The Canonical Representation Profile owns:
+
+* representation domains;
+* primitive representation forms;
+* structured representation forms;
+* collection representation forms;
+* enumeration encodings;
+* boolean encodings;
+* identifier conventions;
+* namespace conventions;
+* unit conventions;
+* text representations;
+* binary representations;
+* temporal representations;
+* duration representations;
+* interval representations;
+* version representations;
+* optional-value representations;
+* null-state representations;
+* metadata representations;
+* canonical serialization assumptions;
+* canonical hashing input assumptions.
+
+The Canonical Representation Profile SHALL NOT:
+
+* perform normalization;
+* determine semantic equivalence;
+* select Translation Definitions;
+* define arithmetic;
+* define comparison semantics;
+* define ordering semantics;
+* validate translations;
+* repair runtime incompatibility;
+* compensate for unsupported runtime behavior;
+* reinterpret supervisory intent;
+* broaden supervisory authority;
+* weaken supervisory restrictions;
+* authorize execution.
+
+⸻
+
+14.4 Canonical Representation Profile Identity
+
+Every Canonical Representation Profile SHALL possess immutable identity.
+
+At minimum the profile SHALL define:
+
+* canonical_representation_profile_id
+* profile_name
+* profile_version
+* profile_schema_version
+* registry_snapshot_ids
+* contract_version
+* provenance_id
+* profile_hash
+
+The profile MAY bind immutable references to subordinate representation profiles rather than embedding them.
+
+The profile hash SHALL uniquely identify the committed representation environment.
+
+Two profiles possessing different hashes SHALL be treated as different canonical representation environments regardless of name or version.
+
+⸻
+
+14.5 Canonical Representation Domains
+
+The profile SHALL define the canonical representation domains used during translation.
+
+These domains include, where applicable:
+
+* primitive values;
+* scalar values;
+* structured objects;
+* collections;
+* enumerations;
+* booleans;
+* identifiers;
+* namespaces;
+* textual values;
+* binary values;
+* temporal values;
+* durations;
+* intervals;
+* versions;
+* optional values;
+* null-state values;
+* metadata.
+
+Additional representation domains MAY be defined by future revisions.
+
+⸻
+
+14.6 Primitive Representations
+
+The profile SHALL define canonical representations for primitive values including:
+
+* integers;
+* decimals;
+* booleans;
+* text;
+* byte sequences;
+* identifiers;
+* null-state markers.
+
+The profile defines representation only.
+
+Primitive mathematical behavior belongs to Section 15.
+
+⸻
+
+14.7 Structured Object Representations
+
+The profile SHALL define canonical conventions governing structured objects including:
+
+* field representation;
+* field naming;
+* required-field representation;
+* optional-field representation;
+* duplicate-field prohibition;
+* unknown-field representation;
+* nesting conventions.
+
+The profile SHALL NOT define object semantics.
+
+⸻
+
+14.8 Collection Representations
+
+The profile SHALL distinguish canonical representations for:
+
+* sequences;
+* sets;
+* multisets;
+* maps;
+* ordered maps.
+
+These collection types SHALL remain distinct unless another owning artifact explicitly establishes semantic equivalence.
+
+⸻
+
+14.9 Enumeration and Boolean Representations
+
+The profile SHALL define canonical encodings for:
+
+* enumerations;
+* boolean values.
+
+The profile SHALL NOT determine which enumeration value or boolean state is semantically applicable.
+
+⸻
+
+14.10 Identifier and Namespace Representations
+
+The profile SHALL define canonical conventions governing:
+
+* identifier syntax;
+* namespace notation;
+* separator rules;
+* case sensitivity;
+* Unicode normalization;
+* version suffix representation.
+
+Canonical representation SHALL preserve identifier identity.
+
+⸻
+
+14.11 Text and Binary Representations
+
+The profile SHALL define canonical conventions governing:
+
+* character encoding;
+* Unicode normalization;
+* line endings;
+* escape sequences;
+* binary encoding;
+* byte ordering;
+* hexadecimal representation;
+* binary padding;
+* binary length representation.
+
+These conventions SHALL ensure deterministic representation.
+
+⸻
+
+14.12 Temporal and Duration Representations
+
+The profile SHALL define canonical representations for:
+
+* timestamps;
+* calendar forms;
+* epoch forms;
+* timezone notation;
+* precision fields;
+* duration representations;
+* leap-second representation policy.
+
+The profile SHALL NOT define temporal arithmetic or comparison behavior.
+
+⸻
+
+14.13 Interval and Version Representations
+
+The profile SHALL define canonical structural representations for:
+
+* intervals;
+* version identifiers.
+
+Comparison semantics belong to later contracts.
+
+⸻
+
+14.14 Optional and Null-State Representations
+
+The profile SHALL define distinct canonical representations for:
+
+* PRESENT;
+* ABSENT;
+* UNKNOWN;
+* UNAVAILABLE;
+* INVALID;
+* UNSUPPORTED;
+* NOT_APPLICABLE.
+
+These representations SHALL remain distinguishable.
+
+The profile SHALL NOT determine when these states apply.
+
+⸻
+
+14.15 Metadata Representations
+
+The profile SHALL define canonical representations for metadata associated with translation artifacts including, where applicable:
+
+* artifact identifiers;
+* profile identifiers;
+* version identifiers;
+* registry identifiers;
+* provenance identifiers;
+* lineage identifiers.
+
+Metadata semantics remain owned by their originating artifacts.
+
+⸻
+
+14.16 Canonical Serialization
+
+The profile SHALL define the canonical serialization used for deterministic replay, comparison, lineage, and artifact integrity.
+
+Canonical logical representation and canonical serialization SHALL be treated as distinct concepts.
+
+Canonical representation defines logical structure.
+
+Canonical serialization defines deterministic encoded form.
+
+⸻
+
+14.17 Canonical Hashing Input
+
+The profile SHALL define the canonical serialized representation used as hashing input.
+
+Hash algorithms MAY be defined by a shared SACS artifact-integrity standard.
+
+The Canonical Representation Profile defines the serialized form supplied to that algorithm.
+
+⸻
+
+14.18 Profile Selection and Cycle Binding
+
+A translation cycle SHALL operate under exactly one committed Canonical Representation Profile.
+
+The profile SHALL be selected and bound exclusively by the Committed Translation Configuration.
+
+The profile SHALL be referenced by the Translation Profile.
+
+Authorized Translation Normalization Rules SHALL target the committed profile.
+
+All downstream translation mechanisms SHALL assume the same committed profile.
+
+Registry membership, runtime preference, implementation defaults, Translation Definition requirements, or runtime capability availability SHALL NOT independently activate a Canonical Representation Profile.
+
+Dynamic profile substitution is prohibited.
+
+⸻
+
+14.19 Profile Compatibility Requirements
+
+The Canonical Representation Profile establishes compatibility obligations.
+
+It SHALL NOT evaluate compatibility.
+
+Later compatibility evaluation SHALL verify that:
+
+* Translation Definitions support the committed profile;
+* Translation Normalization Rules target the committed profile;
+* Translation Numeric Rules interpret the committed numeric representations;
+* Translation Ordering Rules interpret the committed collection representations;
+* Translation Validation Rules validate artifacts represented under the committed profile;
+* Translation Transaction Rules preserve committed representations;
+* Runtime Capability Profiles can faithfully receive translated outputs derived from the committed profile.
+
+⸻
+
+14.20 Determinism, Uniqueness, and Idempotence
+
+Within one committed Canonical Representation Profile:
+
+Every representation already established as semantically equivalent by its owning Translation Definition and authorized Translation Normalization Rules SHALL produce one and only one canonical representation.
+
+Authorized normalization SHALL be idempotent.
+
+Applying authorized normalization to an already canonical representation SHALL produce the identical representation.
+
+Canonical representation SHALL remain unchanged throughout downstream translation mechanisms.
+
+⸻
+
+14.21 Versioning and Lifecycle
+
+Canonical Representation Profiles SHALL be immutable after publication.
+
+Changes SHALL require a new profile version and profile hash.
+
+Compatibility SHALL be explicitly declared.
+
+Profiles MAY be designated:
+
+* Active;
+* Deprecated;
+* Withdrawn.
+
+Historical profiles SHALL remain replayable.
+
+Previously published profiles SHALL NOT be modified.
+
+⸻
+
+14.22 Failure Classes
+
+Implementations SHOULD distinguish failures including:
+
+* CANONICAL_REPRESENTATION_PROFILE_MISSING
+* CANONICAL_REPRESENTATION_PROFILE_HASH_MISMATCH
+* CANONICAL_REPRESENTATION_PROFILE_SCHEMA_INVALID
+* CANONICAL_REPRESENTATION_PROFILE_INCOMPATIBLE
+* CANONICAL_REPRESENTATION_PROFILE_MIXED
+* CANONICAL_REPRESENTATION_AMBIGUOUS
+* CANONICAL_REPRESENTATION_NONUNIQUE
+* CANONICAL_NULL_STATE_COLLISION
+* CANONICAL_IDENTIFIER_COLLISION
+* CANONICAL_SERIALIZATION_NONDETERMINISTIC
+* CANONICAL_REPRESENTATION_PROFILE_WITHDRAWN
+
+⸻
+
+14.23 Fundamental Canonical Representation Invariant
+
+The Canonical Representation Profile SHALL define exactly one immutable and deterministic representation environment for one translation cycle.
+
+It SHALL define the canonical representation domains, unit conventions, identifier conventions, namespace conventions, encoding standards, temporal representations, null-state representations, collection representations, metadata representations, canonical serialization assumptions, and canonical hashing input inherited by all authorized Translation Definitions and downstream translation rules.
+
+The profile SHALL define what constitutes canonical representation.
+
+It SHALL NOT perform normalization, determine semantic equivalence, select Translation Definitions, define arithmetic or comparison behavior, validate translation results, repair runtime incompatibility, alter supervisory meaning, broaden supervisory authority, weaken supervisory restrictions, or authorize execution.
+
+Every representation established as semantically equivalent by its owning Translation Definitions and authorized Translation Normalization Rules SHALL normalize to one and only one canonical representation under the committed Canonical Representation Profile.
+
+Canonical representation SHALL preserve supervisory meaning, authority, restrictions, identity, temporal semantics, ordering metadata, transaction metadata, and provenance.
+
+A translation cycle SHALL use exactly one committed Canonical Representation Profile.
+
+Mixing, substituting, dynamically selecting, or modifying Canonical Representation Profiles during a translation cycle is prohibited.

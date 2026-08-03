@@ -1,0 +1,324 @@
+SACS Contract 012 — External Verification Profile and Evidence Interface
+Section 12 — Verification Evidence Resolution
+Purpose
+
+Section 12 establishes the constitutional process by which Verification Evidence Definitions are resolved into the exact set of evidence instances required to satisfy a committed Verification Requirement Set.
+
+Where Section 11 defines the reusable constitutional classes of verification evidence, this section determines which specific evidence instances SHALL be used for a particular verification submission.
+
+Verification Evidence Resolution is deterministic.
+
+Given identical constitutional inputs, every conforming implementation SHALL resolve exactly the same Verification Evidence Set.
+
+Section 12 therefore serves the same constitutional role that Candidate Profile Discovery serves in Contract 006.
+
+It does not construct an evidence package.
+
+It does not evaluate verification claims.
+
+It does not validate evidence sufficiency.
+
+It determines which exact evidence SHALL participate in verification.
+
+Constitutional Question
+
+Which exact evidence satisfies the committed Verification Requirement Set?
+
+Verification Evidence Resolution SHALL determine:
+
+required evidence;
+optional evidence;
+prohibited evidence;
+admissible evidence;
+authoritative evidence;
+compatible evidence versions;
+temporally valid evidence;
+evidence integrity eligibility;
+provenance eligibility;
+resolution precedence; and
+deterministic evidence selection.
+
+Only evidence successfully resolved under this section MAY proceed to package construction.
+
+Constitutional Identity
+
+A Resolved Verification Evidence Set is one immutable, cycle-specific constitutional artifact that identifies the complete collection of evidence instances authorized to satisfy the committed Verification Requirement Set for a single verification submission.
+
+Resolution establishes participation.
+
+Resolution does not establish correctness.
+
+Resolution does not establish claim validity.
+
+Resolution does not establish verification success.
+
+Constitutional Authority
+
+Contract 012 SHALL exclusively own:
+
+evidence discovery;
+evidence eligibility evaluation;
+evidence admissibility evaluation;
+evidence compatibility evaluation;
+evidence version resolution;
+evidence precedence;
+deterministic selection;
+conflict detection;
+duplicate elimination; and
+construction of the Resolved Verification Evidence Set.
+
+Contract 012 SHALL NOT:
+
+create evidence;
+modify evidence;
+repair evidence;
+reinterpret evidence;
+fabricate missing evidence;
+infer unavailable evidence;
+replace missing evidence with alternatives unless explicitly authorized by the committed Verification Profile; or
+alter evidence authority.
+Resolution Inputs
+
+Evidence Resolution SHALL consume only committed constitutional artifacts, including:
+
+Committed Verification Applicability Result;
+Committed Verification Requirement Set;
+Committed Verification Profile Binding;
+Verification Method Definitions;
+Verification Evidence Definitions;
+committed constitutional artifacts;
+registry snapshots;
+implementation artifacts;
+execution provenance;
+replay artifacts;
+proof artifacts;
+cryptographic attestations; and
+any additional evidence explicitly authorized by the Verification Profile.
+
+No uncommitted artifact SHALL participate in evidence resolution.
+
+Evidence Eligibility
+
+An evidence instance SHALL be eligible only if it satisfies every applicable constitutional requirement.
+
+Eligibility SHALL include verification of:
+
+evidence identity;
+evidence definition;
+evidence class;
+commitment status;
+integrity state;
+provenance completeness;
+temporal validity;
+version compatibility;
+lifecycle state;
+constitutional authority;
+supported verification methods; and
+supported claim types.
+
+Evidence failing any eligibility criterion SHALL NOT participate in further resolution.
+
+Required Evidence
+
+The Verification Requirement Set SHALL identify evidence that is mandatory.
+
+Every required evidence item SHALL resolve to exactly one admissible evidence instance unless multiple instances are explicitly authorized.
+
+Failure to resolve required evidence SHALL terminate evidence resolution.
+
+No implementation SHALL silently omit required evidence.
+
+Optional Evidence
+
+The Verification Requirement Set MAY authorize optional evidence.
+
+Optional evidence MAY strengthen verification capability but SHALL NOT alter constitutional meaning.
+
+Optional evidence SHALL never satisfy a missing required evidence obligation unless explicitly authorized by constitutional policy.
+
+Prohibited Evidence
+
+Evidence SHALL be rejected whenever:
+
+prohibited by the Verification Profile;
+prohibited by the Requirement Set;
+constitutionally superseded;
+cryptographically invalid;
+outside authorized provenance;
+outside temporal scope;
+incompatible with the verification subject;
+incompatible with the verification method;
+revoked;
+corrupted;
+incomplete; or
+otherwise constitutionally inadmissible.
+
+Prohibited evidence SHALL never appear in a Resolved Verification Evidence Set.
+
+Evidence Admissibility
+
+Evidence admissibility SHALL evaluate whether evidence may constitutionally participate in verification.
+
+Admissibility SHALL evaluate:
+
+authority;
+provenance;
+integrity;
+commitment;
+lifecycle state;
+constitutional scope;
+replay eligibility;
+temporal validity; and
+applicable constitutional restrictions.
+
+Admissibility establishes constitutional participation.
+
+It does not establish evidentiary sufficiency.
+
+Evidence Compatibility
+
+Evidence SHALL be compatible with:
+
+the Verification Profile;
+the Verification Requirement Set;
+the Verification Method;
+the Verification Subject;
+supported claim types;
+required evidence definitions;
+constitutional versions; and
+applicable registry snapshots.
+
+Evidence incompatibility SHALL terminate resolution.
+
+No implementation SHALL attempt automatic compatibility repair.
+
+Temporal Compatibility
+
+Every resolved evidence instance SHALL satisfy constitutional temporal requirements.
+
+Temporal compatibility SHALL verify:
+
+applicable constitutional versions;
+registry snapshot identity;
+commitment ordering;
+replay ordering;
+execution ordering;
+validity intervals;
+expiration policies; and
+supersession rules.
+
+Evidence outside authorized temporal boundaries SHALL be rejected.
+
+Provenance Compatibility
+
+Every resolved evidence instance SHALL preserve complete constitutional provenance.
+
+Resolution SHALL verify:
+
+producing contract;
+producing artifact;
+producing authority;
+producing implementation;
+producing registry snapshot;
+lineage chain;
+cryptographic identity; and
+commitment lineage.
+
+Evidence with incomplete or unverifiable provenance SHALL be rejected.
+
+Resolution Precedence
+
+Where multiple admissible evidence instances satisfy the same requirement, deterministic precedence SHALL be applied.
+
+Precedence SHALL be established exclusively by constitutional policy.
+
+Acceptable precedence criteria MAY include:
+
+highest constitutional authority;
+latest committed version;
+strongest integrity guarantees;
+highest provenance confidence;
+canonical registry ordering; or
+explicit profile precedence rules.
+
+Implementations SHALL NOT employ nondeterministic selection.
+
+Duplicate Resolution
+
+Equivalent evidence SHALL be identified deterministically.
+
+Duplicate evidence SHALL either:
+
+collapse into one canonical instance; or
+remain explicitly represented where constitutional meaning differs.
+
+Duplicate elimination SHALL preserve provenance.
+
+Resolution Conflicts
+
+Evidence conflicts SHALL be explicitly represented.
+
+Conflict resolution SHALL never modify evidence.
+
+Conflict resolution SHALL either:
+
+deterministically select one constitutionally authorized instance; or
+terminate resolution with an explicit constitutional failure.
+
+Implicit conflict resolution is prohibited.
+
+Canonical Resolved Verification Evidence Set
+
+Successful evidence resolution SHALL produce one immutable constitutional artifact containing:
+
+resolution identifier;
+submission identifier;
+Verification Profile reference;
+Requirement Set reference;
+resolved evidence inventory;
+required evidence inventory;
+optional evidence inventory;
+excluded evidence inventory;
+prohibited evidence inventory;
+evidence definitions;
+evidence instance references;
+provenance references;
+integrity references;
+compatibility results;
+temporal validation results;
+admissibility results;
+conflict decisions;
+duplicate decisions;
+registry snapshot references;
+constitutional lineage;
+creation metadata; and
+cryptographic identity.
+Resolution Failure
+
+Evidence Resolution SHALL terminate immediately upon any constitutional failure including, but not limited to:
+
+missing required evidence;
+inadmissible evidence;
+incompatible evidence;
+unresolved conflicts;
+duplicate ambiguity;
+invalid provenance;
+integrity failure;
+registry inconsistency;
+temporal incompatibility;
+unsupported evidence class; or
+nondeterministic resolution.
+
+Resolution failure SHALL produce an explicit constitutional failure artifact.
+
+No partial Resolved Verification Evidence Set SHALL be produced.
+
+Constitutional Invariants
+
+For every committed Verification Requirement Set:
+
+exactly one deterministic evidence resolution SHALL exist;
+every required evidence obligation SHALL either resolve or explicitly fail;
+no prohibited evidence SHALL participate;
+every resolved evidence instance SHALL preserve constitutional identity, authority, provenance, integrity, and replay determinism; and
+identical constitutional inputs SHALL always produce an identical Resolved Verification Evidence Set.

@@ -1,0 +1,229 @@
+SACS Contract 011 — Realization Certification, Supervisory Provenance, and Audit
+Section 17 — Canonical Artifact Resolution
+Purpose
+
+Section 17 establishes the constitutional authority responsible for resolving every committed constitutional artifact required to construct the supervisory lineage of one certified supervisory cycle.
+
+Canonical Artifact Resolution identifies the complete constitutional artifact set that participates in the supervisory cycle and establishes the immutable references upon which lineage construction depends.
+
+This section answers exactly one constitutional question:
+
+Which committed constitutional artifacts constitute the authoritative supervisory cycle?
+
+It does not validate relationships between artifacts, construct lineage, evaluate completeness, commit provenance, perform replay, or perform audit.
+
+Constitutional Responsibility
+
+Canonical Artifact Resolution SHALL:
+
+identify every required committed constitutional artifact participating in the supervisory cycle;
+resolve one canonical instance of each required artifact;
+preserve artifact identity and constitutional ownership;
+establish one immutable artifact reference set.
+
+Successful completion authorizes progression to Cross-Contract Relationship Resolution.
+
+Resolution Authority
+
+Artifact Resolution SHALL consume:
+
+one Committed Realization Record;
+the supervisory cycle identity;
+committed constitutional artifact references.
+
+Resolution SHALL determine only:
+
+whether required artifacts exist;
+whether exactly one canonical artifact resolves for each required constitutional role;
+whether every resolved artifact belongs to the certified supervisory cycle.
+
+Resolution SHALL NOT determine:
+
+correctness;
+completeness;
+lineage integrity;
+certification;
+historical meaning.
+Required Artifact Set
+
+At minimum, the canonical supervisory cycle SHALL resolve the following committed artifacts:
+
+Committed Operational Profile
+
+Committed Reference State
+
+Committed Control Error
+
+Committed Control Command
+
+Committed Translation Transaction
+
+Committed Execution Disposition
+
+Committed Supervisory Continuity Record
+
+Committed Realization Record
+
+Future constitutional revisions MAY extend this required set.
+
+Implementations SHALL NOT reduce it.
+
+Canonical Resolution
+
+Exactly one committed artifact SHALL resolve for every required constitutional role.
+
+Formally:
+
+Resolve(role) = 1
+
+Multiple equally valid resolutions SHALL constitute constitutional failure.
+
+Failure to resolve SHALL constitute constitutional failure.
+
+Implementation preference SHALL NOT determine canonical identity.
+
+Resolution Preservation
+
+Successful resolution SHALL preserve:
+
+artifact identifiers;
+originating contract authority;
+commitment identifiers;
+registry references;
+schema references;
+constitutional ownership.
+
+Resolution SHALL NOT:
+
+replace artifacts;
+merge artifacts;
+reinterpret artifacts;
+reconstruct artifacts.
+
+Each artifact SHALL remain independently authoritative.
+
+Resolution Constraints
+
+Canonical Artifact Resolution SHALL NOT:
+
+infer missing committed artifacts;
+substitute newer committed artifacts;
+substitute implementation-specific artifacts;
+resolve provisional artifacts;
+consume intermediate working artifacts.
+
+Only committed constitutional artifacts SHALL participate in supervisory provenance.
+
+Resolution Failure
+
+Representative constitutional failures include:
+
+REQUIRED_ARTIFACT_UNRESOLVED
+
+MULTIPLE_CANONICAL_ARTIFACTS
+
+ARTIFACT_IDENTITY_CONFLICT
+
+COMMITTED_ARTIFACT_UNAVAILABLE
+
+CROSS_CYCLE_ARTIFACT
+
+UNSUPPORTED_CONSTITUTIONAL_ROLE
+
+Upon failure:
+
+lineage construction SHALL NOT begin;
+no Supervisory Cycle Record SHALL be constructed;
+Stage Two SHALL terminate.
+
+Failure SHALL be represented explicitly.
+
+Constitutional Output
+
+Successful completion SHALL produce exactly one:
+
+Canonical Artifact Resolution Set
+
+The Canonical Artifact Resolution Set SHALL contain:
+
+supervisory cycle identity;
+realization identity;
+every resolved committed artifact;
+artifact identifiers;
+commitment identifiers;
+originating contract identities;
+resolution timestamp.
+
+The Resolution Set is an internal constitutional working artifact.
+
+It SHALL NOT constitute a committed constitutional artifact.
+
+Architectural Constraints
+
+Canonical Artifact Resolution is a resolution authority.
+
+It SHALL NOT:
+
+validate relationships;
+determine historical completeness;
+determine historical integrity;
+construct lineage;
+commit provenance;
+perform replay;
+perform audit.
+
+Its sole responsibility is identifying the committed constitutional artifacts that define the supervisory cycle.
+
+Relationship to Neighboring Sections
+
+The constitutional progression SHALL be:
+
+Section 16
+Supervisory Provenance Authority
+        │
+        ▼
+Section 17
+Canonical Artifact Resolution
+        │
+        ▼
+Section 18
+Cross-Contract Relationship Resolution
+
+These sections perform distinct constitutional functions:
+
+Section 16 establishes Stage Two authority.
+Section 17 determines which committed artifacts participate.
+Section 18 determines how those artifacts are constitutionally related.
+
+Artifact membership is therefore distinct from artifact relationship.
+
+Mathematical Interpretation
+
+Let:
+
+R(c) denote the required artifact roles for supervisory cycle c.
+Resolve(r) denote the canonical artifact resolved for role r.
+
+For every required role:
+
+∀r∈R(c),∣Resolve(r)∣=1
+
+Every required constitutional role SHALL resolve to exactly one committed artifact.
+
+If:
+
+∣Resolve(r)∣=0
+
+or
+
+∣Resolve(r)∣>1
+
+then Canonical Artifact Resolution SHALL fail.
+
+Implementations SHALL NOT repair these conditions through inference or heuristic selection.
+
+Fundamental Resolution Principle
+
+The defining principle of this section is:
+
+Canonical Artifact Resolution SHALL deterministically resolve exactly one committed constitutional artifact for every required supervisory role within one supervisory cycle. It SHALL preserve artifact identity, constitutional ownership, and commitment integrity without substitution, reconstruction, reinterpretation, or implementation-defined selection.

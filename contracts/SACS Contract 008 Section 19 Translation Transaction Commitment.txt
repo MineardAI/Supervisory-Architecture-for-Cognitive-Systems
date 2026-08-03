@@ -1,0 +1,1355 @@
+# SACS Contract 008 — Section 19
+
+# Translation Transaction Commitment and Execution Interface Handoff
+
+## 19.1 Purpose
+
+This section defines **Translation Transaction Commitment and Execution Interface Handoff** for Contract 008.
+
+Translation Transaction Commitment atomically establishes one eligible Constructed Translation Transaction as the authoritative Inference Control output for the active translation cycle.
+
+Execution Interface Handoff transmits that committed artifact unchanged to Contract 009 through one integrity-preserving handoff envelope.
+
+This section defines:
+
+* commitment eligibility;
+* canonical transaction selection;
+* atomic commitment;
+* singular commitment;
+* commitment identity;
+* commitment finality;
+* commitment evidence;
+* handoff-envelope construction;
+* handoff integrity;
+* handoff status;
+* idempotent redelivery;
+* Contract 008 phase closure;
+* the terminal authority boundary with Contract 009.
+
+This section SHALL NOT:
+
+* construct translated commands;
+* construct transaction membership;
+* alter a Constructed Translation Transaction;
+* repeat semantic validation;
+* reevaluate compatibility;
+* determine runtime eligibility;
+* grant execution permission;
+* assign an execution disposition;
+* schedule runtime activity;
+* apply runtime instructions.
+
+---
+
+## 19.2 Architectural Identity
+
+Translation Transaction Commitment is the final constitutional operation performed by Contract 008.
+
+Its defining identity is:
+
+> **Translation Transaction Commitment atomically establishes at most one immutable Constructed Translation Transaction as the authoritative Contract 008 output for one translation cycle. Execution Interface Handoff then transmits that committed artifact unchanged to Contract 009 without creating execution permission or assigning an execution disposition.**
+
+Commitment establishes canonical artifact authority.
+
+It does not establish runtime authority.
+
+Handoff communicates the committed artifact.
+
+It does not authorize its application.
+
+---
+
+## 19.3 Constructed, Committed, and Handed-Off Artifacts
+
+Contract 008 SHALL distinguish among the following artifacts and operations.
+
+### 19.3.1 Constructed Translation Transaction
+
+The immutable transaction artifact produced under Section 18.
+
+A Constructed Translation Transaction is eligible for commitment but is not yet the canonical output of Contract 008.
+
+### 19.3.2 Translation Commitment Record
+
+The immutable artifact that binds one translation cycle to one Constructed Translation Transaction identifier and hash.
+
+A successful Translation Commitment Record establishes the referenced transaction as the **Committed Translation Transaction**.
+
+### 19.3.3 Committed Translation Transaction
+
+The Constructed Translation Transaction referenced by a successful Translation Commitment Record.
+
+Commitment SHALL NOT create a modified copy of the transaction.
+
+The constructed and committed transaction SHALL retain the same:
+
+* transaction identifier;
+* transaction hash;
+* membership;
+* ordering;
+* dependency graph;
+* transaction groups;
+* atomic groups;
+* authority bounds;
+* obligations;
+* restrictions;
+* target identities;
+* scope;
+* temporal requirements;
+* required execution properties;
+* validation references;
+* compatibility references;
+* provenance references.
+
+### 19.3.4 Execution Interface Handoff Envelope
+
+The non-executable envelope that references the Committed Translation Transaction and the evidence required for Contract 009 receipt processing.
+
+### 19.3.5 Execution Interface Handoff Record
+
+The immutable evidence artifact recording a handoff attempt and its outcome.
+
+The handoff record SHALL NOT alter the committed transaction.
+
+---
+
+## 19.4 Relationship to Section 18
+
+Section 18 owns:
+
+* transaction construction;
+* transaction membership;
+* grouping;
+* transaction boundaries;
+* atomic-group preservation;
+* content immutability;
+* member integrity;
+* transaction-envelope integrity;
+* the Translation Transaction Construction Report.
+
+Section 19 owns:
+
+* commitment eligibility;
+* canonical selection;
+* cycle-to-transaction binding;
+* commitment finality;
+* publication;
+* handoff-envelope construction;
+* delivery evidence;
+* Contract 008 phase closure.
+
+Section 18 SHALL produce a **Constructed Translation Transaction**.
+
+Section 19 SHALL determine whether that constructed artifact becomes the **Committed Translation Transaction**.
+
+The Constructed Translation Transaction is the sole transaction artifact eligible for canonical commitment under this section.
+
+---
+
+## 19.5 Authority Boundary
+
+Section 19 owns only:
+
+* canonical artifact selection;
+* atomic commitment;
+* commitment publication;
+* commitment lineage;
+* handoff-envelope construction;
+* handoff attempt recording;
+* handoff identity and integrity evidence;
+* Contract 008 translation-phase closure.
+
+Section 19 SHALL NOT:
+
+* reconstruct transaction content;
+* add or remove transaction members;
+* alter transaction grouping;
+* change canonical ordering;
+* infer new dependencies;
+* infer new atomic groups;
+* repair failed validation;
+* waive failed construction requirements;
+* reevaluate semantic preservation;
+* reevaluate compatibility;
+* weaken restrictions;
+* broaden authority;
+* reduce mandatory effect;
+* grant runtime permission;
+* establish provider acceptance;
+* determine operational applicability;
+* assign execution status;
+* schedule execution;
+* apply commands.
+
+Contract 009 exclusively owns:
+
+* receipt processing;
+* execution gating;
+* runtime acceptance;
+* runtime rejection;
+* runtime deferral;
+* runtime restriction;
+* scheduling where applicable;
+* runtime application;
+* execution receipts;
+* execution dispositions.
+
+---
+
+## 19.6 Commitment Establishes Finality, Not Content Immutability
+
+Content immutability is established by Section 18.
+
+Section 19 SHALL NOT describe commitment as making previously mutable transaction content immutable.
+
+Commitment establishes **canonical finality**.
+
+Canonical finality means that the immutable relationship:
+
+```text
+translation_cycle_id
+        →
+translation_transaction_id
+translation_transaction_hash
+```
+
+has been atomically established as the authoritative Contract 008 output for that translation cycle.
+
+The commitment relationship SHALL NOT be modified in place.
+
+A correction SHALL require:
+
+* a new authorized cycle or correction cycle;
+* a new Constructed Translation Transaction;
+* a new commitment identity;
+* a new Translation Commitment Record;
+* explicit supersession lineage.
+
+The original commitment SHALL remain preserved as historical evidence.
+
+---
+
+## 19.7 Commitment Eligibility
+
+A Constructed Translation Transaction SHALL be eligible for commitment only when:
+
+* its Transaction Construction Report has result `CONSTRUCTED`;
+* it belongs to the active translation cycle;
+* it references the active Committed Control Command;
+* it references the active Committed Translation Configuration;
+* it references the active Validated Translation Binding;
+* it references a Translation Validation Report with result `VALID`;
+* its validation-report bindings remain exact;
+* its compatibility-evidence bindings remain exact;
+* its Canonical Translation Order binding remains exact;
+* its transaction-rule-set binding remains exact;
+* all required registry snapshot bindings remain exact;
+* its transaction hash remains valid;
+* its member hashes remain valid;
+* its provenance remains complete;
+* it has not been invalidated or superseded before commitment;
+* no conflicting successful commitment already exists for the cycle.
+
+Eligibility evaluation SHALL verify existing bindings only.
+
+It SHALL NOT repeat translation construction, semantic validation, or compatibility evaluation.
+
+---
+
+## 19.8 Candidate Set and Singular Selection
+
+The commitment operation SHALL evaluate the set of commitment-eligible Constructed Translation Transactions for the active cycle.
+
+Let:
+
+[
+E_c
+===
+
+\operatorname{EligibleTransactions}(c)
+]
+
+where (c) is the active translation cycle.
+
+Successful commitment requires:
+
+[
+|E_c|=1
+]
+
+If:
+
+[
+|E_c|=0
+]
+
+the cycle SHALL produce no committed Translation Transaction.
+
+If:
+
+[
+|E_c|>1
+]
+
+commitment SHALL fail with a multiple-eligible-candidate conflict.
+
+Section 19 SHALL NOT choose among multiple otherwise eligible transactions through:
+
+* arrival order;
+* local storage order;
+* random selection;
+* implementation preference;
+* operator convenience;
+* provider preference;
+* nondeterministic arbitration.
+
+Any lawful selection rule SHALL have been committed before the commitment attempt.
+
+---
+
+## 19.9 At Most One Successful Commitment Per Cycle
+
+For every translation cycle (c):
+
+[
+\left|
+\left{
+C_t :
+\operatorname{Cycle}(C_t)=c
+\land
+\operatorname{Status}(C_t)=\mathrm{COMMITTED}
+\right}
+\right|
+\leq 1
+]
+
+For a successfully completed Contract 008 translation phase:
+
+[
+\left|
+\operatorname{CommittedTransactions}(c)
+\right|
+=1
+]
+
+For an incomplete, invalid, or faulted Contract 008 translation phase:
+
+[
+\left|
+\operatorname{CommittedTransactions}(c)
+\right|
+=0
+]
+
+A translation cycle SHALL NOT possess two competing canonical outputs.
+
+---
+
+## 19.10 Atomic Commitment Operation
+
+Commitment SHALL be atomic with respect to the translation cycle’s canonical-output slot.
+
+The operation SHALL be compare-and-set equivalent:
+
+```text
+If canonical_output_slot is empty:
+    bind cycle to eligible transaction ID and hash
+    publish successful commitment record
+
+If canonical_output_slot already contains
+the same transaction ID and hash:
+    return the existing commitment idempotently
+
+If canonical_output_slot already contains
+a different transaction ID or hash:
+    fail with commitment conflict
+```
+
+No intermediate state may expose:
+
+* a partially committed transaction;
+* an incomplete cycle-to-transaction binding;
+* a commitment without its integrity evidence;
+* two successful canonical-output bindings.
+
+---
+
+## 19.11 Idempotent Commitment
+
+Repeated commitment of the same transaction SHALL be idempotent when all of the following match:
+
+* translation cycle identifier;
+* constructed transaction identifier;
+* constructed transaction hash;
+* Committed Control Command identifier and hash;
+* Committed Translation Configuration identifier and hash;
+* Validated Translation Binding identifier and hash;
+* Translation Validation Report identifier and hash;
+* commitment context.
+
+Under these conditions, the implementation SHALL return or reference the existing successful commitment.
+
+It SHALL NOT:
+
+* create a second canonical transaction;
+* create additional authority;
+* alter the committed transaction;
+* treat the operation as a new translation result.
+
+A repeated commitment attempt involving the same cycle but a different transaction identifier or hash SHALL be treated as a commitment conflict.
+
+---
+
+## 19.12 Translation Commitment Identity
+
+Every commitment attempt SHALL possess immutable attempt identity.
+
+Every successful commitment SHALL possess immutable commitment identity.
+
+At minimum, the commitment model SHALL contain:
+
+* translation_commitment_id;
+* translation_cycle_id;
+* constructed_translation_transaction_id;
+* constructed_translation_transaction_hash;
+* committed_control_command_id;
+* committed_control_command_hash;
+* committed_translation_configuration_id;
+* committed_translation_configuration_hash;
+* validated_translation_binding_id;
+* validated_translation_binding_hash;
+* translation_validation_report_id;
+* translation_validation_report_hash;
+* translation_transaction_construction_report_id;
+* commitment_status;
+* commitment_context_id;
+* committed_time_context_id, where applicable;
+* provenance_id;
+* commitment_hash.
+
+The transaction identifier SHALL remain unchanged during commitment.
+
+The commitment identifier SHALL identify the canonical cycle-to-transaction binding.
+
+---
+
+## 19.13 Commitment Status
+
+The canonical commitment result SHALL be one of:
+
+* `COMMITTED`;
+* `NOT_COMMITTED`;
+* `FAULTED`.
+
+`COMMITTED` means one eligible Constructed Translation Transaction has been atomically established as the authoritative Contract 008 output.
+
+`NOT_COMMITTED` means no canonical transaction was established because one or more mandatory commitment conditions were not satisfied.
+
+`FAULTED` means the commitment operation could not deterministically complete or record its result.
+
+Commitment status SHALL NOT include:
+
+* ACCEPTED;
+* REJECTED;
+* DEFERRED;
+* RESTRICTED;
+* SCHEDULED;
+* APPLIED;
+* EXECUTED.
+
+Those are Contract 009 concepts.
+
+---
+
+## 19.14 Translation Commitment Record
+
+A successful commitment SHALL produce one immutable **Translation Commitment Record**.
+
+At minimum, it SHALL contain:
+
+* translation_commitment_id;
+* translation_cycle_id;
+* constructed_translation_transaction_id;
+* constructed_translation_transaction_hash;
+* committed_control_command_id;
+* committed_control_command_hash;
+* committed_translation_configuration_id;
+* committed_translation_configuration_hash;
+* validated_translation_binding_id;
+* validated_translation_binding_hash;
+* translation_validation_report_id;
+* translation_validation_report_hash;
+* transaction_construction_report_id;
+* transaction_rule_set_id;
+* transaction_rule_set_hash;
+* registry_snapshot_ids;
+* commitment_status;
+* canonical_output_slot_id;
+* commitment_context_id;
+* committed_time_context_id, where applicable;
+* supersedes_commitment_id, where lawfully applicable;
+* provenance_id;
+* commitment_hash.
+
+The commitment record SHALL contain no executable command content not already contained in the committed transaction.
+
+---
+
+## 19.15 Translation Commitment Report
+
+Every completed commitment attempt SHALL produce one immutable **Translation Commitment Report**, whether successful or unsuccessful, when enough information exists to commit evidence.
+
+At minimum, the report SHALL contain:
+
+* translation_commitment_report_id;
+* translation_cycle_id;
+* constructed_transaction_id;
+* constructed_transaction_hash;
+* commitment_id, where successful;
+* precondition_results;
+* eligibility_result;
+* candidate_cardinality_result;
+* transaction_integrity_result;
+* validation_binding_result;
+* compatibility_binding_result;
+* configuration_binding_result;
+* cycle_binding_result;
+* singular_commitment_result;
+* idempotence_result;
+* commitment_status;
+* existing_commitment_reference, where applicable;
+* failure_codes;
+* diagnostic_references;
+* handoff_status;
+* handoff_record_id, where available;
+* commitment_context_id;
+* committed_time_context_id, where applicable;
+* provenance_id;
+* artifact_hash.
+
+The Commitment Report is evidence of the commitment attempt.
+
+The successful Translation Commitment Record is the authority-establishing artifact.
+
+---
+
+## 19.16 Deterministic Commitment Payload
+
+The canonical commitment payload SHALL be deterministic with respect to identical canonical inputs and identical commitment context.
+
+The following SHALL be distinguished:
+
+### Content-Derived Commitment Fields
+
+Fields deterministically derived from:
+
+* cycle identity;
+* transaction identity and hash;
+* source-command identity and hash;
+* configuration identity and hash;
+* binding identity and hash;
+* validation evidence identity and hash;
+* registry bindings;
+* commitment policy;
+* canonical-output slot.
+
+### Contextual Commitment Metadata
+
+Fields such as:
+
+* operational recording timestamp;
+* local process identifier;
+* transport node;
+* diagnostic timing;
+* non-semantic implementation metadata.
+
+Contextual metadata SHALL NOT alter:
+
+* transaction identity;
+* transaction hash;
+* canonical transaction content;
+* authority;
+* obligations;
+* restrictions;
+* commitment target;
+* semantic commitment result.
+
+Identical canonical inputs and identical committed context SHALL produce byte-identical canonical Commitment Records.
+
+Across different non-semantic recording contexts, all content-derived commitment fields SHALL remain identical.
+
+---
+
+## 19.17 Commitment Time
+
+Commitment time SHALL be handled in one of the following ways:
+
+1. derived from a committed time context;
+2. represented by a precommitted temporal context identifier;
+3. recorded as non-semantic provenance metadata excluded from deterministic transaction identity.
+
+Uncontrolled local wall-clock time SHALL NOT influence:
+
+* transaction identity;
+* transaction hash;
+* transaction membership;
+* semantic commitment result;
+* canonical-output selection.
+
+If commitment time is included in the commitment hash, it SHALL originate from a committed and deterministic time context.
+
+---
+
+## 19.18 Commitment Preservation
+
+Commitment SHALL preserve the referenced transaction unchanged.
+
+Let:
+
+* (T_x) be the eligible Constructed Translation Transaction;
+* (C_t) be the successful Translation Commitment Record.
+
+Then:
+
+[
+\operatorname{Transaction}(C_t)=T_x
+]
+
+and:
+
+[
+\operatorname{ID}(\operatorname{Transaction}(C_t))
+==================================================
+
+\operatorname{ID}(T_x)
+]
+
+and:
+
+[
+\operatorname{Hash}(\operatorname{Transaction}(C_t))
+====================================================
+
+\operatorname{Hash}(T_x)
+]
+
+and:
+
+[
+\operatorname{Members}(\operatorname{Transaction}(C_t))
+=======================================================
+
+\operatorname{Members}(T_x)
+]
+
+and:
+
+[
+\operatorname{Order}(\operatorname{Transaction}(C_t))
+=====================================================
+
+\operatorname{Order}(T_x)
+]
+
+and:
+
+[
+\mathcal A(\operatorname{Transaction}(C_t))
+===========================================
+
+\mathcal A(T_x)
+]
+
+Commitment SHALL NOT generate a modified transaction representation.
+
+---
+
+## 19.19 Commitment Does Not Create Execution Eligibility
+
+Commitment SHALL establish canonical artifact authority only.
+
+It SHALL NOT establish:
+
+* runtime permission;
+* execution eligibility;
+* provider acceptance;
+* current operational applicability;
+* target availability;
+* execution atomicity support;
+* transport availability;
+* scheduling feasibility;
+* successful runtime effect.
+
+Contract 009 SHALL independently determine execution disposition under its own authority.
+
+A Committed Translation Transaction may therefore later be:
+
+* accepted;
+* rejected;
+* deferred;
+* restricted;
+* blocked;
+* partially unsupported;
+* expired;
+* otherwise dispositioned according to Contract 009.
+
+Contract 008 SHALL NOT preassign that result.
+
+---
+
+## 19.20 Separation of Commitment and Handoff
+
+Commitment and handoff SHALL be separate events.
+
+The required sequence is:
+
+```text
+Commitment succeeds
+        ↓
+Handoff becomes eligible
+        ↓
+Handoff is attempted
+        ↓
+Handoff succeeds, remains pending, or fails
+```
+
+A Committed Translation Transaction remains canonical even when:
+
+* Contract 009 is unavailable;
+* transport is unavailable;
+* handoff is pending;
+* a handoff attempt fails;
+* acknowledgement has not yet been received.
+
+Handoff failure SHALL NOT undo or mutate a successful commitment.
+
+A later handoff retry SHALL reference the same commitment and the same transaction.
+
+---
+
+## 19.21 Handoff Eligibility
+
+A handoff attempt SHALL occur only when:
+
+* a successful Translation Commitment Record exists;
+* the commitment status is `COMMITTED`;
+* the committed transaction remains available;
+* the committed transaction identifier and hash match the commitment record;
+* the handoff destination corresponds to the Contract 009 interface;
+* the required handoff schema is supported;
+* no additional executable content has been introduced.
+
+A handoff attempt MAY occur more than once.
+
+Each attempt SHALL be independently recorded.
+
+---
+
+## 19.22 Execution Interface Handoff Envelope
+
+Every handoff attempt SHALL use one immutable **Execution Interface Handoff Envelope**.
+
+At minimum, the envelope SHALL contain:
+
+* execution_interface_handoff_id;
+* translation_commitment_id;
+* translation_transaction_id;
+* translation_transaction_hash;
+* translation_cycle_id;
+* committed_control_command_id;
+* committed_translation_configuration_id;
+* validation_report_id;
+* compatibility_evidence_id;
+* canonical_translation_order_id;
+* provenance_id;
+* registry_snapshot_ids;
+* handoff_attempt_id;
+* handoff_context_id;
+* handoff_schema_version;
+* envelope_hash.
+
+The envelope SHALL contain references only, except for transport-required representation of the committed transaction itself.
+
+The committed transaction SHALL remain the sole executable-content artifact.
+
+No additional executable content may accompany the handoff.
+
+---
+
+## 19.23 Prohibition on Post-Commitment Command Addition
+
+After commitment, no adapter, transport component, provider bridge, runtime shim, or execution-interface client may append:
+
+* provider-specific executable instructions;
+* additional runtime commands;
+* hidden defaults;
+* auxiliary control operations;
+* fallback commands;
+* command substitutions;
+* retry commands;
+* scheduling commands;
+* execution hints that alter operational meaning.
+
+Any provider-specific executable transformation required after commitment SHALL be owned and governed by Contract 009 or an explicitly authorized downstream adapter contract.
+
+Such transformation SHALL NOT be represented as part of the committed Contract 008 output.
+
+---
+
+## 19.24 Handoff Status
+
+Handoff status SHALL be recorded separately from transaction content and commitment status.
+
+Permitted handoff statuses are:
+
+* `NOT_ATTEMPTED`;
+* `PENDING`;
+* `DELIVERED`;
+* `FAILED`;
+* `ACKNOWLEDGED`.
+
+`DELIVERED` means the envelope was transferred according to the declared transport semantics.
+
+`ACKNOWLEDGED` means Contract 009 confirmed receipt of the referenced identifiers and hashes.
+
+`ACKNOWLEDGED` SHALL NOT mean:
+
+* accepted for execution;
+* authorized;
+* scheduled;
+* applied;
+* successfully executed.
+
+The committed transaction SHALL not be mutated to record changing handoff status.
+
+---
+
+## 19.25 Execution Interface Handoff Record
+
+Every completed handoff attempt SHALL produce one immutable **Execution Interface Handoff Record**.
+
+At minimum, it SHALL contain:
+
+* execution_interface_handoff_record_id;
+* execution_interface_handoff_id;
+* handoff_attempt_id;
+* translation_commitment_id;
+* translation_transaction_id;
+* translation_transaction_hash;
+* translation_cycle_id;
+* destination_interface_id;
+* handoff_status;
+* handoff_context_id;
+* handoff_time_context_id, where applicable;
+* acknowledgement_reference, where applicable;
+* received_transaction_id, where acknowledged;
+* received_transaction_hash, where acknowledged;
+* failure_codes;
+* diagnostic_references;
+* provenance_id;
+* artifact_hash.
+
+A new handoff attempt SHALL produce a new Handoff Record.
+
+It SHALL NOT replace a prior record.
+
+---
+
+## 19.26 Handoff Integrity
+
+The artifact received by Contract 009 SHALL match the committed transaction.
+
+Handoff integrity requires:
+
+[
+\operatorname{ID}(T_{\mathrm{received}})
+========================================
+
+\operatorname{ID}(T_{\mathrm{committed}})
+]
+
+and:
+
+[
+\operatorname{Hash}(T_{\mathrm{received}})
+==========================================
+
+\operatorname{Hash}(T_{\mathrm{committed}})
+]
+
+and:
+
+[
+\operatorname{Cycle}(T_{\mathrm{received}})
+===========================================
+
+\operatorname{Cycle}(T_{\mathrm{committed}})
+]
+
+and:
+
+[
+\operatorname{CommitmentRef}(T_{\mathrm{received}})
+===================================================
+
+\operatorname{TranslationCommitmentID}
+]
+
+Where acknowledgement is supported, Contract 009 SHOULD acknowledge the same:
+
+* commitment identifier;
+* transaction identifier;
+* transaction hash;
+* cycle identifier.
+
+An identity or hash mismatch SHALL produce a failed handoff.
+
+It SHALL NOT trigger automatic transaction reconstruction.
+
+---
+
+## 19.27 Delivery Semantics
+
+Section 19 SHALL NOT require exactly-once transport.
+
+A conforming handoff mechanism MAY provide at-least-once delivery.
+
+Repeated delivery of the same committed artifact SHALL be permitted.
+
+Duplicate delivery SHALL be identified using:
+
+* translation commitment identifier;
+* transaction identifier;
+* translation cycle identifier;
+* transaction hash.
+
+Repeated handoff of the same identifiers and hash SHALL constitute redelivery of the same canonical artifact.
+
+It SHALL NOT create:
+
+* a new Translation Transaction;
+* a new commitment;
+* a new Control Command;
+* new execution authority;
+* duplicate supervisory intent.
+
+Contract 009 SHALL be provided sufficient identity to process redelivery idempotently.
+
+---
+
+## 19.28 Cross-Cycle Isolation
+
+A handoff envelope SHALL reference exactly one translation cycle.
+
+No handoff envelope may combine:
+
+* a commitment from one cycle;
+* a transaction from another cycle;
+* validation evidence from another cycle;
+* compatibility evidence from another cycle;
+* registry bindings from an incompatible cycle context.
+
+Cross-cycle handoff is prohibited.
+
+A cross-cycle mismatch SHALL result in handoff failure.
+
+---
+
+## 19.29 Contract 008 Translation-Phase Closure
+
+Successful commitment SHALL close the Contract 008 Inference Control phase for the active supervisory cycle.
+
+Contract 008 terminal translation-phase outcomes are:
+
+* `TRANSLATION_COMMITTED`;
+* `TRANSLATION_NOT_COMMITTED`;
+* `TRANSLATION_FAULTED`.
+
+Handoff state SHALL be recorded separately.
+
+Successful commitment SHALL NOT close the full supervisory cycle.
+
+The supervisory cycle remains open until:
+
+* Contract 009 produces an execution disposition;
+* required execution evidence is recorded;
+* downstream provenance requirements are satisfied.
+
+---
+
+## 19.30 Contract 008 Lifecycle
+
+The Contract 008 artifact progression is:
+
+```text
+Proposed Translated Artifact Set
+        ↓
+Validated Translated Artifact Set
+        ↓
+Constructed Translation Transaction
+        ↓
+Committed Translation Transaction
+        ↓
+Handoff Pending
+        ↓
+Handed Off
+```
+
+These transitions SHALL be represented through separate immutable evidence artifacts:
+
+* Translation Validation Report;
+* Translation Transaction Construction Report;
+* Translation Commitment Record;
+* Translation Commitment Report;
+* Execution Interface Handoff Record.
+
+The committed transaction itself SHALL remain content-stable.
+
+---
+
+## 19.31 Contract 009 Boundary
+
+Contract 009 SHALL receive only:
+
+* the Committed Translation Transaction;
+* the Translation Commitment identity;
+* the Execution Interface Handoff Envelope;
+* referenced validation, compatibility, registry, and provenance evidence.
+
+Contract 009 MAY inspect referenced evidence.
+
+Contract 009 SHALL NOT reconstruct translated commands from:
+
+* raw Control Commands;
+* Translation Definitions;
+* proposed artifact sets;
+* uncommitted transactions;
+* construction diagnostics;
+* failed commitment attempts.
+
+The Committed Translation Transaction SHALL be treated as the complete and exclusive expression of Contract 008’s translated command output.
+
+Contract 009 SHALL NOT derive additional runtime commands from earlier Contract 008 artifacts.
+
+---
+
+## 19.32 External Verification Boundary
+
+The Translation Commitment Record, Commitment Report, Handoff Envelope, and Handoff Record MAY provide evidence for later NullBlade verification.
+
+Contract 008 SHALL NOT declare:
+
+* that commitment is externally verified;
+* that handoff proves runtime correctness;
+* that receipt proves constitutional conformance;
+* that delivery proves successful application.
+
+External verification status SHALL originate from the authorized external assurance system established by Contract 000.
+
+---
+
+## 19.33 Commitment and Handoff Failure Classes
+
+Implementations SHOULD distinguish failure classes including:
+
+* TRANSACTION_COMMITMENT_PRECONDITION_FAILED
+* TRANSACTION_COMMITMENT_CONFLICT
+* TRANSACTION_MULTIPLE_ELIGIBLE_CANDIDATES
+* TRANSACTION_NO_ELIGIBLE_CANDIDATE
+* TRANSACTION_CYCLE_ALREADY_COMMITTED
+* TRANSACTION_CYCLE_ALREADY_CLOSED
+* TRANSACTION_COMMITMENT_CONTEXT_INVALID
+* TRANSACTION_COMMITMENT_HASH_MISMATCH
+* TRANSACTION_COMMITMENT_HASH_COLLISION
+* TRANSACTION_COMMITMENT_INTEGRITY_FAILURE
+* TRANSACTION_COMMITMENT_VALIDATION_BINDING_MISMATCH
+* TRANSACTION_COMMITMENT_CONFIGURATION_MISMATCH
+* TRANSACTION_COMMITMENT_CROSS_CYCLE_REFERENCE
+* TRANSACTION_HANDOFF_PRECONDITION_FAILED
+* TRANSACTION_HANDOFF_ENVELOPE_INVALID
+* TRANSACTION_HANDOFF_IDENTITY_MISMATCH
+* TRANSACTION_HANDOFF_HASH_MISMATCH
+* TRANSACTION_HANDOFF_COMMITMENT_MISMATCH
+* TRANSACTION_HANDOFF_DUPLICATE
+* TRANSACTION_HANDOFF_ACKNOWLEDGEMENT_INVALID
+* TRANSACTION_HANDOFF_DESTINATION_INVALID
+* TRANSACTION_HANDOFF_ADDITIONAL_EXECUTABLE_CONTENT
+* TRANSACTION_CROSS_CYCLE_HANDOFF
+* TRANSACTION_HANDOFF_TRANSPORT_FAILURE
+* TRANSACTION_HANDOFF_PROVENANCE_INCOMPLETE
+
+A duplicate handoff SHALL be recorded but SHALL NOT necessarily constitute failure when all canonical identifiers and hashes match.
+
+---
+
+## 19.34 Mathematical Interpretation
+
+Let:
+
+* (T_x) be the immutable Constructed Translation Transaction;
+* (c) be the active translation cycle;
+* (K) be the commitment operation;
+* (C_t) be the Translation Commitment Record.
+
+Then:
+
+[
+C_t
+===
+
+K(c,T_x)
+]
+
+subject to the following invariants.
+
+### Eligibility
+
+[
+\operatorname{Eligible}(T_x)=\mathrm{true}
+]
+
+requires successful construction, valid validation evidence, matching cycle and configuration bindings, and unchanged transaction integrity.
+
+### Singular Commitment
+
+[
+\left|
+\left{
+C_t :
+\operatorname{Cycle}(C_t)=c
+\land
+\operatorname{Status}(C_t)=\mathrm{COMMITTED}
+\right}
+\right|
+\leq 1
+]
+
+### Transaction Preservation
+
+[
+\operatorname{Transaction}(C_t)=T_x
+]
+
+### Identity Preservation
+
+[
+\operatorname{ID}(\operatorname{Transaction}(C_t))
+==================================================
+
+\operatorname{ID}(T_x)
+]
+
+### Hash Preservation
+
+[
+\operatorname{Hash}(\operatorname{Transaction}(C_t))
+====================================================
+
+\operatorname{Hash}(T_x)
+]
+
+### Membership Preservation
+
+[
+\operatorname{Members}(\operatorname{Transaction}(C_t))
+=======================================================
+
+\operatorname{Members}(T_x)
+]
+
+### Ordering Preservation
+
+[
+\operatorname{Order}(\operatorname{Transaction}(C_t))
+=====================================================
+
+\operatorname{Order}(T_x)
+]
+
+### Authority Preservation
+
+[
+\mathcal A(\operatorname{Transaction}(C_t))
+===========================================
+
+\mathcal A(T_x)
+]
+
+### Commitment Idempotence
+
+For commitment attempts (K_1) and (K_2):
+
+[
+(c,T_x,\Gamma)_1
+================
+
+(c,T_x,\Gamma)*2
+\Rightarrow
+C*{t1}=C_{t2}
+]
+
+where (\Gamma) is the committed commitment context.
+
+### Handoff Preservation
+
+Let (H_e) be the handoff envelope and (T_r) the transaction received by Contract 009.
+
+Then:
+
+[
+\operatorname{ID}(T_r)
+======================
+
+\operatorname{ID}(T_x)
+]
+
+and:
+
+[
+\operatorname{Hash}(T_r)
+========================
+
+\operatorname{Hash}(T_x)
+]
+
+### Duplicate Delivery Non-Creation
+
+For repeated delivery attempts (d_1) and (d_2):
+
+[
+\operatorname{CommitmentID}(d_1)
+================================
+
+\operatorname{CommitmentID}(d_2)
+]
+
+[
+\operatorname{TransactionID}(d_1)
+=================================
+
+\operatorname{TransactionID}(d_2)
+]
+
+[
+\operatorname{Hash}(d_1)
+========================
+
+\operatorname{Hash}(d_2)
+]
+
+implies:
+
+[
+\operatorname{AuthorityCreated}(d_2)=0
+]
+
+---
+
+## 19.35 Fundamental Translation Commitment Invariant
+
+Translation Transaction Commitment SHALL atomically establish at most one immutable Constructed Translation Transaction as the authoritative Contract 008 output for one translation cycle.
+
+Commitment SHALL preserve the committed transaction’s:
+
+* identity;
+* content;
+* membership;
+* member hashes;
+* canonical ordering;
+* dependencies;
+* transaction groups;
+* atomic groups;
+* authority bounds;
+* obligations;
+* restrictions;
+* targets;
+* scope;
+* temporal requirements;
+* required execution-property declarations;
+* validation references;
+* compatibility references;
+* registry bindings;
+* integrity references;
+* provenance.
+
+Commitment SHALL establish canonical finality only.
+
+It SHALL NOT:
+
+* reconstruct the transaction;
+* repeat translation validation;
+* reevaluate compatibility;
+* alter translation content;
+* create execution permission;
+* determine runtime eligibility;
+* assign an execution disposition;
+* schedule runtime activity;
+* apply commands.
+
+A successfully completed Contract 008 translation phase SHALL possess exactly one Committed Translation Transaction.
+
+A failed, invalid, incomplete, or faulted translation phase SHALL possess none.
+
+Concurrent and repeated commitment attempts SHALL be resolved atomically, deterministically, and idempotently.
+
+Execution Interface Handoff SHALL transmit the Committed Translation Transaction unchanged together with non-executable commitment and evidence references.
+
+No executable content outside the Committed Translation Transaction may accompany the handoff.
+
+Commitment success and handoff success SHALL remain distinct.
+
+A committed transaction remains canonical when handoff is pending or when a handoff attempt fails.
+
+Handoff MAY be retried.
+
+Repeated delivery of the same commitment identifier, transaction identifier, cycle identifier, and transaction hash SHALL not create a new transaction, a new command, or new execution authority.
+
+Contract 009 alone SHALL determine whether the Committed Translation Transaction is:
+
+* received;
+* accepted;
+* rejected;
+* deferred;
+* restricted;
+* scheduled;
+* applied;
+* or otherwise assigned an execution disposition.
+
+The successfully committed Translation Transaction is the terminal canonical output of Contract 008 and the sole translated-command artifact eligible for Contract 009 consumption.
+
+It constitutes neither runtime acceptance, execution authorization, execution commitment, execution disposition, nor execution itself.
+
+---
+
+## 19.36 Terminal Contract 008 Boundary
+
+Upon successful commitment, Contract 008 has answered:
+
+> Which immutable translated transaction is the authoritative Inference Control output for this translation cycle?
+
+Upon successful handoff, Contract 008 has communicated:
+
+> This exact committed transaction is presented to Contract 009 for independent execution disposition.
+
+Contract 008 has not answered:
+
+> May this transaction execute?
+
+That question belongs exclusively to Contract 009.
+
+The terminal constitutional sequence is therefore:
+
+```text
+Section 18
+Constructed Translation Transaction
+        ↓
+Section 19
+Committed Translation Transaction
+        ↓
+Execution Interface Handoff
+        ↓
+Contract 009
+Execution Disposition
+```
+
+This preserves the single-authority architecture established by Contract 000.

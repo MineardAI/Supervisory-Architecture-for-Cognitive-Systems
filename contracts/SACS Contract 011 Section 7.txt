@@ -1,0 +1,176 @@
+SACS Contract 011 — Realization Certification, Supervisory Provenance, and Audit
+Section 7 — Evidence Identity and Binding Validation
+Purpose
+
+Section 7 establishes the constitutional authority responsible for validating that the evidence received during intake belongs to one—and only one—supervisory realization context.
+
+This section confirms the constitutional identity and binding relationships among committed artifacts before historical certification may proceed.
+
+It answers one constitutional question:
+
+Do these committed artifacts represent the same supervisory realization?
+
+This section does not determine evidentiary sufficiency, realization outcome, certification, or historical provenance.
+
+Constitutional Responsibility
+
+Evidence Identity and Binding Validation SHALL:
+
+validate the constitutional identity of every received artifact;
+verify that all required artifacts belong to the same supervisory realization context;
+validate constitutional binding relationships;
+reject cross-cycle or conflicting historical evidence;
+preserve the authority of every validated artifact.
+
+Successful completion authorizes progression to Evidence Admissibility Evaluation.
+
+Identity Validation
+
+For every committed artifact received during intake, this section SHALL validate:
+
+commitment identifier;
+supervisory cycle identifier;
+realization identifier;
+originating contract identity;
+constitutional version;
+schema version;
+registry snapshot identity.
+
+Identity validation SHALL confirm that every artifact is uniquely identifiable.
+
+Duplicate constitutional identities SHALL be treated as explicit failure.
+
+Binding Validation
+
+Following successful identity validation, this section SHALL establish constitutional binding.
+
+Binding SHALL verify that:
+
+the Committed Execution Disposition and Committed Supervisory Continuity Record reference the same supervisory cycle;
+realization identifiers are consistent;
+constitutional authority is preserved across artifacts;
+registry references are mutually compatible;
+schema versions are constitutionally compatible.
+
+Binding SHALL establish one canonical realization-certification context.
+
+Cross-Contract Consistency
+
+Evidence Identity and Binding Validation SHALL verify consistency across constitutional boundaries.
+
+Representative relationships include:
+
+Contract 009
+Committed Execution Disposition
+        │
+        ├──── Supervisory Cycle Identity
+        ├──── Realization Identity
+        └──── Commitment Identity
+
+Contract 010
+Committed Supervisory Continuity Record
+        │
+        ├──── Supervisory Cycle Identity
+        ├──── Continuity Identity
+        └──── Commitment Identity
+
+The supervisory cycle represented by these artifacts SHALL resolve to one unique constitutional realization context.
+
+Binding Constraints
+
+This section SHALL NOT:
+
+determine whether evidence is sufficient;
+classify realization outcome;
+evaluate execution correctness;
+certify supervisory history;
+resolve provenance;
+infer missing identity information.
+
+Where identity cannot be established explicitly from committed artifacts, validation SHALL fail.
+
+Identity Preservation
+
+Successful validation SHALL preserve:
+
+artifact identifiers;
+commitment identifiers;
+originating contract identities;
+supervisory cycle identities;
+realization identities;
+registry identities;
+schema identities.
+
+No validated identity SHALL be altered by subsequent sections.
+
+Validation Failure
+
+Representative constitutional failures include:
+
+EXECUTION_DISPOSITION_IDENTITY_CONFLICT
+
+SUPERVISORY_CONTINUITY_IDENTITY_CONFLICT
+
+SUPERVISORY_CYCLE_MISMATCH
+
+REALIZATION_IDENTITY_MISMATCH
+
+COMMITMENT_IDENTITY_CONFLICT
+
+REGISTRY_SNAPSHOT_CONFLICT
+
+SCHEMA_VERSION_CONFLICT
+
+CROSS_CYCLE_EVIDENCE
+
+DUPLICATE_COMMITTED_IDENTITY
+
+UNRESOLVABLE_BINDING
+
+Upon failure:
+
+realization certification SHALL terminate;
+no historical certification SHALL occur;
+no provenance construction SHALL begin.
+Constitutional Output
+
+Successful completion SHALL produce exactly one:
+
+Validated Realization Evidence Binding
+
+The Validated Realization Evidence Binding SHALL include:
+
+realization-certification context;
+validated supervisory cycle identity;
+validated realization identity;
+validated commitment identities;
+validated registry references;
+validated schema references;
+binding status;
+validation timestamp.
+
+This artifact is an internal constitutional working artifact.
+
+It SHALL NOT constitute a committed historical record.
+
+Architectural Constraints
+
+Evidence Identity and Binding Validation is an identity authority.
+
+It SHALL NOT:
+
+certify historical truth;
+determine admissibility;
+evaluate evidence quality;
+construct historical records;
+construct lineage;
+perform replay;
+perform audit.
+
+Its sole responsibility is establishing one constitutionally valid realization-certification context.
+
+Fundamental Binding Principle
+
+The defining principle of this section is:
+
+Only committed constitutional artifacts that resolve to one unique supervisory realization context may proceed to historical certification. Contract 011 SHALL reject conflicting, ambiguous, duplicated, or cross-cycle evidence rather than reconstruct or reinterpret constitutional identity.
