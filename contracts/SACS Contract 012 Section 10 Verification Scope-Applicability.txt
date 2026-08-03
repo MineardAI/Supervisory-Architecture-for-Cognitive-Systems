@@ -1,0 +1,1521 @@
+# SACS Contract 012 — External Verification Profile and Evidence Interface
+
+## Section 10 — Verification Scope and Applicability
+
+### Purpose
+
+Section 10 defines the constitutional gate that determines whether a proposed external verification operation may proceed.
+
+This section evaluates whether one exact:
+
+* verification subject;
+* Verifiable Claim Set;
+* Verification Profile;
+* Verification Requirement Set;
+* Verification Method Set;
+* external verifier;
+* implementation scope;
+* environment scope;
+* temporal scope;
+* version scope;
+
+form a constitutionally valid and operationally resolvable verification context.
+
+The purpose of applicability evaluation is not to determine whether a claim is true.
+
+Its purpose is to determine whether the claim is sufficiently authorized, bounded, supported, and compatible to be submitted for external verification.
+
+No evidence package SHALL be constructed and no Verification Submission SHALL be committed until applicability has been evaluated.
+
+---
+
+# Constitutional Question
+
+Section 10 answers:
+
+> **Given one proposed verification operation, is external verification constitutionally authorized and technically meaningful for the exact subject, claims, profile, requirements, methods, verifier, scope, versions, implementation, and environment presented?**
+
+The answer SHALL be represented through exactly one canonical:
+
+```text
+Verification Applicability Result
+```
+
+Applicability SHALL be determined before substantive evidence evaluation by the external verifier begins.
+
+---
+
+# Constitutional Identity
+
+The defining constitutional identity of verification applicability is:
+
+> **Verification applicability is the deterministic determination that one bounded verification operation is authorized, internally coherent, sufficiently specified, and compatible with its governing profile, requirements, methods, verifier, subject, claims, versions, implementation, environment, and scope.**
+
+Applicability is not:
+
+* claim verification;
+* evidence sufficiency judgment by the external verifier;
+* verifier success;
+* implementation certification;
+* historical certification;
+* governance approval;
+* deployment authorization.
+
+Formally:
+
+```text
+Applicable
+≠
+Verified
+```
+
+and:
+
+```text
+Not Applicable
+≠
+Not Verified
+```
+
+---
+
+# Applicability Authority
+
+Contract 012 owns applicability evaluation.
+
+Contract 012 MAY determine:
+
+* whether the subject is eligible;
+* whether the claims are structurally valid;
+* whether the Verification Profile is authorized;
+* whether the Requirement Set is coherent;
+* whether the required methods are recognized;
+* whether the verifier is compatible;
+* whether scope is complete and bounded;
+* whether required versions are resolved;
+* whether implementation identity is sufficient;
+* whether environment identity is sufficient;
+* whether required evidence classes are potentially resolvable;
+* whether constitutional prohibitions apply.
+
+Contract 012 SHALL NOT determine:
+
+* whether the claims are true;
+* whether the evidence proves the claims;
+* whether a required method will succeed;
+* whether the verifier will issue a favorable result;
+* whether the system should be deployed;
+* whether governance should accept the result.
+
+---
+
+# Applicability Input Set
+
+Applicability evaluation SHALL consume exactly identified inputs.
+
+The canonical input set SHALL include:
+
+```text
+verification_subject
+verifiable_claim_set
+committed_verification_profile_binding
+committed_verification_requirement_set
+verification_method_bindings
+proposed_verifier_identity
+verification_purpose
+scope_declaration
+version_bindings
+implementation_binding
+environment_binding
+applicable_registry_snapshots
+applicable_governance_authority
+```
+
+Where required, the evaluation MAY also consume:
+
+```text
+evidence_availability_manifest
+privacy_constraints
+security_constraints
+trust_model
+threat_model
+fault_model
+external_standard_requirements
+regulatory_constraints
+```
+
+Every consumed input SHALL possess a stable identity.
+
+---
+
+# Applicability Result
+
+Every evaluation SHALL produce exactly one:
+
+```text
+Verification Applicability Result
+```
+
+The result SHALL contain at minimum:
+
+```text
+applicability_result_id
+verification_subject_id
+claim_set_hash
+verification_profile_binding_id
+verification_requirement_set_id
+verification_method_set_hash
+proposed_verifier_id
+verification_purpose
+evaluated_scope
+evaluated_versions
+implementation_id
+environment_id
+applicability_class
+applicability_findings
+restrictions
+unresolved_conditions
+failure_reasons
+evaluated_at
+evaluation_authority
+registry_snapshot_ids
+applicability_hash
+```
+
+The result SHALL be immutable after commitment.
+
+---
+
+# Applicability Classes
+
+The canonical applicability classes SHALL include:
+
+```text
+APPLICABLE
+APPLICABLE_WITH_RESTRICTIONS
+NOT_APPLICABLE
+UNSUPPORTED
+INCOMPATIBLE
+UNRESOLVED
+PROHIBITED
+```
+
+A Verification Profile MAY define more specific subordinate reason codes.
+
+It SHALL NOT redefine the constitutional meaning of the primary classes.
+
+---
+
+# Applicable
+
+`APPLICABLE` means:
+
+* the subject is eligible;
+* all claims are valid and supported;
+* the profile is authorized and compatible;
+* the Requirement Set is coherent;
+* mandatory methods are recognized;
+* the verifier possesses required capabilities;
+* scope is complete and bounded;
+* required versions are resolved;
+* implementation identity is sufficient;
+* environment identity is sufficient;
+* no constitutional prohibition applies;
+* no unresolved mandatory condition remains.
+
+`APPLICABLE` authorizes progression into evidence resolution and package construction.
+
+It does not predict a favorable external result.
+
+---
+
+# Applicable With Restrictions
+
+`APPLICABLE_WITH_RESTRICTIONS` means the operation may proceed only within explicitly narrowed or conditioned boundaries authorized by the Verification Profile.
+
+Restrictions MAY include:
+
+* reduced temporal scope;
+* reduced environment scope;
+* bounded implementation coverage;
+* reduced method coverage where explicitly permitted;
+* limited claim set;
+* required additional evidence;
+* mandatory verifier disclosure;
+* restricted result vocabulary;
+* mandatory human review;
+* shortened validity interval;
+* enhanced privacy or security handling.
+
+Every restriction SHALL be explicit.
+
+A restricted applicability result SHALL contain:
+
+```text
+restriction_id
+restriction_type
+restriction_basis
+affected_claim_ids
+affected_scope
+required_condition
+result_impact
+validity_impact
+```
+
+Restrictions SHALL NOT be introduced merely to avoid an otherwise mandatory failure.
+
+---
+
+# Not Applicable
+
+`NOT_APPLICABLE` means the verification request does not meaningfully apply to the presented subject, claim, scope, or purpose.
+
+Examples include:
+
+* a runtime-behavior claim applied to a schema-only artifact;
+* a replay claim applied to a subject with no replay semantics;
+* a numeric-conformance claim applied to a nonnumeric property;
+* a temporal claim applied outside the subject's valid interval;
+* a claim whose preconditions establish that the property is irrelevant.
+
+`NOT_APPLICABLE` is not an adverse verification judgment.
+
+It means the proposed verification question does not apply as framed.
+
+---
+
+# Unsupported
+
+`UNSUPPORTED` means the request is constitutionally meaningful but cannot be performed under the available or authorized verification framework.
+
+Examples include:
+
+* no adopted Verification Profile supports the claim type;
+* no recognized method supports the property;
+* no authorized verifier class possesses the required capability;
+* no result schema can represent the required outcome;
+* the subject type is not yet supported by Contract 012.
+
+Unsupported status SHALL remain distinct from incompatibility.
+
+---
+
+# Incompatible
+
+`INCOMPATIBLE` means individually valid components cannot operate together in the proposed verification context.
+
+Examples include:
+
+* profile and claim incompatibility;
+* method and subject incompatibility;
+* verifier and method incompatibility;
+* environment and implementation incompatibility;
+* evidence and privacy-policy incompatibility;
+* conflicting version requirements;
+* conflicting requirement obligations.
+
+An incompatible operation SHALL not proceed unless a constitutionally authorized new configuration resolves the incompatibility.
+
+---
+
+# Unresolved
+
+`UNRESOLVED` means applicability cannot yet be determined because one or more mandatory facts remain unavailable, ambiguous, or unvalidated.
+
+Examples include:
+
+* unresolved implementation hash;
+* missing environment identity;
+* unavailable registry snapshot;
+* unresolved verifier credential;
+* ambiguous temporal boundary;
+* unresolved profile status;
+* incomplete version binding;
+* unresolved requirement conflict.
+
+`UNRESOLVED` SHALL not be treated as `APPLICABLE`.
+
+Contract 012 MAY permit resolution attempts where authorized.
+
+---
+
+# Prohibited
+
+`PROHIBITED` means the proposed operation violates an explicit constitutional, governance, privacy, security, trust, or authority rule.
+
+Examples include:
+
+* use of an unauthorized verifier;
+* submission of prohibited evidence;
+* verification of mutable uncommitted state where commitment is mandatory;
+* use of a revoked profile;
+* use of a prohibited method;
+* attempt to verify an implied or universal claim;
+* attempt to modify history through verification;
+* attempt to combine submission construction and verdict authority;
+* attempt to conceal known contradictory evidence.
+
+A prohibited operation SHALL not proceed through restriction, fallback, or operator override unless constitutional governance changes the governing rule.
+
+---
+
+# Primary Applicability Dimensions
+
+Applicability evaluation SHALL address each of the following dimensions independently:
+
+```text
+Subject Applicability
+Claim Applicability
+Purpose Applicability
+Profile Applicability
+Requirement Applicability
+Method Applicability
+Verifier Applicability
+Evidence Resolvability
+Scope Applicability
+Temporal Applicability
+Version Applicability
+Implementation Applicability
+Environment Applicability
+Authority Applicability
+Privacy Applicability
+Security Applicability
+Trust-Model Applicability
+```
+
+No aggregate applicability result SHALL conceal a failed mandatory dimension.
+
+---
+
+# Subject Applicability
+
+The verification subject SHALL be eligible under Section 3 and supported by the selected Verification Profile.
+
+Subject applicability SHALL validate:
+
+* exact subject identity;
+* exact subject type;
+* subject commitment status;
+* subject hash;
+* subject schema;
+* subject version;
+* subject lineage;
+* subject availability;
+* subject immutability.
+
+A subject that cannot be uniquely resolved SHALL not be applicable.
+
+---
+
+# Committed-Subject Requirement
+
+Where the Verification Profile requires a committed subject, only the exact committed artifact may be used.
+
+The following SHALL NOT substitute:
+
+* a copy without commitment proof;
+* a reconstructed artifact;
+* a mutable database view;
+* a human-authored summary;
+* a replay output;
+* an audit representation;
+* an implementation approximation.
+
+Formally:
+
+```text
+Committed Subject
+≠
+Representation of Committed Subject
+```
+
+---
+
+# Composed Subjects
+
+A Verification Profile MAY authorize a composed subject consisting of multiple committed artifacts.
+
+A composed subject SHALL identify:
+
+```text
+composed_subject_id
+primary_subject_id
+component_subject_ids
+composition_rule
+lineage_relationships
+scope_rule
+composition_hash
+```
+
+Every component SHALL be individually resolvable.
+
+The composed subject SHALL not be created by informal aggregation.
+
+---
+
+# Claim Applicability
+
+Every Verifiable Claim SHALL be evaluated for applicability.
+
+Claim applicability SHALL validate:
+
+* claim identity;
+* claim type;
+* claim subject binding;
+* property definition;
+* scope;
+* assumptions;
+* preconditions;
+* exclusions;
+* limitations;
+* dependencies;
+* version bindings;
+* profile support;
+* method support.
+
+One claim's applicability SHALL not establish another claim's applicability.
+
+---
+
+# Claim-Set Applicability
+
+Where multiple claims are submitted together, the claim set SHALL be evaluated for:
+
+* internal consistency;
+* dependency validity;
+* composition validity;
+* profile compatibility;
+* shared-scope compatibility;
+* shared-evidence compatibility;
+* method compatibility;
+* conflict.
+
+A claim set MAY be:
+
+```text
+FULLY_APPLICABLE
+PARTIALLY_APPLICABLE
+INCOMPATIBLE_AS_A_SET
+```
+
+A partially applicable claim set MAY proceed only where the Verification Profile permits separation or restricted submission.
+
+---
+
+# Claim Conflict Evaluation
+
+Contract 012 SHALL detect materially conflicting claims.
+
+Examples include:
+
+* mutually contradictory assertions;
+* incompatible assumptions;
+* incompatible scopes;
+* inconsistent subject versions;
+* contradictory exclusions;
+* incompatible result dependencies.
+
+Conflict SHALL not automatically mean that either claim is false.
+
+It means the proposed joint verification context may be incoherent.
+
+---
+
+# Purpose Applicability
+
+The declared verification purpose SHALL be supported by:
+
+* the Verification Profile;
+* the claim types;
+* the subject types;
+* the selected methods;
+* the proposed verifier.
+
+A purpose SHALL not be inferred solely from claim wording.
+
+A profile for structural conformance SHALL not automatically authorize stability verification.
+
+---
+
+# Profile Applicability
+
+The selected Verification Profile SHALL satisfy:
+
+* exact registry resolution;
+* valid integrity;
+* authorized status;
+* effective interval;
+* subject support;
+* claim support;
+* purpose support;
+* verifier-class support;
+* compatible scope rules;
+* compatible result schema;
+* compatible privacy and security rules.
+
+An eligible profile may still be inapplicable to the exact operation.
+
+---
+
+# Requirement-Set Applicability
+
+The Committed Verification Requirement Set SHALL be evaluated for:
+
+* derivation from the exact profile;
+* derivation from the exact claim set;
+* derivation from the exact subject;
+* internal consistency;
+* complete requirement identity;
+* conflict absence;
+* dependency resolution;
+* satisfiable mandatory obligations;
+* compatible failure rules.
+
+A Requirement Set that refers to another subject, profile, or claim set SHALL be inapplicable.
+
+---
+
+# Requirement Feasibility
+
+Applicability evaluation SHALL determine whether each mandatory requirement is potentially satisfiable.
+
+This is a feasibility determination.
+
+It is not final requirement satisfaction.
+
+Examples:
+
+```text
+Required evidence class exists and may be acquired
+```
+
+is a feasibility finding.
+
+```text
+The evidence proves the claim
+```
+
+is not.
+
+---
+
+# Method Applicability
+
+Every required or proposed Verification Method SHALL be evaluated against:
+
+* claim type;
+* subject type;
+* purpose;
+* required evidence;
+* assumptions;
+* preconditions;
+* verifier capabilities;
+* execution environment;
+* version requirements;
+* privacy constraints;
+* security constraints.
+
+Method applicability SHALL not imply method success.
+
+---
+
+# Method-Set Applicability
+
+Where multiple methods are required, the method set SHALL be checked for:
+
+* composition validity;
+* execution ordering;
+* dependency resolution;
+* shared-input compatibility;
+* shared-evidence compatibility;
+* environment compatibility;
+* verifier-capability compatibility;
+* aggregate interpretation rules.
+
+A valid individual method MAY be incompatible with the complete method set.
+
+---
+
+# Verifier Applicability
+
+The proposed external verifier SHALL be evaluated for:
+
+* exact identity;
+* verifier class;
+* authorization status;
+* credentials;
+* required capabilities;
+* method support;
+* subject support;
+* claim support;
+* environment support;
+* privacy compliance;
+* security compliance;
+* trust-domain separation;
+* result-schema support.
+
+The constitutional verifier relationship established in Section 5 SHALL remain preserved.
+
+---
+
+# Verifier Independence
+
+Where the Verification Profile requires verifier independence, applicability evaluation SHALL validate the required separation.
+
+Independence MAY require separation from:
+
+* the subject-producing implementation;
+* Contract 011 historical commitment;
+* Contract 012 submission construction;
+* deployment authority;
+* governance authority;
+* prior method execution;
+* evidence generation.
+
+Technical co-location SHALL not automatically defeat independence.
+
+Constitutional authority separation SHALL be demonstrable.
+
+---
+
+# Verifier Credential Validity
+
+Verifier credentials SHALL be valid for:
+
+* the verifier identity;
+* the method class;
+* the claim class;
+* the submission period;
+* the required trust domain.
+
+Expired, revoked, ambiguous, or unsupported credentials SHALL prevent applicable status where credential validity is mandatory.
+
+---
+
+# Evidence Resolvability
+
+Applicability evaluation SHALL determine whether required evidence classes are potentially available and constitutionally admissible.
+
+The evaluation SHALL consider:
+
+* evidence source;
+* evidence existence;
+* evidence commitment state;
+* evidence accessibility;
+* evidence authority;
+* evidence version;
+* evidence temporal scope;
+* evidence privacy constraints;
+* evidence security constraints;
+* evidence integrity mechanism.
+
+Evidence resolvability is not evidence completeness.
+
+---
+
+# Evidence Availability Classes
+
+Evidence availability MAY be classified as:
+
+```text
+AVAILABLE
+RESOLVABLE
+CONDITIONALLY_RESOLVABLE
+UNAVAILABLE
+PROHIBITED
+UNKNOWN
+```
+
+A mandatory evidence requirement classified as `UNAVAILABLE`, `PROHIBITED`, or unresolved `UNKNOWN` SHALL prevent unrestricted applicability.
+
+---
+
+# Scope Applicability
+
+Every verification operation SHALL possess one complete Scope Declaration.
+
+The Scope Declaration SHALL identify:
+
+```text
+subject_scope
+claim_scope
+artifact_scope
+contract_scope
+transformation_scope
+temporal_scope
+version_scope
+implementation_scope
+environment_scope
+evidence_scope
+method_scope
+verifier_scope
+result_scope
+```
+
+All scope dimensions SHALL be mutually consistent.
+
+---
+
+# Scope Closure
+
+Scope is closed when every material boundary is explicit and no required element depends upon an unstated external domain.
+
+A scope SHALL fail closure where it relies upon terms such as:
+
+```text
+all relevant artifacts
+normal operation
+current deployment
+usual configuration
+standard environment
+sufficient history
+```
+
+unless those terms resolve deterministically through an adopted profile rule.
+
+---
+
+# Scope Narrowing
+
+A proposed scope MAY be narrowed before applicability commitment where:
+
+* the narrowing authority is valid;
+* the change is explicit;
+* affected claims receive new identities where required;
+* affected requirements are regenerated;
+* no known contradictory evidence is concealed;
+* the profile permits the narrowed scope.
+
+Scope SHALL not be narrowed after external verification begins without creating a new submission.
+
+---
+
+# Scope Expansion
+
+Scope expansion SHALL require:
+
+* new or revised claims;
+* new applicability evaluation;
+* new Requirement Set where material;
+* new evidence obligations;
+* new submission identity.
+
+A result SHALL never be expanded beyond its submitted scope.
+
+---
+
+# Temporal Applicability
+
+Temporal applicability SHALL validate:
+
+* exact interval identity;
+* subject existence during the interval;
+* evidence coverage;
+* version validity;
+* profile validity;
+* verifier authorization;
+* environment identity;
+* implementation identity.
+
+Temporal scope SHALL not be established through ambiguous relative language.
+
+---
+
+# Point-in-Time and Interval Claims
+
+A point-in-time claim SHALL identify one exact time or committed event boundary.
+
+An interval claim SHALL identify:
+
+* interval start;
+* interval end;
+* inclusion rules;
+* applicable subject versions;
+* environment transitions;
+* implementation transitions;
+* evidence coverage.
+
+An interval crossing a material version or configuration change SHALL be split or explicitly modeled.
+
+---
+
+# Historical Applicability
+
+A historical verification operation MAY use a profile or method no longer active for new submissions only where:
+
+* historical replay or retrospective verification is explicitly authorized;
+* the profile and method remain resolvable;
+* their status permits historical use;
+* the result clearly states retrospective scope;
+* no current authorization is implied.
+
+Historical applicability SHALL not reactivate revoked authority for new operational use.
+
+---
+
+# Version Applicability
+
+Every material version SHALL be resolved and compatible.
+
+Applicable versions MAY include:
+
+* contract versions;
+* artifact schema versions;
+* profile version;
+* Requirement Set version;
+* method versions;
+* registry snapshots;
+* property-definition versions;
+* implementation version;
+* runtime version;
+* numeric profile version;
+* cryptographic profile version.
+
+Unresolved version references SHALL prevent applicable status.
+
+---
+
+# Version Compatibility
+
+Version compatibility SHALL be established only through:
+
+* exact version equality;
+* adopted compatibility mapping;
+* deterministic migration rule;
+* profile-authorized equivalence rule.
+
+Similarity of version labels SHALL not establish compatibility.
+
+---
+
+# Mixed-Version Verification
+
+A Verification Profile MAY authorize mixed-version verification.
+
+The operation SHALL identify:
+
+* every version boundary;
+* compatibility rules;
+* migration transformations;
+* evidence transformations;
+* affected claims;
+* affected methods;
+* result limitations.
+
+Mixed-version verification SHALL not silently treat all artifacts as one version.
+
+---
+
+# Implementation Applicability
+
+Where the claim concerns an implementation, applicability SHALL validate:
+
+* implementation identity;
+* source revision;
+* build identity;
+* binary hash;
+* dependency manifest;
+* configuration;
+* deployment identity;
+* runtime identity;
+* profile conformance status where required.
+
+An implementation claim SHALL not apply to an unresolved or mutable implementation identity.
+
+---
+
+# Build and Deployment Distinction
+
+The distinction SHALL remain:
+
+```text
+Implementation Build
+≠
+Deployment Instance
+```
+
+A build-level verification result SHALL not automatically apply to every deployment.
+
+A deployment-level claim SHALL identify the deployment-specific configuration and environment.
+
+---
+
+# Configuration Applicability
+
+Where implementation behavior depends upon configuration, the exact configuration SHALL be bound.
+
+A result concerning one configuration SHALL not apply to another unless the Verification Profile defines an explicit equivalence rule.
+
+Mutable configuration references such as:
+
+```text
+production settings
+default configuration
+current values
+```
+
+SHALL not establish canonical configuration identity.
+
+---
+
+# Environment Applicability
+
+Environment applicability SHALL validate every environmental condition material to the claim or methods.
+
+This MAY include:
+
+* hardware;
+* operating system;
+* runtime;
+* container;
+* dependency set;
+* network;
+* timing source;
+* resource limits;
+* random source;
+* secure enclave;
+* external service versions;
+* deployment region.
+
+Environment-independent claims SHALL require explicit profile authorization.
+
+---
+
+# Environment Equivalence
+
+Two environments may be considered equivalent only through an adopted environment-equivalence rule.
+
+The rule SHALL define:
+
+* relevant dimensions;
+* permitted variation;
+* prohibited variation;
+* comparison procedure;
+* equivalence evidence;
+* result limitations.
+
+Informal similarity SHALL not establish equivalence.
+
+---
+
+# Authority Applicability
+
+Every verification operation SHALL identify the authority for:
+
+* claim proposal;
+* claim authorization;
+* profile selection;
+* requirement construction;
+* method binding;
+* verifier designation;
+* evidence access;
+* submission commitment.
+
+Missing authority SHALL prevent applicability.
+
+Contract 012 SHALL not infer authority from possession of data or technical capability.
+
+---
+
+# Governance Constraints
+
+Applicability evaluation SHALL enforce all applicable governance constraints.
+
+These MAY include:
+
+* prohibited claim classes;
+* required independent review;
+* restricted subject classes;
+* mandatory verifier classes;
+* privacy requirements;
+* national or regional restrictions;
+* regulatory requirements;
+* evidence-retention limits;
+* mandatory escalation.
+
+Governance constraints SHALL not be silently overridden by a technically compatible profile.
+
+---
+
+# Privacy Applicability
+
+Privacy applicability SHALL determine whether the proposed evidence and methods comply with the applicable privacy rules.
+
+It SHALL evaluate:
+
+* data classification;
+* disclosure authority;
+* redaction rules;
+* pseudonymization rules;
+* minimum-necessary access;
+* data residency;
+* retention;
+* destruction;
+* verifier access;
+* downstream reporting.
+
+Privacy restrictions SHALL not be treated as optional implementation preferences.
+
+---
+
+# Privacy-Preserving Applicability
+
+Where direct evidence disclosure is prohibited, a profile MAY authorize privacy-preserving evidence forms such as:
+
+* cryptographic commitments;
+* zero-knowledge proofs;
+* redacted records;
+* secure enclave attestations;
+* aggregate evidence;
+* controlled reviewer access.
+
+The substitute evidence form SHALL preserve the property necessary to evaluate the claim.
+
+---
+
+# Security Applicability
+
+Security applicability SHALL evaluate:
+
+* evidence-channel security;
+* verifier authentication;
+* submission integrity;
+* toolchain integrity;
+* execution isolation;
+* key management;
+* tamper evidence;
+* access control;
+* result transmission;
+* audit preservation.
+
+Failure of a mandatory security requirement SHALL prevent applicable status.
+
+---
+
+# Trust-Model Applicability
+
+Every verification operation SHALL identify its trust model where material.
+
+The trust model SHALL define:
+
+* trusted authorities;
+* trusted tools;
+* trusted roots;
+* trusted environments;
+* untrusted components;
+* verifier independence assumptions;
+* cryptographic assumptions;
+* human authority assumptions.
+
+A result SHALL remain bounded by the trust model under which applicability was established.
+
+---
+
+# Threat-Model Applicability
+
+Where claims concern security, resilience, or adversarial behavior, the threat model SHALL be applicable to:
+
+* the subject;
+* the claimed property;
+* the environment;
+* the methods;
+* the verifier capabilities.
+
+A result under one threat model SHALL not apply to a stronger or materially different threat model.
+
+---
+
+# Fault-Model Applicability
+
+Where claims concern fault tolerance or recovery, applicability SHALL validate:
+
+* fault types;
+* fault cardinality;
+* injection boundaries;
+* temporal assumptions;
+* recovery criteria;
+* environment assumptions.
+
+An unstated fault model SHALL not support a fault-tolerance claim.
+
+---
+
+# Applicability Restrictions
+
+Restrictions SHALL be used only where:
+
+* the Verification Profile explicitly authorizes them;
+* they preserve claim meaning or create a new claim identity;
+* they do not conceal mandatory failure;
+* they are fully represented;
+* their impact on result interpretation is explicit.
+
+Restrictions MAY NOT:
+
+* convert prohibited into applicable;
+* convert unsupported into verified;
+* remove mandatory contradictory evidence;
+* silently weaken a claim;
+* bypass verifier independence;
+* bypass governance authority.
+
+---
+
+# Applicability Conditions
+
+An applicability result MAY include conditions that SHALL be satisfied before evidence package commitment.
+
+Conditions MAY include:
+
+* resolve one registry snapshot;
+* obtain one verifier credential;
+* provide one missing implementation hash;
+* satisfy one privacy-control obligation;
+* complete one required environment binding;
+* separate incompatible claims;
+* resolve one requirement conflict.
+
+The result SHALL state whether the condition is:
+
+```text
+PRE_COMMITMENT_REQUIRED
+PRE_SUBMISSION_REQUIRED
+PRE_METHOD_EXECUTION_REQUIRED
+RESULT_LIMITING
+```
+
+---
+
+# Applicability and Evidence Sufficiency
+
+Contract 012 SHALL preserve the distinction:
+
+```text
+Evidence Potentially Resolvable
+≠
+Evidence Sufficient to Verify
+```
+
+Applicability may determine that evidence obligations can be met.
+
+Only the external verification process may determine whether the submitted evidence is substantively sufficient under the applicable methods and claim.
+
+---
+
+# Applicability and Preconditions
+
+Claim and method preconditions SHALL be classified as:
+
+```text
+SATISFIED_BEFORE_SUBMISSION
+EVALUATED_BY_VERIFIER
+CONDITIONALLY_ASSUMED
+UNRESOLVED
+FAILED
+```
+
+The Verification Profile SHALL determine which class is permitted for each precondition.
+
+A mandatory precondition that must be satisfied before submission SHALL not be deferred to the verifier.
+
+---
+
+# Partial Applicability
+
+A verification operation MAY be partially applicable only where the Verification Profile explicitly permits:
+
+* claim separation;
+* scope reduction;
+* method reduction;
+* evidence partition;
+* staged submission.
+
+Partial applicability SHALL identify every excluded claim, scope, method, or requirement.
+
+An excluded element SHALL not receive an implied result.
+
+---
+
+# Staged Applicability
+
+A Verification Profile MAY define staged verification.
+
+Example:
+
+```text
+Stage One
+Structural and integrity applicability
+
+↓
+
+Stage Two
+Method and evidence applicability
+
+↓
+
+Stage Three
+External verification submission
+```
+
+Each stage SHALL possess explicit entry and exit criteria.
+
+Stage completion SHALL not imply later-stage success.
+
+---
+
+# Applicability Re-Evaluation
+
+Applicability SHALL be re-evaluated when any material input changes.
+
+Material changes include:
+
+* subject identity;
+* claim identity;
+* profile binding;
+* Requirement Set;
+* method set;
+* verifier identity;
+* scope;
+* version;
+* implementation;
+* configuration;
+* environment;
+* governance rule;
+* privacy rule;
+* security rule;
+* trust model.
+
+A materially changed operation SHALL require a new Applicability Result.
+
+---
+
+# Applicability Expiration
+
+An Applicability Result MAY expire before submission where:
+
+* verifier credentials expire;
+* profile authority expires;
+* registry status changes;
+* subject availability changes;
+* implementation changes;
+* environment changes;
+* governance rules change;
+* privacy or security conditions change;
+* a profile-defined validity period ends.
+
+Expiration SHALL not delete the original result.
+
+---
+
+# Applicability Supersession
+
+A later Applicability Result MAY supersede an earlier result.
+
+Supersession SHALL identify:
+
+```text
+superseding_applicability_result_id
+superseded_applicability_result_id
+supersession_basis
+changed_inputs
+effective_time
+authorizing_authority
+```
+
+The earlier result SHALL remain preserved.
+
+---
+
+# Deterministic Applicability Evaluation
+
+For identical:
+
+* subject;
+* claim set;
+* profile binding;
+* Requirement Set;
+* method bindings;
+* verifier identity;
+* scope;
+* versions;
+* implementation;
+* environment;
+* registry snapshots;
+* governance constraints;
+
+Contract 012 SHALL produce the same Applicability Result.
+
+Applicability SHALL NOT depend upon:
+
+* expected verifier outcome;
+* operator preference;
+* provider defaults;
+* mutable aliases;
+* undocumented environmental knowledge;
+* anticipated deployment value.
+
+---
+
+# Applicability Replay
+
+Contract 012 SHALL support deterministic replay of applicability evaluation.
+
+Replay SHALL reproduce:
+
+* every evaluated dimension;
+* every input identity;
+* every compatibility decision;
+* every restriction;
+* every unresolved condition;
+* every failure reason;
+* the final applicability class;
+* applicability identity;
+* applicability hash.
+
+Replay SHALL not perform external verification.
+
+---
+
+# Applicability Auditability
+
+Every Applicability Result SHALL preserve sufficient provenance to determine:
+
+* who requested verification;
+* who authorized the claims;
+* which profile was selected;
+* which Requirement Set applied;
+* which methods were required;
+* which verifier was proposed;
+* which scope was evaluated;
+* which versions were resolved;
+* which restrictions were imposed;
+* which incompatibilities were found;
+* why the final class was assigned.
+
+---
+
+# Applicability Commitment
+
+A Verification Applicability Result becomes authoritative only after commitment.
+
+Before commitment:
+
+```text
+Constructed Applicability Result
+≠
+Committed Applicability Result
+```
+
+Commitment SHALL establish:
+
+* exact identity;
+* immutable input bindings;
+* immutable findings;
+* immutable applicability class;
+* deterministic replay identity;
+* authorization to proceed or prohibition from proceeding.
+
+---
+
+# Progression Rule
+
+Only the following applicability classes MAY authorize progression:
+
+```text
+APPLICABLE
+APPLICABLE_WITH_RESTRICTIONS
+```
+
+`APPLICABLE_WITH_RESTRICTIONS` MAY proceed only after all pre-progression conditions are satisfied.
+
+The following classes SHALL not authorize evidence-package commitment:
+
+```text
+NOT_APPLICABLE
+UNSUPPORTED
+INCOMPATIBLE
+UNRESOLVED
+PROHIBITED
+```
+
+---
+
+# No Silent Fallback
+
+Where applicability fails, Contract 012 SHALL NOT silently:
+
+* choose another profile;
+* choose another verifier;
+* remove claims;
+* reduce scope;
+* replace methods;
+* ignore versions;
+* substitute evidence;
+* waive privacy or security requirements;
+* infer authorization.
+
+Any changed proposal SHALL undergo a new applicability evaluation.
+
+---
+
+# Failure Conditions
+
+Applicability evaluation SHALL fail when:
+
+* the subject is unresolved;
+* the subject is ineligible;
+* the subject is mutable where commitment is required;
+* a claim is invalid;
+* the claim set is incoherent;
+* the verification purpose is unsupported;
+* the Verification Profile cannot be resolved;
+* the profile is unauthorized;
+* the Requirement Set is inconsistent;
+* a required method is unsupported;
+* the verifier lacks required capability;
+* verifier authority is invalid;
+* required evidence is impossible to resolve;
+* scope is incomplete;
+* temporal scope is ambiguous;
+* version bindings are unresolved;
+* implementation identity is missing;
+* environment identity is missing;
+* governance authority is absent;
+* privacy obligations conflict;
+* security obligations cannot be satisfied;
+* trust-model assumptions are incompatible;
+* requirement conflicts remain unresolved;
+* applicability identity cannot be committed.
+
+Every failure SHALL be explicitly represented.
+
+---
+
+# Prohibitions
+
+Contract 012 SHALL NOT:
+
+* treat applicability as verification;
+* treat inapplicability as claim falsity;
+* proceed without a committed Applicability Result;
+* infer missing scope;
+* infer missing authority;
+* use mutable subjects where commitment is required;
+* use unresolved versions;
+* use unsupported methods;
+* use unauthorized verifiers;
+* conceal requirement conflict;
+* conceal claim conflict;
+* narrow scope to avoid known failure without creating new authority;
+* convert unresolved status into applicable status through operator discretion;
+* bypass privacy, security, trust, or governance constraints;
+* reuse an applicability result after a material input changes;
+* allow an external result to exceed the applicable submitted scope.
+
+---
+
+# Section 10 Invariants
+
+> **Every external verification operation under Contract 012 SHALL possess exactly one committed Verification Applicability Result that deterministically establishes whether the exact subject, claims, purpose, Verification Profile, Verification Requirement Set, methods, verifier, evidence obligations, scope, versions, implementation, environment, authority, privacy, security, and trust conditions are constitutionally authorized and mutually compatible before evidence-package construction begins.**
+
+> **Only an `APPLICABLE` or condition-satisfied `APPLICABLE_WITH_RESTRICTIONS` result may authorize progression, and no applicability determination may verify a claim, predict a result, conceal a conflict, infer missing authority, or permit verification beyond the exact committed scope it evaluates.**

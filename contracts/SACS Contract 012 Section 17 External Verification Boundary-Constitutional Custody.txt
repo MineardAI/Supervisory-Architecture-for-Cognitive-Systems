@@ -1,0 +1,258 @@
+SACS Contract 012 — External Verification Profile and Evidence Interface
+Section 17 — External Verification Boundary and Constitutional Custody
+Purpose
+
+Section 17 establishes the constitutional boundary governing the transfer of a committed Verification Submission from SACS constitutional custody to an authorized external verification authority.
+
+Its purpose is to preserve constitutional identity while permitting an independent constitutional authority to evaluate submitted verification claims.
+
+This section governs:
+
+constitutional boundary crossing;
+custody transition;
+delegated verification responsibility;
+authority preservation;
+ownership preservation;
+identity preservation;
+traceability;
+constitutional sovereignty.
+
+This section does not define:
+
+network transport;
+communication protocols;
+API design;
+serialization formats;
+verifier algorithms; or
+verification judgments.
+
+Those belong to implementation or to the external verifier.
+
+Constitutional Question
+
+How may a constitutional artifact cross an external authority boundary while preserving identity, ownership, authority, custody, provenance, and constitutional sovereignty?
+
+Section 17 establishes the constitutional conditions under which a Committed Verification Submission may leave SACS constitutional custody without transferring constitutional authority.
+
+Constitutional Identity
+
+The defining constitutional identity of the External Verification Boundary is:
+
+A constitutional boundary permits delegated verification responsibility while preserving the originating constitutional system's ownership, authority, historical sovereignty, and artifact identity.
+
+Crossing the boundary authorizes evaluation.
+
+It does not authorize modification.
+
+It does not authorize reinterpretation.
+
+It does not authorize constitutional control.
+
+Constitutional Custody
+
+Contract 012 introduces the constitutional concept of custody.
+
+Constitutional custody identifies which constitutional system is presently responsible for possessing, protecting, transmitting, or evaluating an artifact without becoming its constitutional owner.
+
+Custody is distinct from:
+
+Custody
+≠
+Ownership
+
+Custody
+≠
+Authority
+
+Custody
+≠
+Historical Sovereignty
+
+Custody
+≠
+Commitment
+
+Custody is temporary.
+
+Ownership is permanent.
+
+Authority remains constitutional.
+
+The Four Constitutional Properties
+
+For every Committed Verification Submission crossing the external boundary, the following properties SHALL remain distinct.
+
+Ownership
+
+The Committed Verification Submission SHALL remain permanently owned by SACS.
+
+Ownership SHALL never transfer.
+
+Historical Sovereignty
+
+The submission SHALL remain part of immutable SACS constitutional history.
+
+External systems SHALL NOT modify that history.
+
+Verification Responsibility
+
+Responsibility for evaluating submitted Verification Claims MAY be delegated to the authorized external verifier.
+
+Delegation SHALL remain limited to verification evaluation.
+
+Constitutional Custody
+
+Custody of the submitted artifact MAY temporarily reside with the authorized verifier for the duration of the verification operation.
+
+Custody SHALL terminate upon completion, cancellation, expiration, or withdrawal of the verification operation.
+
+Delegation Doctrine
+
+The External Verification Boundary SHALL preserve the following constitutional doctrine:
+
+Verification responsibility may be delegated across constitutional boundaries. Constitutional authority shall remain within its originating constitutional system.
+
+Delegation SHALL NOT:
+
+broaden authority;
+duplicate authority;
+surrender authority;
+create shared constitutional ownership;
+create shared commitment authority.
+
+Delegation SHALL remain bounded to the verification operation.
+
+Boundary Preconditions
+
+A Committed Verification Submission SHALL cross the constitutional boundary only when all of the following exist:
+
+one Committed Verification Submission;
+one Verification Submission Commitment Record;
+one authorized verifier identity;
+one applicable Verification Profile;
+one applicable Verification Requirement Set;
+one complete Submission Manifest;
+complete integrity bindings;
+complete provenance bindings;
+complete constitutional lineage; and
+no unresolved constitutional prohibition.
+
+Failure of any mandatory precondition SHALL prohibit boundary crossing.
+
+Authorized External Verifier
+
+The receiving constitutional authority SHALL possess:
+
+verified constitutional identity;
+authorized verifier credentials;
+compatible verifier capabilities;
+recognized trust-domain identity;
+valid constitutional authorization; and
+applicable Verification Profile compatibility.
+
+An unauthorized verifier SHALL NOT receive constitutional custody.
+
+Custody Transfer
+
+Boundary crossing SHALL establish one explicit Custody Transfer Record.
+
+The record SHALL identify:
+
+custody_transfer_id
+verification_submission_id
+originating_constitution
+receiving_constitution
+originating_custodian
+receiving_custodian
+authorized_verifier_identity
+custody_start_time
+custody_reason
+custody_scope
+custody_constraints
+custody_hash
+
+Custody Transfer SHALL NOT modify the Verification Submission.
+
+Boundary Integrity
+
+The External Verification Boundary SHALL preserve:
+
+submission identity;
+submission hash;
+claim identities;
+evidence identities;
+Submission Manifest;
+Verification Profile reference;
+Requirement Set reference;
+constitutional lineage;
+replay identity;
+commitment identity.
+
+No artifact SHALL be altered during constitutional transfer.
+
+Boundary Constraints
+
+The receiving constitutional authority SHALL NOT:
+
+modify the Committed Verification Submission;
+rewrite Verification Claims;
+alter evidence;
+broaden submitted scope;
+weaken constitutional restrictions;
+reinterpret committed lineage;
+modify SACS historical records;
+issue SACS commitments.
+
+The verifier's authority SHALL remain limited to evaluating the submitted claims.
+
+Boundary Failure
+
+Boundary crossing SHALL fail upon detection of:
+
+unauthorized verifier identity;
+invalid verifier credentials;
+integrity failure;
+Submission Manifest inconsistency;
+custody conflict;
+constitutional identity mismatch;
+unresolved trust-domain incompatibility;
+prohibited delegation;
+replay attack;
+duplicate custody transfer.
+
+Failure SHALL produce one explicit Verification Boundary Failure artifact.
+
+No constitutional custody SHALL transfer following failure.
+
+Boundary Replay
+
+Replay of a boundary transfer SHALL reproduce:
+
+identical custody identity;
+identical submission identity;
+identical verifier identity;
+identical constitutional lineage;
+identical integrity bindings;
+identical custody constraints.
+
+Replay SHALL verify constitutional consistency.
+
+Replay SHALL NOT reproduce the external verification judgment.
+
+Constitutional Invariants
+
+For every Committed Verification Submission:
+
+ownership SHALL remain with SACS;
+historical sovereignty SHALL remain with SACS;
+constitutional authority SHALL remain with its originating constitutional system;
+only verification responsibility MAY be delegated;
+custody SHALL remain explicit, bounded, and temporary;
+no boundary crossing SHALL modify a committed artifact;
+every custody transfer SHALL preserve identity, integrity, provenance, and lineage;
+identical committed inputs SHALL produce identical constitutional custody records.
+Constitutional Transition
+
+Section 17 completes the constitutional transfer of custody between independent constitutional systems.
+
+The Committed Verification Submission has now left SACS constitutional custody while remaining under SACS constitutional ownership and authority.

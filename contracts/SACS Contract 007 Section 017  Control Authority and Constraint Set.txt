@@ -1,0 +1,316 @@
+Contract 007 — Section 17
+
+Control Authority and Constraint Set
+
+17.1 Purpose
+
+This section defines the deterministic construction of the Committed Control Constraint Set, the canonical representation of the supervisory authority within which the Controller is permitted to compute corrective action.
+
+Its defining identity is:
+
+The Committed Control Constraint Set deterministically defines the complete supervisory authority, admissible action space, and mandatory behavioral constraints applicable to Controller evaluation during one supervisory cycle.
+
+The Control Constraint Set establishes the legal operating region of the Controller.
+
+It does not determine the corrective action itself.
+
+⸻
+
+17.2 Architectural Position
+
+Committed Governance Snapshot
+        +
+Committed Operational Profile
+        +
+Committed Controller Configuration
+        ↓
+Constraint Construction
+        ↓
+Committed Control Constraint Set
+        ↓
+Controller Compatibility Evaluation
+        ↓
+Controller Composition Evaluation
+
+The Controller consumes only the committed Constraint Set.
+
+It SHALL NOT derive constraints independently.
+
+⸻
+
+17.3 Constitutional Authority
+
+This section owns:
+
+* Control Constraint Set definition;
+* Action Space definition;
+* mandatory constraints;
+* optional constraints;
+* authority bounds;
+* saturation definitions;
+* rate constraints;
+* admissibility rules;
+* constraint lineage.
+
+This section SHALL NOT:
+
+* compute Control Error;
+* evaluate Controller topology;
+* compute corrective commands;
+* certify authority;
+* commit supervisory decisions.
+
+⸻
+
+17.4 Control Constraint Set
+
+A Committed Control Constraint Set is the immutable collection of all supervisory constraints applicable to one Controller Composition during one supervisory cycle.
+
+The Constraint Set SHALL include every limitation required for deterministic Controller evaluation.
+
+No Controller SHALL evaluate outside the committed Constraint Set.
+
+⸻
+
+17.5 Constraint Classes
+
+A conforming implementation SHALL support the following normative constraint classes.
+
+Authority Constraints
+
+Define supervisory permissions and prohibitions inherited from Governance.
+
+⸻
+
+Action Space Constraints
+
+Define the admissible Control Command space.
+
+Let
+
+\mathcal U_t
+
+denote the committed Action Space.
+
+Every candidate Control Command shall satisfy
+
+u_t \in \mathcal U_t
+
+before certification.
+
+⸻
+
+Magnitude Constraints
+
+Bound command magnitude.
+
+Examples include:
+
+* actuator limits;
+* inference limits;
+* gain limits;
+* supervisory amplitude limits.
+
+⸻
+
+Rate Constraints
+
+Bound temporal change.
+
+Examples include:
+
+* slew limits;
+* acceleration limits;
+* recursion-rate limits;
+* transition velocity.
+
+⸻
+
+Coupled Constraints
+
+Define relationships among multiple command dimensions.
+
+Examples:
+
+* resource budgets;
+* mutual exclusions;
+* coupled actuators;
+* shared execution limits.
+
+⸻
+
+Safety Constraints
+
+Define mandatory supervisory safety behavior.
+
+Safety constraints SHALL NOT be overridden by optimization.
+
+⸻
+
+Numeric Constraints
+
+Define:
+
+* precision;
+* tolerances;
+* numeric profile compatibility;
+* overflow handling;
+* deterministic rounding.
+
+⸻
+
+17.6 Constraint Representation
+
+Each committed constraint SHALL include:
+
+constraint_id
+constraint_class
+constraint_definition_id
+constraint_hash
+constraint_payload
+numeric_profile_id
+priority
+mandatory_flag
+schema_version
+artifact_hash
+
+Every mandatory constraint SHALL be explicitly represented.
+
+Implicit constraints are prohibited.
+
+⸻
+
+17.7 Action Space Definition
+
+The committed Action Space SHALL define the complete set of admissible Control Commands.
+
+Formally,
+
+\mathcal U_t
+=
+\{
+u
+\mid
+u
+\text{ satisfies every mandatory committed constraint}
+\}
+
+No later section may redefine
+
+\mathcal U_t.
+
+Compatibility, Evaluation, Validation, and Certification may only determine whether candidate commands belong to the committed Action Space.
+
+⸻
+
+17.8 Constraint Construction
+
+Constraint construction SHALL bind:
+
+* Governance Snapshot;
+* Operational Profile;
+* Controller Configuration;
+* Numeric Profile.
+
+Construction SHALL NOT depend upon:
+
+* runtime heuristics;
+* optimization;
+* Controller outputs;
+* execution feedback.
+
+⸻
+
+17.9 Constraint Completeness
+
+Before commitment, the implementation SHALL verify:
+
+* every mandatory Governance constraint is represented;
+* every Operational Profile constraint is represented;
+* every Controller Configuration constraint is represented;
+* every required Action Space definition exists;
+* Numeric Profile compatibility is complete.
+
+Failure SHALL terminate construction.
+
+⸻
+
+17.10 Constraint Immutability
+
+The committed Constraint Set SHALL remain immutable throughout Controller evaluation.
+
+Evaluation SHALL consume the committed Constraint Set exactly as constructed.
+
+No Controller instance may:
+
+* remove constraints;
+* weaken constraints;
+* reorder mandatory constraints;
+* introduce undeclared constraints.
+
+⸻
+
+17.11 Single Enforcement Path
+
+Every mandatory supervisory constraint SHALL possess exactly one authoritative enforcement path.
+
+A mandatory constraint SHALL NOT depend upon redundant or conflicting enforcement mechanisms.
+
+If multiple enforcement paths exist, deterministic precedence SHALL be defined before Controller evaluation.
+
+⸻
+
+17.12 Constraint Lineage
+
+Each committed Constraint Set SHALL preserve complete lineage.
+
+Lineage SHALL include references to:
+
+* Governance Snapshot;
+* Operational Profile;
+* Controller Configuration;
+* registry snapshots;
+* schema versions;
+* Numeric Profile.
+
+⸻
+
+17.13 Constraint Invariants
+
+A conforming implementation SHALL satisfy:
+
+* one committed Constraint Set per validated Controller Composition;
+* immutable Action Space;
+* complete mandatory constraint coverage;
+* deterministic precedence;
+* deterministic numeric behavior;
+* complete provenance.
+
+⸻
+
+17.14 Fundamental Constraint Invariant
+
+The Committed Control Constraint Set SHALL define the complete supervisory authority and admissible Action Space for one validated Controller Composition during one supervisory cycle.
+
+Every candidate Control Command SHALL be evaluated exclusively within this committed authority.
+
+The Controller SHALL NOT weaken, reinterpret, replace, or expand the committed supervisory authority.
+
+⸻
+
+Architectural Consequence
+
+At this point, the Controller possesses all of the immutable mathematical inputs required for deterministic evaluation:
+
+Committed Controller Configuration
+        +
+Committed Controller State Set
+        +
+Committed Control Error
+        +
+Committed Control Constraint Set
+        ↓
+Section 18
+Controller Compatibility Evaluation
+
+This completes the input phase of Contract 007.

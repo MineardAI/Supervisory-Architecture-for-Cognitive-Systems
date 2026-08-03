@@ -1,0 +1,521 @@
+SACS Contract 003 — Operational State Vector
+
+Project: SACS — Supervisory Architecture for Cognitive Systems
+Contract: 003
+Title: Operational State Vector
+Version: 1.0.0
+Status: ADOPTED - SACS v1.0.0 BASELINE
+Normative Authority: Canonical supervisory state publication
+Upstream Dependency: Contract 002 — State Estimation
+Downstream Consumers: Governance, Objectives, Operational Profiles, Reference-State Construction, and Controller
+
+⸻
+
+1. Purpose
+
+This contract defines how an immutable Estimated State is transformed into one canonical, immutable, temporally atomic Operational State Vector.
+
+The OSV is the sole canonical operational-state interface available to higher supervisory layers.
+
+The OSV Publisher does not estimate hidden state.
+
+It validates, projects, qualifies, commits, and publishes state according to registered OSV definitions.
+
+⸻
+
+2. Defining Invariant
+
+The OSV declares the one operational-state snapshot that higher supervisory layers are permitted to use for a supervisory cycle.
+
+The OSV MUST be:
+
+* derived from one canonical Estimated State;
+* bound to one supervisory cycle;
+* bound to one observation cutoff;
+* schema-valid;
+* registry-compatible;
+* uncertainty-preserving;
+* immutable after commitment;
+* uniquely identified;
+* provenance-linked.
+
+⸻
+
+3. Canonical Publication Flow
+
+Immutable Estimated State
+        ↓
+Input Compatibility Validation
+        ↓
+OSV Publication Profile Resolution
+        ↓
+Field Projection
+        ↓
+Field Validity Evaluation
+        ↓
+Uncertainty Projection
+        ↓
+Completeness Evaluation
+        ↓
+Schema Validation
+        ↓
+Atomic Commit
+        ↓
+Committed OSV
+        ↓
+Higher Supervisory Layers
+
+⸻
+
+4. OSV Publisher Authority
+
+The OSV Publisher owns:
+
+* OSV Publication Profile resolution;
+* projection of Estimated State components into OSV fields;
+* OSV field validation;
+* OSV field registry enforcement;
+* uncertainty-publication rules;
+* publication eligibility;
+* OSV completeness evaluation;
+* atomic commitment;
+* OSV identity;
+* OSV immutability;
+* OSV supersession;
+* OSV publication provenance;
+* higher-layer state access.
+
+The OSV Publisher does not own:
+
+* observation collection;
+* hidden-state inference;
+* estimator mathematics;
+* governance;
+* objective evaluation;
+* profile selection;
+* reference-state construction;
+* control computation;
+* execution authorization.
+
+⸻
+
+5. Canonical Input Contract
+
+The OSV Publisher MUST consume one immutable Estimated State.
+
+The OSV Publisher MUST NOT:
+
+* inspect open observation windows;
+* consume raw observations directly;
+* consume estimator-local state;
+* request hidden telemetry;
+* modify the Estimated State;
+* recompute estimator mathematics;
+* invent state components absent from the handoff.
+
+A publication profile MAY derive an OSV field from one or more Estimated State components through a registered deterministic projection.
+
+⸻
+
+6. Canonical OSV Artifact
+
+A committed OSV MUST include at least:
+
+osv_id
+cycle_id
+previous_osv_id
+estimated_state_id
+observation_batch_id
+observation_window_id
+observation_cutoff
+publication_profile_id
+publication_profile_version
+osv_schema_version
+osv_registry_version
+field_registry_versions
+fields
+field_validity
+field_quality
+field_uncertainty
+covariance_reference
+publication_status
+numeric_profile_id
+compatibility_profile_id
+provenance_id
+committed_at
+artifact_hash
+
+A committed OSV MUST NOT be modified.
+
+A correction MUST produce a new OSV with:
+
+supersedes_osv_id
+correction_reason
+correction_provenance_id
+
+⸻
+
+7. OSV Field Registry
+
+Every canonical OSV field MUST be registered.
+
+An OSV field definition MUST include:
+
+field_id
+name
+description
+semantic_owner
+value_type
+unit
+valid_range
+normalization
+nullability
+required_profiles
+estimated_state_dependencies
+projection_rule_id
+validity_rule_id
+uncertainty_rule_id
+quality_rule_id
+numeric_profile_ids
+sensitivity_class
+schema_version
+registry_version
+
+Field-name similarity does not establish semantic equivalence.
+
+An implementation MUST NOT invent substitute field identifiers for registered canonical fields.
+
+⸻
+
+8. OSV Publication Profiles
+
+Every committed OSV MUST declare one Publication Profile.
+
+A Publication Profile MUST define:
+
+publication_profile_id
+publication_profile_version
+required_field_ids
+optional_field_ids
+conditional_field_ids
+accepted_state_basis_profiles
+projection_rule_ids
+minimum_estimation_status
+minimum_component_validity
+uncertainty_representation
+covariance_policy
+missing_field_policy
+publication_failure_policy
+schema_version
+registry_versions
+
+A Publication Profile determines what may be published.
+
+It does not determine what supervisory action should follow.
+
+⸻
+
+9. Initial Candidate Publication Profile
+
+The current architectural grouping is retained as the initial candidate OSV profile:
+
+sacs.osv.core8.v1
+stability
+drift
+strain
+resonance
+uncertainty
+recursion
+execution
+continuity
+
+These names remain non-normative until their field definitions, units, ranges, validity rules, and projection rules are adopted in the OSV Field Registry.
+
+⸻
+
+10. Estimated-State-to-OSV Projection
+
+Every OSV field MUST be produced through a registered deterministic projection.
+
+A projection definition MUST include:
+
+projection_rule_id
+projection_rule_version
+accepted_state_basis_profiles
+input_state_component_ids
+output_osv_field_ids
+algorithm
+normalization
+uncertainty_transformation
+covariance_transformation
+validity_conditions
+failure_behavior
+numeric_profile_id
+
+A projection MUST NOT:
+
+* create unsupported certainty;
+* conceal missing input state;
+* reinterpret governance;
+* encode control action;
+* assign an operational profile;
+* mutate the Estimated State.
+
+⸻
+
+11. Core5-to-Core8 Relationship
+
+The relationship between the candidate estimator basis:
+
+coherence
+entropy
+drift
+instability
+activation
+
+and the candidate OSV publication profile:
+
+stability
+drift
+strain
+resonance
+uncertainty
+recursion
+execution
+continuity
+
+MUST be expressed through one or more registered projection profiles.
+
+No direct one-to-one equivalence is assumed.
+
+The projection specification MUST declare:
+
+* which Core8 fields can be derived from Core5;
+* which Core8 fields require additional estimated components;
+* whether projection is lossless or lossy;
+* how uncertainty changes during projection;
+* which covariance terms are preserved;
+* conditions under which a field is unresolved.
+
+⸻
+
+12. Field Validity
+
+Each OSV field MUST declare one validity state.
+
+The initial field-validity vocabulary is:
+
+VALID
+DEGRADED
+UNRESOLVED
+UNAVAILABLE
+INCOMPATIBLE
+REDACTED
+
+A field MUST NOT be marked VALID solely because a numeric value is present.
+
+Validity MUST account for:
+
+* Estimated State component validity;
+* projection compatibility;
+* registry compatibility;
+* numeric validity;
+* uncertainty requirements;
+* publication-profile requirements.
+
+⸻
+
+13. Field Uncertainty
+
+Every OSV field MUST expose uncertainty according to the active Publication Profile.
+
+Permitted forms MAY include:
+
+bounded_interval
+variance
+standard_deviation
+qualitative_class
+finite_distribution
+covariance_reference
+unknown
+unsupported
+
+The OSV Publisher MAY reduce a richer estimator uncertainty representation to a simpler published representation only through a registered uncertainty-projection rule.
+
+That reduction MUST be visible in provenance.
+
+⸻
+
+14. Covariance Publication
+
+A Publication Profile MAY require:
+
+FULL_COVARIANCE
+SPARSE_COVARIANCE
+BLOCK_COVARIANCE
+MARGINAL_VARIANCE_ONLY
+QUALITATIVE_DEPENDENCE
+NOT_PUBLISHED
+
+When covariance is not published, the OSV MUST NOT imply that fields are independent.
+
+The OSV SHOULD preserve a reference to the estimator covariance artifact when access is permitted.
+
+⸻
+
+15. Publication Status
+
+Each OSV publication attempt MUST resolve to one status:
+
+COMMITTED
+COMMITTED_DEGRADED
+WITHHELD
+FAULTED
+
+A COMMITTED_DEGRADED OSV MUST identify every degraded, unresolved, unavailable, incompatible, or redacted mandatory field.
+
+A WITHHELD or FAULTED publication MUST NOT be exposed to higher layers as the active OSV.
+
+⸻
+
+16. Atomic Commitment
+
+OSV commitment MUST be atomic.
+
+Before commitment, the OSV is not canonical.
+
+After commitment:
+
+* all fields are fixed;
+* all validity states are fixed;
+* the observation cutoff is fixed;
+* the Estimated State reference is fixed;
+* registry versions are fixed;
+* schema versions are fixed;
+* the artifact hash is fixed;
+* the OSV is immutable.
+
+Higher layers MUST NOT read partially constructed OSVs.
+
+⸻
+
+17. Temporal Atomicity
+
+All mandatory OSV fields MUST belong to the same supervisory cycle and observation cutoff.
+
+The OSV Publisher MUST NOT combine:
+
+* Estimated States from different cycles;
+* fields derived from incompatible observation cutoffs;
+* incompatible registry versions;
+* incompatible numeric profiles;
+* unresolved projection versions.
+
+Later observations MUST produce a later Estimated State and a new OSV.
+
+They MUST NOT mutate the committed OSV.
+
+⸻
+
+18. OSV Sequence
+
+OSVs form a sequence of immutable artifacts:
+
+OSV_t-2
+   ↓
+OSV_t-1
+   ↓
+OSV_t
+
+Each OSV MUST identify its prior canonical OSV when one exists.
+
+Historical access MAY be provided by an OSV History Store.
+
+The active OSV MUST remain a single temporally atomic artifact, not a mutable time-series object.
+
+Trend estimation, oscillation detection, and forecasting MUST occur in an explicitly authorized estimator or analytical layer.
+
+They MUST NOT retroactively change historical OSVs.
+
+⸻
+
+19. Higher-Layer Access
+
+The following layers MUST consume only a committed OSV:
+
+* Governance evaluation where operational state is required;
+* Supervisory Objectives;
+* Operational Profile Selection;
+* Reference-State Construction;
+* Controller;
+* supervisory audit and replay consumers.
+
+Higher layers MUST NOT:
+
+* read raw observations;
+* read the Observation Batch directly;
+* read estimator-local state;
+* bypass field validity;
+* treat unresolved fields as normal;
+* replace OSV fields with local approximations.
+
+⸻
+
+20. Architectural Prohibitions
+
+A conforming OSV implementation MUST NOT:
+
+* estimate hidden state;
+* reinterpret source observations;
+* modify an Estimated State;
+* conceal field validity;
+* conceal uncertainty;
+* merge incompatible cycles;
+* merge incompatible registries;
+* mutate a committed OSV;
+* publish partial construction state;
+* encode governance content into OSV fields;
+* encode objective selection into OSV fields;
+* encode operational profiles into OSV fields;
+* encode controller commands into OSV fields;
+* allow higher layers to bypass the committed OSV.
+
+⸻
+
+21. Initial Conformance Tests
+
+OVT-001 — Estimated State Input Enforcement
+OVT-002 — Raw Telemetry Rejection
+OVT-003 — Projection Registry Enforcement
+OVT-004 — Required Field Enforcement
+OVT-005 — Field Validity Preservation
+OVT-006 — Uncertainty Preservation
+OVT-007 — Covariance Policy Enforcement
+OVT-008 — Registry Compatibility
+OVT-009 — Single-Cycle Atomicity
+OVT-010 — Partial Publication Isolation
+OVT-011 — Commit Immutability
+OVT-012 — Supersession Lineage
+OVT-013 — Deterministic Publication
+OVT-014 — Higher-Layer OSV Exclusivity
+OVT-015 — Historical Non-Mutation
+OVT-016 — Publication Provenance Completeness
+
+⸻
+
+22. Required Companion Registries
+
+OSV Field Registry
+OSV Publication Profile Registry
+Estimated-State Projection Registry
+OSV Validity Rule Registry
+OSV Uncertainty Projection Registry
+OSV Schema Registry
+OSV Numeric Profile Registry
+OSV Compatibility Registry
+OSV Migration Registry
+OSV Publication Provenance Schema
+
+⸻
+
+End of Contract 003 Interface Skeleton

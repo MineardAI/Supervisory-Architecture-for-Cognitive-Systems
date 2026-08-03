@@ -1,0 +1,1011 @@
+7. Inference Command Identity
+
+7.1 Purpose
+
+This section defines the identity, structure, authority, and lifecycle of the Inference Command artifacts produced by Contract 008.
+
+An Inference Command is a runtime-specific representation of one or more semantic obligations extracted from a Committed Control Command.
+
+An Inference Command is not itself the supervisory decision.
+
+It is the implementation-specific expression of that already-committed decision.
+
+A conforming Inference Command SHALL:
+
+* derive from exactly one Committed Control Command;
+* preserve the command’s semantic obligations;
+* remain within the command’s authority ceiling;
+* preserve mandatory restrictions;
+* preserve target and scope;
+* preserve temporal requirements;
+* preserve ordering and atomicity requirements;
+* conform to the declared runtime capability model;
+* conform to the committed Translation Configuration;
+* conform to the committed Translation Numeric Profile;
+* be deterministically reproducible;
+* remain non-executable until submitted through Contract 009.
+
+The defining identity is:
+
+An Inference Command is a runtime-specific instruction whose complete authority and meaning are inherited from one Committed Control Command and whose representation is valid only under one exact committed translation context.
+
+⸻
+
+7.2 Artifact Classes
+
+Contract 008 SHALL distinguish among the following artifact classes:
+
+Inference Command Definition
+Inference Command
+Proposed Inference Command
+Inference Command Group
+Proposed Inference Command Set
+Translation Equivalence Certificate
+Committed Inference Command Set
+Inference Translation Failure
+
+These artifact classes SHALL NOT be treated as interchangeable.
+
+A definition is not an instruction.
+
+A proposed instruction is not canonical.
+
+A group is not necessarily atomic.
+
+A set is not necessarily committed.
+
+A certificate is not an execution authorization.
+
+A committed set is not an Execution Disposition.
+
+⸻
+
+7.3 Inference Command Definition
+
+An Inference Command Definition is an immutable reusable definition describing one runtime-specific instruction type.
+
+It SHALL specify at least:
+
+inference_command_type_id
+runtime_type
+runtime_version_scope
+semantic_effect_class
+supported_control_command_type_ids
+required_fields
+optional_fields
+field_types
+field_units
+field_domains
+field_interactions
+target_model
+scope_model
+temporal_model
+expiry_model
+ordering_model
+atomicity_model
+transaction_model
+compensation_model
+failure_model
+acknowledgement_model
+serialization_model
+authority_expression_model
+restriction_expression_model
+numeric_requirements
+translation_definition_ids
+schema_version
+definition_version
+definition_hash
+
+An Inference Command Definition describes representational capability.
+
+It does not authorize its own use.
+
+It becomes applicable only when:
+
+* the committed Runtime Capability Profile supports it;
+* the committed Translation Configuration selects or permits it;
+* a compatible Translation Definition binds it to the source Control Command;
+* all validation obligations are satisfied.
+
+Technical support is not translation authority.
+
+⸻
+
+7.4 Individual Inference Command
+
+An individual Inference Command represents one runtime instruction within a Proposed or Committed Inference Command Set.
+
+It SHALL include at least:
+
+inference_command_id
+cycle_id
+source_control_command_id
+source_translation_requirement_set_id
+inference_command_type_id
+runtime_target_id
+runtime_type
+runtime_version
+command_parameters
+target_scope
+temporal_scope
+effective_time
+expiry
+cardinality
+ordering_metadata
+atomicity_metadata
+transaction_metadata
+compensation_metadata
+failure_semantics
+authority_expression
+restriction_expression
+numeric_profile_id
+translation_definition_id
+translation_configuration_id
+runtime_capability_profile_id
+registry_snapshot_ids
+schema_version
+artifact_hash
+provenance_id
+
+Every field that carries semantic meaning SHALL resolve through an exact registered definition.
+
+Runtime-native field names alone SHALL NOT establish semantic identity.
+
+⸻
+
+7.5 Proposed Inference Command
+
+A Proposed Inference Command is an uncommitted translation result.
+
+It SHALL be treated as:
+
+* provisional;
+* noncanonical;
+* non-executable;
+* subject to semantic validation;
+* subject to authority validation;
+* subject to restriction-preservation validation;
+* subject to ordering and atomicity validation;
+* subject to certification;
+* subject to commitment.
+
+A Proposed Inference Command SHALL NOT be submitted to Contract 009.
+
+A Proposed Inference Command SHALL NOT be exposed as the canonical output of Contract 008.
+
+A Proposed Inference Command SHALL NOT acquire authority merely because its serialization is syntactically valid.
+
+⸻
+
+7.6 Inference Command Group
+
+An Inference Command Group is a collection of two or more Inference Commands that share one declared semantic relationship.
+
+A group SHALL identify one of the following group classes:
+
+SEMANTIC_DECOMPOSITION_GROUP
+ORDERED_COMMAND_GROUP
+PARTIALLY_ORDERED_COMMAND_GROUP
+ATOMIC_COMMAND_GROUP
+TRANSACTIONAL_COMMAND_GROUP
+COMPENSATABLE_COMMAND_GROUP
+TARGET_PARTITION_GROUP
+REGISTERED_COMMAND_GROUP
+
+An Inference Command Group SHALL specify:
+
+inference_command_group_id
+group_class
+member_command_ids
+source_control_command_id
+group_semantic_effect
+member_relationships
+ordering_constraints
+atomicity_requirements
+transaction_requirements
+compensation_requirements
+failure_propagation_rules
+target_binding
+scope_binding
+authority_aggregation_rule
+restriction_aggregation_rule
+artifact_hash
+
+Grouping SHALL NOT be inferred from list adjacency.
+
+Grouping SHALL NOT be inferred from shared field names.
+
+Grouping SHALL be explicit.
+
+⸻
+
+7.7 Semantic Decomposition Group
+
+A Semantic Decomposition Group represents one supervisory effect through multiple runtime instructions.
+
+For example:
+
+Canonical supervisory effect:
+Disable adaptive state updates.
+
+A runtime may require:
+
+1. set adaptive_write_enabled = false
+2. set delta_update_enabled = false
+3. set persistent_state_commit = blocked
+
+These three instructions MAY represent one semantic action if the registered Translation Definition proves that all three are jointly required and jointly sufficient.
+
+A Semantic Decomposition Group SHALL define:
+
+* the single source semantic obligation;
+* the role of each member command;
+* whether every member is mandatory;
+* whether member order matters;
+* whether partial application is prohibited;
+* whether the group is atomic or transactional;
+* how equivalence is validated.
+
+A decomposition SHALL NOT multiply supervisory authority.
+
+The group expresses one inherited authority, not several independent authorities.
+
+⸻
+
+7.8 Proposed Inference Command Set
+
+A Proposed Inference Command Set is the complete uncommitted translation output for one Committed Control Command.
+
+It SHALL contain:
+
+proposed_inference_command_set_id
+cycle_id
+source_control_command_id
+source_controller_commitment_record_id
+translation_requirement_set_id
+runtime_target_id
+runtime_capability_profile_id
+translation_configuration_id
+translation_numeric_profile_id
+translation_definition_ids
+inference_command_ids
+inference_command_group_ids
+global_ordering_model
+global_atomicity_model
+global_transaction_model
+global_failure_semantics
+global_expiry
+authority_summary
+restriction_summary
+semantic_coverage_map
+registry_snapshot_ids
+schema_version
+artifact_hash
+provenance_id
+
+The Proposed Inference Command Set SHALL represent the entire Committed Control Command.
+
+It SHALL NOT contain only the supported portion of a composite command.
+
+It SHALL NOT contain hidden provider defaults.
+
+It SHALL NOT require Contract 009 to infer missing semantics.
+
+⸻
+
+7.9 Completeness Requirement
+
+A Proposed Inference Command Set is complete only when every obligation in the Translation Requirement Set is represented by at least one explicit command, group property, or set-level property.
+
+A semantic coverage map SHALL identify:
+
+translation_requirement_id
+representing_command_ids
+representing_group_ids
+representing_set_level_field
+coverage_type
+coverage_status
+validation_rule_id
+
+Coverage types MAY include:
+
+DIRECT
+DECOMPOSED
+GROUP_LEVEL
+SET_LEVEL
+TRANSACTION_LEVEL
+EXPLICIT_NO_OPERATION
+
+A requirement with no valid coverage SHALL cause translation failure.
+
+A requirement covered only by runtime convention SHALL be treated as uncovered.
+
+⸻
+
+7.10 One-to-One Source Identity
+
+One Proposed or Committed Inference Command Set SHALL correspond to exactly one Committed Control Command.
+
+The set SHALL retain:
+
+source_control_command_id
+source_control_command_hash
+source_controller_commitment_record_id
+source_controller_commitment_bundle_id
+
+Contract 008 SHALL NOT:
+
+* merge independent Committed Control Commands;
+* translate one command into several independently canonical command sets;
+* split one command into separately executable committed artifacts unless the source command explicitly defines separable authority;
+* allow one set to inherit authority from multiple supervisory decisions.
+
+A later contract MAY define higher-order supervisory transactions, but Contract 008 SHALL not infer them.
+
+⸻
+
+7.11 Runtime-Specific Identity
+
+Every Inference Command Set SHALL be bound to one exact runtime target or one explicitly registered target class.
+
+The binding SHALL include:
+
+runtime_target_id
+runtime_type
+runtime_version
+runtime_capability_profile_id
+target_binding_hash
+
+A command set generated for one runtime SHALL NOT be presumed valid for another runtime.
+
+A provider-compatible serialization SHALL NOT establish cross-runtime semantic equivalence.
+
+A command set SHALL be retranslated when:
+
+* the runtime target changes;
+* the runtime version changes incompatibly;
+* the capability profile changes incompatibly;
+* the Translation Configuration changes;
+* the governing registry snapshots change incompatibly.
+
+⸻
+
+7.12 Command Authority Inheritance
+
+An Inference Command SHALL possess no independent supervisory authority.
+
+Its authority is inherited from:
+
+Committed Control Command
+        ↓
+Translation Requirement Set
+        ↓
+Validated Translation Binding
+        ↓
+Proposed Inference Command
+
+Let:
+
+[
+U_t
+]
+
+be the Committed Control Command and:
+
+[
+i_{t,j}
+]
+
+be one member of the resulting Inference Command Set.
+
+Then:
+
+[
+\mathcal{A}(i_{t,j})
+\preceq
+\mathcal{A}(U_t)
+]
+
+For a set:
+
+[
+I_t
+
+{i_{t,1},i_{t,2},\dots,i_{t,n}}
+]
+
+the aggregate authority SHALL satisfy:
+
+[
+\mathcal{A}(I_t)
+\preceq
+\mathcal{A}(U_t)
+]
+
+Authority SHALL be evaluated in aggregate.
+
+A set of individually compliant commands may still produce unauthorized aggregate authority.
+
+⸻
+
+7.13 Aggregate Authority
+
+Contract 008 SHALL evaluate aggregate authority across:
+
+* command count;
+* command interaction;
+* shared target effects;
+* overlapping parameter effects;
+* cumulative duration;
+* repeated application;
+* group semantics;
+* transaction semantics;
+* temporal overlap;
+* cross-parameter coupling.
+
+For example, two individually bounded increments may jointly exceed the authorized aggregate bound.
+
+Therefore:
+
+[
+\mathcal{A}(i_1)
+\preceq
+\mathcal{A}(U_t)
+]
+
+and:
+
+[
+\mathcal{A}(i_2)
+\preceq
+\mathcal{A}(U_t)
+]
+
+do not by themselves prove:
+
+[
+\mathcal{A}({i_1,i_2})
+\preceq
+\mathcal{A}(U_t)
+]
+
+Aggregate validation is mandatory.
+
+⸻
+
+7.14 Restriction Inheritance
+
+Every mandatory restriction from the Translation Requirement Set SHALL be represented in the Proposed Inference Command Set.
+
+Restriction inheritance MAY occur at:
+
+* command level;
+* group level;
+* transaction level;
+* set level.
+
+The level SHALL be explicit.
+
+For example, an expiry may apply to:
+
+* one command;
+* one group;
+* the entire set.
+
+A restriction SHALL NOT be considered preserved if it is attached to the wrong scope.
+
+A set-level restriction SHALL NOT be silently reduced to one command.
+
+⸻
+
+7.15 Positive and Negative Semantics
+
+An Inference Command Set SHALL represent both:
+
+* required positive effects;
+* prohibited or restricted effects.
+
+A runtime instruction that expresses only the positive action may be insufficient.
+
+For example:
+
+Set tool_access = restricted_set_A
+
+may not preserve:
+
+Prohibit all tools outside restricted_set_A.
+
+unless the runtime semantics explicitly define the set as exclusive.
+
+Translation SHALL validate both the positive and negative semantic dimensions.
+
+⸻
+
+7.16 Command Parameter Identity
+
+Every runtime parameter SHALL identify its semantic source.
+
+At minimum:
+
+runtime_parameter_id
+source_requirement_id
+source_control_parameter_id
+translation_rule_id
+runtime_value
+runtime_unit
+runtime_domain
+authorized_tolerance
+
+SHALL be recorded.
+
+Runtime parameters SHALL NOT be introduced without a source semantic obligation unless they are semantically neutral serialization fields.
+
+Semantically neutral fields MAY include:
+
+* protocol version;
+* message identifier;
+* checksum;
+* canonical ordering index.
+
+Neutral fields SHALL NOT alter runtime behavior.
+
+⸻
+
+7.17 Derived Runtime Parameters
+
+A Translation Definition MAY derive one or more runtime parameters from canonical command parameters.
+
+Derived parameters SHALL be permitted only when:
+
+* the derivation is deterministic;
+* the derivation is registered;
+* all source parameters are identified;
+* the derivation preserves semantic meaning;
+* the derivation remains within numeric tolerance;
+* no new authority is introduced;
+* all parameter interactions are validated.
+
+A derived value SHALL include:
+
+derivation_rule_id
+source_parameter_ids
+numeric_profile_id
+derived_value
+derivation_proof_reference
+
+Undocumented derivation is prohibited.
+
+⸻
+
+7.18 Defaults
+
+An Inference Command SHALL NOT rely on an implicit runtime default when that default affects semantic meaning.
+
+Defaults MAY be used only when:
+
+1. the default is explicitly declared in the Runtime Capability Profile;
+2. the default is immutable for the bound runtime version;
+3. the Translation Definition explicitly incorporates it;
+4. the default is semantically equivalent to the required value;
+5. the default is represented in validation and provenance.
+
+A semantically relevant default SHALL be materialized or explicitly bound.
+
+Unknown defaults SHALL cause translation failure.
+
+⸻
+
+7.19 Empty Inference Command Set
+
+An empty Inference Command Set SHALL be valid only when the source Committed Control Command is an explicit canonical no-operation.
+
+The set SHALL include:
+
+set_semantics = EXPLICIT_NO_OPERATION
+source_no_operation_reason
+zero_command_count = true
+
+An empty set SHALL NOT represent:
+
+* unsupported translation;
+* omitted commands;
+* provider defaults;
+* expired commands;
+* failed mapping;
+* missing capability;
+* silent deferment.
+
+Failure and no-operation are distinct outcomes.
+
+⸻
+
+7.20 Ordering Identity
+
+An Inference Command Set SHALL declare one global ordering model.
+
+Allowed initial models are:
+
+UNORDERED
+TOTAL_ORDER
+PARTIAL_ORDER
+BARRIER_ORDER
+TRANSACTION_ORDER
+REGISTERED_ORDERING_MODEL
+
+When ordering exists, the set SHALL contain an explicit ordering graph or ordered sequence.
+
+For partial order:
+
+[
+G_t
+
+(V_t,E_t)
+]
+
+where:
+
+* (V_t) is the set of Inference Commands;
+* (E_t) is the set of required precedence relations.
+
+The graph SHALL be acyclic unless the registered execution model explicitly defines valid cycles.
+
+Contract 009 SHALL not be required to derive order from artifact serialization.
+
+⸻
+
+7.21 Atomicity Identity
+
+An Inference Command Set SHALL declare one global atomicity model and MAY declare nested atomic groups.
+
+Atomicity metadata SHALL identify:
+
+atomicity_model
+atomic_group_ids
+all_or_none_scope
+partial_application_prohibited
+commit_boundary
+rollback_requirement
+runtime_atomicity_mechanism
+
+Atomicity is part of command meaning.
+
+It is not transport metadata.
+
+Contract 008 defines the requirement.
+
+Contract 009 determines whether it can be enforced.
+
+⸻
+
+7.22 Transaction Identity
+
+A transactional Inference Command Set SHALL include:
+
+transaction_id
+transaction_model
+begin_semantics
+member_command_ids
+commit_semantics
+rollback_semantics
+compensation_semantics
+isolation_semantics
+visibility_semantics
+failure_propagation
+
+A transaction identifier SHALL be unique within its declared scope.
+
+Contract 008 SHALL NOT treat a sequence as transactional merely because commands are ordered.
+
+Ordering and transactionality are distinct.
+
+⸻
+
+7.23 Compensation Identity
+
+Where compensation is authorized, the Inference Command Set SHALL identify compensating instructions separately from primary instructions.
+
+Compensating instructions SHALL be:
+
+* explicitly authorized;
+* scope-bounded;
+* conditionally activated;
+* included in aggregate authority evaluation;
+* included in semantic validation;
+* included in Contract 009 handoff requirements.
+
+A compensating instruction SHALL NOT be considered harmless merely because it executes only after failure.
+
+It still expresses authority.
+
+⸻
+
+7.24 Failure Semantics Identity
+
+An Inference Command Set SHALL declare how failure of one member affects the set.
+
+Initial failure propagation classes MAY include:
+
+FAIL_SET
+FAIL_GROUP
+ROLL_BACK_SET
+ROLL_BACK_GROUP
+COMPENSATE_AND_FAIL
+NO_PARTIAL_APPLICATION
+REGISTERED_FAILURE_PROPAGATION
+
+Failure propagation SHALL be derived from the source command and Translation Configuration.
+
+Contract 008 SHALL NOT invent partial-success semantics.
+
+⸻
+
+7.25 Expiry Identity
+
+Every Inference Command Set SHALL preserve source expiry.
+
+The set SHALL include:
+
+source_command_expiry
+translation_commit_time
+remaining_validity_interval
+expiry_enforcement_requirement
+
+Translation SHALL NOT renew or extend authority.
+
+If:
+
+[
+t_{\mathrm{commit}}
+\geq
+t_{\mathrm{expiry}}
+]
+
+the Inference Command Set SHALL NOT be committed.
+
+If the remaining validity interval is insufficient under the declared handoff requirements, Contract 008 SHALL fail or mark the artifact ineligible according to a registered rule.
+
+It SHALL NOT alter expiry.
+
+⸻
+
+7.26 Canonical Serialization
+
+Every Proposed and Committed Inference Command Set SHALL have one canonical serialization.
+
+Canonical serialization SHALL define:
+
+* field order;
+* command order where serialization order is semantically neutral;
+* encoding;
+* numeric representation;
+* unit representation;
+* null representation;
+* absent-field representation;
+* group representation;
+* graph representation;
+* hash construction;
+* signature fields where applicable;
+* schema version.
+
+Two semantically identical but differently serialized artifacts SHALL not be treated as byte-identical.
+
+Deterministic replay SHALL reproduce the same canonical serialization under the same numeric and serialization profiles.
+
+⸻
+
+7.27 Artifact Immutability
+
+A Proposed Inference Command Set SHALL be immutable after it enters translation validation.
+
+Any correction SHALL create a new proposed artifact.
+
+A Committed Inference Command Set SHALL be immutable permanently.
+
+No later layer may:
+
+* change command parameters;
+* add commands;
+* remove commands;
+* alter ordering;
+* alter atomicity;
+* change targets;
+* change expiry;
+* change authority metadata;
+* change restriction metadata.
+
+Contract 009 may reject, defer, or decline execution.
+
+It may not rewrite the committed set.
+
+⸻
+
+7.28 Proposed Versus Committed Identity
+
+The transition:
+
+Proposed Inference Command Set
+        ↓
+Committed Inference Command Set
+
+SHALL occur only after:
+
+* semantic-equivalence validation;
+* authority non-expansion validation;
+* restriction-preservation validation;
+* scope-preservation validation;
+* target-preservation validation;
+* temporal-preservation validation;
+* ordering-preservation validation;
+* atomicity-preservation validation;
+* transaction-preservation validation;
+* numeric validation;
+* Translation Equivalence Certification;
+* atomic commitment.
+
+The committed artifact SHALL receive a distinct canonical identifier.
+
+A proposed artifact identifier SHALL NOT be reused as the committed identifier unless the commitment model explicitly defines immutable promotion and preserves artifact identity unambiguously.
+
+⸻
+
+7.29 Committed Inference Command Set
+
+A Committed Inference Command Set is the canonical committed semantic translation artifact produced before transaction commitment. It is not the terminal Contract 008 output.
+
+It SHALL include at least:
+
+committed_inference_command_set_id
+cycle_id
+source_control_command_id
+source_controller_commitment_record_id
+translation_requirement_set_id
+runtime_target_id
+runtime_capability_profile_id
+translation_configuration_id
+translation_numeric_profile_id
+translation_definition_ids
+inference_command_ids
+inference_command_group_ids
+ordering_model
+atomicity_model
+transaction_model
+failure_semantics
+expiry
+authority_summary
+restriction_summary
+semantic_coverage_map
+translation_equivalence_certificate_id
+commitment_record_id
+registry_snapshot_ids
+schema_version
+contract_version
+created_at
+artifact_hash
+provenance_id
+
+The Committed Inference Command Set SHALL be sufficient for Contract 008 to construct and commit the translation transaction without reconstructing translation meaning.
+
+⸻
+
+7.30 Contract 009 Boundary
+
+Contract 009 SHALL consume the Committed Translation Transaction and the Execution Interface Handoff Envelope established by Section 19.
+
+The Committed Inference Command Set, its Translation Equivalence Certificate, and its supporting commitment and provenance references MAY be represented within the committed transaction and its non-executable evidence, but SHALL NOT substitute for that terminal handoff.
+
+Contract 009 SHALL NOT require access to:
+
+* Control Error;
+* Controller State;
+* translation evaluation internals;
+* rejected translation candidates;
+* provider mapping search;
+* semantic extraction diagnostics;
+* uncommitted command proposals.
+
+Contract 008 SHALL hand off one complete Committed Translation Transaction through the Execution Interface Handoff Envelope.
+
+Contract 009 SHALL not complete unfinished translation.
+
+⸻
+
+7.31 Inference Command Set Non-Authority
+
+A Committed Inference Command Set is canonical with respect to translation.
+
+It is not canonical with respect to execution.
+
+Commitment means:
+
+* translation is complete;
+* semantic equivalence is certified;
+* authority preservation is certified;
+* the artifact is immutable;
+* the artifact is eligible for inclusion in the committed transaction and is not itself the Contract 009 handoff.
+
+Commitment does not mean:
+
+* execution is authorized;
+* the target is available;
+* resources are reserved;
+* the command has been dispatched;
+* the runtime accepted the command;
+* the command succeeded.
+
+Those matters belong to Contract 009.
+
+⸻
+
+7.32 Initial Inference Command Identity Failures
+
+Initial identity-related failure classes SHALL include:
+
+INFERENCE_COMMAND_TYPE_UNRESOLVED
+INFERENCE_COMMAND_DEFINITION_MISMATCH
+INFERENCE_COMMAND_FIELD_MISSING
+INFERENCE_COMMAND_PARAMETER_INVALID
+INFERENCE_COMMAND_TARGET_UNRESOLVED
+INFERENCE_COMMAND_SCOPE_INVALID
+INFERENCE_COMMAND_TEMPORAL_SEMANTICS_INVALID
+INFERENCE_COMMAND_EXPIRY_INVALID
+INFERENCE_COMMAND_ORDERING_INVALID
+INFERENCE_COMMAND_ORDERING_CYCLE_DETECTED
+INFERENCE_COMMAND_ATOMICITY_INVALID
+INFERENCE_COMMAND_TRANSACTION_INVALID
+INFERENCE_COMMAND_COMPENSATION_UNAUTHORIZED
+INFERENCE_COMMAND_FAILURE_SEMANTICS_INVALID
+INFERENCE_COMMAND_AUTHORITY_UNRESOLVED
+INFERENCE_COMMAND_RESTRICTION_UNRESOLVED
+INFERENCE_COMMAND_SOURCE_MAPPING_MISSING
+INFERENCE_COMMAND_DEFAULT_UNRESOLVED
+INFERENCE_COMMAND_DERIVATION_UNREGISTERED
+INFERENCE_COMMAND_SET_INCOMPLETE
+INFERENCE_COMMAND_SET_SOURCE_AMBIGUOUS
+INFERENCE_COMMAND_SET_RUNTIME_BINDING_INVALID
+INFERENCE_COMMAND_SET_SERIALIZATION_INVALID
+INFERENCE_COMMAND_SET_PROVENANCE_INCOMPLETE
+INFERENCE_COMMAND_SET_EXPIRED
+
+These failures SHALL prevent certification and commitment.
+
+⸻
+
+7.33 Section 7 Artifact Flow
+
+Valid Translation Requirement Set
+        ↓
+Inference Command Definition Resolution
+        ↓
+Runtime-Specific Command Construction Model
+        ↓
+Individual Proposed Inference Commands
+        ↓
+Explicit Command Groups
+        ↓
+Ordering, Atomicity, Transaction,
+Failure, Scope, and Expiry Construction
+        ↓
+Proposed Inference Command Set
+        ↓
+Completeness and Identity Validation
+        ↓
+Eligible for Later Translation Validation
+        or
+Inference Translation Failure
+
+At the conclusion of Section 7:
+
+* the identity of the possible output artifact is defined;
+* no Runtime Capability Registry binding has yet been performed;
+* no Translation Definition has yet been selected;
+* no actual Proposed Inference Command Set has yet been constructed;
+* no semantic-equivalence certificate exists;
+* no canonical Inference Command Set exists.
+
+⸻
+
+7.34 Section 7 Invariant
+
+The governing invariant for Inference Command identity is:
+
+Every Inference Command and Inference Command Set SHALL derive all semantic meaning and authority from exactly one Committed Control Command, SHALL be bound to one exact runtime and committed translation context, SHALL explicitly represent all required effects, restrictions, ordering, atomicity, transaction, failure, scope, and expiry semantics, and SHALL remain noncanonical and non-executable until equivalence validation, authority certification, and atomic commitment are complete.

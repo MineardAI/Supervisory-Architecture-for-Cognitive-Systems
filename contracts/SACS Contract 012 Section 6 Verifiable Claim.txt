@@ -1,0 +1,1335 @@
+# SACS Contract 012 — External Verification Profile and Evidence Interface
+
+## Section 6 — Verifiable Claim
+
+### Purpose
+
+Section 6 defines the canonical constitutional object that external verification evaluates.
+
+A `Verifiable Claim` is an explicit, bounded, immutable assertion concerning one eligible verification subject.
+
+Every external verification operation under Contract 012 SHALL evaluate one or more Verifiable Claims.
+
+No Verification Profile, evidence package, submission, external result, or verification-status record may exist canonically without resolving to at least one Verifiable Claim.
+
+The purpose of this section is to ensure that external verification always answers a precise question rather than issuing general, implied, or unbounded assurance.
+
+---
+
+# Constitutional Question
+
+Section 6 answers:
+
+> **What exact assertion concerning an eligible verification subject may be prepared for external verification?**
+
+A Verifiable Claim SHALL state:
+
+* what property is asserted;
+* which subject is covered;
+* which scope applies;
+* which versions apply;
+* which conditions apply;
+* which assumptions are relied upon;
+* which exclusions apply;
+* which evidence classes may support evaluation;
+* what kind of result may be returned.
+
+A claim that cannot answer these questions SHALL NOT become canonical.
+
+---
+
+# Constitutional Identity
+
+The defining identity of a Verifiable Claim is:
+
+> **A Verifiable Claim is one immutable, explicitly scoped, independently identifiable assertion whose meaning, subject, assumptions, exclusions, and verification boundaries are fully determined before external verification begins.**
+
+A claim is not:
+
+* a verification result;
+* an evidence package;
+* an implementation guarantee;
+* a general statement of trust;
+* a governance decision;
+* a constitutional amendment;
+* a prediction of verifier outcome.
+
+Formally:
+
+```text
+Verifiable Claim
+≠
+Evidence
+≠
+Verification Submission
+≠
+External Verification Result
+≠
+Verification Status
+```
+
+---
+
+# Claim Authority
+
+Contract 012 owns the constitutional representation and binding of Verifiable Claims.
+
+It MAY:
+
+* receive proposed claims from an authorized upstream source;
+* resolve a proposed claim against a Verification Profile;
+* validate claim structure;
+* validate claim scope;
+* assign canonical claim identity;
+* bind a claim to one eligible verification subject;
+* bind declared assumptions and exclusions;
+* bind applicable versions and environments;
+* determine whether a claim is sufficiently explicit to proceed;
+* commit the claim within a verification configuration or submission.
+
+Contract 012 SHALL NOT:
+
+* determine that the claim is true;
+* determine that the claim is false;
+* strengthen the claim to increase assurance;
+* weaken the claim without changing its identity;
+* infer unstated claims;
+* add favorable meaning;
+* remove unfavorable conditions;
+* reinterpret the claim after submission commitment.
+
+---
+
+# Proposed Claim and Canonical Claim
+
+A proposed assertion SHALL not immediately possess canonical verification authority.
+
+The distinction is:
+
+```text
+Proposed Verification Claim
+≠
+Verifiable Claim
+```
+
+A `Proposed Verification Claim` is an uncommitted request or assertion submitted for evaluation.
+
+A `Verifiable Claim` is the normalized, validated, bounded, and identity-bound constitutional representation authorized for use by Contract 012.
+
+The transition SHALL be:
+
+```text
+Proposed Verification Claim
+        ↓
+Claim Structure Validation
+        ↓
+Claim Scope Validation
+        ↓
+Claim Applicability Validation
+        ↓
+Claim Identity Binding
+        ↓
+Verifiable Claim
+```
+
+Failure at any stage SHALL prevent canonical claim construction.
+
+---
+
+# Canonical Claim Structure
+
+Every Verifiable Claim SHALL contain at minimum:
+
+```text
+claim_id
+claim_type
+claim_statement
+claim_subject_id
+claim_subject_type
+claim_subject_hash
+verification_purpose
+claim_scope
+temporal_scope
+version_scope
+implementation_scope
+environment_scope
+method_scope
+applicable_contract_versions
+applicable_schema_versions
+applicable_registry_versions
+verification_profile_id
+verification_profile_version
+verification_requirement_set_id
+declared_assumptions
+declared_preconditions
+declared_exclusions
+declared_limitations
+claim_dependencies
+claim_origin
+claim_authority
+claim_created_at
+claim_hash
+```
+
+Where applicable, the claim SHALL also identify:
+
+```text
+numeric_profile_id
+confidence_requirement
+tolerance_definition
+property_definition_id
+formal_expression
+required_verifier_capabilities
+validity_interval
+reverification_conditions
+supersession_relationship
+```
+
+Every mandatory field SHALL be resolved before the claim becomes canonical.
+
+---
+
+# Claim Statement
+
+The `claim_statement` SHALL express one precise assertion.
+
+It SHALL:
+
+* identify one property or one explicitly composed property set;
+* use canonical terminology;
+* avoid undefined qualifiers;
+* be testable under recognized verification methods;
+* remain consistent with its machine-readable scope;
+* remain stable after claim commitment.
+
+Examples of structurally acceptable claims include:
+
+```text
+The committed control command did not exceed the authority and action-space bounds established by the applicable governance, objective, operational-profile, reference-state, controller-configuration, and numeric-profile artifacts.
+```
+
+```text
+The committed translation transaction preserved every required semantic obligation and restriction contained in the source control command.
+```
+
+```text
+The committed supervisory cycle record contains a complete and internally consistent lineage from the committed operational state vector through the committed realization record.
+```
+
+A human-readable claim statement SHALL not override the structured claim fields.
+
+Where conflict exists, the claim SHALL fail validation rather than allowing one representation to silently dominate.
+
+---
+
+# Prohibited Claim Language
+
+A canonical claim SHALL NOT depend upon undefined language such as:
+
+```text
+safe
+secure
+correct
+aligned
+trusted
+robust
+reliable
+acceptable
+high quality
+normal
+reasonable
+appropriate
+best
+sufficient
+production ready
+```
+
+Such terms MAY appear only where the applicable Verification Profile or Property Definition assigns them an exact, testable meaning.
+
+For example:
+
+```text
+safe
+```
+
+is not independently verifiable.
+
+A bounded property such as:
+
+```text
+No committed execution action exceeded the maximum action-space authority defined by the applicable Committed Governance Snapshot during supervisory cycle SC-1042.
+```
+
+may be verifiable.
+
+---
+
+# Claim Types
+
+Every Verifiable Claim SHALL use one registered claim type.
+
+Claim types MAY include:
+
+```text
+STRUCTURAL_CONFORMANCE
+SCHEMA_CONFORMANCE
+LINEAGE_COMPLETENESS
+LINEAGE_INTEGRITY
+AUTHORITY_PRESERVATION
+SEMANTIC_EQUIVALENCE
+BOUNDARY_PRESERVATION
+NUMERIC_CONFORMANCE
+DETERMINISTIC_REPLAY
+TEMPORAL_CONSISTENCY
+TEMPORAL_ATOMICITY
+COMMITMENT_SINGULARITY
+STATE_TRANSITION_CONFORMANCE
+STABILITY_PROPERTY
+GUARD_CONFORMANCE
+RESET_CONFORMANCE
+DWELL_TIME_CONFORMANCE
+TRANSLATION_CONFORMANCE
+EXECUTION_DISPOSITION_CONFORMANCE
+REALIZATION_CONFORMANCE
+PROVENANCE_COMPLETENESS
+AUDIT_REPRODUCIBILITY
+IMPLEMENTATION_CONFORMANCE
+CAPABILITY_CONFORMANCE
+EXTERNAL_INTERFACE_CONFORMANCE
+```
+
+A Verification Profile SHALL define which claim types it supports.
+
+An implementation SHALL NOT treat an unregistered claim type as canonically meaningful.
+
+---
+
+# Claim Subject Binding
+
+Every Verifiable Claim SHALL bind to exactly one primary verification subject.
+
+The primary subject SHALL be identified by:
+
+```text
+claim_subject_id
+claim_subject_type
+claim_subject_hash
+```
+
+The subject MAY be:
+
+* one committed artifact;
+* one committed supervisory cycle;
+* one bounded transformation;
+* one implementation build;
+* one deployment instance;
+* one profile-authorized collection of committed artifacts.
+
+Where a claim concerns relationships among multiple artifacts, one SHALL remain the primary subject and the remaining artifacts SHALL be identified through:
+
+* claim dependencies;
+* evidence requirements;
+* lineage relationships;
+* composed-subject definitions.
+
+A claim SHALL NOT remain ambiguously attached to multiple possible subjects.
+
+---
+
+# Subject Immutability
+
+The verification subject SHALL be immutable before claim commitment.
+
+If the subject changes, then the original claim SHALL no longer apply to the changed subject.
+
+A new subject identity SHALL require:
+
+* a new claim identity;
+* a new applicability evaluation;
+* a new evidence package;
+* a new verification submission.
+
+Formally:
+
+```text
+Changed Subject
+⇒
+New Claim
+```
+
+A claim SHALL NOT float across mutable versions of a subject.
+
+---
+
+# Claim Scope
+
+Every Verifiable Claim SHALL contain an explicit `claim_scope`.
+
+The claim scope defines the complete constitutional boundary of the assertion.
+
+It SHALL specify, as applicable:
+
+* subject boundary;
+* artifact boundary;
+* contract boundary;
+* transformation boundary;
+* temporal boundary;
+* version boundary;
+* implementation boundary;
+* environment boundary;
+* numeric boundary;
+* method boundary;
+* evidence boundary.
+
+The claim scope SHALL be narrow enough to prevent inference beyond the property actually submitted.
+
+---
+
+# Atomic Claim Principle
+
+The preferred claim form is one independently decidable assertion.
+
+An atomic claim SHALL be capable of receiving one claim-level result without requiring hidden resolution of unrelated assertions.
+
+For example:
+
+```text
+The translation transaction preserved all source-command restrictions.
+```
+
+and:
+
+```text
+The translation transaction preserved all source-command obligations.
+```
+
+MAY be represented as separate atomic claims where the applicable profile evaluates them independently.
+
+The combined assertion:
+
+```text
+The translation transaction was correct, complete, safe, authorized, efficient, and robust.
+```
+
+SHALL NOT be treated as one canonical atomic claim.
+
+---
+
+# Composite Claims
+
+A Verification Profile MAY permit a `Composite Verifiable Claim`.
+
+A composite claim SHALL contain:
+
+```text
+composite_claim_id
+component_claim_ids
+composition_operator
+composition_rules
+dependency_order
+aggregate_result_rule
+partial_result_rule
+composite_claim_hash
+```
+
+Permitted composition operators MAY include:
+
+```text
+ALL_OF
+ANY_OF
+EXACTLY_ONE_OF
+AT_LEAST_N_OF
+CONDITIONAL
+ORDERED_SEQUENCE
+DEPENDENCY_CHAIN
+```
+
+Every component claim SHALL remain independently identifiable.
+
+A composite result SHALL NOT erase claim-level results.
+
+---
+
+# Claim Dependency
+
+A claim MAY depend upon another claim.
+
+Dependencies SHALL be explicit.
+
+Dependency types MAY include:
+
+```text
+REQUIRES_VERIFIED
+REQUIRES_NOT_REJECTED
+REQUIRES_EVIDENCE_RESULT
+REQUIRES_METHOD_RESULT
+REQUIRES_SCOPE_MATCH
+REQUIRES_VERSION_MATCH
+INFORMATIONAL_ONLY
+```
+
+A dependent claim SHALL identify:
+
+* the required claim;
+* the dependency type;
+* the dependency condition;
+* the consequence of dependency failure.
+
+Contract 012 SHALL NOT infer dependencies from claim wording alone.
+
+---
+
+# Claim Preconditions
+
+A Verifiable Claim MAY include explicit preconditions.
+
+Preconditions identify conditions that must be true before the claim can be meaningfully evaluated.
+
+Examples include:
+
+* the subject passed schema validation;
+* the subject possesses a valid commitment record;
+* all required registry snapshots are available;
+* deterministic replay inputs are complete;
+* the implementation identity matches the claimed build;
+* the external verifier possesses the required method capability.
+
+A precondition is not an assumption.
+
+A precondition SHALL be evaluated where the Verification Profile requires it.
+
+If a mandatory precondition is not satisfied, the claim SHALL not be treated as verified.
+
+The appropriate result MAY be:
+
+```text
+NOT_APPLICABLE
+INSUFFICIENT_EVIDENCE
+OUT_OF_SCOPE
+PRECONDITION_FAILED
+```
+
+as defined by the applicable profile.
+
+---
+
+# Declared Assumptions
+
+Every assumption necessary to evaluate the claim SHALL be explicit.
+
+An assumption SHALL identify:
+
+```text
+assumption_id
+assumption_statement
+assumption_source
+assumption_authority
+assumption_scope
+assumption_validation_status
+assumption_impact
+```
+
+Assumptions SHALL NOT be hidden in:
+
+* implementation defaults;
+* verifier settings;
+* undocumented environment state;
+* operator knowledge;
+* informal comments;
+* ambiguous terminology.
+
+An assumption MAY be:
+
+```text
+VALIDATED
+UNVALIDATED
+EXTERNALLY_PROVIDED
+PROFILE_AUTHORIZED
+CONDITIONALLY_ACCEPTED
+```
+
+The external verifier SHALL be able to determine how each assumption affects the result.
+
+---
+
+# Assumption Limitation Principle
+
+A result dependent upon an assumption SHALL remain bounded by that assumption.
+
+Formally:
+
+```text
+Claim Verified Under Assumption A
+≠
+Claim Verified Without Assumption A
+```
+
+Contract 012 SHALL preserve assumption dependence in:
+
+* the Verifiable Claim;
+* the Verification Submission;
+* the External Verification Result;
+* the Committed Verification Status Record.
+
+---
+
+# Declared Exclusions
+
+Every intentionally excluded subject, property, period, method, environment, or evidence class SHALL be explicit.
+
+An exclusion SHALL contain:
+
+```text
+exclusion_id
+excluded_element
+exclusion_basis
+exclusion_scope
+exclusion_authority
+exclusion_impact
+```
+
+Exclusions SHALL NOT be used to conceal:
+
+* contradictory evidence;
+* failed tests;
+* known limitations;
+* unsupported environments;
+* unfavorable results;
+* unresolved lineage gaps.
+
+An exclusion is valid only where the Verification Profile permits it.
+
+---
+
+# Declared Limitations
+
+A claim MAY declare limitations known before verification.
+
+Limitations MAY include:
+
+* restricted temporal coverage;
+* limited environment coverage;
+* unsupported input classes;
+* incomplete method coverage;
+* limited numerical precision;
+* bounded fault model;
+* bounded threat model;
+* incomplete implementation coverage.
+
+A limitation does not automatically make a claim invalid.
+
+It narrows the meaning of any result.
+
+---
+
+# Temporal Claim Scope
+
+Every claim SHALL define the time or interval to which it applies.
+
+Temporal scope MAY be:
+
+```text
+ONE_SUPERVISORY_CYCLE
+ONE_REALIZATION_INTERVAL
+BOUNDED_CYCLE_RANGE
+IMPLEMENTATION_BUILD_INTERVAL
+DEPLOYMENT_INTERVAL
+POINT_IN_TIME
+```
+
+Temporal scope SHALL resolve to exact committed identifiers or timestamps.
+
+A claim SHALL NOT use unresolved expressions such as:
+
+```text
+currently
+recently
+during normal operation
+in production
+over time
+```
+
+without a profile-defined deterministic resolution rule.
+
+---
+
+# Version Claim Scope
+
+Every version-sensitive claim SHALL bind all versions that materially affect meaning.
+
+Bindings MAY include:
+
+* contract versions;
+* artifact schema versions;
+* registry snapshot versions;
+* Verification Profile version;
+* Verification Requirement Set version;
+* verification method version;
+* implementation version;
+* runtime version;
+* compiler or build version;
+* numeric profile version;
+* cryptographic profile version.
+
+A claim verified against one version SHALL not silently apply to another.
+
+---
+
+# Implementation Claim Scope
+
+An implementation claim SHALL identify the exact implementation being evaluated.
+
+The identity SHALL include, where required:
+
+```text
+implementation_id
+implementation_version
+source_revision
+build_id
+binary_hash
+configuration_hash
+deployment_id
+runtime_identity
+dependency_manifest_hash
+```
+
+Names such as:
+
+```text
+the SACS implementation
+the current system
+the production service
+```
+
+SHALL NOT establish canonical implementation identity.
+
+---
+
+# Environment Claim Scope
+
+Where the asserted property depends upon environment, the claim SHALL bind the relevant environment.
+
+Environment scope MAY include:
+
+* hardware;
+* operating system;
+* runtime;
+* container;
+* resource limits;
+* network assumptions;
+* timing source;
+* clock profile;
+* dependency versions;
+* deployment region;
+* external service versions.
+
+Environment-independent claims SHALL be explicitly identified as such by an applicable Property Definition or Verification Profile.
+
+---
+
+# Numeric Claim Scope
+
+A numeric claim SHALL identify:
+
+* values or ranges being asserted;
+* units;
+* numeric representation;
+* precision;
+* rounding rules;
+* tolerance;
+* uncertainty treatment;
+* comparison rule;
+* overflow behavior;
+* exceptional-value handling.
+
+A numeric claim SHALL NOT use an unstated tolerance.
+
+Similarity, approximation, and equivalence SHALL have profile-defined meanings.
+
+---
+
+# Formal Claim Representation
+
+Where required, a claim MAY include a formal expression.
+
+The formal representation SHALL:
+
+* use a registered formalism;
+* identify the property language or logic;
+* bind every variable;
+* bind every domain;
+* bind every quantifier;
+* bind every tolerance;
+* identify assumptions;
+* identify temporal operators;
+* identify the subject model.
+
+Where both natural-language and formal representations exist, they SHALL be semantically consistent.
+
+A conflict SHALL produce claim-validation failure.
+
+---
+
+# Property Definitions
+
+A reusable property MAY be represented through a registered `Verification Property Definition`.
+
+A Property Definition SHALL contain:
+
+```text
+property_definition_id
+property_name
+property_semantics
+supported_subject_types
+required_parameters
+required_evidence_classes
+permitted_methods
+result_interpretation
+property_definition_version
+property_definition_hash
+```
+
+A Verifiable Claim MAY instantiate a Property Definition by binding its required parameters to one subject and scope.
+
+The Property Definition is reusable.
+
+The Verifiable Claim is subject-bound and verification-bound.
+
+Formally:
+
+```text
+Verification Property Definition
+≠
+Verifiable Claim
+```
+
+---
+
+# Claim Origin
+
+Every claim SHALL preserve its origin.
+
+Claim origin MAY identify:
+
+* human governance;
+* an adopted Verification Profile;
+* an external certification process;
+* an implementation conformance process;
+* a regulatory requirement;
+* a contract-mandated verification obligation;
+* an authorized audit request.
+
+The origin SHALL not determine the result.
+
+It establishes why the claim was proposed.
+
+---
+
+# Claim Authority
+
+Every claim SHALL identify the authority that authorized its preparation.
+
+Permitted claim authorities SHALL be defined through constitutional governance.
+
+A claim received from an unauthorized source MAY be retained as a proposal.
+
+It SHALL NOT become a canonical Verifiable Claim.
+
+Contract 012 SHALL not authorize its own claims unless a contract explicitly defines a mandatory claim generated by deterministic rule.
+
+---
+
+# Mandatory Claims
+
+A Verification Profile MAY define mandatory claims.
+
+Mandatory claims SHALL be generated only through explicit, deterministic rules.
+
+For example, a profile for full-cycle lineage verification MAY require:
+
+```text
+LINEAGE_COMPLETENESS
+AUTHORITY_PRESERVATION
+COMMITMENT_SINGULARITY
+PROVENANCE_COMPLETENESS
+```
+
+Contract 012 MAY instantiate these claims for the subject.
+
+It SHALL NOT invent additional mandatory claims based on anticipated concerns or favorable outcomes.
+
+---
+
+# Claim Normalization
+
+Contract 012 MAY normalize claim representation to ensure canonical structure.
+
+Permitted normalization MAY include:
+
+* canonical identifiers;
+* canonical ordering;
+* canonical terminology;
+* normalized units;
+* canonical version syntax;
+* canonical time representation;
+* canonical scope serialization;
+* deterministic whitespace and encoding;
+* explicit expansion of profile-defined aliases.
+
+Normalization SHALL preserve meaning.
+
+Formally:
+
+```text
+Meaning Before Normalization
+=
+Meaning After Normalization
+```
+
+A transformation that changes meaning is not normalization.
+
+It requires a new proposed claim.
+
+---
+
+# Claim Identity
+
+Every Verifiable Claim SHALL possess one globally unique immutable `claim_id`.
+
+Claim identity SHALL be derived from or cryptographically bind:
+
+```text
+claim_type
+claim_statement
+claim_subject_id
+claim_subject_hash
+claim_scope
+verification_purpose
+verification_profile_id
+verification_profile_version
+verification_requirement_set_id
+declared_assumptions
+declared_preconditions
+declared_exclusions
+declared_limitations
+claim_dependencies
+applicable_versions
+implementation_scope
+environment_scope
+```
+
+Any material change to these fields SHALL require a new claim identity.
+
+---
+
+# Material Claim Change
+
+A material claim change includes:
+
+* changing the asserted property;
+* changing the subject;
+* changing the scope;
+* changing an assumption;
+* changing a precondition;
+* changing an exclusion;
+* changing a limitation;
+* changing the applicable profile;
+* changing the requirement set;
+* changing a version binding;
+* changing an implementation binding;
+* changing an environment binding;
+* changing a claim dependency.
+
+A material change SHALL NOT be represented as an edit to the original claim.
+
+It SHALL produce a new claim.
+
+---
+
+# Non-Material Representation Change
+
+A representation change MAY preserve claim identity only where it does not change meaning.
+
+Examples MAY include:
+
+* canonical formatting;
+* serialization changes authorized by the schema;
+* display-language translation accompanied by preserved canonical representation;
+* correction of non-semantic metadata explicitly excluded from claim identity.
+
+The canonical claim hash SHALL remain the controlling identity.
+
+---
+
+# Claim Commitment
+
+A Verifiable Claim becomes authoritative for one Contract 012 operation only when incorporated into a committed verification configuration or Committed Verification Submission according to the later commitment sections.
+
+Prior to commitment, the claim remains proposed or constructed.
+
+The distinction SHALL remain:
+
+```text
+Constructed Verifiable Claim
+≠
+Committed Verification Claim
+```
+
+Commitment SHALL establish:
+
+* singular identity;
+* immutable meaning;
+* immutable scope;
+* exact subject binding;
+* exact profile binding;
+* exact evidence obligations;
+* replay identity.
+
+---
+
+# Claim Immutability
+
+After commitment, a claim SHALL NOT be:
+
+* edited;
+* reworded in a meaning-changing manner;
+* broadened;
+* narrowed;
+* rebound to another subject;
+* rebound to another profile;
+* rebound to another version;
+* stripped of assumptions;
+* stripped of exclusions;
+* stripped of limitations.
+
+A changed claim requires a new claim identity and a new submission.
+
+---
+
+# Claim Supersession
+
+A later claim MAY supersede an earlier claim only where:
+
+* the relationship is explicit;
+* both claims remain preserved;
+* the basis for supersession is stated;
+* no prior verification result is erased;
+* the new claim possesses a new identity.
+
+A supersession record SHALL identify:
+
+```text
+superseding_claim_id
+superseded_claim_id
+supersession_reason
+scope_relationship
+effective_time
+authorizing_authority
+```
+
+Supersession does not retroactively change the earlier claim.
+
+---
+
+# Claim Withdrawal
+
+An authorized authority MAY withdraw an unverified claim or prevent a proposed claim from progressing.
+
+Withdrawal SHALL be explicit.
+
+A committed claim that has already been submitted SHALL not be deleted.
+
+Its status MAY become:
+
+```text
+WITHDRAWN
+```
+
+The submission and prior processing history SHALL remain immutable.
+
+---
+
+# Claim Result Binding
+
+Every External Verification Result SHALL identify the exact claim or claims evaluated.
+
+A claim-level result SHALL bind:
+
+```text
+claim_id
+claim_hash
+result_class
+result_scope
+methods_performed
+evidence_consumed
+limitations
+exclusions
+uncertainties
+result_rationale_reference
+```
+
+A result that cannot identify the canonical claim SHALL not become an authoritative registered result.
+
+---
+
+# Independent Claim Results
+
+Where one submission contains multiple claims, each claim SHALL receive its own result or explicit unresolved status.
+
+A submission-level result SHALL not replace claim-level results.
+
+For example:
+
+```text
+Submission Partially Verified
+```
+
+is insufficient unless the result identifies:
+
+* which claims were verified;
+* which claims were not verified;
+* which claims were inconclusive;
+* which claims were out of scope.
+
+---
+
+# Claim Equivalence
+
+Two claims SHALL be considered equivalent only where a deterministic claim-equivalence rule establishes equality across all material fields.
+
+Similar language SHALL NOT establish claim equivalence.
+
+Equivalent subject type SHALL NOT establish claim equivalence.
+
+Equivalent purpose SHALL NOT establish claim equivalence.
+
+Where claim equivalence cannot be established, the claims SHALL remain distinct.
+
+---
+
+# Claim Deduplication
+
+Contract 012 MAY detect duplicate claims.
+
+Claims may be deduplicated only where:
+
+* claim identity is equal;
+* claim hash is equal;
+* subject identity is equal;
+* scope is equal;
+* assumptions are equal;
+* exclusions are equal;
+* limitations are equal;
+* profile binding is equal.
+
+A duplicate claim SHALL not create a second constitutional assertion.
+
+Its duplicate origin MAY be preserved as additional request provenance.
+
+---
+
+# Claim Conflict
+
+Two claims conflict where they assert mutually incompatible properties over the same subject and scope.
+
+Contract 012 SHALL:
+
+* preserve both claims;
+* identify the conflict;
+* determine whether the applicable Verification Profile permits joint submission;
+* prevent silent merging;
+* preserve independent result identities.
+
+A conflict SHALL not be resolved by rewriting either claim.
+
+---
+
+# Unverifiable Claims
+
+A proposed claim SHALL be rejected or marked unsupported where:
+
+* no recognized verification method can evaluate it;
+* the property is undefined;
+* the subject cannot be identified;
+* the scope is unbounded;
+* required evidence can never be resolved;
+* the claim depends upon inaccessible hidden state;
+* the claim depends upon an unauthorized authority;
+* the claim is internally contradictory;
+* the result vocabulary cannot represent its outcome;
+* the claim requests universal assurance.
+
+An unverifiable claim SHALL not be disguised as a broad aspirational claim.
+
+---
+
+# Universal Claim Prohibition
+
+Claims asserting universal or absolute assurance SHALL be prohibited unless formally bounded and demonstrably supported by an adopted Verification Profile.
+
+Prohibited examples include:
+
+```text
+The system can never fail.
+```
+
+```text
+The system is safe under all conditions.
+```
+
+```text
+The implementation is always correct.
+```
+
+```text
+No unknown vulnerability exists.
+```
+
+A bounded claim MAY quantify over a finite, explicit, profile-authorized domain.
+
+The domain SHALL be fully defined.
+
+---
+
+# Outcome-Neutral Claim Construction
+
+Claim construction SHALL remain independent of anticipated verification outcome.
+
+Contract 012 SHALL NOT:
+
+* rewrite a claim because it appears likely to fail;
+* narrow a claim after unfavorable evidence is discovered without issuing a new identity;
+* split a claim solely to hide a failed component;
+* exclude known counterexamples;
+* select weaker terminology to produce a favorable status;
+* add assumptions after external verification begins.
+
+The claim SHALL be fixed before evidence evaluation is completed and before external verification begins.
+
+---
+
+# Deterministic Claim Construction
+
+For identical:
+
+* proposed claim;
+* subject;
+* Verification Profile;
+* Verification Requirement Set;
+* registry snapshots;
+* property definitions;
+* version bindings;
+* scope declarations;
+* claim authority,
+
+Contract 012 SHALL construct the same canonical Verifiable Claim.
+
+Claim construction SHALL NOT depend upon:
+
+* runtime provider defaults;
+* ambient language-model interpretation;
+* mutable aliases;
+* undocumented operator judgment;
+* anticipated verifier behavior;
+* prior favorable or unfavorable results.
+
+---
+
+# Claim Replay
+
+Contract 012 SHALL support deterministic replay of claim construction.
+
+Replay SHALL reproduce:
+
+* normalized claim statement;
+* claim type;
+* subject binding;
+* scope;
+* assumptions;
+* preconditions;
+* exclusions;
+* limitations;
+* dependencies;
+* profile binding;
+* requirement-set binding;
+* claim identity;
+* claim hash.
+
+Replay SHALL not modify the original claim.
+
+Replay SHALL not establish the claim as true.
+
+---
+
+# Claim Auditability
+
+Every claim SHALL preserve sufficient provenance to determine:
+
+* who proposed it;
+* who authorized it;
+* which profile governed it;
+* which property definition was used;
+* which normalization rules were applied;
+* which scope decisions were made;
+* which assumptions and exclusions were included;
+* when it became committed;
+* which submissions contained it;
+* which external results evaluated it.
+
+No canonical claim SHALL exist without traceable origin and authority.
+
+---
+
+# Failure Conditions
+
+Canonical claim construction SHALL fail when:
+
+* the claim statement is absent;
+* the claim type is unsupported;
+* the subject is unresolved;
+* the subject is uncommitted where commitment is required;
+* the subject hash is invalid;
+* the scope is absent or ambiguous;
+* the verification purpose is unsupported;
+* required versions are unresolved;
+* required implementation identity is absent;
+* required environment identity is absent;
+* assumptions are hidden or contradictory;
+* exclusions are unauthorized;
+* limitations contradict the claim statement;
+* dependencies are cyclic or unresolved;
+* natural-language and formal representations conflict;
+* the claim authority is unauthorized;
+* the claim is not testable under any permitted method;
+* the claim duplicates an existing claim with conflicting identity;
+* claim hashing or identity binding fails.
+
+Every failure SHALL be explicitly represented.
+
+---
+
+# Prohibitions
+
+Contract 012 SHALL NOT:
+
+* submit an implied claim;
+* submit a vague claim;
+* treat a verification purpose as a claim;
+* treat evidence as a claim;
+* treat a result as the original claim;
+* allow a claim to change after commitment;
+* broaden a claim during result registration;
+* remove assumptions from a favorable result;
+* conceal exclusions or limitations;
+* transfer a claim to another subject;
+* infer universal assurance from a bounded claim;
+* treat one verified component claim as verification of an entire composite claim;
+* accept a result that does not identify the exact claim evaluated.
+
+---
+
+# Section 6 Invariants
+
+> **Every external verification operation under Contract 012 SHALL concern one or more explicit, immutable, independently identifiable Verifiable Claims, each bound to exactly one eligible primary subject, one exact scope, one authorized Verification Profile, one declared set of assumptions, preconditions, exclusions, limitations, dependencies, and version conditions before external verification begins.**
+
+> **No claim may be implied, silently altered, broadened, narrowed, transferred, or reinterpreted after commitment, and no verification result may assert authority beyond the exact canonical claim that was submitted.**

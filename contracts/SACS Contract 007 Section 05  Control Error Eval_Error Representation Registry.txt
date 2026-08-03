@@ -1,0 +1,302 @@
+Contract 007 — Section 5
+
+Control Error Evaluator and Error Representation Registry
+
+This completes the separation:
+
+Reference State
+        +
+Committed OSV
+        ↓
+Control Error Evaluator
+        ↓
+Committed Control Error
+        +
+Committed Control Constraint Set
+        +
+Committed Controller State
+        +
+Committed Controller Configuration
+        ↓
+Controller Composition
+        ↓
+Control Command
+
+This remains fully consistent with the architectural boundary established in Contract 000, where the Controller owns the computation of control error and bounded corrective action while remaining separate from profile selection, governance, and execution. SACS_Contract_000_Architecture_and_Authority_v0.1.0.md
+
+⸻
+
+Section 5 — Control Error Evaluator
+
+5.1 Purpose
+
+The Control Error Evaluator is the canonical mathematical component responsible for constructing the Committed Control Error artifact.
+
+It is owned by Contract 007.
+
+Its defining identity is:
+
+The Control Error Evaluator deterministically transforms committed supervisory state into a committed mathematical deviation using a registered Error Representation.
+
+It computes deviation.
+
+It does not compute correction.
+
+⸻
+
+5.2 Architectural Separation
+
+Contract 007 consists of two major computational components.
+
+Control Error Evaluator
+        ↓
+Committed Control Error
+        ↓
+Controller Composition
+        ↓
+Committed Control Command
+
+The evaluator SHALL NOT:
+
+* compute control action;
+* apply gains;
+* perform optimization;
+* enforce saturation;
+* allocate authority;
+* select controller topology.
+
+Those belong exclusively to the Controller Composition.
+
+⸻
+
+5.3 Inputs
+
+The evaluator SHALL consume only committed canonical artifacts.
+
+Committed Operational State Vector
+Committed Reference State
+Committed Error Representation Configuration
+Committed Numeric Profile
+
+If the registered Error Representation requires additional mathematical projections, those SHALL also be committed artifacts.
+
+⸻
+
+5.4 Outputs
+
+The evaluator SHALL produce exactly one artifact:
+
+Committed Control Error
+
+No corrective action shall be computed during evaluation.
+
+⸻
+
+5.5 Determinism
+
+Given identical:
+
+* OSV
+* Reference State
+* Error Representation
+* Numeric Profile
+
+the evaluator SHALL produce an identical Committed Control Error.
+
+The evaluator SHALL contain no hidden mutable state.
+
+⸻
+
+5.6 Error Representation Registry
+
+Every Control Error SHALL identify a registered Error Representation.
+
+An Error Representation defines:
+
+* mathematical domain;
+* deviation semantics;
+* coordinate system;
+* projection rules;
+* weighting semantics;
+* normalization;
+* units;
+* dimensionality;
+* numeric assumptions.
+
+Representations SHALL be reusable registry objects.
+
+⸻
+
+5.7 Error Representation Definition
+
+Each Error Representation SHALL include:
+
+error_representation_definition_id
+representation_version
+representation_name
+representation_class
+mathematical_domain
+coordinate_system
+supported_state_types
+supported_reference_types
+projection_rules
+weighting_definition
+normalization_rules
+numeric_profile_requirements
+schema_version
+registry_version
+definition_hash
+
+⸻
+
+5.8 Representation Classes
+
+The initial registry vocabulary SHALL include:
+
+EUCLIDEAN
+ANGULAR
+MANIFOLD
+GEODESIC
+SET_MEMBERSHIP
+RESIDUAL_FIELD
+HYBRID
+CUSTOM_REGISTERED
+
+Future contracts may extend this registry.
+
+⸻
+
+5.9 Error Metric Configuration
+
+A committed Error Representation Configuration binds a reusable representation to a supervisory cycle.
+
+It SHALL include:
+
+error_representation_configuration_id
+cycle_id
+representation_definition_id
+parameter_values
+projection_parameters
+normalization_parameters
+weighting_parameters
+numeric_profile_id
+registry_versions
+committed_at
+artifact_hash
+
+Configurations SHALL be immutable.
+
+⸻
+
+5.10 Error Representation Identity
+
+A registered Error Representation answers one question:
+
+How shall mathematical deviation be represented?
+
+It does not answer:
+
+* how correction is computed;
+* which controller is active;
+* which gains are applied;
+* what authority exists.
+
+⸻
+
+5.11 Mathematical Neutrality
+
+The evaluator SHALL remain independent of controller implementation.
+
+A conforming Controller Definition SHALL consume a committed Control Error.
+
+It SHALL NOT redefine:
+
+* deviation semantics;
+* coordinate system;
+* projection rules;
+* normalization;
+* weighting semantics.
+
+Controllers consume deviation.
+
+They do not define deviation.
+
+⸻
+
+5.12 Representation Projection
+
+Certain mathematical domains require projection before deviation can be represented.
+
+Examples include:
+
+* tangent-space projection;
+* manifold charts;
+* angle wrapping;
+* coordinate transforms;
+* unit normalization.
+
+These operations SHALL preserve deviation semantics.
+
+They SHALL NOT restrict corrective authority.
+
+⸻
+
+5.13 Representation Weighting
+
+Weighting within the evaluator SHALL represent only mathematical deviation.
+
+Examples:
+
+* normalized dimensions;
+* confidence weighting;
+* measurement scaling;
+* coordinate importance.
+
+Weighting SHALL NOT encode:
+
+* controller priorities;
+* gain scheduling;
+* control authority;
+* saturation;
+* execution permissions.
+
+Those belong downstream.
+
+⸻
+
+5.14 Error Representation Invariant
+
+Every registered Error Representation SHALL answer exactly one question:
+
+What mathematical deviation exists between the committed Operational State and the committed Reference State under this representation?
+
+It SHALL NOT answer:
+
+* what correction should be applied;
+* whether correction is permitted;
+* how aggressively correction should occur;
+* how correction will be executed.
+
+⸻
+
+5.15 Evaluator Conformance
+
+A conforming evaluator SHALL:
+
+* consume only committed artifacts;
+* produce one immutable Control Error;
+* preserve deterministic replay;
+* remain controller-neutral;
+* preserve provenance;
+* maintain representation identity;
+* preserve mathematical semantics across implementations.
+
+⸻
+
+5.16 Fundamental Evaluator Invariant
+
+The evaluator SHALL construct one and only one canonical mathematical deviation from committed supervisory state.
+
+The evaluator SHALL NOT compute control action.
+
+The Controller Composition SHALL consume that deviation to compute bounded corrective action.

@@ -1,0 +1,403 @@
+# SACS Contract 012 — External Verification Profile and Evidence Interface
+
+## Section 18 — Verification Result Admission and Construction
+
+### Purpose
+
+Section 18 establishes the constitutional admission process governing externally issued verification results.
+
+Its purpose is to determine whether a foreign constitutional artifact issued by an authorized external verification authority may enter SACS constitutional custody for canonical processing.
+
+Admission establishes constitutional admissibility.
+
+It does not establish correctness.
+
+It does not establish agreement.
+
+It does not establish historical authority.
+
+Only admitted verification results may be transformed into canonical SACS verification artifacts.
+
+---
+
+# Constitutional Question
+
+> **May a foreign verification artifact issued by an external constitutional authority enter SACS constitutional custody and be transformed into a canonical constitutional representation?**
+
+The answer SHALL be represented by exactly one canonical admission decision.
+
+Only admitted verification results may proceed to construction.
+
+---
+
+# Constitutional Identity
+
+The defining constitutional identity of Verification Result Admission is:
+
+> **Verification Result Admission is the deterministic determination that an externally issued verification artifact possesses the identity, integrity, provenance, authenticity, scope, and constitutional admissibility required to enter SACS constitutional custody for canonical construction.**
+
+Admission is not:
+
+* verification;
+* certification;
+* commitment;
+* historical modification;
+* verifier approval;
+* governance approval.
+
+Formally:
+
+```text
+Received Result
+≠
+Admitted Result
+
+Admitted Result
+≠
+Certified Result
+
+Foreign Verification Judgment
+≠
+Constructed Verification Result
+```
+
+---
+
+# Constitutional Authority
+
+Contract 012 exclusively owns:
+
+* verification-result admission;
+* authenticity validation;
+* submission correlation;
+* admissibility determination;
+* custody acceptance;
+* canonical construction.
+
+Contract 012 SHALL NOT:
+
+* alter the externally issued judgment;
+* reinterpret verifier conclusions;
+* broaden verification scope;
+* weaken reported limitations;
+* remove uncertainties;
+* create new verification findings.
+
+---
+
+# Admission Inputs
+
+Admission SHALL consume:
+
+```text
+Foreign Verification Result
+Committed Verification Submission
+Verification Submission Commitment Record
+Verification Profile
+Verification Requirement Set
+Submission Manifest
+Verifier Identity
+Verifier Credentials
+Applicable Registry Snapshots
+```
+
+Where required, admission MAY also consume:
+
+```text
+Cryptographic Trust Material
+Credential Revocation Information
+Replay Protection State
+Historical Submission Registry
+```
+
+Every consumed artifact SHALL possess stable identity.
+
+---
+
+# Admission Sequence
+
+Admission SHALL proceed through the following constitutional sequence:
+
+```text
+Foreign Verification Result
+        ↓
+Identity Resolution
+        ↓
+Issuer Authentication
+        ↓
+Submission Correlation
+        ↓
+Integrity Validation
+        ↓
+Schema Compatibility
+        ↓
+Replay Protection
+        ↓
+Admissibility Evaluation
+        ↓
+Custody Acceptance
+        ↓
+Constructed Verification Result
+```
+
+No stage may be omitted.
+
+---
+
+# Identity Resolution
+
+Contract 012 SHALL resolve:
+
+* external verification result identity;
+* submission identity;
+* verifier identity;
+* claim identities;
+* evidence references;
+* method references;
+* profile identity;
+* requirement-set identity.
+
+Ambiguous identities SHALL prevent admission.
+
+---
+
+# Issuer Authentication
+
+The issuing authority SHALL be authenticated.
+
+Authentication SHALL validate:
+
+* verifier identity;
+* signing authority;
+* credential validity;
+* trust-domain membership;
+* authorization status;
+* applicable credential scope.
+
+An unauthenticated issuer SHALL prevent admission.
+
+---
+
+# Submission Correlation
+
+Every received result SHALL correlate to exactly one previously committed Verification Submission.
+
+Correlation SHALL validate:
+
+```text
+verification_submission_id
+verification_profile_id
+verification_requirement_set_id
+claim_set_hash
+submission_hash
+authorized_verifier_identity
+```
+
+A result that cannot be correlated SHALL NOT enter constitutional custody.
+
+---
+
+# Integrity Validation
+
+Integrity validation SHALL verify:
+
+* result hash;
+* digital signatures;
+* cryptographic attestations;
+* required integrity mechanisms;
+* transmission integrity;
+* artifact completeness.
+
+Integrity establishes authenticity.
+
+Integrity does not establish correctness.
+
+---
+
+# Schema Compatibility
+
+The received result SHALL conform to the Result Schema authorized by the committed Verification Profile.
+
+Compatibility SHALL validate:
+
+* schema identity;
+* schema version;
+* mandatory fields;
+* result vocabulary;
+* claim structure;
+* method reporting;
+* limitation reporting;
+* uncertainty reporting.
+
+Schema incompatibility SHALL prevent canonical construction unless an explicitly authorized compatibility translation exists.
+
+---
+
+# Replay Protection
+
+Admission SHALL detect replayed foreign artifacts.
+
+Replay protection SHALL validate:
+
+* duplicate result identity;
+* duplicate submission identity;
+* duplicate verifier transaction;
+* duplicate custody transfer;
+* expired replay window where applicable.
+
+Duplicate foreign results SHALL NOT silently overwrite previously admitted artifacts.
+
+---
+
+# Admissibility Evaluation
+
+Admission SHALL evaluate whether the foreign result satisfies constitutional admissibility requirements.
+
+Evaluation SHALL include:
+
+* authenticated origin;
+* authorized verifier;
+* valid submission reference;
+* integrity preservation;
+* scope preservation;
+* profile compatibility;
+* requirement compatibility;
+* schema compatibility;
+* constitutional lineage.
+
+Admission SHALL NOT evaluate whether the verification conclusions are favorable.
+
+---
+
+# Admission Classes
+
+Every admission evaluation SHALL produce exactly one admission class.
+
+The canonical classes SHALL include:
+
+```text
+ADMITTED
+ADMITTED_WITH_LIMITATIONS
+REJECTED
+UNSUPPORTED
+INCOMPATIBLE
+UNRESOLVED
+PROHIBITED
+```
+
+These classes govern constitutional processing only.
+
+They SHALL remain distinct from verifier result classes.
+
+---
+
+# Custody Acceptance
+
+Successful admission SHALL establish SACS constitutional custody over the foreign verification artifact.
+
+Custody acceptance SHALL identify:
+
+```text
+custody_acceptance_id
+foreign_result_id
+verification_submission_id
+accepting_constitution
+accepting_authority
+custody_start_time
+accepted_scope
+accepted_limitations
+accepted_hash
+```
+
+Custody acceptance SHALL NOT transfer ownership of the foreign verification judgment.
+
+---
+
+# Constructed Verification Result
+
+Successful admission SHALL produce exactly one:
+
+```text
+Constructed Verification Result
+```
+
+The Constructed Verification Result SHALL contain:
+
+```text
+constructed_verification_result_id
+foreign_result_id
+verification_submission_id
+verifier_identity
+claim_results
+methods_performed
+limitations
+exclusions
+uncertainties
+validity_scope
+validity_interval
+construction_timestamp
+construction_authority
+construction_hash
+```
+
+The Constructed Verification Result is an internal constitutional representation.
+
+It is not yet authoritative within SACS.
+
+---
+
+# Construction Constraints
+
+Construction SHALL:
+
+* preserve every verifier finding;
+* preserve every limitation;
+* preserve every exclusion;
+* preserve every uncertainty;
+* preserve every claim result;
+* preserve verifier identity;
+* preserve result scope.
+
+Construction SHALL NOT:
+
+* strengthen conclusions;
+* weaken conclusions;
+* remove unfavorable findings;
+* infer omitted findings;
+* normalize result meaning beyond schema-authorized translation.
+
+---
+
+# Admission Failure
+
+Admission SHALL fail upon detection of:
+
+* unresolved identity;
+* authentication failure;
+* integrity failure;
+* submission mismatch;
+* unauthorized verifier;
+* prohibited schema;
+* replay violation;
+* constitutional incompatibility;
+* custody conflict.
+
+Failure SHALL produce exactly one **Verification Result Admission Failure** artifact.
+
+No Constructed Verification Result SHALL be produced following admission failure.
+
+---
+
+# Fundamental Admission Invariant
+
+For every foreign verification artifact presented to Contract 012:
+
+* exactly one admission outcome SHALL exist;
+* only admitted artifacts may be constructed;
+* construction SHALL preserve the externally issued judgment without reinterpretation;
+* admission SHALL establish constitutional custody without transferring ownership or external authority;
+* identical admitted inputs SHALL produce identical Constructed Verification Results.
+
+The Constructed Verification Result remains a pre-commitment artifact.
+
+Only Section 19 may certify and commit it as the immutable **Committed Verification Result**, preserving SACS' exclusive authority over its own constitutional history.

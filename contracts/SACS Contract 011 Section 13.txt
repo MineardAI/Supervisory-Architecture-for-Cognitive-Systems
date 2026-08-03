@@ -1,0 +1,206 @@
+SACS Contract 011 — Realization Certification, Supervisory Provenance, and Audit
+Section 13 — Realization Commitment
+Purpose
+
+Section 13 establishes the constitutional authority responsible for atomically committing the Constructed Realization Record as authoritative constitutional history.
+
+Realization Commitment is the first constitutional commitment boundary within Contract 011.
+
+Upon successful commitment, the Constructed Realization Record becomes the immutable Committed Realization Record, establishing the exclusive authoritative historical representation of the certified supervisory realization.
+
+This section answers exactly one constitutional question:
+
+Does the constructed Realization Record become authoritative constitutional history?
+
+It does not construct the Realization Record, assemble supervisory provenance, perform replay, or perform audit.
+
+Constitutional Responsibility
+
+Realization Commitment SHALL:
+
+evaluate the Constructed Realization Record for commitment;
+perform one atomic constitutional commitment;
+establish one authoritative historical representation of the supervisory realization;
+preserve every constitutional determination established by preceding sections;
+produce one immutable Committed Realization Record.
+
+Successful completion authorizes progression to Stage Two — Supervisory Provenance.
+
+Commitment Authority
+
+Realization Commitment SHALL operate only upon:
+
+one Constructed Realization Record;
+one successful Realization Certification Determination;
+one realization-certification context.
+
+No implementation SHALL commit:
+
+partially constructed records;
+uncertified records;
+ambiguous historical representations;
+multiple competing realization records.
+Atomic Commitment
+
+Realization Commitment SHALL be atomic.
+
+Exactly one of the following SHALL occur:
+
+Success
+Constructed Realization Record
+            │
+            ▼
+Committed Realization Record
+
+or
+
+Failure
+Constructed Realization Record
+            │
+            ▼
+Committed Realization Commitment Failure
+
+Partial commitment SHALL NOT occur.
+
+Rollback SHALL NOT produce an alternate committed history.
+
+Commitment Effects
+
+Successful commitment SHALL establish:
+
+one immutable Committed Realization Record;
+one authoritative historical realization;
+one historical identity for the supervisory realization.
+
+Following commitment:
+
+the Realization Record SHALL become immutable;
+constitutional authority SHALL be established;
+subsequent sections SHALL consume only the committed artifact.
+
+The Constructed Realization Record SHALL cease to possess independent constitutional significance.
+
+The committed artifact becomes the exclusive constitutional authority.
+
+Commitment Preservation
+
+Commitment SHALL preserve without modification:
+
+realization identity;
+supervisory cycle identity;
+historical outcome;
+timeline;
+uncertainty representation;
+integrity references;
+constitutional authority;
+registry references;
+schema references.
+
+Commitment SHALL NOT modify the historical representation.
+
+It establishes authority.
+
+It does not alter content.
+
+Commitment Constraints
+
+Realization Commitment SHALL NOT:
+
+reinterpret certification;
+modify the Constructed Realization Record;
+reopen realization adjudication;
+introduce additional historical evidence;
+construct supervisory lineage;
+perform replay;
+perform audit;
+perform external verification.
+
+Commitment is an authority-establishing operation.
+
+It is not an evaluative operation.
+
+Commitment Failure
+
+Representative constitutional failures include:
+
+REALIZATION_COMMITMENT_FAILED
+
+REALIZATION_COMMITMENT_CONFLICT
+
+MULTIPLE_REALIZATION_RECORDS
+
+COMMITMENT_ATOMICITY_FAILURE
+
+REALIZATION_AUTHORITY_CONFLICT
+
+IMMUTABILITY_VIOLATION
+
+Upon commitment failure:
+
+no Committed Realization Record SHALL exist;
+Stage Two SHALL NOT begin;
+provenance construction SHALL terminate.
+
+Failure SHALL be represented explicitly.
+
+Constitutional Output
+
+Successful completion SHALL produce exactly one:
+
+Committed Realization Record
+
+The Committed Realization Record SHALL become:
+
+the exclusive constitutional representation of the certified supervisory realization;
+the required historical input to Supervisory Provenance;
+the authoritative realization artifact for replay, audit, disclosure, and historical retention.
+
+No alternate committed realization representation SHALL exist.
+
+Stage Transition
+
+Successful Realization Commitment concludes Stage One — Realization Certification.
+
+The committed artifact produced by this section becomes the mandatory constitutional input to Stage Two — Supervisory Provenance.
+
+Accordingly:
+
+Stage One
+Realization Certification
+            │
+            ▼
+Committed Realization Record
+            │
+            ▼
+Stage Two
+Supervisory Provenance
+
+Stage Two SHALL consume only the Committed Realization Record.
+
+It SHALL NOT consume the Constructed Realization Record.
+
+Relationship to Neighboring Sections
+
+The constitutional progression SHALL be:
+
+Section 12
+Constructed Realization Record
+        │
+        ▼
+Section 13
+Realization Commitment
+        │
+        ▼
+Section 14
+Committed Realization Record
+
+These sections perform distinct constitutional functions:
+
+Section 12 constructs the historical representation.
+Section 13 establishes constitutional authority through commitment.
+Section 14 defines the identity, semantics, and constitutional role of the committed artifact.
+Fundamental Commitment Principle
+
+The defining principle of this section is:
+
+Realization Commitment SHALL atomically transform exactly one Constructed Realization Record into exactly one immutable Committed Realization Record. Upon commitment, that record SHALL become the exclusive authoritative constitutional history of the certified supervisory realization and the sole historical input authorized for Stage Two of Contract 011.

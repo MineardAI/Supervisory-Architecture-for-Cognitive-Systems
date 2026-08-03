@@ -1,0 +1,272 @@
+SACS Contract 011 — Realization Certification, Supervisory Provenance, and Audit
+Section 23 — Supervisory Cycle Commitment
+Purpose
+
+Section 23 establishes the second and final constitutional commitment boundary within Contract 011.
+
+It determines whether one Constructed Supervisory Cycle Record may become the single authoritative historical representation of the completed supervisory cycle.
+
+This section answers exactly one constitutional question:
+
+May this Constructed Supervisory Cycle Record become the canonical supervisory history for this cycle?
+
+It does not define the contents of the committed artifact.
+
+It authorizes its existence.
+
+Architectural Identity
+
+Supervisory Cycle Commitment deterministically converts one valid Constructed Supervisory Cycle Record into one immutable Committed Supervisory Cycle Record without modifying, reconstructing, extending, or re-adjudicating any upstream constitutional artifact.
+
+Its defining identity is:
+
+Commitment establishes canonical authority; it does not construct constitutional history.
+
+Constitutional Responsibility
+
+Section 23 SHALL:
+
+consume exactly one Constructed Supervisory Cycle Record;
+verify every constitutional commitment precondition;
+verify Stage Two completion;
+verify commitment exclusivity;
+verify commitment identity;
+perform exactly one atomic commitment;
+produce exactly one Supervisory Cycle Commitment Record;
+authorize progression to the Committed Supervisory Cycle Record.
+
+Successful completion authorizes Section 24.
+
+Commitment Authority
+
+Section 23 SHALL consume only:
+
+the Constructed Supervisory Cycle Record;
+the Committed Realization Record;
+the successful Lineage Completeness Evaluation Result;
+the successful Lineage Integrity Evaluation Result;
+the applicable commitment rules;
+applicable contract, schema, serialization, and hashing versions.
+
+It SHALL determine only whether commitment is constitutionally permitted.
+
+It SHALL NOT:
+
+reconstruct the supervisory lineage;
+modify the constructed record;
+repeat realization certification;
+repeat artifact resolution;
+repeat relationship resolution;
+repeat integrity evaluation;
+reinterpret supervisory authority;
+perform external verification.
+Commitment Preconditions
+
+Commitment SHALL NOT begin unless all of the following are true:
+
+exactly one Constructed Supervisory Cycle Record exists;
+the Constructed Supervisory Cycle Record has status CONSTRUCTED;
+exactly one Committed Realization Record exists;
+Lineage Completeness equals COMPLETE;
+Lineage Integrity equals INTEGRITY_VALID;
+all required identities are unique;
+all commitment identities are internally consistent;
+no committed Stage Two failure artifact already exists for the cycle;
+no Committed Supervisory Cycle Record already exists except through an authorized idempotent commitment attempt;
+the commitment rules are constitutionally fixed.
+
+Failure of any precondition SHALL prevent commitment.
+
+Commitment Verification
+
+Before commitment, Section 23 SHALL verify:
+
+constructed-record identity;
+cycle identity;
+realization identity;
+commitment identity;
+schema identity;
+serialization identity;
+hash identity;
+contract-version identity;
+exclusivity status.
+
+Commitment SHALL fail if any identity differs from the constitutionally required identity.
+
+Commitment Exclusivity
+
+Exactly one terminal Stage Two authority SHALL exist.
+
+For one supervisory cycle:
+
+Committed Supervisory Cycle Record
+XOR
+Committed Supervisory Provenance Failure
+
+Both SHALL never exist simultaneously.
+
+Neither SHALL ever be absent after Stage Two terminates.
+
+Atomic Commitment
+
+Commitment SHALL be indivisible.
+
+Either:
+
+Commit Entire Record
+
+or
+
+Commit Nothing
+
+Partial commitment SHALL NOT occur.
+
+No component of the supervisory cycle record may become canonical independently of the whole.
+
+Idempotent Commitment
+
+Repeated commitment requests using an identical Constructed Supervisory Cycle Record SHALL produce the identical canonical commitment outcome.
+
+Repeated requests SHALL NOT create:
+
+multiple committed records;
+multiple commitment records;
+duplicate supervisory histories;
+alternate canonical identities.
+Commitment Record
+
+Successful commitment SHALL produce exactly one:
+
+Supervisory Cycle Commitment Record
+
+The commitment record SHALL preserve:
+
+commitment identifier;
+supervisory cycle identifier;
+constructed record identifier;
+committed record identifier;
+commitment timestamp;
+commitment status;
+serialization version;
+hashing algorithm;
+commitment hash;
+applicable contract versions;
+applicable schema versions.
+
+The Supervisory Cycle Commitment Record certifies the commitment event.
+
+It is not itself the supervisory history artifact.
+
+Commitment Status
+
+Exactly one terminal commitment status SHALL exist:
+
+COMMITTED
+
+COMMITMENT_FAILED
+
+No intermediate commitment state SHALL be canonical.
+
+Failure Conditions
+
+Representative failures include:
+
+CONSTRUCTED_RECORD_NOT_FOUND
+
+CONSTRUCTED_RECORD_IDENTITY_CONFLICT
+
+REALIZATION_RECORD_MISSING
+
+COMPLETENESS_NOT_COMPLETE
+
+INTEGRITY_NOT_VALID
+
+EXCLUSIVE_RECORD_ALREADY_EXISTS
+
+EXCLUSIVE_FAILURE_ALREADY_EXISTS
+
+COMMITMENT_RULE_MISSING
+
+COMMITMENT_IDENTITY_CONFLICT
+
+ATOMIC_COMMITMENT_FAILED
+
+IDEMPOTENCY_VIOLATION
+
+SERIALIZATION_CONFLICT
+
+HASH_VERIFICATION_FAILED
+
+Failures SHALL identify the precise constitutional reason commitment could not occur.
+
+Failure Consequences
+
+If commitment fails:
+
+no Committed Supervisory Cycle Record SHALL exist;
+Section 24 SHALL NOT execute;
+Stage Two SHALL terminate through Section 25.
+
+Commitment failure SHALL NOT authorize:
+
+partial commitment;
+alternate commitment;
+silent retry;
+record modification;
+record reconstruction;
+commitment repair.
+Prohibitions
+
+Section 23 SHALL NOT:
+
+modify the Constructed Supervisory Cycle Record;
+create additional supervisory history;
+reinterpret realization;
+reopen execution adjudication;
+reopen supervisory continuity adjudication;
+broaden authority;
+perform replay;
+perform audit;
+perform external verification.
+Determinism
+
+For identical:
+
+Constructed Supervisory Cycle Record;
+commitment rules;
+contract versions;
+schema versions;
+serialization rules;
+hashing rules;
+
+Supervisory Cycle Commitment SHALL produce an identical commitment result.
+
+No implementation-specific behavior may influence commitment.
+
+Immutability
+
+Once committed:
+
+the Committed Supervisory Cycle Record SHALL be immutable;
+the Supervisory Cycle Commitment Record SHALL be immutable;
+neither artifact may be modified in place.
+
+Subsequent corrections SHALL occur only through a new constitutional supervisory cycle.
+
+Relationship to Neighboring Sections
+Section 22
+Constructed Supervisory Cycle Record
+        │
+        ▼
+Section 23
+Supervisory Cycle Commitment
+        │
+        ▼
+Section 24
+Committed Supervisory Cycle Record
+
+These sections answer distinct constitutional questions:
+
+Section 22 — What whole-cycle record is constructed?
+Section 23 — May that constructed record become canonical?
+Section 24 — What is the constitutional identity of the committed supervisory history artifact?

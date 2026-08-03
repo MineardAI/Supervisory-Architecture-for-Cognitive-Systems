@@ -1,0 +1,1106 @@
+SACS Contract 008 — Section 17
+
+Translation Validation Rules
+
+17.1 Purpose
+
+This section defines the Translation Validation Rules used by Contract 008.
+
+Translation Validation Rules establish the deterministic conformance semantics used to evaluate a proposed translated result during one translation cycle.
+
+These rules determine whether the proposed translated artifacts and their canonical ordering faithfully preserve the Committed Control Command under the:
+
+* Committed Translation Configuration;
+* authorized Translation Definitions;
+* Validated Translation Binding;
+* Canonical Representation Profile;
+* Translation Numeric Rules;
+* Translation Ordering Rules;
+* accepted compatibility evidence;
+* applicable registry snapshots.
+
+Translation Validation Rules define validation semantics only.
+
+They do not construct translated artifacts.
+
+They do not perform compatibility evaluation.
+
+They do not repair, supplement, reinterpret, reorder, mutate, recommit, or execute translation artifacts.
+
+A successful validation result constitutes internal Contract 008 conformance certification only.
+
+It does not constitute external verification, transaction commitment, runtime acceptance, accreditation, or execution authorization.
+
+⸻
+
+17.2 Architectural Identity
+
+Translation Validation Rules are immutable declarative artifacts.
+
+Their defining identity is:
+
+Translation Validation Rules define the deterministic structural, representational, numeric, ordering, semantic-preservation, authority-preservation, obligation-preservation, restriction-preservation, scope-preservation, compatibility-evidence, provenance, and integrity checks required to determine whether a proposed translated result faithfully represents the Committed Control Command under the Committed Translation Configuration.
+
+Validation determines and certifies internal conformance.
+
+It does not create, repair, reinterpret, or externally verify correctness.
+
+Validation does not make a translation faithful.
+
+It determines whether fidelity was already achieved.
+
+⸻
+
+17.3 Specification Order and Operational Order
+
+This section defines validation rules before the later runtime act of validation necessarily occurs.
+
+Specification order and operational evaluation order SHALL remain distinct.
+
+The operational sequence SHALL be equivalent to:
+
+Validated Translation Binding
+        ↓
+Translation Evaluation
+        ↓
+Proposed Translated Artifact Set
+        ↓
+Ordering Evaluation
+        ↓
+Canonical Translation Order
+        ↓
+Translation Validation Evaluation
+        ↓
+Translation Validation Report
+        ↓
+Translation Transaction Construction
+
+Translation Validation Evaluation SHALL occur only after:
+
+* the proposed translated artifact set exists;
+* canonical ordering evaluation has completed;
+* required compatibility evidence exists;
+* all authoritative validation inputs are bound.
+
+This section defines the rules governing that later evaluation.
+
+It does not itself construct the proposed translated result or perform the evaluation.
+
+⸻
+
+17.4 Authority Boundary
+
+Translation Validation Rules own:
+
+* structural-conformance semantics;
+* representation-conformance semantics;
+* numeric-conformance semantics;
+* dependency-preservation semantics;
+* ordering-preservation semantics;
+* target-preservation semantics;
+* scope-preservation semantics;
+* temporal-semantics preservation;
+* semantic-preservation semantics;
+* authority-preservation semantics;
+* obligation-preservation semantics;
+* restriction-preservation semantics;
+* transaction-metadata preservation;
+* compatibility-evidence validation;
+* completeness validation;
+* provenance-closure validation;
+* integrity validation;
+* validation-result classification.
+
+Translation Validation Rules SHALL NOT:
+
+* normalize representations;
+* define canonical representation;
+* interpret numeric values;
+* construct translated artifacts;
+* construct canonical ordering;
+* infer missing commands or obligations;
+* repair invalid translations;
+* supplement incomplete translations;
+* redefine supervisory meaning;
+* redefine controller decisions;
+* redefine Translation Definitions;
+* perform compatibility evaluation;
+* derive a new compatibility decision;
+* define transaction semantics;
+* commit a transaction;
+* authorize runtime execution;
+* determine runtime correctness;
+* mutate validation inputs;
+* issue an external verification verdict;
+* claim NullBlade verification;
+* claim accreditation or system-wide correctness.
+
+⸻
+
+17.5 Translation Validation Rule Identity
+
+Every Translation Validation Rule Set SHALL possess immutable identity.
+
+At minimum, it SHALL define:
+
+* translation_validation_rules_id;
+* validation_profile_id;
+* rule_set_name;
+* rule_set_version;
+* schema_version;
+* contract_version;
+* committed_translation_configuration_id;
+* canonical_representation_profile_id;
+* translation_numeric_rules_id;
+* translation_ordering_rules_id;
+* compatibility_registry_snapshot_id;
+* validation_registry_snapshot_id;
+* provenance_id;
+* rule_set_hash.
+
+The rule-set hash SHALL uniquely identify the committed validation environment.
+
+Every translation cycle SHALL use exactly one committed Translation Validation Rule Set bound by the Committed Translation Configuration.
+
+⸻
+
+17.6 Authoritative Validation Inputs
+
+Translation Validation Evaluation SHALL validate against authoritative source obligations.
+
+It SHALL NOT validate the proposed translated result solely against its own internal consistency.
+
+The authoritative validation inputs SHALL include, where applicable:
+
+* Committed Control Command;
+* Committed Translation Configuration;
+* Validated Translation Binding;
+* Translation Preservation Obligation Set;
+* authorized Translation Definitions;
+* proposed translated artifact set;
+* Canonical Translation Order;
+* Canonical Representation Profile;
+* Translation Numeric Rules;
+* Translation Ordering Rules;
+* accepted Compatibility Evaluation Report;
+* relevant registry snapshots;
+* provenance and integrity evidence.
+
+Each input SHALL be identified by immutable identity and hash.
+
+Mismatched, stale, missing, or mutated authoritative inputs SHALL prevent a VALID result.
+
+⸻
+
+17.7 Translation Preservation Obligation Set
+
+Validation SHALL operate against one immutable Translation Preservation Obligation Set.
+
+The Translation Preservation Obligation Set expresses the machine-checkable obligations that the proposed translated result must preserve.
+
+At minimum, it SHALL contain:
+
+* translation_preservation_obligation_set_id;
+* translation_cycle_id;
+* source_control_command_id;
+* source_control_command_hash;
+* committed_translation_configuration_id;
+* validated_translation_binding_id;
+* required_positive_obligations;
+* required_prohibitions;
+* required_constraints;
+* required_scope;
+* required_target_identities;
+* required_temporal_conditions;
+* required_numeric_conditions;
+* required_dependency_relations;
+* required_ordering_relations;
+* required_transaction_metadata;
+* maximum_authority_bound;
+* minimum_required_effect;
+* permitted_representation_variance;
+* translation_definition_ids;
+* translation_definition_hashes;
+* registry_snapshot_ids;
+* provenance_id;
+* obligation_set_hash.
+
+The obligation set SHALL be derived only from authoritative source artifacts and authorized mappings.
+
+Validation SHALL NOT invent additional semantic requirements.
+
+Validation SHALL NOT omit declared obligations because they are difficult or unsupported.
+
+If a mandatory obligation cannot be evaluated, the result SHALL NOT be VALID.
+
+⸻
+
+17.8 Validation Scope
+
+Translation Validation SHALL evaluate whether the proposed translated result preserves:
+
+* action identity;
+* target identity;
+* scope;
+* magnitude;
+* direction;
+* bounds;
+* duration;
+* expiry;
+* preconditions;
+* positive obligations;
+* prohibitions;
+* restrictions;
+* dependencies;
+* ordering requirements;
+* phase membership;
+* temporal conditions;
+* transaction requirements;
+* failure requirements;
+* supervisory authority;
+* mandatory effect;
+* representational integrity;
+* numeric integrity;
+* provenance;
+* artifact integrity.
+
+Validation SHALL remain bounded to obligations explicitly established by the Committed Control Command, authorized Translation Definitions, Validated Translation Binding, committed profiles, and accepted compatibility evidence.
+
+⸻
+
+17.9 Validation Result Vocabulary
+
+Each validation rule SHALL produce exactly one canonical rule result in the committed Translation Validation Report.
+
+Permitted rule-level results are:
+
+* PASS;
+* FAIL;
+* NOT_APPLICABLE;
+* UNRESOLVED;
+* NOT_EVALUATED.
+
+The overall validation result SHALL be one of:
+
+* VALID;
+* INVALID;
+* INCOMPLETE;
+* FAULTED.
+
+A mandatory rule result of FAIL SHALL prevent VALID.
+
+A mandatory rule result of UNRESOLVED SHALL prevent VALID.
+
+A mandatory rule result of NOT_EVALUATED SHALL prevent VALID.
+
+NOT_APPLICABLE SHALL be permitted only where the rule set explicitly defines the rule as non-applicable to the authoritative input set.
+
+A validation rule MAY be evaluated more than once for replay, recovery, or duplicate deterministic evaluation.
+
+Only one canonical rule result SHALL be committed to a particular Translation Validation Report.
+
+⸻
+
+17.10 Structural Validation
+
+Structural validation SHALL verify, at minimum:
+
+* required artifacts exist;
+* artifact types conform;
+* artifact identifiers are unique;
+* schemas conform;
+* mandatory fields exist;
+* cycle identities are consistent;
+* configuration identities are consistent;
+* registry snapshot identities are consistent;
+* registry references are valid;
+* source-to-output cardinality requirements are satisfied;
+* prohibited duplicates do not exist;
+* dependency closure is complete;
+* definition dependency closure is complete;
+* canonical hashes are present;
+* artifact hashes are valid;
+* lineage references are complete;
+* no mixed rule-set versions are present.
+
+Missing or malformed mandatory structures SHALL prevent a VALID result.
+
+Structural validation SHALL not repair structural defects.
+
+⸻
+
+17.11 Representation Validation
+
+Representation validation SHALL verify:
+
+* conformity with the committed Canonical Representation Profile;
+* use of authorized normalization rules;
+* normalization completion;
+* canonicalization completion;
+* canonical serialization uniqueness;
+* identifier consistency;
+* null-state preservation;
+* optional-state preservation;
+* distinction between null, unavailable, omitted, and unsupported states;
+* absence of unauthorized provider-specific representation leakage into the canonical domain;
+* permitted representation variance;
+* representation-to-source obligation traceability.
+
+Representation validation SHALL NOT reinterpret meaning.
+
+It SHALL NOT renormalize or recanonicalize the proposed artifacts.
+
+⸻
+
+17.12 Numeric Validation
+
+Numeric validation SHALL verify conformity with the committed Translation Numeric Rules.
+
+It SHALL verify, where applicable:
+
+* numeric-domain conformity;
+* source-to-target quantitative preservation;
+* stored precision;
+* effective precision;
+* required precision;
+* minimum preserved precision;
+* authorized precision changes;
+* rounding mode;
+* exact rounding evidence;
+* tolerance use;
+* scaling;
+* exponent handling;
+* interval endpoint semantics;
+* probability-domain normalization where declared;
+* signed-zero handling;
+* non-finite-value disposition;
+* overflow outcome;
+* underflow outcome;
+* saturation or clamping authorization;
+* numeric canonicalization consistency.
+
+Numeric validation SHALL NOT:
+
+* recompute controller mathematics;
+* redefine supervisory quantities;
+* infer measurement certainty from representation precision;
+* establish semantic equivalence not declared by an authorized Translation Definition.
+
+Probability normalization SHALL be validated only where the owning Translation Definition explicitly declares a probability domain.
+
+⸻
+
+17.13 Dependency and Ordering Validation
+
+Dependency and ordering validation SHALL verify:
+
+* every declared dependency target exists;
+* every required predecessor relation is preserved;
+* every required successor relation is preserved;
+* no unauthorized dependency is introduced;
+* no required dependency is removed;
+* no self-dependency exists unless explicitly permitted;
+* phase membership remains intact;
+* independence declarations remain intact;
+* transaction-group metadata remains attached;
+* every artifact appears exactly once where canonical linearization is required;
+* no required artifact is omitted;
+* no artifact is duplicated;
+* canonical tie-breaking conforms to the committed rule set;
+* canonical serialization order is not misrepresented as semantic order;
+* semantic order is not weakened or replaced by representational ordering;
+* unordered semantic collections remain semantically unordered;
+* Canonical Translation Order identity and hash match the evaluated artifact set.
+
+Validation SHALL NOT construct, reconstruct, repair, or modify canonical ordering.
+
+⸻
+
+17.14 Target and Scope Preservation Validation
+
+Validation SHALL verify that target identity and scope remain faithful to the Committed Control Command.
+
+Target-preservation validation SHALL detect:
+
+* unauthorized target substitution;
+* target omission;
+* target duplication;
+* target broadening;
+* target narrowing;
+* target alias mismatch;
+* incompatible target decomposition.
+
+Scope-preservation validation SHALL verify:
+
+[
+\mathcal S(T_c)
+
+\mathcal S(U_c)
+]
+
+unless the Committed Control Command and authorized Translation Definitions explicitly permit deterministic scope decomposition.
+
+Unauthorized scope expansion is prohibited.
+
+Unauthorized scope reduction is prohibited.
+
+A reduced-scope translation SHALL NOT be treated as valid merely because it appears safer.
+
+⸻
+
+17.15 Temporal-Semantics Validation
+
+Validation SHALL verify preservation of applicable temporal semantics including:
+
+* effective time;
+* duration;
+* expiration;
+* deadline;
+* sequencing conditions;
+* phase conditions;
+* completion dependencies;
+* retry prohibitions;
+* freshness requirements;
+* temporal scope.
+
+Translation Validation SHALL NOT assign runtime start times, transport timing, retry schedules, worker timing, or dispatch timing.
+
+It SHALL verify only that required temporal meaning remains represented.
+
+⸻
+
+17.16 Semantic-Preservation Validation
+
+Semantic-preservation validation SHALL evaluate machine-checkable preservation dimensions.
+
+These dimensions SHALL include, where applicable:
+
+* action identity;
+* target identity;
+* scope;
+* magnitude;
+* direction;
+* bounds;
+* duration;
+* expiry;
+* preconditions;
+* prohibitions;
+* dependencies;
+* ordering requirements;
+* transaction requirements;
+* failure requirements.
+
+Semantic-preservation validation SHALL operate only on obligations explicitly established by authoritative source artifacts.
+
+It SHALL NOT invent new requirements.
+
+It SHALL NOT reinterpret the Control Command.
+
+For successful validation:
+
+[
+\operatorname{Meaning}(T_c,O_c)
+
+\operatorname{Meaning}(U_c)
+]
+
+under the authorized Translation Definitions and Validated Translation Binding.
+
+⸻
+
+17.17 Authority-Preservation Validation
+
+Validation SHALL determine whether the proposed translated result preserves supervisory authority exactly.
+
+For successful validation:
+
+[
+\mathcal A(T_c)
+
+\mathcal A(U_c)
+]
+
+where:
+
+* (\mathcal A) denotes supervisory authority;
+* (U_c) is the Committed Control Command;
+* (T_c) is the proposed translated artifact set.
+
+Validation SHALL detect:
+
+* authority expansion;
+* authority reduction;
+* permission broadening;
+* permission removal;
+* prohibition weakening;
+* prohibition introduction;
+* execution-eligibility broadening;
+* execution-eligibility narrowing;
+* constraint weakening;
+* constraint substitution.
+
+A translation that cannot faithfully preserve committed authority SHALL fail.
+
+Reduced-authority failure handling SHALL occur through explicit failure disposition.
+
+Contract 008 SHALL NOT silently weaken the translated result and classify it as valid.
+
+⸻
+
+17.18 Obligation and Restriction Preservation
+
+Authority preservation alone is insufficient.
+
+Validation SHALL also verify preservation of mandatory obligations and restrictions.
+
+Let:
+
+* (\mathcal O(X)) denote mandatory obligations represented by artifact (X);
+* (\mathcal R(X)) denote restrictions represented by artifact (X).
+
+For successful validation:
+
+[
+\mathcal O(U_c)
+\subseteq
+\mathcal O(T_c)
+]
+
+and:
+
+[
+\mathcal R(U_c)
+\subseteq
+\mathcal R(T_c)
+]
+
+No mandatory obligation may disappear.
+
+No required restriction may be weakened, omitted, or replaced.
+
+The translated result MAY contain representational decomposition of an obligation or restriction only where that decomposition is authorized and semantically equivalent.
+
+Unauthorized additional operational effect SHALL invalidate the translation.
+
+⸻
+
+17.19 Transaction-Metadata Preservation
+
+Validation SHALL verify that transaction-related metadata required by the source command, Translation Definitions, or Validated Translation Binding remains attached and unaltered.
+
+This includes, where applicable:
+
+* atomic-group identifiers;
+* all-or-none requirements;
+* transaction membership;
+* transaction boundaries;
+* rollback requirements;
+* partial-translation prohibitions;
+* transaction dependency metadata.
+
+Validation SHALL NOT interpret or enforce transaction semantics.
+
+Section 18 owns Translation Transaction Rules.
+
+Section 17 verifies only that required transaction metadata survived translation intact.
+
+⸻
+
+17.20 Compatibility Evidence Validation
+
+Translation Validation SHALL validate compatibility evidence.
+
+It SHALL NOT perform compatibility evaluation.
+
+Compatibility Evidence Validation SHALL verify that:
+
+* a Compatibility Evaluation Report exists;
+* the report is immutable;
+* the report references the same Committed Control Command;
+* the report references the same Runtime Capability Profile;
+* the report references the same Committed Translation Configuration;
+* the report references the same Validated Translation Binding;
+* Translation Definition identities and hashes match;
+* representation, numeric, ordering, and validation rule identities and hashes match;
+* relevant registry snapshots match;
+* the compatibility result permits continued translation;
+* no relevant artifact changed after compatibility evaluation;
+* compatibility evidence remains within its validity scope.
+
+Translation Validation SHALL NOT:
+
+* derive a new compatibility result;
+* substitute compatibility evidence;
+* weaken a compatibility condition;
+* override incompatibility;
+* infer compatibility from successful structural validation.
+
+⸻
+
+17.21 Completeness Validation
+
+Completeness validation SHALL verify that:
+
+* every mandatory source obligation is represented;
+* every mandatory prohibition is represented;
+* every mandatory restriction is represented;
+* every required target is represented;
+* every required translated artifact exists;
+* every required dependency target exists;
+* every required ordering relation exists;
+* every required phase assignment exists;
+* every required transaction metadata item exists;
+* every mandatory translation stage has produced its required evidence;
+* every mandatory validation rule contributes one canonical result.
+
+No required artifact, obligation, restriction, target, dependency, or validation result may be silently omitted.
+
+⸻
+
+17.22 Integrity and Provenance Validation
+
+Integrity validation SHALL verify:
+
+* artifact hashes;
+* configuration hashes;
+* rule-set hashes;
+* Translation Definition hashes;
+* registry snapshot hashes;
+* Canonical Translation Order hash;
+* compatibility evidence hash;
+* preservation-obligation-set hash;
+* provenance closure;
+* cycle binding;
+* configuration closure;
+* definition dependency closure;
+* signature validity where required;
+* absence of post-construction mutation;
+* absence of mixed-version artifact assemblies;
+* absence of silent substitution.
+
+Validation SHALL compare pre-validation and post-validation input hashes.
+
+For every validated input artifact (X):
+
+[
+\operatorname{HashBefore}(X)
+
+\operatorname{HashAfter}(X)
+]
+
+Validation SHALL NOT refresh, replace, repair, or mutate an artifact whose integrity check fails.
+
+⸻
+
+17.23 Runtime Correctness Boundary
+
+Translation Validation may determine that:
+
+* the translated representation is internally conforming;
+* committed obligations are represented;
+* authority is preserved;
+* ordering is preserved;
+* translation evidence is complete.
+
+Translation Validation SHALL NOT determine that:
+
+* the runtime will accept the command;
+* the runtime will execute the command correctly;
+* transport will succeed;
+* the command will produce the intended runtime effect;
+* the supervised system will stabilize;
+* downstream observations will confirm success;
+* the implementation is externally verified.
+
+Those determinations belong to:
+
+* accepted compatibility evidence;
+* Contract 009 execution processing;
+* later Observation;
+* later provenance and audit;
+* external NullBlade verification.
+
+Contract 000 reserves external verification verdicts to an external assurance authority and prohibits SACS from treating its own runtime output as sufficient external verification.
+
+⸻
+
+17.24 Translation Validation Evaluation
+
+The active validation component SHALL be the Translation Validation Evaluator.
+
+The Translation Validation Evaluator applies the committed Translation Validation Rule Set to the authoritative validation inputs.
+
+The evaluator SHALL:
+
+* read inputs without mutation;
+* evaluate every mandatory rule;
+* assign one canonical result per rule;
+* produce deterministic diagnostics;
+* classify the overall validation result;
+* produce one immutable Translation Validation Report.
+
+The evaluator SHALL NOT:
+
+* alter validation rules;
+* select a weaker rule set;
+* repair failed inputs;
+* waive mandatory rules;
+* reinterpret source obligations;
+* issue external verification verdicts.
+
+⸻
+
+17.25 Translation Validation Report
+
+Every completed validation attempt SHALL produce one immutable Translation Validation Report, whether successful or unsuccessful.
+
+At minimum, the report SHALL contain:
+
+* translation_validation_report_id;
+* translation_cycle_id;
+* committed_control_command_id;
+* committed_control_command_hash;
+* committed_translation_configuration_id;
+* committed_translation_configuration_hash;
+* validated_translation_binding_id;
+* validated_translation_binding_hash;
+* translation_preservation_obligation_set_id;
+* translation_preservation_obligation_set_hash;
+* validation_rule_set_id;
+* validation_rule_set_version;
+* validation_rule_set_hash;
+* input_artifact_ids;
+* input_artifact_hashes;
+* canonical_translation_order_id;
+* canonical_translation_order_hash;
+* translation_definition_ids;
+* translation_definition_hashes;
+* canonical_representation_profile_id;
+* translation_numeric_rules_id;
+* translation_ordering_rules_id;
+* compatibility_evaluation_report_id;
+* compatibility_evaluation_report_hash;
+* structural_validation_result;
+* representation_validation_result;
+* numeric_validation_result;
+* dependency_validation_result;
+* ordering_validation_result;
+* target_validation_result;
+* scope_validation_result;
+* temporal_validation_result;
+* semantic_preservation_result;
+* authority_preservation_result;
+* obligation_preservation_result;
+* restriction_preservation_result;
+* transaction_metadata_preservation_result;
+* compatibility_evidence_validation_result;
+* completeness_result;
+* integrity_result;
+* rule_results;
+* failed_rule_ids;
+* unresolved_rule_ids;
+* not_evaluated_rule_ids;
+* not_applicable_rule_ids;
+* diagnostic_references;
+* overall_validation_result;
+* validated_at_context_id;
+* replay_of_report_id, where applicable;
+* supersedes_report_id, where applicable;
+* provenance_id;
+* artifact_hash.
+
+The report SHALL be immutable once committed.
+
+A repeated validation attempt SHALL produce a new report with a new identity and explicit replay or supersession lineage.
+
+For identical inputs, repeated evaluation SHALL produce the same canonical rule results and overall result.
+
+⸻
+
+17.26 Successful and Unsuccessful Validation Reports
+
+A failed, incomplete, or faulted validation attempt SHALL still produce an immutable Translation Validation Report when evaluation completed sufficiently to commit a report.
+
+Such a report MAY be used for:
+
+* failure disposition;
+* provenance;
+* audit;
+* deterministic replay;
+* diagnostics;
+* regression analysis;
+* external verification evidence.
+
+Only a Translation Validation Report with:
+
+overall_validation_result = VALID
+
+SHALL permit entry into successful Translation Transaction Construction.
+
+Reports classified as:
+
+* INVALID;
+* INCOMPLETE;
+* FAULTED
+
+SHALL NOT authorize construction of a translation transaction eligible for command commitment.
+
+They MAY be retained or packaged only as failure or audit evidence.
+
+A VALID Translation Validation Report authorizes transition to the transaction-construction stage.
+
+It does not authorize execution.
+
+⸻
+
+17.27 Versioning and Lifecycle
+
+Translation Validation Rule Sets SHALL be immutable after publication.
+
+Changes SHALL require:
+
+* a new version;
+* a new rule-set hash;
+* an explicit compatibility declaration;
+* updated registry identity where applicable.
+
+Historical rule sets SHALL remain replayable.
+
+Historical validation reports SHALL remain interpretable under the exact rule sets and registry snapshots that produced them.
+
+A capability profile SHALL describe what an implementation can evaluate.
+
+It SHALL NOT select, weaken, substitute, or modify the committed Translation Validation Rule Set.
+
+If the required rule set exceeds implementation capability, validation SHALL fail or remain incomplete.
+
+⸻
+
+17.28 Failure Classes
+
+Implementations SHOULD distinguish failures including:
+
+* TRANSLATION_VALIDATION_RULES_MISSING
+* TRANSLATION_VALIDATION_RULES_INCOMPATIBLE
+* VALIDATION_SOURCE_COMMAND_MISMATCH
+* VALIDATION_CONFIGURATION_MISMATCH
+* VALIDATION_BINDING_MISSING
+* VALIDATION_BINDING_MISMATCH
+* VALIDATION_OBLIGATION_SET_MISSING
+* VALIDATION_OBLIGATION_SET_MISMATCH
+* VALIDATION_ARTIFACT_MISSING
+* VALIDATION_ARTIFACT_DUPLICATED
+* VALIDATION_ARTIFACT_TYPE_INVALID
+* VALIDATION_SCHEMA_FAILURE
+* VALIDATION_HASH_MISMATCH
+* VALIDATION_REGISTRY_SNAPSHOT_MISMATCH
+* VALIDATION_PROVENANCE_INCOMPLETE
+* VALIDATION_REPRESENTATION_FAILURE
+* VALIDATION_NUMERIC_FAILURE
+* VALIDATION_DEPENDENCY_FAILURE
+* VALIDATION_ORDERING_FAILURE
+* VALIDATION_CANONICAL_ORDER_MISMATCH
+* VALIDATION_TARGET_SUBSTITUTION
+* VALIDATION_TARGET_OMITTED
+* VALIDATION_SCOPE_EXPANSION
+* VALIDATION_SCOPE_REDUCTION
+* VALIDATION_TEMPORAL_SEMANTICS_LOST
+* VALIDATION_AUTHORITY_EXPANSION
+* VALIDATION_AUTHORITY_REDUCTION
+* VALIDATION_OBLIGATION_OMITTED
+* VALIDATION_RESTRICTION_WEAKENED
+* VALIDATION_TRANSACTION_METADATA_LOST
+* VALIDATION_SEMANTIC_DRIFT
+* VALIDATION_COMPATIBILITY_EVIDENCE_MISSING
+* VALIDATION_COMPATIBILITY_EVIDENCE_MISMATCH
+* VALIDATION_COMPATIBILITY_RESULT_UNACCEPTABLE
+* VALIDATION_COMPLETENESS_FAILURE
+* VALIDATION_INTEGRITY_FAILURE
+* VALIDATION_INPUT_MUTATION_DETECTED
+* VALIDATION_UNRESOLVED_MANDATORY_RULE
+* VALIDATION_MANDATORY_RULE_NOT_EVALUATED
+* VALIDATION_MIXED_RULE_SET_VERSIONS
+* VALIDATION_EXTERNAL_VERIFICATION_CLAIM_PROHIBITED
+
+Any mandatory validation failure, unresolved result, or unevaluated mandatory rule SHALL prevent an overall result of VALID.
+
+⸻
+
+17.29 Mathematical Interpretation
+
+Let:
+
+* (U_c) denote the Committed Control Command;
+* (T_c) denote the proposed translated artifact set;
+* (O_c) denote the Canonical Translation Order;
+* (B_v) denote the Validated Translation Binding;
+* (P_o) denote the Translation Preservation Obligation Set;
+* (V_r) denote the committed Translation Validation Rule Set;
+* (C_e) denote accepted compatibility evidence.
+
+The validation result is:
+
+[
+R_v
+
+\operatorname{Validate}
+\left(
+U_c,
+T_c,
+O_c,
+B_v,
+P_o,
+V_r,
+C_e
+\right)
+]
+
+subject to the following invariants.
+
+Determinism
+
+For identical canonical inputs:
+
+[
+(U_c,T_c,O_c,B_v,P_o,V_r,C_e)
+
+(U’_c,T’_c,O’_c,B’_v,P’_o,V’_r,C’_e)
+]
+
+then:
+
+[
+R_v
+
+R’_v
+]
+
+Structural Completeness
+
+Every mandatory artifact and obligation SHALL be accounted for:
+
+[
+\operatorname{Required}(U_c,B_v,P_o)
+\subseteq
+\operatorname{Represented}(T_c)
+]
+
+Authority Preservation
+
+[
+\mathcal A(T_c)
+
+\mathcal A(U_c)
+]
+
+Obligation Preservation
+
+[
+\mathcal O(U_c)
+\subseteq
+\mathcal O(T_c)
+]
+
+Restriction Preservation
+
+[
+\mathcal R(U_c)
+\subseteq
+\mathcal R(T_c)
+]
+
+Scope Preservation
+
+[
+\mathcal S(T_c)
+
+\mathcal S(U_c)
+]
+
+unless deterministic scope decomposition is explicitly authorized.
+
+Semantic Preservation
+
+[
+\operatorname{Meaning}(T_c,O_c)
+
+\operatorname{Meaning}(U_c)
+]
+
+under the authorized Translation Definitions and Validated Translation Binding.
+
+Validation Non-Mutation
+
+For every validation input artifact (X):
+
+[
+\operatorname{HashBefore}(X)
+
+\operatorname{HashAfter}(X)
+]
+
+Canonical Rule Representation
+
+Every mandatory validation rule SHALL contribute exactly one canonical rule result to the committed Translation Validation Report.
+
+⸻
+
+17.30 Fundamental Translation Validation Invariant
+
+Translation Validation Rules SHALL define exactly one deterministic conformance interpretation for every proposed translated result evaluated during one translation cycle.
+
+Validation SHALL determine whether the proposed translated artifacts and their canonical ordering faithfully preserve the Committed Control Command under the Committed Translation Configuration, authorized Translation Definitions, Validated Translation Binding, Translation Preservation Obligation Set, Canonical Representation Profile, Translation Numeric Rules, Translation Ordering Rules, applicable registry snapshots, and accepted compatibility evidence.
+
+Validation SHALL evaluate:
+
+* structural completeness;
+* representation conformity;
+* numeric conformity;
+* dependency preservation;
+* ordering preservation;
+* target preservation;
+* scope preservation;
+* temporal-semantics preservation;
+* semantic preservation;
+* authority preservation;
+* obligation preservation;
+* restriction preservation;
+* transaction-metadata preservation;
+* compatibility-evidence integrity;
+* provenance closure;
+* artifact integrity.
+
+Validation SHALL NOT:
+
+* normalize;
+* construct;
+* repair;
+* supplement;
+* reinterpret;
+* reorder;
+* mutate;
+* recommit;
+* or execute translation artifacts.
+
+Validation SHALL NOT perform compatibility evaluation, define transaction semantics, authorize runtime execution, determine runtime correctness, or issue an external verification verdict.
+
+Every translation cycle SHALL use exactly one committed Translation Validation Rule Set bound by the Committed Translation Configuration.
+
+Mixing, substituting, dynamically selecting, weakening, or modifying Translation Validation Rule Sets during the cycle is prohibited.
+
+For identical committed source artifacts, proposed translated artifacts, Canonical Translation Order, Validated Translation Binding, Translation Preservation Obligation Set, rule sets, profiles, registry snapshots, configuration, and accepted compatibility evidence, every conforming implementation SHALL produce the same Translation Validation Report.
+
+Every completed validation attempt SHALL produce one immutable report.
+
+Only a report with overall result VALID may proceed to successful Translation Transaction Construction.
+
+The Translation Validation Report constitutes internal Contract 008 conformance evidence only.
+
+It does not constitute:
+
+* external verification;
+* transaction commitment;
+* runtime acceptance;
+* execution authorization;
+* accreditation;
+* or proof that the supervised runtime will produce the intended downstream effect.

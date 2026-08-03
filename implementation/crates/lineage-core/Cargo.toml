@@ -1,0 +1,12 @@
+[package]
+name = "sacs-lineage-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+sacs-canonical-identity = { path = "../canonical-identity" }
+
+[lib]
+name = "lineage_core"

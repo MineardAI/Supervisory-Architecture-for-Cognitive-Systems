@@ -1,0 +1,1171 @@
+6. Committed Control Command Consumption Model
+
+6.1 Purpose
+
+This section defines how Contract 008 consumes one Committed Control Command without reopening, reconstructing, or reinterpreting the controller decision that produced it.
+
+The Committed Control Command is the complete canonical statement of supervisory correction available to Inference Control.
+
+Contract 008 SHALL treat the command as:
+
+* final with respect to controller computation;
+* final with respect to supervisory intent;
+* final with respect to command authorization;
+* immutable;
+* cycle-bound;
+* authority-bounded;
+* semantically complete for translation;
+* non-executable until translated and submitted through Contract 009.
+
+Contract 008 SHALL extract only the command semantics required to determine whether and how the command can be faithfully represented for the declared runtime.
+
+Extraction is not reconsideration.
+
+Resolution is not recomputation.
+
+Interpretation through registered definitions is not authorization.
+
+⸻
+
+6.2 Consumption Authority
+
+Contract 008 owns the deterministic consumption of the Committed Control Command for translation purposes.
+
+Consumption SHALL consist only of:
+
+1. validating canonical command identity;
+2. validating the Controller Commitment Record reference;
+3. resolving exact command definitions;
+4. resolving exact authority and constraint references;
+5. extracting translation-relevant semantic obligations;
+6. constructing an immutable Translation Requirement Set;
+7. proving that no controller decision has been changed during extraction.
+
+Contract 008 SHALL NOT:
+
+* recompute the command;
+* compare the command against Control Error;
+* compare the command against the Reference State;
+* compare the command against Controller State;
+* re-run command arbitration;
+* re-run safety restriction;
+* re-run fallback selection;
+* re-run saturation;
+* re-run rate limiting;
+* re-run command validation;
+* independently certify command authorization;
+* infer why the command was selected;
+* infer what alternative commands were available;
+* infer what the Controller would have produced under different conditions.
+
+The authority of this section is limited to answering:
+
+What exact semantic and representational obligations must be preserved when translating this Committed Control Command?
+
+⸻
+
+6.3 Consumption Preconditions
+
+A Committed Control Command SHALL be eligible for Contract 008 consumption only when all of the following are true:
+
+* exactly one command artifact is supplied;
+* the artifact declares canonical committed status;
+* the artifact is referenced by exactly one valid Controller Commitment Record for the cycle;
+* the Controller Commitment Record identifies the same command identifier and artifact hash;
+* the command belongs to the current supervisory cycle;
+* the command schema version is supported;
+* the command type definition resolves by exact identifier, version, and hash;
+* every mandatory command field is present;
+* every required authority reference resolves;
+* every required restriction reference resolves;
+* every required target reference resolves;
+* the applicable Numeric Profile resolves;
+* the applicable serialization definition resolves;
+* all required registry snapshots are available;
+* no mutable or “latest” definition lookup is required;
+* no command field is ambiguous under the governing schema;
+* no required semantic obligation depends on inaccessible controller internals.
+
+If any consumption precondition fails, Contract 008 SHALL produce an Inference Translation Failure.
+
+Contract 008 SHALL NOT repair the command.
+
+Contract 008 SHALL NOT complete missing fields from external documentation, runtime defaults, historical commands, prior cycles, provider behavior, or controller diagnostics.
+
+⸻
+
+6.4 Minimum Committed Control Command Interface
+
+Every Committed Control Command consumed by Contract 008 SHALL include or immutably reference at least:
+
+control_command_id
+cycle_id
+controller_commitment_record_id
+controller_commitment_bundle_id
+control_command_type_id
+control_command_definition_version
+control_command_definition_hash
+command_semantic_class
+command_parameters
+parameter_domain_references
+target_scope
+target_binding
+temporal_scope
+effective_time
+expiry
+cardinality
+authority_class
+authority_bounds
+mandatory_actions
+mandatory_restrictions
+prohibited_effects
+ordering_requirements
+atomicity_requirements
+transaction_requirements
+compensation_requirements
+failure_semantics
+numeric_profile_id
+serialization_profile_id
+action_space_definition_id
+control_constraint_set_id
+authority_certificate_id
+governance_snapshot_id
+translation_bounds
+registry_snapshot_ids
+schema_version
+contract_version
+created_at
+artifact_hash
+provenance_id
+
+A command type MAY require additional fields.
+
+Optional fields SHALL have explicit absence semantics.
+
+Absence SHALL NOT be interpreted as an unrestricted value.
+
+Absence SHALL NOT be interpreted as a provider default.
+
+Absence SHALL NOT be interpreted as permission to omit a semantic obligation.
+
+⸻
+
+6.5 Control Command Semantic Classes
+
+Every Committed Control Command SHALL identify one registered semantic class.
+
+Initial semantic classes MAY include:
+
+PARAMETER_ASSIGNMENT
+PARAMETER_BOUND
+PARAMETER_INCREMENT
+PARAMETER_DECREMENT
+RATE_LIMIT
+GAIN_ADJUSTMENT
+SAMPLING_RESTRICTION
+SAMPLING_CONFIGURATION
+RESOURCE_RESTRICTION
+CAPABILITY_RESTRICTION
+TOOL_RESTRICTION
+STATE_RESET
+CACHE_RESET
+ADAPTATION_SUSPENSION
+ADAPTATION_RESUMPTION
+INFERENCE_SUSPENSION
+INFERENCE_RESUMPTION
+FALLBACK_REQUEST
+DETERMINISTIC_MODE_REQUEST
+CONTEXT_RESTRICTION
+OUTPUT_LIMIT
+EXECUTION_TERMINATION_REQUEST
+COMPOSITE_CONTROL_COMMAND
+REGISTERED_CUSTOM_COMMAND
+
+A semantic class identifies the general supervisory effect.
+
+It does not define provider representation.
+
+It does not authorize translation by itself.
+
+Each semantic class SHALL resolve to one exact Control Command Definition.
+
+⸻
+
+6.6 Control Command Definition
+
+A Control Command Definition is an immutable reusable definition owned by Contract 007 and consumed referentially by Contract 008.
+
+The definition SHALL specify at least:
+
+control_command_type_id
+semantic_class
+semantic_description
+required_parameters
+optional_parameters
+parameter_types
+parameter_units
+parameter_domains
+default_prohibition
+target_scope_model
+temporal_scope_model
+authority_model
+restriction_model
+ordering_model
+atomicity_model
+transaction_model
+compensation_model
+failure_model
+numeric_requirements
+serialization_requirements
+translation_obligation_schema
+schema_version
+definition_version
+definition_hash
+
+Contract 008 SHALL NOT redefine the Control Command Definition.
+
+Contract 008 MAY derive translation requirements only from the exact committed definition.
+
+A locally implemented type with the same name is not sufficient.
+
+Field-name similarity does not establish semantic identity.
+
+⸻
+
+6.7 Command Semantics Versus Command Encoding
+
+Contract 008 SHALL distinguish between:
+
+* command semantics;
+* command encoding.
+
+Command semantics express what supervisory effect is required.
+
+Command encoding expresses how the Contract 007 artifact serializes that meaning.
+
+For example:
+
+Semantic requirement:
+Restrict generation temperature to a maximum of 0.35.
+Contract 007 encoding:
+command_type = PARAMETER_BOUND
+parameter = generation_temperature
+operator = LESS_THAN_OR_EQUAL
+value = 0.35
+
+A runtime may represent the same obligation through:
+
+temperature = 0.35
+
+or:
+
+sampling.max_temperature = 0.35
+
+or another registered representation.
+
+Contract 008 MAY change encoding.
+
+It SHALL NOT change semantics.
+
+⸻
+
+6.8 Translation Requirement Set
+
+Successful command consumption SHALL produce one immutable Translation Requirement Set.
+
+The Translation Requirement Set is a noncanonical intermediate artifact containing the complete semantic obligations that any proposed Inference Command Set must preserve.
+
+It SHALL include at least:
+
+translation_requirement_set_id
+cycle_id
+control_command_id
+control_command_type_id
+semantic_class
+required_effects
+mandatory_actions
+mandatory_restrictions
+prohibited_effects
+parameter_requirements
+parameter_domains
+unit_requirements
+numeric_tolerances
+target_requirements
+scope_requirements
+temporal_requirements
+expiry_requirements
+cardinality_requirements
+ordering_requirements
+atomicity_requirements
+transaction_requirements
+compensation_requirements
+failure_requirements
+authority_ceiling
+required_constraint_classes
+required_runtime_capability_classes
+action_space_definition_id
+control_constraint_set_id
+authority_certificate_id
+numeric_profile_id
+registry_snapshot_ids
+extraction_definition_id
+schema_version
+artifact_hash
+provenance_id
+
+The Translation Requirement Set SHALL be:
+
+* derived deterministically;
+* immutable once constructed;
+* traceable to every relevant field of the Committed Control Command;
+* complete with respect to mandatory translation obligations;
+* incapable of granting authority beyond the command;
+* incapable of removing restrictions from the command.
+
+The Translation Requirement Set is not an Inference Command.
+
+It is not executable.
+
+It is not canonical output.
+
+It is the semantic preservation specification against which later translation stages are evaluated.
+
+⸻
+
+6.9 Requirement Extraction
+
+Requirement extraction SHALL be governed by one registered Translation Requirement Extraction Definition.
+
+The extraction process SHALL:
+
+1. resolve the exact Control Command Definition;
+2. resolve the applicable Action Space Definition;
+3. resolve the applicable Control Constraint Set;
+4. resolve the applicable Authority Certificate reference;
+5. resolve the Numeric Profile;
+6. identify all mandatory positive effects;
+7. identify all mandatory restrictions;
+8. identify all prohibited effects;
+9. identify all authority ceilings;
+10. identify target and scope obligations;
+11. identify temporal and expiry obligations;
+12. identify cardinality obligations;
+13. identify ordering obligations;
+14. identify atomicity and transaction obligations;
+15. identify numeric and unit-preservation obligations;
+16. identify failure and compensation obligations;
+17. construct the Translation Requirement Set;
+18. validate requirement completeness;
+19. record field-level source mappings.
+
+Requirement extraction SHALL NOT:
+
+* introduce a requirement absent from the command or its referenced authority artifacts;
+* remove a requirement because the runtime cannot support it;
+* merge distinct requirements merely because a provider uses one parameter;
+* split one semantic requirement unless the extraction definition declares the split;
+* alter numeric bounds;
+* infer intent from controller diagnostics;
+* infer omitted semantics from common provider behavior.
+
+⸻
+
+6.10 Positive Effect Preservation
+
+A positive effect is an action or state change that the command requires the runtime instructions to represent.
+
+Examples MAY include:
+
+* set a parameter;
+* reduce a gain;
+* suspend adaptation;
+* reset a cache;
+* restrict a capability;
+* terminate an inference process;
+* enforce deterministic inference;
+* limit output length;
+* disable a tool class.
+
+Every mandatory positive effect SHALL appear in the Translation Requirement Set.
+
+A later translation SHALL NOT omit a positive effect merely because another restriction appears safer.
+
+For example:
+
+Required:
+Reset transient cache and suspend adaptive writes.
+
+The following translation is invalid:
+
+Suspend adaptive writes only.
+
+The result may be more restrictive in one dimension, but it fails to preserve the mandatory reset action.
+
+⸻
+
+6.11 Restrictive Semantic Preservation
+
+A restrictive semantic limits what execution may do.
+
+Restrictions MAY include:
+
+* upper bounds;
+* lower bounds;
+* allowed-value sets;
+* prohibited-value sets;
+* target limitations;
+* scope limitations;
+* duration limits;
+* capability prohibitions;
+* tool prohibitions;
+* write prohibitions;
+* concurrency limits;
+* rate limits;
+* cardinality limits;
+* expiry;
+* all-or-none requirements.
+
+Every mandatory restriction SHALL appear in the Translation Requirement Set.
+
+Restrictions SHALL be represented as explicit obligations.
+
+They SHALL NOT be inferred from the absence of permission.
+
+They SHALL NOT be omitted because the runtime is expected to behave conservatively.
+
+They SHALL NOT be delegated to Contract 009 unless the Committed Control Command explicitly identifies the restriction as an execution-gate obligation.
+
+⸻
+
+6.12 Prohibited Effect Preservation
+
+A prohibited effect is an outcome that the translated command must not authorize or cause through its declared representation.
+
+Prohibited effects MAY include:
+
+* increasing a parameter above a bound;
+* enabling an unavailable capability;
+* writing adaptive state;
+* retaining a cache that must be reset;
+* extending execution beyond expiry;
+* affecting an undeclared target;
+* executing commands out of required order;
+* partially applying an atomic command;
+* invoking an alternative runtime;
+* enabling a tool class;
+* broadening context access.
+
+The Translation Requirement Set SHALL identify all prohibited effects explicitly.
+
+A proposed Inference Command Set that permits a prohibited effect SHALL fail translation validation.
+
+⸻
+
+6.13 Authority Ceiling Extraction
+
+Every consumed Control Command SHALL produce one explicit authority ceiling.
+
+The authority ceiling defines the maximum runtime authority that the resulting Inference Command Set may express.
+
+Let:
+
+[
+\mathcal{A}_{U_t}
+]
+
+denote the authority expressed by Committed Control Command (U_t).
+
+The extracted authority ceiling SHALL satisfy:
+
+[
+\mathcal{A}_{\max,t}
+
+\mathcal{A}_{U_t}
+]
+
+Any later proposed Inference Command Set (I_t^{*}) SHALL satisfy:
+
+[
+\mathcal{A}(I_t^{*})
+\preceq
+\mathcal{A}_{\max,t}
+]
+
+The authority ceiling SHALL include, where applicable:
+
+* authorized action classes;
+* authorized parameter classes;
+* authorized value ranges;
+* authorized targets;
+* authorized scopes;
+* authorized temporal duration;
+* authorized command count;
+* authorized sequencing;
+* authorized atomic grouping;
+* authorized runtime capability classes;
+* explicit prohibitions.
+
+The authority ceiling is not a target for maximization.
+
+It is a non-exceedable boundary.
+
+⸻
+
+6.14 Parameter Obligation Extraction
+
+For every command parameter, Contract 008 SHALL extract:
+
+parameter_id
+semantic_role
+canonical_type
+canonical_unit
+canonical_value_or_constraint
+valid_domain
+authorized_domain
+required_precision
+required_tolerance
+rounding_permissions
+nullability
+default_prohibition
+coupled_parameter_ids
+interaction_constraints
+scope
+temporal_applicability
+source_field_reference
+
+A parameter SHALL NOT be treated independently when the Control Command Definition declares coupling.
+
+For example:
+
+temperature <= 0.35
+top_p <= 0.80
+
+may represent independent restrictions.
+
+But:
+
+temperature = 0
+deterministic_sampling = true
+
+may represent a coupled semantic requirement that cannot be translated by preserving only one field.
+
+Parameter interaction SHALL be preserved.
+
+⸻
+
+6.15 Bounds and Intervals
+
+Parameter bounds SHALL be represented explicitly.
+
+A bound SHALL identify:
+
+* lower or upper direction;
+* inclusive or exclusive semantics;
+* exact value;
+* unit;
+* numeric representation;
+* permitted tolerance;
+* scope;
+* duration;
+* source authority.
+
+For an authorized interval:
+
+[
+p \in [p_{\min}, p_{\max}]
+]
+
+translation SHALL preserve the interval or produce a representation that is provably no broader and still preserves all mandatory positive obligations.
+
+A runtime-supported interval that is broader than the command interval SHALL NOT be accepted merely because the requested value lies within it.
+
+A runtime that cannot enforce the required bound SHALL be incompatible.
+
+⸻
+
+6.16 Target Binding
+
+Every Committed Control Command SHALL identify its authorized target.
+
+A target MAY identify:
+
+* one runtime instance;
+* one model instance;
+* one inference session;
+* one generation request;
+* one tool class;
+* one cache partition;
+* one adaptive-state partition;
+* one parameter namespace;
+* one declared runtime component;
+* one registered target group.
+
+Contract 008 SHALL preserve target identity.
+
+It SHALL NOT:
+
+* retarget the command;
+* expand a single target into a target group;
+* replace an unavailable target;
+* route the command to another provider;
+* apply a session-scoped command globally;
+* reduce a global mandatory command to one local instance;
+* infer a target from runtime convenience.
+
+If the runtime representation cannot preserve the target binding, translation SHALL fail.
+
+⸻
+
+6.17 Scope Preservation
+
+Scope SHALL identify where the command applies.
+
+Scope dimensions MAY include:
+
+* component scope;
+* model scope;
+* session scope;
+* request scope;
+* parameter scope;
+* capability scope;
+* tool scope;
+* state-partition scope;
+* tenant scope;
+* user scope;
+* temporal scope.
+
+The Translation Requirement Set SHALL preserve every scope dimension.
+
+Scope expansion is authority expansion.
+
+Scope contraction may be semantic loss.
+
+Neither is permitted unless the Committed Control Command explicitly authorizes a range of acceptable scopes and the selected scope remains translation-equivalent.
+
+⸻
+
+6.18 Temporal Semantics
+
+Every time-sensitive command SHALL define its temporal semantics.
+
+These MAY include:
+
+* effective immediately upon accepted execution;
+* effective at a declared timestamp;
+* effective for one request;
+* effective for one session;
+* effective until a declared expiry;
+* effective until explicitly reversed;
+* effective for a declared duration;
+* effective only during a transaction;
+* effective only before a deadline.
+
+Contract 008 SHALL extract:
+
+effective_time
+effective_event
+duration
+expiry
+renewal_semantics
+reversal_semantics
+clock_reference
+timestamp_precision
+late-application_semantics
+
+Contract 008 SHALL NOT alter temporal scope to accommodate runtime limitations.
+
+A runtime unable to represent required temporal semantics SHALL be incompatible.
+
+Contract 009 may reject or defer execution based on timing.
+
+Contract 008 defines what timing must be preserved.
+
+⸻
+
+6.19 Expiry Semantics
+
+Expiry SHALL be treated as a mandatory restriction when present.
+
+An expired command SHALL NOT produce a newly committed Inference Command Set.
+
+A proposed Inference Command Set SHALL include the command’s expiry semantics or a provably equivalent enforcement requirement.
+
+Contract 008 SHALL NOT:
+
+* extend expiry;
+* remove expiry;
+* convert absolute expiry into indefinite validity;
+* infer renewal;
+* reset expiry during retransformation;
+* treat translation time as a new command issuance time.
+
+If the command expires during Contract 008 processing, translation SHALL terminate with:
+
+CONTROL_COMMAND_EXPIRED
+
+or another registered equivalent failure class.
+
+⸻
+
+6.20 Cardinality Semantics
+
+Cardinality defines how many runtime actions or targets the command may affect.
+
+Cardinality MAY be:
+
+EXACTLY_ONE
+ZERO_OR_ONE
+ONE_OR_MORE
+EXACTLY_N
+AT_MOST_N
+ALL_DECLARED_TARGETS
+REGISTERED_CARDINALITY_RULE
+
+Contract 008 SHALL preserve cardinality.
+
+One command MAY translate into several runtime instructions without changing semantic cardinality when those instructions jointly implement one supervisory action.
+
+Instruction count is not necessarily action count.
+
+A decomposition SHALL identify whether its members form:
+
+* one semantic action;
+* several required semantic actions;
+* one transaction;
+* one atomic group.
+
+Contract 008 SHALL NOT multiply authorized actions through decomposition.
+
+⸻
+
+6.21 Ordering Semantics
+
+A Committed Control Command MAY contain ordering requirements.
+
+Ordering SHALL be classified as one of:
+
+UNORDERED
+CANONICALLY_ORDERED_FOR_SERIALIZATION_ONLY
+TOTALLY_ORDERED
+PARTIALLY_ORDERED
+BARRIER_SEPARATED
+TRANSACTION_ORDERED
+REGISTERED_ORDERING_MODEL
+
+For a totally ordered sequence:
+
+[
+i_1 \prec i_2 \prec \dots \prec i_n
+]
+
+every conforming translation SHALL preserve that order.
+
+For a partially ordered set:
+
+[
+i_a \prec i_c
+]
+
+and:
+
+[
+i_b \prec i_c
+]
+
+while (i_a) and (i_b) may remain unordered relative to one another.
+
+Contract 008 SHALL define the required order.
+
+Contract 009 SHALL enforce or reject the order.
+
+Contract 009 SHALL NOT be required to infer ordering from command names or list position.
+
+⸻
+
+6.22 Atomicity Semantics
+
+Atomicity defines whether multiple runtime instructions must be applied as one indivisible supervisory action.
+
+Atomicity classes MAY include:
+
+NON_ATOMIC
+ATOMIC_ALL_OR_NONE
+ATOMIC_PER_TARGET
+ATOMIC_PER_PARAMETER_GROUP
+TRANSACTIONAL
+COMPENSATABLE_TRANSACTION
+REGISTERED_ATOMICITY_MODEL
+
+If the Committed Control Command requires atomicity, the Translation Requirement Set SHALL preserve that requirement.
+
+Contract 008 SHALL NOT translate an atomic command into independently executable instructions unless the runtime capability model provides an equivalent atomic or transactional mechanism.
+
+A sequence that can partially apply when the source command requires all-or-none semantics is not translation-equivalent.
+
+⸻
+
+6.23 Transaction Semantics
+
+A transactional command SHALL identify:
+
+* transaction membership;
+* transaction identifier rules;
+* begin conditions;
+* commit conditions;
+* rollback conditions;
+* compensation requirements;
+* visibility rules;
+* isolation assumptions;
+* failure behavior;
+* acknowledgement requirements.
+
+Contract 008 MAY represent a transactional command only through a runtime-supported transactional model registered as equivalent.
+
+Contract 008 SHALL NOT synthesize rollback behavior not authorized by the command or Translation Configuration.
+
+Contract 009 SHALL not be expected to invent transaction semantics after handoff.
+
+⸻
+
+6.24 Compensation Semantics
+
+Some runtime actions may be compensatable rather than strictly reversible.
+
+A compensation requirement SHALL identify:
+
+* the triggering failure condition;
+* the compensating command class;
+* the authorized compensation scope;
+* ordering requirements;
+* maximum compensation authority;
+* required evidence;
+* whether compensation is mandatory or optional.
+
+Contract 008 MAY encode compensation semantics only when they are explicitly present in the Committed Control Command or its committed Translation Configuration.
+
+Inference Control SHALL NOT invent compensating actions.
+
+A compensating action remains supervisory authority and therefore must be pre-authorized.
+
+⸻
+
+6.25 Failure Semantics
+
+The Committed Control Command MAY define required behavior when runtime application cannot occur as specified.
+
+Failure semantics MAY include:
+
+FAIL_WITHOUT_PARTIAL_APPLICATION
+FAIL_AND_ROLL_BACK
+FAIL_AND_COMPENSATE
+FAIL_IF_TARGET_CHANGED
+FAIL_IF_EXPIRED
+FAIL_IF_ORDER_CANNOT_BE_PRESERVED
+FAIL_IF_ATOMICITY_CANNOT_BE_PRESERVED
+FAIL_IF_ACKNOWLEDGEMENT_MODEL_IS_INSUFFICIENT
+REGISTERED_FAILURE_SEMANTICS
+
+Contract 008 SHALL preserve these requirements in the Inference Command Set.
+
+Contract 008 SHALL NOT determine the final Execution Disposition.
+
+It SHALL encode the failure behavior that Contract 009 must be capable of evaluating and enforcing.
+
+⸻
+
+6.26 Composite Control Commands
+
+A Committed Control Command MAY be composite.
+
+A Composite Control Command SHALL contain two or more command components that jointly form one canonical supervisory decision.
+
+The composite definition SHALL specify:
+
+* component command identifiers;
+* component semantic classes;
+* component dependencies;
+* shared target rules;
+* shared scope rules;
+* ordering rules;
+* atomicity rules;
+* transaction rules;
+* authority aggregation rules;
+* failure propagation rules;
+* whether partial representation is prohibited.
+
+Contract 008 SHALL consume the composite as one command authority.
+
+It SHALL NOT independently accept supported components and discard unsupported components.
+
+If any mandatory component cannot be faithfully represented, the composite translation SHALL fail unless the command definition explicitly identifies that component as optional.
+
+⸻
+
+6.27 Optional Command Components
+
+A component is optional only when the Committed Control Command or its exact definition declares it optional.
+
+Runtime inability does not make a mandatory component optional.
+
+Provider omission does not make a mandatory component optional.
+
+Translation convenience does not make a mandatory component optional.
+
+When an optional component is omitted, Contract 008 SHALL record:
+
+* the omitted component identifier;
+* the rule authorizing omission;
+* the reason for omission;
+* proof that semantic equivalence remains valid;
+* proof that no mandatory restriction is lost;
+* the effect on authority;
+* the effect on ordering and atomicity.
+
+Silent omission is prohibited.
+
+⸻
+
+6.28 No-Operation Commands
+
+A Committed Control Command MAY explicitly represent a canonical no-operation.
+
+A canonical no-operation indicates that Contract 007 intentionally committed no runtime correction for the cycle.
+
+It SHALL NOT be inferred from:
+
+* an empty command body;
+* missing fields;
+* unsupported translation;
+* zero-valued parameters;
+* absent runtime capability;
+* a failed Controller cycle.
+
+A no-operation command SHALL identify:
+
+semantic_class = NO_OPERATION
+no_operation_reason
+authority_certificate_id
+cycle_id
+scope
+expiry
+artifact_hash
+
+Contract 008 MAY translate a canonical no-operation into:
+
+* one explicit no-operation Inference Command; or
+* one empty Inference Command Set whose emptiness semantics are explicitly defined.
+
+An empty set without declared no-operation semantics is invalid.
+
+⸻
+
+6.29 Command Identity Preservation
+
+The resulting Translation Requirement Set SHALL retain an unbroken identity relationship to the Committed Control Command.
+
+At minimum:
+
+source_control_command_id
+source_controller_commitment_record_id
+source_control_command_hash
+source_command_definition_id
+source_command_definition_hash
+
+SHALL be preserved.
+
+A later Inference Command Set SHALL not obscure which Committed Control Command it represents.
+
+One Inference Command Set SHALL represent exactly one Committed Control Command unless a later contract explicitly defines an atomic multi-command supervisory transaction.
+
+Contract 008 SHALL NOT merge independent Committed Control Commands.
+
+⸻
+
+6.30 Command Immutability
+
+Contract 008 SHALL NOT mutate the Committed Control Command.
+
+Any derived artifact SHALL receive:
+
+* a new artifact identifier;
+* a new artifact type;
+* a new artifact hash;
+* explicit source references;
+* its own provenance.
+
+Adding provider fields to the Control Command is prohibited.
+
+Replacing canonical field names in the Control Command is prohibited.
+
+Annotating the Control Command in place is prohibited.
+
+Translation operates by derivation, not mutation.
+
+⸻
+
+6.31 Consumption Determinism
+
+For identical:
+
+* Committed Control Command;
+* Controller Commitment Record;
+* command definitions;
+* authority references;
+* Numeric Profile;
+* registry snapshots;
+* extraction definition;
+* implementation capability profile;
+
+Contract 008 SHALL produce the same Translation Requirement Set or the same command-consumption failure.
+
+Formally:
+
+[
+R_t
+
+E
+\left(
+U_t,
+C_t,
+D_t,
+A_t,
+N_t,
+V_t
+\right)
+]
+
+where:
+
+* (U_t) is the Committed Control Command;
+* (C_t) is the Controller Commitment Record;
+* (D_t) is the exact command-definition set;
+* (A_t) is the referential authority context;
+* (N_t) is the Numeric Profile;
+* (V_t) is the registry snapshot set;
+* (R_t) is the Translation Requirement Set.
+
+The extraction function (E) SHALL be deterministic.
+
+Probabilistic interpretation is prohibited.
+
+Model-generated semantic extraction is prohibited inside the canonical path unless a later contract defines deterministic normalization and conformance semantics.
+
+⸻
+
+6.32 Consumption Failure Classes
+
+Initial command-consumption failure classes SHALL include:
+
+CONTROL_COMMAND_MISSING
+MULTIPLE_CONTROL_COMMANDS_SUPPLIED
+CONTROL_COMMAND_NOT_COMMITTED
+CONTROL_COMMAND_EXPIRED
+CONTROL_COMMAND_SCHEMA_UNSUPPORTED
+CONTROL_COMMAND_TYPE_UNRESOLVED
+CONTROL_COMMAND_DEFINITION_MISMATCH
+CONTROL_COMMAND_HASH_MISMATCH
+CONTROLLER_COMMITMENT_RECORD_MISSING
+CONTROLLER_COMMITMENT_RECORD_INVALID
+CONTROLLER_COMMITMENT_REFERENCE_MISMATCH
+CYCLE_ID_MISMATCH
+MANDATORY_COMMAND_FIELD_MISSING
+COMMAND_PARAMETER_INVALID
+COMMAND_PARAMETER_DOMAIN_UNRESOLVED
+COMMAND_TARGET_UNRESOLVED
+COMMAND_SCOPE_AMBIGUOUS
+COMMAND_TEMPORAL_SCOPE_AMBIGUOUS
+COMMAND_CARDINALITY_UNRESOLVED
+COMMAND_ORDERING_UNRESOLVED
+COMMAND_ATOMICITY_UNRESOLVED
+COMMAND_TRANSACTION_SEMANTICS_UNRESOLVED
+COMMAND_FAILURE_SEMANTICS_UNRESOLVED
+COMMAND_AUTHORITY_REFERENCE_MISSING
+ACTION_SPACE_DEFINITION_UNRESOLVED
+CONTROL_CONSTRAINT_SET_UNRESOLVED
+AUTHORITY_CERTIFICATE_UNRESOLVED
+NUMERIC_PROFILE_UNRESOLVED
+SERIALIZATION_PROFILE_UNRESOLVED
+TRANSLATION_REQUIREMENT_EXTRACTION_FAILED
+TRANSLATION_REQUIREMENT_INCOMPLETE
+UNDECLARED_SEMANTIC_DEPENDENCY
+PROHIBITED_CONTROLLER_INTERNAL_REQUIRED
+REGISTRY_SNAPSHOT_INCOMPLETE
+REGISTRY_VERSION_INCOMPATIBLE
+COMMAND_CONSUMPTION_PROVENANCE_INCOMPLETE
+
+A command-consumption failure SHALL produce no Translation Requirement Set eligible for later translation binding.
+
+⸻
+
+6.33 Prohibited Reconstruction
+
+Contract 008 SHALL NOT reconstruct command meaning from:
+
+* Control Error;
+* Reference State;
+* OSV;
+* Controller State;
+* controller logs;
+* branch outputs;
+* provider documentation;
+* execution history;
+* prior commands;
+* inferred common practice;
+* model-generated interpretation;
+* human operator assumptions;
+* naming conventions;
+* undocumented runtime behavior.
+
+If the Committed Control Command and its registered definitions do not contain sufficient semantics for faithful translation, the command is not consumable.
+
+The correct outcome is failure.
+
+⸻
+
+6.34 Section 6 Artifact Flow
+
+Committed Control Command
+        +
+Controller Commitment Record
+        +
+Exact Control Command Definition
+        +
+Referential Authority Context
+        +
+Numeric and Registry Definitions
+        ↓
+Canonical Identity Validation
+        ↓
+Definition Resolution
+        ↓
+Semantic Obligation Extraction
+        ↓
+Authority Ceiling Extraction
+        ↓
+Scope, Target, Time, Cardinality,
+Ordering, Atomicity, and Transaction Extraction
+        ↓
+Translation Requirement Set Construction
+        ↓
+Requirement Completeness Validation
+        ↓
+Either:
+Valid Translation Requirement Set
+        or
+Inference Translation Failure
+
+No Runtime Capability Profile has yet been bound at the conclusion of this section.
+
+No Translation Definition has yet been selected.
+
+No Inference Command has yet been proposed.
+
+Section 6 establishes only what must be preserved.
+
+⸻
+
+6.35 Section 6 Invariant
+
+The governing invariant for Committed Control Command consumption is:
+
+Contract 008 SHALL derive one complete Translation Requirement Set from one Committed Control Command using only exact committed references and immutable definitions. The derivation SHALL preserve every required effect, restriction, prohibition, bound, target, scope, temporal condition, cardinality rule, ordering rule, atomicity rule, transaction rule, and authority ceiling without reopening the controller decision or introducing runtime-specific substitutions.

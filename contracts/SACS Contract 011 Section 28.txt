@@ -1,0 +1,196 @@
+SACS Contract 011 — Realization Certification, Supervisory Provenance, and Audit
+Section 28 — Fundamental Constitutional Invariant
+Purpose
+
+Section 28 establishes the Fundamental Constitutional Invariant governing Realization Certification, Supervisory Provenance, and Audit.
+
+The Fundamental Constitutional Invariant expresses the single constitutional property that SHALL remain true for every supervisory cycle processed under Contract 011.
+
+Every preceding section exists solely to preserve this invariant.
+
+The invariant applies independently of implementation architecture, execution platform, deployment environment, storage technology, serialization mechanism, or organizational structure.
+
+Constitutional Identity
+
+The defining constitutional identity of Contract 011 is:
+
+Every completed supervisory cycle SHALL terminate in exactly one immutable, authoritative constitutional outcome that preserves realization, supervisory provenance, commitment authority, historical traceability, deterministic reproducibility, and independent auditability without modification, reinterpretation, duplication, or loss of constitutional identity.
+
+This identity SHALL remain true for every implementation conforming to Contract 011.
+
+Fundamental Invariant
+
+For every supervisory cycle received from Contract 010:
+
+Exactly one of the following SHALL exist:
+
+one Committed Supervisory Cycle Record; or
+one Committed Supervisory Provenance Failure.
+
+Both SHALL never exist simultaneously.
+
+Neither SHALL ever be absent following completion of Contract 011.
+
+Formally:
+
+COUNT(Committed Supervisory Cycle Record) +
+COUNT(Committed Supervisory Provenance Failure)
+= 1
+
+This exclusivity SHALL hold for every Supervisory Cycle Identifier.
+
+Authority Preservation
+
+Contract 011 SHALL preserve, without modification:
+
+constitutional identity;
+supervisory identity;
+realization identity;
+artifact identity;
+commitment authority;
+supervisory provenance;
+artifact lineage;
+temporal ordering;
+governance relationships.
+
+No authority established by earlier constitutional contracts may be broadened, weakened, reinterpreted, or replaced.
+
+Historical Truth
+
+Contract 011 SHALL preserve one complete and internally consistent constitutional history for every supervisory cycle.
+
+That history SHALL remain:
+
+immutable;
+authoritative;
+deterministic;
+reproducible;
+independently auditable;
+fully traceable.
+
+No alternate constitutional history SHALL exist.
+
+Supervisory Provenance Preservation
+
+Every committed supervisory artifact SHALL remain connected through one uninterrupted constitutional provenance chain extending from supervisory intent to supervisory completion.
+
+This chain SHALL preserve:
+
+origin;
+transformation;
+commitment;
+realization;
+supervisory continuity;
+supervisory completion.
+
+No constitutional relationship within the chain may be omitted, reordered, or rewritten.
+
+Commitment Integrity
+
+Every constitutional commitment performed within Contract 011 SHALL remain:
+
+atomic;
+deterministic;
+exclusive;
+idempotent;
+immutable;
+fully traceable.
+
+Partial commitment SHALL never occur.
+
+Conflicting commitment SHALL never occur.
+
+Deterministic Reproducibility
+
+Using only committed constitutional artifacts, deterministic replay SHALL always reproduce the same constitutional supervisory history.
+
+Replay SHALL never:
+
+establish authority;
+replace history;
+reinterpret supervisory decisions;
+generate alternate supervisory outcomes.
+
+Replay exists solely to verify constitutional reproducibility.
+
+Independent Auditability
+
+Every completed supervisory cycle SHALL remain independently auditable.
+
+Audit SHALL evaluate:
+
+constitutional conformance;
+governance conformance;
+supervisory provenance;
+commitment integrity;
+replay equivalence;
+historical consistency.
+
+Audit SHALL never create constitutional authority.
+
+Audit SHALL never modify constitutional history.
+
+Constitutional Separation of Authority
+
+The constitutional responsibilities established by Contract 011 SHALL remain permanently separated.
+
+Specifically:
+
+Realization Certification certifies what occurred.
+Supervisory Provenance assembles constitutional supervisory history.
+Commitment establishes constitutional authority.
+Replay verifies deterministic reproducibility.
+Audit evaluates constitutional conformance.
+
+No responsibility may substitute for another.
+
+No constitutional function may perform responsibilities assigned elsewhere.
+
+Relationship to the Constitutional Pipeline
+
+Contract 011 concludes the operational supervisory lifecycle established by Contracts 006 through 011.
+
+The complete constitutional progression is:
+
+Contract 006
+Operational Profiles
+        ↓
+Contract 007
+Controller
+        ↓
+Contract 008
+Inference Control
+        ↓
+Contract 009
+Execution Interface
+        ↓
+Contract 010
+Historical Certification
+        ↓
+Contract 011
+Realization Certification,
+Supervisory Provenance,
+and Audit
+
+Each contract contributes one committed constitutional transformation.
+
+Contract 011 completes that sequence by establishing the authoritative supervisory history of the completed cycle and defining the constitutional mechanisms by which that history is reproduced and evaluated.
+
+Constitutional Consequences
+
+Any implementation that permits:
+
+multiple authoritative supervisory histories;
+partial supervisory commitment;
+modification of committed supervisory records;
+broken provenance;
+nondeterministic replay;
+audit that alters constitutional authority;
+loss of historical traceability;
+reinterpretation of committed supervisory intent;
+
+SHALL be considered non-conformant with Contract 011.
+
+Fundamental Constitutional Principle
+
+Every supervisory cycle SHALL terminate in exactly one immutable constitutional outcome that faithfully preserves every committed constitutional transformation from operational intent through supervisory realization, producing one authoritative supervisory history that remains deterministic, reproducible, independently auditable, and permanently traceable without modification, reinterpretation, duplication, or loss of constitutional identity.

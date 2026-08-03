@@ -1,0 +1,228 @@
+SACS Contract 011 — Realization Certification, Supervisory Provenance, and Audit
+Section 26 — Deterministic Replay Authority
+Purpose
+
+Section 26 establishes the constitutional authority governing deterministic replay of completed supervisory cycles.
+
+Deterministic replay verifies that a previously completed supervisory cycle can be reproduced using only committed constitutional artifacts, without reconstructing, modifying, or reinterpreting supervisory authority.
+
+Replay exists solely to demonstrate constitutional reproducibility, historical integrity, and implementation conformance.
+
+Replay SHALL never create new supervisory decisions, modify historical records, or replace committed constitutional artifacts.
+
+Constitutional Identity
+
+Deterministic Replay is the constitutional process by which a completed supervisory cycle is reproduced exclusively from committed constitutional artifacts to verify historical equivalence and constitutional consistency.
+
+Its defining constitutional identity is:
+
+Replay SHALL reproduce constitutional history exactly as committed and SHALL never become a new source of constitutional authority.
+
+Replay is observational.
+
+Replay is never authoritative.
+
+Constitutional Responsibility
+
+Section 26 SHALL:
+
+establish constitutional replay authority;
+define replay inputs;
+define replay outputs;
+establish replay equivalence requirements;
+define replay conformance obligations;
+preserve constitutional determinism.
+
+Section 26 SHALL NOT:
+
+execute supervisory control;
+reconstruct missing history;
+reinterpret committed artifacts;
+modify constitutional records;
+authorize new supervisory actions;
+certify audit findings.
+Canonical Inputs
+
+Replay SHALL consume exactly one of the following terminal Stage Two artifacts:
+
+one Committed Supervisory Cycle Record; or
+one Committed Supervisory Provenance Failure.
+
+These artifacts SHALL be accompanied by every immutable committed constitutional artifact required to reproduce the supervisory cycle, including:
+
+Committed Operational Profile;
+Committed Reference State;
+Committed Control Command;
+Committed Translation Transaction;
+Committed Execution Disposition;
+Committed Supervisory Continuity Record;
+Committed Realization Record.
+
+Replay SHALL consume only committed constitutional artifacts.
+
+No implementation state outside the committed constitutional record may participate.
+
+Replay Authority
+
+Replay SHALL possess no constitutional authority beyond verification.
+
+Replay SHALL never:
+
+authorize supervisory execution;
+alter supervisory history;
+replace committed artifacts;
+generate alternate supervisory outcomes;
+create new constitutional records.
+
+Replay SHALL exist solely to verify that constitutional history remains reproducible.
+
+Replay Equivalence
+
+Successful replay SHALL demonstrate constitutional equivalence with the committed supervisory history.
+
+Replay equivalence SHALL include verification of:
+
+supervisory identity;
+artifact identity;
+commitment ordering;
+provenance relationships;
+constitutional lineage;
+commitment hashes;
+serialization identity;
+contract versions;
+schema versions.
+
+Replay MAY differ in implementation details that possess no constitutional significance.
+
+Replay Outputs
+
+Replay SHALL produce one Replay Verification Result containing:
+
+Replay Identity
+Replay Identifier
+Replay Timestamp
+Replay Version
+Replay Status
+
+One terminal status:
+
+REPLAY_EQUIVALENT
+REPLAY_NOT_EQUIVALENT
+Replay Evidence
+Equivalence Verification Result
+Identity Verification Result
+Integrity Verification Result
+Determinism Verification Result
+Diagnostic Information
+
+Where replay fails:
+
+verified mismatch classifications;
+affected constitutional artifacts;
+replay diagnostics;
+implementation observations.
+
+Replay diagnostics SHALL possess no constitutional authority.
+
+Equivalence Requirements
+
+Replay SHALL verify:
+
+identical constitutional identity;
+identical supervisory lineage;
+identical commitment relationships;
+identical canonical hashes;
+identical ordering semantics;
+identical constitutional references.
+
+Implementation-specific execution timing, storage layout, memory organization, or deployment topology SHALL NOT affect replay equivalence.
+
+Determinism
+
+Identical committed constitutional artifacts SHALL always produce identical replay results.
+
+Replay SHALL remain deterministic regardless of:
+
+hardware architecture;
+operating system;
+deployment platform;
+storage implementation;
+execution environment.
+Failure Handling
+
+Replay failure SHALL produce one Replay Verification Result with status:
+
+REPLAY_NOT_EQUIVALENT
+
+Replay failure SHALL NOT:
+
+invalidate historical authority;
+modify committed constitutional artifacts;
+alter supervisory history;
+authorize reconstruction.
+
+Replay failure identifies an implementation or conformance discrepancy, not a constitutional change.
+
+Relationship to Audit
+
+Replay verification provides evidence that MAY be consumed by audit.
+
+Replay SHALL NOT perform audit.
+
+Audit SHALL independently evaluate constitutional conformance.
+
+Replay and audit remain constitutionally distinct functions.
+
+Preservation Requirements
+
+Replay SHALL preserve:
+
+constitutional identity;
+supervisory identity;
+historical ordering;
+artifact relationships;
+provenance;
+commitment authority.
+
+Replay SHALL never introduce additional constitutional meaning.
+
+Prohibitions
+
+Section 26 SHALL NOT:
+
+execute supervisory control;
+authorize runtime behavior;
+modify committed artifacts;
+reinterpret supervisory decisions;
+reconstruct missing artifacts;
+replace constitutional history;
+certify regulatory compliance.
+Relationship to Neighboring Sections
+Section 24
+Committed Supervisory Cycle Record
+           │
+           ├──────────────┐
+           │              │
+Section 25 │              │
+Committed  │              │
+Supervisory│              │
+Provenance │              │
+Failure    │              │
+           └──────┬───────┘
+                  ▼
+Section 26
+Deterministic Replay Authority
+                  │
+                  ▼
+Section 27
+Audit Authority and Audit Representation
+
+Sections 24 and 25 establish the mutually exclusive constitutional outcomes of Stage Two.
+
+Section 26 verifies that either outcome can be deterministically reproduced without altering constitutional authority.
+
+Section 27 then evaluates those committed outcomes for constitutional, regulatory, and governance purposes.
+
+Fundamental Constitutional Principle
+
+Deterministic Replay SHALL reproduce a completed supervisory cycle exclusively from committed constitutional artifacts, preserving constitutional identity, supervisory authority, provenance, commitment ordering, and historical equivalence without creating, modifying, replacing, or reinterpreting constitutional history.

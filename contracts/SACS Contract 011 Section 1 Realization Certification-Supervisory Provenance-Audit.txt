@@ -1,0 +1,90 @@
+SACS Contract 011 — Realization Certification, Supervisory Provenance, and Audit
+Section 1 — Purpose
+Purpose
+
+Contract 011 establishes the constitutional authority responsible for transforming committed supervisory execution history into authoritative constitutional history.
+
+It receives the Committed Execution Disposition produced by Contract 009 together with the Committed Supervisory Continuity Record produced by Contract 010, determines whether those committed artifacts are sufficient to establish one authoritative realization history, and then assembles the complete constitutional lineage of the supervisory cycle.
+
+Contract 011 serves as the constitutional boundary between supervisory operation and supervisory history.
+
+No preceding contract constructs authoritative historical representations of supervisory realization, and no subsequent contract may reinterpret the historical record committed by this contract.
+
+Constitutional Role
+
+Contract 011 performs two constitutionally distinct but sequential responsibilities.
+
+Stage One — Realization Certification
+
+The first responsibility is to determine whether the committed execution disposition and committed supervisory continuity evidence together establish one authoritative supervisory realization.
+
+Successful certification SHALL produce exactly one:
+
+Committed Realization Record
+
+If certification cannot be completed, Contract 011 SHALL instead produce one explicit committed realization-certification failure in accordance with this contract.
+
+Stage Two — Supervisory Provenance
+
+Only a committed Realization Record may enter the second stage.
+
+The second responsibility is to assemble the complete constitutional lineage of the supervisory cycle by resolving, validating, and preserving the relationships among every committed supervisory artifact participating in that cycle.
+
+Successful completion SHALL produce exactly one:
+
+Committed Supervisory Cycle Record
+
+If whole-cycle provenance cannot be established, Contract 011 SHALL instead produce one explicit committed provenance or cycle-commitment failure.
+
+Constitutional Responsibilities
+
+Contract 011 is solely responsible for:
+
+receiving committed execution and supervisory continuity evidence;
+determining realization-certification eligibility;
+certifying authoritative supervisory realization history;
+constructing and committing the canonical Realization Record;
+resolving canonical supervisory artifacts;
+constructing whole-cycle constitutional provenance;
+committing the canonical Supervisory Cycle Record;
+supporting deterministic audit, disclosure, retention, and replay using committed historical artifacts.
+Constitutional Prohibitions
+
+Contract 011 SHALL NOT:
+
+execute runtime actions;
+issue control commands;
+translate supervisory intent;
+evaluate controller behavior;
+reinterpret supervisory objectives;
+modify committed artifacts received from earlier contracts;
+reconstruct missing evidence;
+infer absent historical events;
+reopen execution adjudications;
+reopen supervisory continuity determinations;
+issue claims of externally verified truth.
+Relationship to Neighboring Contracts
+
+Contract 011 consumes only committed constitutional artifacts produced by preceding contracts.
+
+Its principal inputs are:
+
+Committed Execution Disposition (Contract 009)
+Committed Supervisory Continuity Record (Contract 010)
+
+Its principal outputs are:
+
+Committed Realization Record
+Committed Supervisory Cycle Record
+
+Those committed artifacts become the exclusive constitutional historical representation of the supervisory cycle and provide the canonical historical input to Contract 012.
+
+Architectural Principle
+
+Contract 011 establishes authoritative constitutional history exclusively from committed supervisory evidence.
+
+It certifies what the supervisory architecture authoritatively knows about a completed supervisory realization.
+
+It does not determine whether the external world perfectly corresponds to that history.
+
+External verification remains outside the authority of this contract. 

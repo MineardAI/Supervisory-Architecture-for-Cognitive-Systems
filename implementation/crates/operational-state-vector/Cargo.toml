@@ -1,0 +1,16 @@
+[package]
+name = "sacs-operational-state-vector"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+canonical-hashing = { package = "sacs-canonical-hashing", path = "../canonical-hashing" }
+canonical-identity = { package = "sacs-canonical-identity", path = "../canonical-identity" }
+canonical-serialization = { package = "sacs-canonical-serialization", path = "../canonical-serialization" }
+canonical-versioning = { package = "sacs-canonical-versioning", path = "../canonical-versioning" }
+commitment-engine = { package = "sacs-commitment-engine", path = "../commitment-engine" }
+failure-model = { package = "sacs-failure-model", path = "../failure-model" }
+sacs-observation = { path = "../observation" }
+sacs-state-estimation = { package = "sacs-state-estimation", path = "../state-estimation" }

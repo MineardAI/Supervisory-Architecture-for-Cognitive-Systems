@@ -1,0 +1,163 @@
+SACS Contract 011 — Realization Certification, Supervisory Provenance, and Audit
+Part II — Realization Certification
+Section 6 — Execution and Continuity Evidence Intake
+Purpose
+
+Section 6 establishes the constitutional intake authority for Realization Certification.
+
+Its purpose is to receive, identify, and bind the committed constitutional evidence required to begin realization certification.
+
+This section determines whether the required committed historical evidence exists and belongs to the same supervisory realization context.
+
+It does not determine admissibility, certification, historical outcome, or provenance.
+
+Constitutional Responsibility
+
+Execution and Continuity Evidence Intake SHALL:
+
+receive the committed constitutional inputs required for realization certification;
+verify that all mandatory constitutional inputs are present;
+establish the supervisory realization context;
+bind received artifacts to a single realization-certification context;
+preserve the identity and integrity of every received artifact.
+
+Successful completion of this section authorizes progression to Evidence Identity and Binding Validation.
+
+Required Constitutional Inputs
+
+Execution and Continuity Evidence Intake SHALL require exactly one of each of the following committed artifacts:
+
+Committed Execution Disposition (Contract 009)
+Committed Supervisory Continuity Record (Contract 010)
+
+Each artifact SHALL already possess:
+
+immutable commitment identity;
+constitutional authority;
+originating contract identity;
+commitment timestamp;
+integrity reference.
+
+No additional supervisory authority may be introduced during intake.
+
+Intake Context
+
+Every realization-certification process SHALL establish exactly one Realization Certification Context.
+
+The context SHALL uniquely identify:
+
+supervisory cycle identity;
+realization identity;
+execution identity;
+supervisory continuity identity;
+applicable constitutional version;
+registry snapshot references;
+schema version references.
+
+All subsequent sections SHALL operate exclusively within this established context.
+
+No section may silently change the realization-certification context.
+
+Intake Validation
+
+Execution and Continuity Evidence Intake SHALL determine only:
+
+whether every mandatory committed artifact is present;
+whether each artifact is readable;
+whether commitment identity is available;
+whether required integrity references are present;
+whether the artifacts may enter constitutional validation.
+
+This section SHALL NOT determine:
+
+admissibility;
+authenticity;
+certification;
+supervisory correctness;
+lineage completeness;
+replay eligibility.
+
+Those determinations belong to later sections.
+
+Intake Preservation
+
+Upon successful intake:
+
+every received artifact SHALL remain immutable;
+artifact identifiers SHALL remain unchanged;
+commitment identifiers SHALL remain unchanged;
+originating authority SHALL remain unchanged;
+integrity references SHALL remain unchanged.
+
+Contract 011 SHALL preserve every received artifact exactly as committed.
+
+Intake Failure
+
+Execution and Continuity Evidence Intake SHALL terminate immediately if any mandatory constitutional input is unavailable.
+
+Representative failure conditions include:
+
+REALIZATION_INPUT_MISSING
+
+EXECUTION_DISPOSITION_MISSING
+
+SUPERVISORY_CONTINUITY_RECORD_MISSING
+
+COMMITMENT_IDENTIFIER_MISSING
+
+INTEGRITY_REFERENCE_MISSING
+
+CONSTITUTIONAL_VERSION_UNAVAILABLE
+
+This section SHALL NOT attempt to:
+
+reconstruct missing inputs;
+substitute alternate artifacts;
+request newer committed artifacts;
+infer absent supervisory evidence.
+
+Failure SHALL be represented explicitly.
+
+Constitutional Output
+
+Successful completion of this section SHALL produce exactly one:
+
+Realization Evidence Intake Record
+
+The Realization Evidence Intake Record SHALL contain:
+
+realization-certification context;
+identities of received committed artifacts;
+commitment identifiers;
+originating contract identities;
+registry references;
+schema references;
+intake timestamp;
+intake completion status.
+
+The Intake Record is not a committed historical artifact.
+
+It is an internal constitutional working artifact that authorizes progression to the next stage.
+
+Architectural Constraints
+
+Execution and Continuity Evidence Intake SHALL remain a pure intake authority.
+
+It SHALL NOT:
+
+certify realization;
+validate evidence authenticity;
+evaluate execution outcome;
+determine supervisory continuity;
+construct historical records;
+construct provenance;
+perform replay;
+perform audit.
+
+Its sole responsibility is establishing a complete and well-defined constitutional intake context.
+
+Fundamental Intake Principle
+
+The defining principle of this section is:
+
+Execution and Continuity Evidence Intake SHALL establish one complete and immutable realization-certification context using only committed constitutional artifacts. It SHALL determine only the presence and identity of required evidence, introducing no supervisory interpretation, certification, or historical judgment.

@@ -1,0 +1,185 @@
+SACS Contract 011 — Realization Certification, Supervisory Provenance, and Audit
+Section 15 — Realization Certification Failure
+Purpose
+
+Section 15 establishes the constitutional authority governing failure to certify a supervisory realization.
+
+Where Realization Certification cannot successfully produce a Committed Realization Record, this section defines the exclusive failure representation, its authority, and its constitutional consequences.
+
+This section ensures that unsuccessful realization certification is represented explicitly, deterministically, and immutably.
+
+Constitutional Responsibility
+
+Realization Certification Failure SHALL:
+
+represent unsuccessful realization certification;
+preserve every committed constitutional artifact received during Stage One;
+explicitly record the constitutional reason certification could not be completed;
+prevent construction of an authoritative historical realization;
+terminate Stage One deterministically.
+
+Successful realization certification SHALL NOT produce a Realization Certification Failure.
+
+Constitutional Identity
+
+A Realization Certification Failure is the exclusive constitutional representation that Stage One could not establish an authoritative historical realization.
+
+It represents:
+
+failure of certification;
+not failure of supervision;
+not failure of runtime execution;
+not failure of supervisory continuity.
+
+Its authority is limited to recording that historical certification could not constitutionally be completed.
+
+Failure Classes
+
+Every realization-certification failure SHALL resolve to one—and only one—canonical failure class.
+
+Representative classes include:
+
+Intake Failures
+REALIZATION_INPUT_MISSING
+
+EXECUTION_DISPOSITION_MISSING
+
+SUPERVISORY_CONTINUITY_RECORD_MISSING
+Identity and Binding Failures
+SUPERVISORY_CYCLE_MISMATCH
+
+REALIZATION_IDENTITY_MISMATCH
+
+CROSS_CYCLE_EVIDENCE
+
+UNRESOLVABLE_BINDING
+Admissibility Failures
+REALIZATION_EVIDENCE_INSUFFICIENT
+
+REQUIRED_EVIDENCE_INCOMPLETE
+
+EVIDENCE_NOT_ADMISSIBLE
+Timeline Failures
+REALIZATION_TIMELINE_INDETERMINATE
+
+TEMPORAL_ORDER_CONFLICT
+
+EVENT_SEQUENCE_AMBIGUOUS
+Outcome Classification Failures
+REALIZATION_OUTCOME_CONFLICT
+
+MULTIPLE_VALID_OUTCOMES
+
+NO_CONSTITUTIONAL_OUTCOME
+Certification Failures
+REALIZATION_NOT_CERTIFIABLE
+
+CERTIFICATION_REQUIREMENTS_UNSATISFIED
+
+UNRESOLVED_CONSTITUTIONAL_CONFLICT
+
+REALIZATION_CERTIFICATION_FAULT
+Commitment Failures
+REALIZATION_COMMITMENT_FAILED
+
+COMMITMENT_ATOMICITY_FAILURE
+
+REALIZATION_AUTHORITY_CONFLICT
+
+IMMUTABILITY_VIOLATION
+
+Implementations SHALL NOT introduce implementation-specific constitutional failure classes.
+
+Failure Representation
+
+Every Realization Certification Failure SHALL include, at minimum:
+
+Constitutional Context
+Supervisory Cycle Identifier
+Realization Identifier
+Realization Certification Context
+Constitutional Version
+Failure Identity
+Failure Identifier
+Failure Class
+Failure Timestamp
+Constitutional Basis
+Failed constitutional determination
+Supporting committed artifact references
+Relevant integrity references
+Determinism Information
+Registry Snapshot References
+Schema Version
+Commitment Context
+
+The failure representation SHALL itself be deterministic.
+
+Failure Consequences
+
+Upon Realization Certification Failure:
+
+no Constructed Realization Record SHALL exist;
+no Committed Realization Record SHALL exist;
+Stage Two SHALL NOT begin;
+no Supervisory Cycle Record SHALL be constructed.
+
+The supervisory cycle SHALL remain represented only by the committed artifacts produced before Contract 011 together with the committed certification failure.
+
+Preservation Requirements
+
+Failure SHALL preserve:
+
+committed execution history;
+committed supervisory continuity;
+constitutional authority;
+supervisory identity;
+integrity references;
+temporal information.
+
+Failure SHALL NOT:
+
+discard evidence;
+rewrite history;
+reconstruct missing artifacts;
+reinterpret supervisory decisions.
+Architectural Constraints
+
+Realization Certification Failure SHALL NOT:
+
+certify realization;
+create alternate historical records;
+initiate provenance construction;
+authorize replay beyond available committed evidence;
+authorize audit conclusions beyond the represented failure.
+
+Its sole authority is representing unsuccessful constitutional certification.
+
+Relationship to Stage Two
+
+A Realization Certification Failure SHALL terminate Stage One.
+
+Accordingly:
+
+Stage One
+        │
+        ├──────────────►
+        │
+Committed Realization Record
+        │
+        ▼
+Stage Two
+
+or
+
+Realization Certification Failure
+        │
+        ▼
+Stage Terminates
+
+No implementation SHALL permit Stage Two to consume a certification failure as though it were a Committed Realization Record.
+
+Fundamental Failure Principle
+
+The defining principle of this section is:
+
+Where Contract 011 cannot constitutionally establish an authoritative supervisory realization, it SHALL produce exactly one explicit Realization Certification Failure. Failure SHALL preserve every committed constitutional determination established before certification while authorizing no historical realization, no supervisory provenance, and no alternate constitutional history.

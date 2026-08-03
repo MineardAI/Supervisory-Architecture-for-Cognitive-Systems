@@ -1,0 +1,11 @@
+[package]
+name = "sacs-inference-control"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+canonical-hashing = { package = "sacs-canonical-hashing", path = "../canonical-hashing" }
+canonical-serialization = { package = "sacs-canonical-serialization", path = "../canonical-serialization" }
+sacs-controller = { path = "../controller" }

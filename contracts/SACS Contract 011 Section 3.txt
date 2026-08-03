@@ -1,0 +1,184 @@
+SACS Contract 011 — Realization Certification, Supervisory Provenance, and Audit
+Section 3 — Authority Boundary
+Purpose
+
+Section 3 establishes the constitutional authority boundaries governing Contract 011.
+
+It defines precisely what Contract 011 is authorized to determine, what artifacts it may construct and commit, and which constitutional responsibilities remain exclusively assigned to other contracts.
+
+This section preserves the doctrine of single constitutional authority, ensuring that every supervisory decision, transformation, and historical representation has one—and only one—authoritative owner.
+
+Constitutional Authority
+
+Contract 011 is the exclusive constitutional authority responsible for:
+
+certifying authoritative supervisory realization from committed execution and supervisory continuity evidence;
+constructing the canonical Realization Record;
+committing the authoritative Realization Record;
+resolving committed supervisory artifacts for whole-cycle provenance;
+constructing the canonical Supervisory Cycle Record;
+committing the authoritative Supervisory Cycle Record;
+preserving constitutional lineage, identity, authority, and temporal relationships;
+supporting deterministic replay, audit, disclosure, and historical retention using committed constitutional history.
+
+No other contract SHALL perform these responsibilities.
+
+Constitutional Inputs
+
+Contract 011 SHALL consume only committed constitutional artifacts.
+
+Its primary constitutional inputs SHALL include:
+
+Committed Execution Disposition produced by Contract 009;
+Committed Supervisory Continuity Record produced by Contract 010.
+
+Additional committed artifacts referenced during provenance construction SHALL be consumed only as historical evidence and SHALL remain immutable.
+
+Contract 011 SHALL NOT consume:
+
+raw observations;
+uncommitted supervisory state;
+proposed controller outputs;
+proposed translation artifacts;
+runtime implementation state;
+speculative evidence;
+inferred historical events.
+Constitutional Outputs
+
+Contract 011 SHALL produce only committed historical artifacts.
+
+The canonical outputs of this contract are:
+
+Committed Realization Record
+
+Committed Supervisory Cycle Record
+
+Where certification or provenance cannot be completed, Contract 011 SHALL instead produce the explicit committed failure defined by this contract.
+
+No additional canonical historical artifact may be introduced by implementation.
+
+Relationship to Previous Contracts
+
+Contract 011 SHALL preserve the constitutional authority established by preceding contracts.
+
+Accordingly:
+
+Contract 009 exclusively determines execution disposition.
+
+Contract 011 SHALL NOT:
+
+reconsider execution decisions;
+apply deferred execution;
+alter execution outcomes;
+reinterpret execution authority.
+
+Contract 010 exclusively determines supervisory continuity.
+
+Contract 011 SHALL NOT:
+
+recompute supervisory modes;
+evaluate guard transitions;
+modify dwell decisions;
+reopen continuity determinations.
+
+Every committed artifact received from Contracts 009 and 010 SHALL be accepted as constitutionally authoritative.
+
+Relationship to Contract 012
+
+Contract 011 establishes internal constitutional history.
+
+Contract 012 evaluates that history against evidence outside the constitutional supervisory pipeline.
+
+Accordingly, Contract 011 SHALL NOT:
+
+perform external verification;
+determine objective physical truth;
+certify external observations;
+validate implementation correctness beyond committed supervisory evidence;
+replace external audit.
+
+Likewise, Contract 012 SHALL NOT:
+
+modify committed historical artifacts;
+reinterpret supervisory authority;
+alter constitutional lineage;
+replace committed realization history.
+
+The boundary between Contracts 011 and 012 SHALL remain immutable.
+
+Authority Preservation
+
+Contract 011 SHALL preserve without modification:
+
+artifact identity;
+artifact authority;
+artifact lineage;
+temporal ordering;
+uncertainty representation;
+execution disposition;
+supervisory continuity determination;
+commitment identity;
+constitutional semantics.
+
+Authority SHALL flow through Contract 011 unchanged.
+
+The contract may assemble and certify history, but it SHALL NOT create new supervisory authority.
+
+Constitutional Prohibitions
+
+Contract 011 SHALL NOT:
+
+generate supervisory objectives;
+estimate system state;
+construct operational profiles;
+evaluate controller behavior;
+translate supervisory intent;
+issue inference commands;
+execute runtime actions;
+perform runtime scheduling;
+reconstruct missing artifacts;
+infer absent evidence;
+silently complete incomplete history;
+substitute newer registry definitions;
+use implementation-specific heuristics to alter historical meaning.
+
+Every constitutional determination SHALL be derived solely from committed supervisory evidence.
+
+Single-Authority Principle
+
+Every constitutional question addressed by Contract 011 SHALL have exactly one authoritative determination.
+
+Specifically:
+
+one realization certification authority;
+one realization commitment authority;
+one provenance construction authority;
+one provenance commitment authority;
+one audit authority;
+one replay authority.
+
+No implementation SHALL distribute these constitutional authorities across independent competing decision processes.
+
+Authority Monotonicity
+
+Contract 011 SHALL be authority preserving.
+
+For every committed artifact received:
+
+authority may be preserved;
+authority may be referenced;
+authority may be certified;
+authority may be organized into constitutional lineage.
+
+Authority SHALL NEVER be:
+
+expanded;
+weakened;
+reinterpreted;
+transferred;
+replaced.
+Fundamental Authority Principle
+
+The defining authority principle of Contract 011 is:
+
+Contract 011 is the exclusive constitutional authority for transforming committed supervisory execution history into authoritative constitutional history. It SHALL preserve every authority established by preceding contracts while introducing no new supervisory authority, reopening no prior constitutional determination, and issuing no claims beyond the committed evidence it receives.

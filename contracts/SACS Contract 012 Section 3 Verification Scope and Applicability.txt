@@ -1,0 +1,598 @@
+# SACS Contract 012 — External Verification Profile and Evidence Interface
+
+## Section 3 — Verification Scope and Applicability
+
+### Purpose
+
+Section 3 defines when Contract 012 applies, what may become a verification subject, what kinds of claims may be submitted, and the constitutional limits of every verification scope.
+
+Contract 012 SHALL operate only when an explicitly authorized verification purpose, verification subject, Verification Profile, and external verification authority have been identified.
+
+The existence of a committed historical artifact does not by itself require external verification.
+
+The existence of a Verification Profile does not by itself authorize every artifact to be submitted under that profile.
+
+Applicability SHALL be established explicitly.
+
+---
+
+# Constitutional Question
+
+Section 3 answers:
+
+> **Which committed SACS artifacts and claims are eligible for external verification under one declared Verification Profile, and what exact boundaries constrain that verification?**
+
+The answer SHALL be determined without:
+
+* altering the verification subject;
+* inferring unstated claims;
+* extending verification to unrelated artifacts;
+* treating historical commitment as verification;
+* treating profile availability as submission authorization.
+
+---
+
+# Verification Applicability
+
+Contract 012 applies only when all of the following exist:
+
+1. one eligible immutable verification subject;
+2. one explicit verification purpose;
+3. one authorized Verification Profile;
+4. one applicable Verification Requirement Set;
+5. one recognized external verification authority;
+6. one declared verification scope;
+7. one cycle-bound verification configuration;
+8. sufficient evidence-resolution authority to attempt package construction.
+
+If any mandatory applicability condition is absent, unresolved, incompatible, or unauthorized, Contract 012 SHALL NOT construct a canonical Verification Submission.
+
+The result SHALL be an explicit verification-preparation failure.
+
+---
+
+# Verification Subject Classes
+
+The primary Contract 012 verification subject is:
+
+```text
+Committed Supervisory Cycle Record
+```
+
+A Verification Profile MAY authorize verification of a narrower immutable artifact where the artifact remains fully bound to its constitutional history.
+
+Eligible subject classes MAY include:
+
+* Committed Supervisory Cycle Record;
+* Committed Realization Record;
+* Committed Supervisory Continuity Record;
+* Committed Execution Disposition;
+* Committed Translation Transaction;
+* Committed Control Command;
+* Committed Operational Profile;
+* Committed Reference State;
+* Committed Objective Set;
+* Committed Governance Snapshot;
+* Committed Operational State Vector;
+* committed conformance or implementation declarations explicitly governed by Contract 012.
+
+A narrower artifact SHALL NOT be treated as independent of its lineage where the verification claim depends upon upstream authority or provenance.
+
+For example:
+
+```text
+Committed Control Command
+```
+
+MAY be the direct verification subject for a bounded-control claim, but the evidence package MAY still be required to include:
+
+* the applicable Committed Operational State Vector;
+* the Committed Governance Snapshot;
+* the Committed Objective Set;
+* the Committed Operational Profile;
+* the Committed Reference State;
+* the controller configuration;
+* the numeric profile;
+* the Controller Commitment Record.
+
+Direct subject identity and required evidence scope are distinct.
+
+---
+
+# Ineligible Verification Subjects
+
+The following SHALL NOT serve as authoritative verification subjects unless a future contract explicitly grants that authority:
+
+* mutable implementation state;
+* uncommitted telemetry;
+* proposed artifacts;
+* constructed but uncommitted artifacts;
+* incomplete historical assemblies;
+* undocumented runtime assertions;
+* implementation logs without constitutional binding;
+* informal summaries;
+* audit narratives lacking exact artifact identity;
+* replay outputs offered as replacements for history;
+* externally supplied claims that cannot be bound to a SACS artifact;
+* silently reconstructed evidence.
+
+A `Replay Verification Result` MAY be included as supporting evidence where a Verification Profile permits it.
+
+It SHALL NOT replace the committed subject.
+
+An `Audit Representation` MAY be included as supporting evidence.
+
+It SHALL NOT become the source of historical authority.
+
+---
+
+# Verification Purpose
+
+Every Contract 012 operation SHALL declare one verification purpose.
+
+The verification purpose identifies why external verification is being requested.
+
+Permitted purpose classes MAY include:
+
+```text
+CONFORMANCE
+DETERMINISM
+BOUNDARY_PRESERVATION
+AUTHORITY_PRESERVATION
+TEMPORAL_ATOMICITY
+LINEAGE_INTEGRITY
+NUMERIC_CONFORMANCE
+STABILITY_PROPERTY
+GUARD_RELIABILITY
+RESET_CONTRACTION
+DWELL_TIME_CONFORMANCE
+TRANSLATION_EQUIVALENCE
+EXECUTION_DISPOSITION_CONFORMANCE
+REALIZATION_PROVENANCE
+AUDITABILITY
+IMPLEMENTATION_CAPABILITY
+```
+
+A Verification Profile SHALL define which purpose classes it supports.
+
+An implementation SHALL NOT invent an unregistered purpose label and treat it as constitutionally meaningful.
+
+---
+
+# Claim Scope
+
+Every submitted claim SHALL be explicit.
+
+A claim SHALL identify at least:
+
+```text
+claim_id
+claim_type
+claim_statement
+verification_subject_id
+verification_subject_type
+verification_profile_id
+verification_requirement_set_id
+verification_method_set
+applicable_contract_versions
+applicable_registry_versions
+applicable_schema_versions
+implementation_identity
+implementation_version
+numeric_profile_id, where applicable
+cycle_scope
+temporal_scope
+declared_assumptions
+declared_exclusions
+claim_hash
+```
+
+A claim SHALL be narrow enough that an external verifier can determine:
+
+* what property is asserted;
+* which artifact or implementation is covered;
+* which evidence is relevant;
+* which methods may be used;
+* which limitations apply;
+* what would constitute verification failure or inconclusiveness.
+
+Vague claims such as the following SHALL NOT be canonical:
+
+* “the system is safe”;
+* “the system works correctly”;
+* “the implementation is trustworthy”;
+* “the architecture is verified”;
+* “the model is aligned”;
+* “the cycle is valid.”
+
+Such statements MAY appear only when decomposed into registered, testable, bounded claims.
+
+---
+
+# Claim Granularity
+
+A Verification Profile SHALL define the permitted granularity of claims.
+
+Claim granularity MAY be:
+
+* artifact-level;
+* transformation-level;
+* cycle-level;
+* contract-level;
+* implementation-level;
+* capability-profile-level;
+* bounded multi-cycle;
+* bounded deployment-instance-level.
+
+A claim covering multiple cycles SHALL identify every included cycle or an exact deterministic range.
+
+Terms such as:
+
+```text
+all cycles
+current implementation
+latest version
+normal operation
+production behavior
+```
+
+SHALL NOT define canonical scope unless the applicable profile provides an exact immutable resolution rule.
+
+---
+
+# Subject Scope and Evidence Scope
+
+Verification subject scope and evidence scope SHALL remain distinct.
+
+The verification subject is the artifact, transformation, implementation, or property being evaluated.
+
+The evidence scope is the exact set of artifacts and supporting materials permitted or required to evaluate the claim.
+
+Formally:
+
+[
+\text{Verification Subject}
+\neq
+\text{Verification Evidence Set}
+]
+
+The evidence scope MAY be broader than the direct subject scope.
+
+It SHALL NOT be narrower than the minimum evidence required by the Verification Profile.
+
+---
+
+# Temporal Scope
+
+Every verification claim SHALL define its temporal scope.
+
+The temporal scope MAY identify:
+
+* one supervisory cycle;
+* one realization interval;
+* one bounded sequence of cycles;
+* one implementation build;
+* one deployment interval;
+* one Verification Profile validity interval;
+* one external result validity interval.
+
+A result SHALL NOT be presumed valid outside its declared temporal scope.
+
+Verification of one completed cycle does not verify future cycles.
+
+Verification of one implementation build does not verify later builds.
+
+Verification of one deployment interval does not verify operation outside that interval.
+
+---
+
+# Version Scope
+
+Every verification scope SHALL bind exact versions where those versions affect meaning or reproducibility.
+
+Required version bindings MAY include:
+
+* SACS contract versions;
+* artifact schema versions;
+* registry versions;
+* Verification Profile version;
+* Verification Requirement Set version;
+* verification method versions;
+* implementation version;
+* compiler or build identity, where required;
+* numeric profile version;
+* serialization profile version;
+* external verifier version.
+
+A verification result bound to one version SHALL NOT silently transfer to another version.
+
+Compatibility SHALL be explicit.
+
+Similarity SHALL NOT establish equivalence.
+
+---
+
+# Implementation Scope
+
+A verification claim MAY apply to:
+
+* one implementation instance;
+* one implementation build;
+* one declared capability profile;
+* one configuration;
+* one deployment environment;
+* one runtime adapter;
+* one verified interface boundary.
+
+An implementation-level claim SHALL define the exact implementation identity.
+
+A claim covering a class of implementations SHALL require a Verification Profile that explicitly permits class-level reasoning and defines the required equivalence conditions.
+
+One conforming implementation SHALL NOT establish verification status for all implementations of SACS.
+
+---
+
+# Environment Scope
+
+Where runtime environment may affect the verified property, the claim SHALL bind the applicable environment.
+
+Environment bindings MAY include:
+
+```text
+hardware_identity
+operating_system
+runtime_version
+dependency_set
+execution_container
+deployment_region
+clock_profile
+cryptographic_profile
+resource_limits
+external_service_versions
+```
+
+A Verification Profile SHALL state which environment bindings are mandatory.
+
+A result obtained in one environment SHALL NOT automatically apply to another environment.
+
+---
+
+# Verification Method Scope
+
+Every claim SHALL identify the permitted or required verification methods.
+
+Method classes MAY include:
+
+```text
+STATIC_ANALYSIS
+SCHEMA_VALIDATION
+FORMAL_ANALYSIS
+MODEL_CHECKING
+NUMERIC_ANALYSIS
+DETERMINISTIC_REPLAY
+SIMULATION
+FAULT_INJECTION
+PROPERTY_TESTING
+RUNTIME_OBSERVATION
+PROVENANCE_INSPECTION
+CRYPTOGRAPHIC_INTEGRITY_CHECK
+CROSS_IMPLEMENTATION_COMPARISON
+HUMAN_REVIEW
+```
+
+Method availability does not determine claim validity.
+
+The external verifier determines whether the performed methods satisfy the applicable Verification Profile.
+
+Contract 012 only preserves the requested, permitted, required, and actually reported method bindings.
+
+---
+
+# Scope Reduction
+
+Contract 012 MAY reduce a proposed verification scope where:
+
+* the requested subject exceeds profile applicability;
+* required evidence is unavailable;
+* version compatibility is unresolved;
+* the external verifier is not authorized for the full scope;
+* a claim is too broad to be testable;
+* the evidence package supports only a narrower claim;
+* mandatory exclusions apply.
+
+Scope reduction SHALL be explicit.
+
+It SHALL produce a new claim identity or an explicit scope-reduction record.
+
+Contract 012 SHALL NOT silently narrow a claim while retaining the original claim identity.
+
+---
+
+# Scope Expansion Prohibition
+
+Contract 012 SHALL NOT broaden:
+
+* the verification subject;
+* claim meaning;
+* temporal coverage;
+* implementation coverage;
+* version coverage;
+* environment coverage;
+* method authority;
+* evidence interpretation;
+* external result applicability.
+
+Formally, for submitted scope (S_s) and registered result scope (S_r):
+
+[
+S_r \subseteq S_s
+]
+
+The registered result scope MAY equal the submitted scope or be narrower.
+
+It SHALL NOT exceed the submitted scope.
+
+---
+
+# Multi-Claim Submissions
+
+One Committed Verification Submission MAY contain multiple claims only where the applicable Verification Profile permits a multi-claim submission.
+
+Each claim SHALL retain:
+
+* an independent claim identity;
+* an independent scope;
+* an independent evidence mapping;
+* an independent result status;
+* independent limitations and exclusions.
+
+A successful result for one claim SHALL NOT imply success for another claim within the same submission.
+
+Submission-level status SHALL NOT erase claim-level distinctions.
+
+---
+
+# Cross-Contract Verification
+
+Contract 012 MAY submit claims concerning relationships between multiple SACS contracts.
+
+Examples include:
+
+* authority preservation from Contract 007 through Contract 009;
+* lineage closure from Contract 006 through Contract 011;
+* semantic preservation from control command to translation transaction;
+* consistency between execution disposition and realization history;
+* continuity preservation across Contract 010 and Contract 011.
+
+A cross-contract claim SHALL identify:
+
+* every included contract boundary;
+* every required committed artifact;
+* every relevant transformation;
+* every authority-preservation condition;
+* every permitted method;
+* every required failure condition.
+
+Cross-contract verification SHALL NOT collapse the distinct authorities of the included contracts.
+
+---
+
+# External-System Scope
+
+A Verification Profile MAY include evidence from an external system where the evidence is necessary to evaluate a bounded SACS claim.
+
+External evidence SHALL identify:
+
+* source authority;
+* source identity;
+* source version;
+* evidence type;
+* integrity mechanism;
+* admissibility rule;
+* relationship to the SACS subject;
+* limitations;
+* retention requirements.
+
+Contract 012 SHALL NOT grant constitutional authority to an external artifact merely because it appears in a Verification Evidence Package.
+
+External evidence remains external evidence.
+
+---
+
+# Applicability Decision
+
+Contract 012 SHALL produce one deterministic applicability result before verification-subject binding.
+
+The result SHALL state one of:
+
+```text
+APPLICABLE
+APPLICABLE_WITH_REDUCED_SCOPE
+NOT_APPLICABLE
+UNSUPPORTED
+INCOMPATIBLE
+UNRESOLVED
+PROHIBITED
+```
+
+An `APPLICABLE` result authorizes progression to verification configuration and subject binding.
+
+An `APPLICABLE_WITH_REDUCED_SCOPE` result authorizes progression only under the newly identified scope and claim identity.
+
+All other results SHALL prevent canonical submission construction.
+
+---
+
+# Applicability Determinism
+
+For identical:
+
+* proposed subject;
+* proposed claims;
+* Verification Profile;
+* Verification Requirement Set;
+* registry snapshots;
+* contract versions;
+* implementation identity;
+* environment bindings;
+* declared verification purpose,
+
+Contract 012 SHALL produce the same applicability result.
+
+Applicability SHALL NOT depend upon:
+
+* ambient configuration;
+* mutable registry state;
+* provider defaults;
+* informal operator judgment;
+* undocumented profile interpretation;
+* the anticipated likelihood of a favorable result.
+
+---
+
+# Failure Conditions
+
+Verification applicability SHALL fail explicitly when:
+
+* the subject is not committed;
+* the subject type is not authorized;
+* the profile is unavailable;
+* the profile is inapplicable;
+* the purpose is unsupported;
+* the claim is untestable or unbounded;
+* the claim identity is ambiguous;
+* mandatory versions are unresolved;
+* required environment bindings are absent;
+* the external authority is not recognized;
+* the requested scope exceeds constitutional authority;
+* the claim depends upon reconstructed or substituted history;
+* incompatible claims are combined without profile authorization.
+
+No failure SHALL be converted into a best-effort verification submission.
+
+---
+
+# Prohibitions
+
+Contract 012 SHALL NOT:
+
+* infer verification applicability from historical commitment alone;
+* verify proposed or mutable artifacts;
+* treat an audit finding as an external verdict;
+* create an implied claim;
+* submit an undefined claim;
+* use “latest” as a version-binding rule;
+* treat one verified cycle as representative of all cycles;
+* extend one implementation result to another implementation;
+* expand an external result beyond its declared scope;
+* hide scope reduction;
+* conceal excluded evidence;
+* treat supporting evidence as the verification subject unless explicitly authorized.
+
+---
+
+# Section 3 Invariants
+
+> **Every Contract 012 verification operation SHALL bind exactly one explicit verification purpose, one eligible immutable subject, one authorized Verification Profile, one deterministic applicability result, and one bounded claim scope before evidence construction begins.**
+
+> **No verification claim, submission, external result, or registered status may apply beyond its exact subject, claim, version, temporal, implementation, environment, method, and evidence scope.**

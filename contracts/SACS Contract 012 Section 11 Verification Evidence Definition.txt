@@ -1,0 +1,298 @@
+SACS Contract 012 — External Verification Profile and Evidence Interface
+Section 11 — Verification Evidence Definition
+Purpose
+
+Section 11 defines the canonical constitutional vocabulary of verification evidence recognized by Contract 012.
+
+A Verification Evidence Definition establishes the exact meaning, identity, authority, admissibility rules, integrity requirements, provenance requirements, lifecycle, and relationships of one class of evidence that may participate in external verification.
+
+Verification Evidence Definitions are reusable constitutional artifacts.
+
+They enable Verification Profiles, Verification Requirement Sets, and Verification Evidence Packages to reference evidence classes through stable, versioned constitutional definitions rather than redefining evidence semantics for every verification operation.
+
+This section ensures that every reference to evidence possesses an explicit constitutional meaning before evidence is resolved or assembled.
+
+No Verification Evidence Package may be constructed without first resolving every referenced evidence class through an adopted Verification Evidence Definition.
+
+Constitutional Question
+
+Section 11 answers:
+
+What constitutes constitutional verification evidence?
+
+A Verification Evidence Definition SHALL establish:
+
+what the evidence represents;
+which evidence class it belongs to;
+which verification subjects it may support;
+which claim types it may support;
+which verification methods may consume it;
+how its authority is established;
+how its integrity is preserved;
+how its provenance is represented;
+how its admissibility is determined;
+how its lifecycle is governed.
+
+An evidence name alone SHALL NOT establish constitutional meaning.
+
+Constitutional Identity
+
+The defining constitutional identity of a Verification Evidence Definition is:
+
+A Verification Evidence Definition is one reusable, immutable, versioned constitutional artifact that defines a recognized class of verification evidence without identifying any specific evidence instance, satisfying any verification requirement, or establishing the truth of any verification claim.
+
+A Verification Evidence Definition is not:
+
+a Verification Evidence Instance;
+a Verification Claim;
+a Verification Requirement;
+a Verification Method;
+a Verification Submission;
+an External Verification Result.
+
+Formally:
+
+Verification Evidence Definition
+≠
+Verification Evidence Instance
+
+and
+
+Verification Evidence
+≠
+Verification Claim
+Evidence Authority
+
+Contract 012 owns the constitutional representation, registration, validation, resolution, and supersession of Verification Evidence Definitions.
+
+Contract 012 MAY:
+
+define evidence-definition schemas;
+register approved evidence definitions;
+resolve evidence definitions by identity and version;
+validate definition integrity;
+bind evidence definitions into Verification Profiles;
+reference evidence definitions within Verification Requirement Sets;
+preserve definition lineage;
+preserve supersession relationships.
+
+Contract 012 SHALL NOT:
+
+construct evidence instances;
+determine that evidence satisfies a claim;
+infer evidence classes from implementation behavior;
+silently substitute one evidence class for another;
+weaken admissibility requirements.
+Evidence Definition and Evidence Instance
+
+The distinction SHALL remain:
+
+Verification Evidence Definition
+≠
+Verification Evidence Instance
+
+A Verification Evidence Definition specifies the reusable constitutional meaning of one evidence class.
+
+A Verification Evidence Instance represents one operation-specific realization of that class.
+
+The definition is reusable.
+
+The instance is operation-specific.
+
+Canonical Evidence Definition Structure
+
+Every Verification Evidence Definition SHALL contain at minimum:
+
+verification_evidence_definition_id
+verification_evidence_name
+verification_evidence_version
+evidence_status
+evidence_authority
+evidence_class
+evidence_purpose
+supported_claim_types
+supported_subject_types
+supported_verification_methods
+required_source_classes
+required_commitment_state
+required_integrity_requirements
+required_provenance_requirements
+required_admissibility_requirements
+required_temporal_requirements
+required_version_requirements
+required_lifecycle_rules
+required_relationship_rules
+supersession_rules
+replay_rules
+audit_rules
+evidence_created_at
+evidence_hash
+
+Where applicable, the definition SHALL also identify:
+
+required_registry_snapshots
+required_configuration_bindings
+cryptographic_requirements
+privacy_constraints
+security_constraints
+retention_requirements
+trust_model
+external_standard_mappings
+
+Every mandatory field SHALL be resolved before the definition becomes eligible for use.
+
+Evidence Classes
+
+Contract 012 MAY recognize evidence classes including:
+
+COMMITTED_ARTIFACT
+REGISTRY_SNAPSHOT
+CONFIGURATION_SNAPSHOT
+EXECUTION_TRACE
+REPLAY_ARTIFACT
+CRYPTOGRAPHIC_ATTESTATION
+FORMAL_MODEL
+PROOF_ARTIFACT
+IMPLEMENTATION_BINARY
+RUNTIME_OBSERVATION
+EXTERNAL_REFERENCE
+AUDIT_ARTIFACT
+FAILURE_RECORD
+LINEAGE_RECORD
+
+Each evidence class SHALL be defined through one or more Verification Evidence Definitions.
+
+An evidence-class label SHALL NOT substitute for a versioned Verification Evidence Definition.
+
+Evidence Purpose
+
+Every Verification Evidence Definition SHALL identify the verification purposes it may support.
+
+Examples include:
+
+claim substantiation;
+lineage demonstration;
+integrity validation;
+provenance verification;
+deterministic replay;
+implementation conformance;
+authority preservation;
+temporal verification;
+cryptographic verification.
+
+An evidence definition SHALL NOT be represented as supporting purposes outside its declared capability.
+
+Supported Claim Types
+
+Every Verification Evidence Definition SHALL define the claim types it may support.
+
+Support for a claim type SHALL NOT imply that the evidence alone establishes the truth of that claim.
+
+Evidence contributes to verification.
+
+It does not constitute verification.
+
+Supported Subject Types
+
+Each Verification Evidence Definition SHALL identify the verification subjects to which it applies.
+
+A definition applicable to one subject type SHALL NOT automatically apply to another.
+
+Required Source Classes
+
+Every Verification Evidence Definition SHALL define the classes of sources from which valid evidence instances may originate.
+
+Examples MAY include:
+
+committed constitutional artifacts;
+registry authorities;
+implementation repositories;
+cryptographic authorities;
+runtime instrumentation;
+external verification systems.
+
+An evidence instance originating from an unauthorized source SHALL NOT satisfy the definition.
+
+Evidence Admissibility
+
+Every Verification Evidence Definition SHALL establish the admissibility conditions required for evidence instances belonging to that definition.
+
+Admissibility SHALL remain distinct from sufficiency.
+
+Formally:
+
+Admissible Evidence
+≠
+Sufficient Evidence
+Evidence Integrity
+
+Every Verification Evidence Definition SHALL define the integrity conditions required before an evidence instance may participate in verification.
+
+Integrity requirements MAY include:
+
+cryptographic hashes;
+digital signatures;
+commitment validation;
+schema validation;
+chain-of-custody validation;
+immutable-reference validation.
+
+Integrity establishes authenticity.
+
+It does not establish correctness.
+
+Evidence Provenance
+
+Every Verification Evidence Definition SHALL define the provenance information required of every evidence instance.
+
+Provenance SHALL preserve:
+
+origin;
+producing authority;
+producing contract;
+producing artifact;
+creation time;
+version;
+lineage relationships.
+
+Evidence SHALL NOT lose provenance through later packaging.
+
+Evidence Relationships
+
+A Verification Evidence Definition MAY define constitutional relationships to other evidence definitions.
+
+Relationship types MAY include:
+
+REQUIRES
+SUPPLEMENTS
+DERIVED_FROM
+CORROBORATES
+SUPERSEDES
+CONFLICTS_WITH
+
+Relationships SHALL remain explicit.
+
+Evidence Lifecycle
+
+Every Verification Evidence Definition SHALL define the lifecycle governing evidence instances.
+
+The lifecycle MAY identify:
+
+creation;
+commitment;
+eligibility;
+admissibility;
+supersession;
+expiration;
+archival;
+replay eligibility.
+
+Lifecycle SHALL remain distinct from verification outcome.
+
+Evidence Supersession
+
+Supersession SHALL preserve constitutional lineage.
+
+A superseded evidence definition SHALL remain historically resolvable.
+
+Supersession SHALL NOT invalidate previously committed verification submissions.

@@ -1,0 +1,167 @@
+SACS Contract 011 — Realization Certification, Supervisory Provenance, and Audit
+Part III — Supervisory Provenance
+Section 16 — Supervisory Provenance Authority
+Purpose
+
+Section 16 establishes the constitutional authority governing Supervisory Provenance.
+
+Supervisory Provenance is responsible for transforming one Committed Realization Record, together with the committed supervisory artifacts participating in the same supervisory cycle, into one authoritative constitutional representation of the complete supervisory lineage.
+
+This section establishes the authority, jurisdiction, inputs, outputs, and constitutional limits of Stage Two.
+
+It answers one constitutional question:
+
+What authority does Supervisory Provenance possess?
+
+It does not resolve artifacts, construct lineage, evaluate completeness, commit provenance, perform replay, or perform audit.
+
+Constitutional Identity
+
+Supervisory Provenance is the constitutional authority responsible for assembling the complete lineage of one supervisory cycle from committed constitutional artifacts.
+
+Its purpose is to preserve the complete constitutional history of supervisory operation without altering the authority established by preceding contracts.
+
+Supervisory Provenance organizes constitutional history.
+
+It does not reinterpret constitutional history.
+
+Constitutional Responsibility
+
+Supervisory Provenance SHALL:
+
+consume one Committed Realization Record;
+resolve committed supervisory artifacts belonging to the same supervisory cycle;
+establish canonical constitutional lineage;
+preserve authority relationships;
+preserve temporal relationships;
+preserve artifact identity;
+construct one Supervisory Cycle Record;
+commit one Committed Supervisory Cycle Record.
+
+No other contract SHALL perform these responsibilities.
+
+Constitutional Inputs
+
+Stage Two SHALL consume only committed constitutional artifacts.
+
+Its mandatory input SHALL be:
+
+Committed Realization Record
+
+Additional committed constitutional artifacts MAY include:
+
+Committed Operational Profile
+Committed Reference State
+Committed Control Error
+Committed Control Command
+Committed Translation Transaction
+Committed Execution Disposition
+Committed Supervisory Continuity Record
+
+Every referenced artifact SHALL already possess constitutional authority established by its originating contract.
+
+Supervisory Provenance SHALL NOT consume:
+
+intermediate working artifacts;
+proposed supervisory artifacts;
+runtime state;
+reconstructed history;
+implementation metadata as constitutional evidence.
+Constitutional Outputs
+
+Successful completion of Stage Two SHALL produce exactly one:
+
+Committed Supervisory Cycle Record
+
+Where Stage Two cannot complete successfully, it SHALL instead produce exactly one:
+
+Committed Supervisory Provenance Failure
+
+No alternative constitutional output exists.
+
+Authority Preservation
+
+Supervisory Provenance SHALL preserve:
+
+artifact identity;
+originating constitutional authority;
+supervisory lineage;
+temporal ordering;
+integrity references;
+commitment identity.
+
+It SHALL NOT:
+
+replace constitutional artifacts;
+reinterpret supervisory decisions;
+infer missing lineage;
+construct alternate historical representations.
+
+Every artifact SHALL retain its original constitutional owner.
+
+Constitutional Relationships
+
+The constitutional relationship of Stage Two SHALL be:
+
+Committed Realization Record
+            │
+            ▼
+Artifact Resolution
+            │
+            ▼
+Relationship Resolution
+            │
+            ▼
+Lineage Construction
+            │
+            ▼
+Completeness Evaluation
+            │
+            ▼
+Integrity Evaluation
+            │
+            ▼
+Constructed Supervisory Cycle Record
+            │
+            ▼
+Committed Supervisory Cycle Record
+
+Every constitutional transformation SHALL preserve deterministic lineage.
+
+Jurisdiction
+
+Supervisory Provenance SHALL determine:
+
+constitutional relationships;
+lineage completeness;
+artifact connectivity;
+constitutional traceability.
+
+It SHALL NOT determine:
+
+supervisory objectives;
+execution outcome;
+realization certification;
+controller behavior;
+external verification;
+physical truth.
+
+Those responsibilities belong to earlier or later contracts.
+
+Architectural Constraints
+
+Supervisory Provenance SHALL NOT:
+
+reopen Stage One;
+modify the Committed Realization Record;
+consume uncertified realization artifacts;
+reconstruct missing supervisory history;
+repair incomplete constitutional evidence.
+
+If required lineage cannot be established, the stage SHALL fail explicitly.
+
+Fundamental Authority Principle
+
+The defining principle of this section is:
+
+Supervisory Provenance SHALL deterministically transform one Committed Realization Record and the committed constitutional artifacts of the same supervisory cycle into one authoritative constitutional representation of complete supervisory lineage while preserving every originating authority, identity, temporal relationship, and integrity reference without reconstruction, reinterpretation, or expansion of constitutional authority.

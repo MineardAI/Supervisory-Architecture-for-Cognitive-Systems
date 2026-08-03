@@ -1,0 +1,1610 @@
+Contract 007 — Controller
+
+Section 6 — Control Constraint Set and Authority Space
+
+6.1 Purpose
+
+This section defines the canonical mathematical representation of the authority within which Controller Composition may compute corrective action.
+
+Its defining identity is:
+
+The Committed Control Constraint Set is the immutable, cycle-bound mathematical representation of every bound, restriction, admissible direction, rate limit, and authority condition that constrains Controller Composition for one supervisory cycle.
+
+The Control Constraint Set defines authorized correction space.
+
+It does not define deviation.
+
+It does not compute corrective action.
+
+It does not execute corrective action.
+
+⸻
+
+6.2 Architectural Position
+
+The canonical Controller Composition input boundary is:
+
+Committed Control Error
+        +
+Committed Control Constraint Set
+        +
+Committed Controller State
+        +
+Committed Controller Configuration
+        ↓
+Controller Composition
+        ↓
+Proposed Control Command
+        +
+Proposed Controller State
+
+Each artifact answers a distinct question:
+
+Artifact	Question
+Committed Control Error	What mathematical deviation exists?
+Committed Control Constraint Set	What corrective action is authorized?
+Committed Controller State	What mathematical memory may affect this evaluation?
+Committed Controller Configuration	Which registered controller computation is authorized?
+Committed Control Command	What bounded correction was computed?
+
+These authorities SHALL remain separate.
+
+⸻
+
+6.3 Governing Invariant
+
+For every successful Controller Composition evaluation:
+
+u_t \in \mathcal{U}_{\mathrm{authorized},t}
+
+where:
+
+* u_t is the proposed Control Command;
+* \mathcal{U}_{\mathrm{authorized},t} is the Authority Space represented by the Committed Control Constraint Set.
+
+A Control Command outside the committed Authority Space SHALL NOT become canonical.
+
+⸻
+
+6.4 Contract Authority
+
+Contract 007 owns:
+
+* Control Constraint Set semantics;
+* mathematical authority-space representation;
+* constraint-definition registries;
+* cycle-specific constraint binding;
+* action-space compatibility evaluation;
+* constraint intersection;
+* constraint precedence application;
+* saturation semantics;
+* command-rate constraint semantics;
+* admissible-direction semantics;
+* coupled control constraints;
+* constraint validation;
+* authority-space conformance;
+* constraint provenance;
+* Authority Certificates attached to Control Commands.
+
+Contract 007 SHALL NOT:
+
+* author Governance;
+* weaken Governance;
+* select an Operational Profile;
+* alter committed Profile permissions;
+* invent new control authority;
+* create execution permissions;
+* reinterpret external policy;
+* broaden action space to improve controller feasibility.
+
+⸻
+
+6.5 Authority Sources
+
+The Committed Control Constraint Set SHALL be derived only from committed authority-bearing or configuration-bearing artifacts.
+
+Permitted sources include:
+
+Committed Governance Snapshot
+Committed Operational Profile
+Committed Controller Configuration
+Committed Controller Numeric Profile
+registered Control Constraint Definitions
+registered action-space definitions
+authorized prior-cycle command baseline
+authorized prior-cycle execution-derived projection
+
+Evaluation artifacts such as candidate sets, compatibility reports, selection reports, or uncommitted registry entries SHALL NOT be consumed directly.
+
+⸻
+
+6.6 Constraint Definition
+
+A Control Constraint Definition is a reusable registry artifact that specifies one class of mathematical restriction.
+
+A definition SHALL include:
+
+control_constraint_definition_id
+constraint_version
+constraint_name
+constraint_class
+semantic_definition
+authority_source_classes
+action_space_definition_ids
+mathematical_form
+parameter_schema_id
+unit_profile_id
+numeric_profile_requirements
+precedence_class
+combination_operator
+empty_set_behavior
+validation_rule_ids
+conformance_test_profile_id
+schema_version
+registry_version
+definition_hash
+
+Optional fields MAY include:
+
+state_dependency_declaration
+command_history_dependency
+execution_receipt_dependency
+coupling_structure
+convexity_class
+differentiability_class
+continuity_class
+solver_requirements
+verification_claim_ids
+
+A Control Constraint Definition is reusable.
+
+It is not a cycle-specific authority artifact.
+
+⸻
+
+6.7 Committed Control Constraint Configuration
+
+A Committed Control Constraint Configuration binds registered constraint definitions and parameters to one supervisory cycle before final Authority Space construction.
+
+It SHALL include:
+
+control_constraint_configuration_id
+cycle_id
+committed_profile_id
+governance_snapshot_id
+controller_configuration_id
+action_space_definition_id
+constraint_definition_references
+constraint_parameter_bindings
+rate_limit_baseline_semantics
+numeric_profile_id
+registry_versions
+binding_status
+committed_at
+provenance_id
+artifact_hash
+
+The configuration SHALL identify the authorized inputs to constraint construction.
+
+It SHALL not itself claim that all constraints have been successfully resolved into a valid Authority Space.
+
+⸻
+
+6.8 Canonical Producer
+
+Contract 006 SHALL select and commit the supervisory configuration references required for constraint construction.
+
+These MAY include:
+
+* Governance constraint references;
+* Profile constraint references;
+* action-space references;
+* saturation-profile references;
+* rate-limit-profile references;
+* prohibited-direction references;
+* controller compatibility restrictions.
+
+Contract 007 SHALL perform a deterministic Control Constraint Binding operation.
+
+The binding operation SHALL:
+
+1. consume the committed upstream references;
+2. retrieve only the exact registered definitions identified by those references;
+3. validate version and schema compatibility;
+4. materialize cycle-specific mathematical constraints;
+5. resolve them under registered precedence and intersection rules;
+6. construct one Committed Control Constraint Set.
+
+The binding operation SHALL NOT:
+
+* choose among alternative policies;
+* select a more permissive constraint;
+* discard an upstream restriction;
+* reinterpret the purpose of a Governance rule;
+* widen authority to preserve controller feasibility.
+
+⸻
+
+6.9 Control Constraint Binder
+
+The Control Constraint Binder is the canonical Contract 007 component responsible for producing the Committed Control Constraint Set.
+
+Its defining identity is:
+
+The Control Constraint Binder deterministically materializes already-authorized Governance, Profile, configuration, and history-dependent restrictions into one immutable mathematical Authority Space.
+
+The Binder constructs authority representation.
+
+It does not compute control.
+
+⸻
+
+6.10 Binder Inputs
+
+The Control Constraint Binder SHALL consume, as applicable:
+
+Committed Governance Snapshot
+Committed Operational Profile
+Committed Controller Configuration
+Committed Controller Numeric Profile
+Committed Control Constraint Configuration
+previous Committed Control Command
+authorized execution-derived mathematical projection
+required registry snapshots
+
+Every consumed artifact SHALL belong to the applicable cycle lineage.
+
+Prior-cycle artifacts SHALL be explicitly identified as historical baselines.
+
+⸻
+
+6.11 Binder Output
+
+A successful binding operation SHALL produce exactly one:
+
+Committed Control Constraint Set
+
+An unsuccessful binding operation SHALL produce no nominal Control Constraint Set.
+
+It SHALL produce exactly one:
+
+Control Constraint Binding Failure Artifact
+
+or the canonical incomplete-cycle disposition.
+
+⸻
+
+6.12 Action Space Definition
+
+Every Control Constraint Set SHALL reference a registered Action Space Definition.
+
+The Action Space Definition describes the mathematical domain in which Control Commands exist.
+
+It SHALL include:
+
+action_space_definition_id
+action_space_version
+action_space_name
+coordinate_system_id
+control_dimensions
+dimension_order
+component_semantics
+component_types
+component_units
+component_domains
+nullability_rules
+unsupported_component_semantics
+composition_rules
+serialization_profile_id
+numeric_profile_requirements
+schema_version
+registry_version
+definition_hash
+
+The Action Space Definition defines what a control value means.
+
+It does not determine which values are authorized for a particular cycle.
+
+⸻
+
+6.13 Authority Space
+
+The Authority Space is the subset of the registered Action Space authorized for one cycle.
+
+Conceptually:
+
+\mathcal{U}_{\mathrm{authorized},t}
+=
+\mathcal{U}_{\mathrm{governance},t}
+\cap
+\mathcal{U}_{\mathrm{profile},t}
+\cap
+\mathcal{U}_{\mathrm{configuration},t}
+\cap
+\mathcal{U}_{\mathrm{history},t}
+\cap
+\mathcal{U}_{\mathrm{numeric},t}
+
+where each set represents a committed restriction source.
+
+The effective Authority Space SHALL never be broader than any mandatory upstream authority source.
+
+⸻
+
+6.14 Authority Ordering
+
+Constraint resolution SHALL preserve the authority ordering defined by upstream contracts.
+
+Where two restrictions differ in permissiveness, the effective result SHALL be the equal or more restrictive result unless an upstream authority explicitly defines another lawful resolution.
+
+Conceptually:
+
+\mathcal{U}_{\mathrm{effective}}
+\subseteq
+\mathcal{U}_{i}
+
+for every mandatory authority source \mathcal{U}_{i}.
+
+Contract 007 SHALL NOT treat controller convenience, numerical solvability, or performance preference as authority.
+
+⸻
+
+6.15 Canonical Artifact
+
+Every Committed Control Constraint Set SHALL include:
+
+control_constraint_set_id
+cycle_id
+governance_snapshot_id
+committed_profile_id
+controller_configuration_id
+control_constraint_configuration_id
+action_space_definition_id
+action_space_version
+authority_space_representation
+permitted_control_dimensions
+prohibited_control_dimensions
+component_lower_bounds
+component_upper_bounds
+saturation_constraints
+rate_constraints
+admissible_direction_constraints
+equality_constraints
+inequality_constraints
+coupled_constraints
+discrete_constraints
+conditional_constraints
+history_dependent_constraints
+baseline_artifact_references
+constraint_precedence_record
+constraint_intersection_evidence
+authority_reduction_evidence
+constraint_validity
+numeric_profile_id
+registry_versions
+schema_version
+contract_version
+committed_at
+provenance_id
+artifact_hash
+
+Optional fields MAY include:
+
+convexity_class
+feasibility_class
+constraint_jacobian_definition
+constraint_partitioning
+controller_role_constraints
+composition_branch_constraints
+fallback_authority_space
+safety_authority_space
+restricted_operation_reason
+supersedes_constraint_set_id
+
+The artifact SHALL be immutable.
+
+⸻
+
+6.16 Constraint Classes
+
+The initial Control Constraint vocabulary SHALL include:
+
+DIMENSION_PERMISSION
+COMPONENT_BOUND
+SATURATION
+RATE_LIMIT
+DIRECTIONAL
+EQUALITY
+INEQUALITY
+COUPLED
+NORM_BOUND
+BUDGET
+DISCRETE_SET
+CONDITIONAL
+STATE_DEPENDENT
+HISTORY_DEPENDENT
+ROLE_SPECIFIC
+TOPOLOGY_SPECIFIC
+SAFETY_RESTRICTION
+FALLBACK_RESTRICTION
+NUMERIC_REPRESENTABILITY
+
+A constraint MAY belong to more than one class.
+
+Constraint classes SHALL describe mathematical behavior, not Governance policy language.
+
+⸻
+
+6.17 Permitted Dimensions
+
+A Control Constraint Set SHALL identify every control dimension that Controller Composition may address.
+
+Each dimension SHALL have one status:
+
+PERMITTED
+PERMITTED_RESTRICTED
+FIXED
+ZERO_ONLY
+PROHIBITED
+UNAVAILABLE
+UNRESOLVED
+
+A dimension not explicitly authorized SHALL NOT be presumed permitted.
+
+Absence SHALL NOT imply authority.
+
+⸻
+
+6.18 Prohibited Dimensions
+
+A prohibited control dimension SHALL not receive a nonzero corrective value.
+
+For a prohibited dimension i:
+
+u_{t,i}=0
+
+unless the Action Space Definition identifies a different canonical neutral element.
+
+Controller Composition SHALL NOT encode prohibited control through another dimension to evade the restriction.
+
+⸻
+
+6.19 Component Bounds
+
+Component bounds MAY define:
+
+\underline{u}_{i,t}
+\leq
+u_{i,t}
+\leq
+\overline{u}_{i,t}
+
+Every bound SHALL identify:
+
+* source authority;
+* unit;
+* inclusivity or exclusivity;
+* applicable cycle;
+* applicable controller role;
+* numeric representation;
+* precedence;
+* provenance.
+
+Missing bounds SHALL not be interpreted as infinite authority unless the upstream configuration explicitly declares the dimension unbounded.
+
+⸻
+
+6.20 Saturation Constraints
+
+Saturation constraints define absolute limits on a proposed control value.
+
+A saturation operator MAY be represented as:
+
+\operatorname{sat}(u_i)
+=
+\min
+\left(
+\overline{u}_i,
+\max
+\left(
+\underline{u}_i,
+u_i
+\right)
+\right)
+
+This equation is illustrative.
+
+The registered Saturation Definition SHALL govern exact semantics.
+
+Saturation SHALL:
+
+* preserve the sign and ordering rules declared by the Action Space;
+* operate under the committed Numeric Profile;
+* produce deterministic results;
+* record whether saturation occurred;
+* contribute to the Authority Certificate.
+
+Saturation SHALL NOT broaden any bound.
+
+⸻
+
+6.21 Saturation Placement
+
+A Controller Definition SHALL declare where saturation occurs in its registered evaluation semantics.
+
+Permitted placements MAY include:
+
+CONTROLLER_INSTANCE_OUTPUT
+COMPOSITION_BRANCH_OUTPUT
+ARBITRATION_OUTPUT
+FINAL_COMPOSITION_OUTPUT
+MULTIPLE_REGISTERED_STAGES
+
+Regardless of placement, the final proposed Control Command SHALL satisfy the complete Committed Control Constraint Set.
+
+Intermediate saturation SHALL NOT substitute for final authority validation.
+
+⸻
+
+6.22 Rate Constraints
+
+Rate constraints limit change relative to an explicitly declared canonical baseline.
+
+A rate constraint MAY take the form:
+
+\underline{\Delta u}_{i,t}
+\leq
+u_{i,t}-u_{i,t-1}^{\mathrm{baseline}}
+\leq
+\overline{\Delta u}_{i,t}
+
+The baseline semantic SHALL be one of the registered forms defined by Controller State and Memory, including:
+
+PREVIOUS_COMPUTED_COMMAND
+PREVIOUS_ACCEPTED_COMMAND
+PREVIOUS_APPLIED_COMMAND
+PREVIOUS_ACKNOWLEDGED_COMMAND
+PREVIOUS_CONTROLLER_STATE_OUTPUT
+
+The Control Constraint Set SHALL identify exactly which baseline applies.
+
+⸻
+
+6.23 Rate-Baseline Integrity
+
+Rate constraints SHALL NOT substitute one baseline semantic for another.
+
+In particular:
+
+* previous computed command is not previous applied command;
+* previous accepted command is not previous applied command;
+* previous Controller State output is not an execution receipt;
+* local runtime memory is not a canonical baseline.
+
+When the required baseline is unavailable, the registered failure behavior SHALL apply.
+
+⸻
+
+6.24 Applied-Command Constraints
+
+When a constraint depends on the previously applied runtime value, Contract 007 SHALL consume only a committed execution-derived mathematical projection authorized for supervisory reuse.
+
+Contract 007 SHALL NOT:
+
+* query live runtime state during canonical evaluation;
+* assume that a prior Control Command was executed;
+* infer application from the absence of failure;
+* reconstruct an applied value from noncanonical logs.
+
+Execution semantics remain owned downstream.
+
+Contract 007 consumes only the committed mathematical result needed for control.
+
+⸻
+
+6.25 Directional Constraints
+
+Directional constraints define which directions in the Action Space are admissible.
+
+They MAY include:
+
+* positive-only correction;
+* negative-only correction;
+* cone constraints;
+* tangent-space restrictions;
+* prohibited transition directions;
+* monotone-reduction requirements;
+* signed authority restrictions.
+
+Conceptually:
+
+u_t \in \mathcal{D}_t
+
+where \mathcal{D}_t is the committed admissible-direction set.
+
+Directional constraints constrain action.
+
+They SHALL NOT alter the Control Error artifact.
+
+⸻
+
+6.26 Equality Constraints
+
+Equality constraints MAY be represented as:
+
+A_t u_t=b_t
+
+A registered Equality Constraint Definition SHALL specify:
+
+* matrix or operator semantics;
+* dimensions;
+* units;
+* rank requirements;
+* tolerance rules;
+* Numeric Profile;
+* infeasibility behavior.
+
+Numerical tolerance SHALL not silently transform an equality constraint into an inequality constraint.
+
+⸻
+
+6.27 Inequality Constraints
+
+Inequality constraints MAY be represented as:
+
+C_t u_t\leq d_t
+
+The registered definition SHALL specify:
+
+* ordering semantics;
+* strict or non-strict form;
+* tolerance;
+* scale;
+* feasibility behavior;
+* provenance.
+
+Constraint normalization SHALL preserve the original feasible set.
+
+⸻
+
+6.28 Coupled Constraints
+
+Coupled constraints restrict combinations of control dimensions.
+
+Examples MAY include:
+
+* shared norm bounds;
+* total intervention budgets;
+* mutually exclusive controls;
+* linked gain limits;
+* resource-coupled controls;
+* cross-layer authority restrictions.
+
+A coupled constraint SHALL NOT be decomposed into independent component bounds unless mathematical equivalence is proven under the registered Numeric Profile.
+
+⸻
+
+6.29 Norm Constraints
+
+A norm constraint MAY define:
+
+\lVert u_t\rVert_p\leq \rho_t
+
+where the norm class, weighting, and radius SHALL be registered.
+
+Norm weighting within a Control Constraint Set expresses authority geometry.
+
+It SHALL NOT be confused with Error Representation weighting or controller objective weighting.
+
+⸻
+
+6.30 Control Budgets
+
+A Control Budget constrains aggregate corrective activity.
+
+Budgets MAY be:
+
+PER_CYCLE
+ROLLING_WINDOW
+PROFILE_RESIDENCY
+CONTROLLER_INSTANCE
+COMPOSITION
+DIMENSION_GROUP
+RESOURCE_CLASS
+
+A budget SHALL define:
+
+* measurement operator;
+* applicable interval;
+* initial allocation;
+* prior consumption source;
+* remaining authority;
+* reset semantics;
+* failure behavior.
+
+Budget history capable of affecting the current Control Command SHALL be represented through committed Controller State or another explicitly committed artifact.
+
+⸻
+
+6.31 Discrete Constraints
+
+Some Action Spaces contain discrete or enumerated control values.
+
+A discrete constraint SHALL identify:
+
+allowed_value_set
+prohibited_value_set
+ordering_semantics
+neutral_value
+transition_rules
+minimum_dwell_requirements
+numeric_encoding
+serialization_rules
+
+A controller SHALL NOT generate an unregistered intermediate value and rely on downstream rounding.
+
+Quantization affecting the canonical Control Command belongs inside Contract 007 and SHALL be deterministic.
+
+⸻
+
+6.32 Conditional Constraints
+
+A conditional constraint applies only when its committed activation predicate is satisfied.
+
+Activation predicates SHALL be evaluated only from committed artifacts identified by the constraint definition.
+
+A conditional constraint SHALL include:
+
+activation_rule_id
+activation_input_references
+activation_result
+active_constraint_reference
+inactive_constraint_reference
+precedence
+provenance
+
+The Controller Composition SHALL NOT invent or suppress constraint activation.
+
+⸻
+
+6.33 State-Dependent Constraints
+
+A state-dependent constraint MAY depend on the committed OSV, Reference State, Control Error, or Controller State when explicitly authorized by its definition.
+
+For example:
+
+u_t \in \mathcal{U}(X_t)
+
+State dependence SHALL:
+
+* be declared in the Constraint Definition;
+* use committed state only;
+* preserve deterministic replay;
+* avoid reconstructing hidden state;
+* produce explicit binding evidence.
+
+State-dependent authority SHALL NOT be inferred inside a controller implementation without representation in the Committed Control Constraint Set.
+
+⸻
+
+6.34 Error-Dependent Constraints
+
+A constraint MAY depend on the Committed Control Error when the authorized correction space changes according to deviation geometry.
+
+Such dependence SHALL NOT modify the Control Error.
+
+Instead, the Binder SHALL evaluate the registered relationship and materialize the resulting Authority Space.
+
+This preserves the distinction:
+
+Control Error
+describes deviation
+Control Constraint Set
+describes authorized response space
+
+⸻
+
+6.35 Controller-Role Constraints
+
+A composition MAY assign different authority spaces to different controller roles.
+
+For example:
+
+PRIMARY
+nominal committed action space
+RESTRICTOR
+authority only to reduce or project proposed action
+SAFETY
+authority only within registered safety response space
+FALLBACK
+reduced fallback action space
+ARBITER
+authority to select or combine eligible branch outputs
+MONITOR
+no command-producing authority
+
+Every role-specific Authority Space SHALL be explicit.
+
+Role assignment alone SHALL NOT imply unrestricted authority.
+
+⸻
+
+6.36 Composition-Branch Constraints
+
+In parallel, hierarchical, cascade, ensemble, or hybrid compositions, individual branches MAY operate under distinct local constraint sets.
+
+The composition profile SHALL define:
+
+* branch-local Authority Spaces;
+* shared global Authority Space;
+* intermediate-output constraints;
+* arbitration constraints;
+* final-output constraints.
+
+Every successful final Control Command SHALL satisfy the global Committed Control Constraint Set regardless of branch-local conformance.
+
+⸻
+
+6.37 Safety Authority Space
+
+A Safety Controller SHALL operate only within a committed Safety Authority Space.
+
+A Safety Authority Space MAY permit:
+
+* zeroing a command;
+* restricting dimensions;
+* reducing magnitude;
+* selecting a registered safe correction;
+* invoking a registered reduced-authority fallback;
+* preventing command commitment.
+
+A Safety Controller SHALL NOT gain unrestricted authority merely because its role is labeled “safety.”
+
+Safety authority remains explicitly bounded.
+
+⸻
+
+6.38 Fallback Authority Space
+
+A fallback controller SHALL have its own committed Authority Space.
+
+The fallback space SHALL satisfy:
+
+\mathcal{U}_{\mathrm{fallback}}
+\subseteq
+\mathcal{U}_{\mathrm{nominal}}
+
+unless an upstream Governance artifact explicitly defines a different, still-authorized emergency relation.
+
+Fallback activation SHALL never rely on undocumented expanded authority.
+
+⸻
+
+6.39 Deadbands
+
+A deadband determines when deviation does not produce corrective action.
+
+Deadbanding is therefore ordinarily a control-law or Controller Configuration behavior, not an Error Representation operation.
+
+When used, deadband semantics SHALL be represented in one of two ways:
+
+CONTROL_POLICY_DEADBAND
+AUTHORIZED_ACTION_DEADBAND
+
+A Control Policy Deadband belongs to the Controller Configuration.
+
+An Authorized Action Deadband belongs to the Control Constraint Set only when upstream authority explicitly prohibits action within the declared region.
+
+The two SHALL NOT be conflated.
+
+⸻
+
+6.40 Gain Bounds
+
+The active gain schedule is selected upstream and applied by Contract 007.
+
+Constraint definitions MAY bound legal gain values or gain-dependent outputs.
+
+Contract 007 SHALL NOT:
+
+* select a gain schedule;
+* retune gains to enlarge feasibility;
+* increase gains after a constraint failure;
+* substitute uncommitted gains.
+
+Gain application SHALL remain subordinate to the committed Authority Space.
+
+⸻
+
+6.41 Numeric Representability Constraints
+
+The Numeric Profile may impose representability limits on Control Commands.
+
+These MAY include:
+
+* finite range;
+* precision;
+* quantization;
+* overflow behavior;
+* underflow behavior;
+* rounding mode;
+* interval representation;
+* fixed-point limits.
+
+Numeric representability SHALL restrict canonical output when necessary.
+
+It SHALL never be used to justify exceeding a semantic authority bound.
+
+⸻
+
+6.42 Constraint Precedence
+
+Every Control Constraint Definition SHALL declare a precedence class.
+
+The initial precedence ordering SHOULD include:
+
+GOVERNANCE_PROHIBITION
+GOVERNANCE_BOUND
+PROFILE_RESTRICTION
+COMPATIBILITY_RESTRICTION
+SAFETY_RESTRICTION
+CONTROLLER_CONFIGURATION_BOUND
+HISTORY_DEPENDENT_BOUND
+NUMERIC_REPRESENTABILITY_BOUND
+PREFERENCE_OR_OPTIMIZATION_BOUND
+
+A lower-authority constraint SHALL NOT override a higher-authority restriction.
+
+Where two constraints are jointly satisfiable, both SHALL apply.
+
+Where they conflict, the registered conflict policy SHALL produce the more restrictive lawful result or fail binding.
+
+⸻
+
+6.43 Constraint Intersection
+
+Constraint combination SHALL ordinarily use mathematical intersection:
+
+\mathcal{U}_{\mathrm{effective}}
+=
+\bigcap_{j=1}^{m}\mathcal{U}_{j}
+
+A different combination operator MAY be used only when:
+
+* explicitly declared by the Constraint Definition;
+* semantically justified;
+* deterministic;
+* authority-preserving;
+* compatible with upstream authority ordering.
+
+Union SHALL NOT be used when it would broaden mandatory authority.
+
+⸻
+
+6.44 Duplicate Constraints
+
+Semantically duplicate constraints MAY be normalized into one effective constraint when equivalence is proven.
+
+Normalization SHALL preserve:
+
+* every source reference;
+* strongest applicable restriction;
+* precedence;
+* units;
+* Numeric Profile;
+* provenance.
+
+Duplicate removal SHALL not remove evidence of independent authority sources.
+
+⸻
+
+6.45 Constraint Conflict
+
+A constraint conflict exists when registered restrictions cannot be jointly represented or applied under their declared semantics.
+
+Conflict classes SHOULD include:
+
+SEMANTIC_CONFLICT
+SCHEMA_CONFLICT
+UNIT_CONFLICT
+DOMAIN_CONFLICT
+PRECEDENCE_CONFLICT
+BASELINE_CONFLICT
+NUMERIC_CONFLICT
+AUTHORITY_CONFLICT
+EMPTY_INTERSECTION
+UNRESOLVED_CONDITIONAL
+
+Conflict SHALL NOT be resolved through undocumented implementation preference.
+
+⸻
+
+6.46 Empty Authority Space
+
+The Authority Space may be empty.
+
+An empty Authority Space means that no corrective command is authorized under the committed constraints.
+
+It does not automatically mean that a zero command is authorized.
+
+The Constraint Definition SHALL distinguish:
+
+EMPTY_BUT_NEUTRAL_ALLOWED
+EMPTY_AND_NO_COMMAND_ALLOWED
+EMPTY_REQUIRES_FAILURE
+EMPTY_REQUIRES_FALLBACK
+EMPTY_REQUIRES_WITHHOLD
+
+Controller Composition SHALL follow the committed empty-space disposition.
+
+⸻
+
+6.47 Zero Command Semantics
+
+A zero-valued command SHALL not be assumed universally neutral.
+
+The Action Space Definition SHALL identify the canonical neutral element, if one exists.
+
+Examples where numeric zero may not be neutral include:
+
+* logarithmic controls;
+* categorical controls;
+* multiplicative controls;
+* absolute target controls;
+* non-Euclidean action spaces.
+
+A fallback to zero correction is permitted only when the Action Space and Control Constraint Set declare it valid.
+
+⸻
+
+6.48 Feasibility Status
+
+Every Committed Control Constraint Set SHALL declare one feasibility status:
+
+FEASIBLE
+FEASIBLE_RESTRICTED
+FEASIBLE_DEGENERATE
+EMPTY_NEUTRAL_ALLOWED
+EMPTY_NO_COMMAND
+INCOMPATIBLE
+UNRESOLVED
+FAULTED
+
+Only statuses explicitly permitted by the Controller Configuration SHALL be consumable by Controller Composition.
+
+A nominal-looking constraint set SHALL NOT be committed when construction failed.
+
+⸻
+
+6.49 Constraint Validity
+
+A Control Constraint Set SHALL be validated for:
+
+* cycle consistency;
+* Governance consistency;
+* Profile consistency;
+* Controller Configuration compatibility;
+* Action Space compatibility;
+* Numeric Profile compatibility;
+* unit consistency;
+* dimension consistency;
+* baseline availability;
+* registry-version compatibility;
+* precedence completeness;
+* feasibility;
+* provenance completeness;
+* artifact integrity.
+
+Invalid or unresolved constraint sets SHALL NOT be consumed as nominal authority.
+
+⸻
+
+6.50 Constraint Binding Failure Artifact
+
+A failed binding operation SHALL produce a Control Constraint Binding Failure Artifact containing:
+
+control_constraint_failure_id
+cycle_id
+governance_snapshot_id
+committed_profile_id
+controller_configuration_id
+control_constraint_configuration_id
+failure_stage
+failure_class
+failure_reason
+affected_constraint_definition_ids
+action_space_definition_id
+precedence_status
+intersection_status
+feasibility_status
+baseline_status
+numeric_profile_id
+resulting_authority_disposition
+registry_versions
+schema_version
+occurred_at
+provenance_id
+artifact_hash
+
+The artifact SHALL not masquerade as a valid Control Constraint Set.
+
+⸻
+
+6.51 Failure Classes
+
+Initial constraint-binding failure classes SHOULD include:
+
+SOURCE_ARTIFACT_INVALID
+SOURCE_ARTIFACT_MISSING
+SCHEMA_INCOMPATIBLE
+REGISTRY_INCOMPATIBLE
+ACTION_SPACE_INCOMPATIBLE
+UNIT_INCOMPATIBLE
+DIMENSION_INCOMPATIBLE
+BASELINE_UNAVAILABLE
+PRECEDENCE_UNRESOLVED
+CONSTRAINT_CONFLICT
+EMPTY_AUTHORITY_SPACE
+NUMERIC_UNREPRESENTABLE
+AUTHORITY_EXPANSION_DETECTED
+PROVENANCE_INCOMPLETE
+INTEGRITY_FAILURE
+DETERMINISM_FAILURE
+
+⸻
+
+6.52 Failure Monotonicity
+
+Constraint binding failure SHALL fail toward reduced authority.
+
+Failure SHALL NOT cause:
+
+* removal of a Governance restriction;
+* substitution of a wider Profile bound;
+* omission of a rate limit;
+* replacement with an unrestricted action space;
+* gain expansion;
+* fallback to implementation defaults;
+* use of stale authority without explicit authorization.
+
+When valid authority cannot be established, no nominal Control Command SHALL be produced.
+
+⸻
+
+6.53 Immutability
+
+A Committed Control Constraint Set SHALL never mutate.
+
+Later changes in:
+
+* Governance;
+* Operational Profile;
+* Controller Configuration;
+* Action Space;
+* prior-command baseline;
+* execution-derived baseline;
+* Numeric Profile;
+* registry versions;
+
+SHALL produce a new Control Constraint Set for a new cycle or a corrected artifact with explicit supersession lineage.
+
+⸻
+
+6.54 Cycle Binding
+
+Every Control Constraint Set SHALL be valid only for its declared cycle.
+
+A constraint set SHALL NOT be reused in another cycle merely because its values appear unchanged.
+
+Each new cycle SHALL produce:
+
+* a new binding evaluation;
+* a new constraint-set identifier;
+* current baseline references;
+* current authority evidence;
+* a new artifact hash.
+
+⸻
+
+6.55 Deterministic Replay
+
+The Control Constraint Binder SHALL be replayable from:
+
+Committed Governance Snapshot
+Committed Operational Profile
+Committed Controller Configuration
+Committed Control Constraint Configuration
+Committed Controller Numeric Profile
+required prior command baseline
+required execution-derived projection
+Constraint Definitions
+Action Space Definition
+registry snapshots
+
+Identical canonical inputs SHALL produce:
+
+* the same Authority Space;
+* the same feasibility status;
+* the same precedence resolution;
+* the same binding failure, if any;
+* the same canonical artifact content, subject to identifier policy.
+
+⸻
+
+6.56 Constraint Provenance
+
+Every effective constraint SHALL be traceable to:
+
+* its originating authority artifact;
+* its reusable Constraint Definition;
+* its parameter binding;
+* its precedence class;
+* its combination operator;
+* its final mathematical form;
+* any baseline artifact;
+* its validation result.
+
+No effective restriction may appear without provenance.
+
+No source restriction may disappear without explicit resolution evidence.
+
+⸻
+
+6.57 Authority Reduction Evidence
+
+Every Committed Control Constraint Set SHALL include evidence that the effective Authority Space did not exceed its upstream authorities.
+
+The evidence SHALL establish:
+
+\mathcal{U}_{\mathrm{effective}}
+\subseteq
+\mathcal{U}_{\mathrm{governance}}
+
+and:
+
+\mathcal{U}_{\mathrm{effective}}
+\subseteq
+\mathcal{U}_{\mathrm{profile}}
+
+where those source spaces are applicable.
+
+The evidence MAY use:
+
+* symbolic set inclusion;
+* interval inclusion;
+* polytope containment;
+* enumerated subset verification;
+* registered theorem certificates;
+* deterministic exhaustive validation;
+* registered conservative approximation.
+
+The proof method SHALL be declared.
+
+⸻
+
+6.58 Authority Certificate Relationship
+
+The Committed Control Constraint Set establishes the Authority Space.
+
+The Control Command Authority Certificate proves that a particular command lies within that Authority Space.
+
+These are separate claims:
+
+Constraint Set:
+This is the authorized space.
+Authority Certificate:
+This command belongs to that space.
+
+The Control Constraint Set SHALL not certify a command that has not yet been computed.
+
+⸻
+
+6.59 Constraint Enforcement
+
+Controller Composition SHALL account for all mandatory committed constraints.
+
+Constraint handling MAY occur through:
+
+* intrinsically constrained control computation;
+* projection into the Authority Space;
+* saturation;
+* constrained optimization;
+* deterministic arbitration;
+* safety restriction;
+* final command validation.
+
+Regardless of method, the final proposed Control Command SHALL satisfy every mandatory constraint.
+
+⸻
+
+6.60 Projection Into Authority Space
+
+A Controller Composition MAY project an unconstrained candidate command v_t into the committed Authority Space:
+
+u_t
+=
+\Pi_{\mathcal{U}_{\mathrm{authorized},t}}
+\left(
+v_t
+\right)
+
+Projection semantics SHALL be registered.
+
+The Projection Definition SHALL specify:
+
+* distance or ordering rule;
+* tie-breaking;
+* uniqueness requirements;
+* Numeric Profile;
+* infeasibility behavior;
+* deterministic replay requirements.
+
+Projection SHALL NOT modify the Authority Space.
+
+⸻
+
+6.61 Nonunique Projection
+
+When multiple projected commands are equally valid, the registered projection policy SHALL define deterministic tie-breaking.
+
+Tie-breaking MAY use:
+
+* lowest authority magnitude;
+* minimum change from prior canonical command;
+* lexicographic component order;
+* registered controller priority;
+* stable registry order.
+
+Tie-breaking SHALL NOT use nondeterministic iteration order or runtime scheduling.
+
+⸻
+
+6.62 Constraint Priorities Versus Supervisory Priorities
+
+Constraint precedence determines which restrictions govern legal action.
+
+Controller or objective priority determines preference among legal actions.
+
+These SHALL remain separate.
+
+A lower-priority constraint is not optional merely because a controller objective has higher priority.
+
+Mandatory constraints define feasibility.
+
+Preferences operate only within the feasible Authority Space.
+
+⸻
+
+6.63 Soft Constraints
+
+A Soft Constraint expresses a registered optimization preference or bounded violation model rather than an absolute authority prohibition.
+
+Every Soft Constraint SHALL declare:
+
+soft_constraint_id
+hard_boundary
+penalty_definition
+maximum_permitted_violation
+violation_authority_source
+penalty_weight_reference
+escalation_rule
+failure_threshold
+provenance
+
+A Soft Constraint SHALL NOT weaken a hard Governance prohibition.
+
+The label “soft” SHALL not create authority to violate an otherwise mandatory restriction.
+
+⸻
+
+6.64 Hard Constraints
+
+A Hard Constraint SHALL never be violated by a canonical Control Command.
+
+If no command satisfies all Hard Constraints, Controller Composition SHALL:
+
+* activate a registered reduced-authority fallback;
+* produce a registered neutral command when authorized;
+* withhold the command;
+* or fail evaluation.
+
+It SHALL NOT return the “least violating” command unless the supposedly hard constraint was actually registered as a bounded-violation Soft Constraint.
+
+⸻
+
+6.65 Uncertainty and Constraints
+
+Uncertainty MAY influence the Authority Space only through a registered upstream or cycle-specific authority rule.
+
+The Binder SHALL preserve:
+
+* the uncertainty input;
+* the rule applied;
+* the resulting restriction;
+* the source authority;
+* the original non-adjusted bound where required.
+
+Low certainty SHALL not silently create greater authority.
+
+Where uncertainty cannot be resolved, the resulting space SHOULD remain equal or more restrictive.
+
+⸻
+
+6.66 Constraint Diagnostics
+
+A Control Constraint Set MAY include nonauthoritative diagnostics such as:
+
+* active constraint count;
+* binding constraints;
+* slack values;
+* condition estimates;
+* feasibility margins;
+* baseline age;
+* numerical sensitivity;
+* redundant-constraint findings.
+
+Diagnostics SHALL NOT redefine the Authority Space.
+
+They SHALL be clearly distinguished from canonical authority fields.
+
+⸻
+
+6.67 Conformance Requirements
+
+A conforming Control Constraint Binder SHALL demonstrate:
+
+source completeness
+constraint-definition compatibility
+action-space compatibility
+unit consistency
+deterministic precedence
+deterministic intersection
+authority non-expansion
+baseline integrity
+feasibility classification
+cycle isolation
+artifact immutability
+provenance completeness
+replay equivalence
+
+A conforming Controller Composition SHALL demonstrate that its proposed Control Command satisfies the committed set.
+
+⸻
+
+6.68 Fundamental Control Constraint Invariant
+
+The Control Constraint Binder SHALL deterministically construct exactly one immutable Control Constraint Set from already-committed authority and configuration artifacts. The resulting artifact SHALL represent authorized corrective space only and SHALL contain no deviation semantics, controller preference, control-law result, inference instruction, or execution behavior.
+
+⸻
+
+6.69 Authority-Space Invariants
+
+Every conforming implementation SHALL preserve the following invariants.
+
+Authority Non-Expansion
+
+The effective Authority Space SHALL never exceed mandatory upstream authority.
+
+Constraint Completeness
+
+Every mandatory committed restriction SHALL appear in the effective set or have explicit resolution evidence.
+
+Explicit Permission
+
+Unspecified dimensions SHALL not be presumed authorized.
+
+Error Separation
+
+The Control Constraint Set SHALL not alter or suppress Control Error.
+
+Configuration Separation
+
+The Control Constraint Set SHALL not select the controller algorithm or gain schedule.
+
+Execution Separation
+
+The Control Constraint Set SHALL not define runtime application behavior.
+
+Cycle Isolation
+
+The artifact SHALL apply to exactly one supervisory cycle.
+
+Baseline Integrity
+
+History-dependent restrictions SHALL use the exact declared canonical baseline.
+
+Failure Monotonicity
+
+Invalid or unresolved authority SHALL not increase corrective freedom.
+
+Replayability
+
+Identical committed inputs SHALL yield identical Authority Space.
+
+⸻
+
+6.70 Revised Contract 007 Mathematical Input Chain
+
+With Sections 4–6 established, the constitutional input side of Contract 007 becomes:
+
+Committed OSV
+        +
+Committed Reference State
+        +
+Committed Error Representation Configuration
+        ↓
+Control Error Evaluator
+        ↓
+Committed Control Error
+Committed Governance Snapshot
+        +
+Committed Operational Profile
+        +
+Committed Controller Configuration
+        +
+Committed Constraint References
+        +
+Required Historical Baselines
+        ↓
+Control Constraint Binder
+        ↓
+Committed Control Constraint Set
+Prior Committed Controller State
+        ↓
+Committed Controller State_t
+
+The complete Controller Composition boundary is:
+
+Committed Control Error_t
+        +
+Committed Control Constraint Set_t
+        +
+Committed Controller State_t
+        +
+Committed Controller Configuration_t
+        ↓
+Controller Composition
+        ↓
+Proposed Control Command_t
+        +
+Proposed Controller State_t+1
+
+No control law may be evaluated before all four canonical inputs are valid and mutually compatible.
+
+⸻
+
+6.71 Section Boundary
+
+Section 6 answers exactly one question:
+
+Within what mathematical corrective space is Controller Composition authorized to act during this cycle?
+
+It SHALL NOT answer:
+
+* what deviation exists;
+* which correction is preferred;
+* which controller law should be selected;
+* what command should be produced;
+* how the command should be translated;
+* whether the runtime should apply it.
+
+Those authorities belong to other artifacts and components.
+
+⸻
+
+6.72 Completion Criterion
+
+Section 6 is complete when Contract 007 can demonstrate that:
+
+1. every corrective dimension has explicit authority semantics;
+2. Governance and Profile restrictions can be deterministically materialized;
+3. saturation and rate limits have canonical definitions;
+4. prior-command baselines are unambiguous;
+5. coupled, directional, discrete, and history-dependent constraints are representable;
+6. empty and infeasible Authority Spaces have explicit dispositions;
+7. every effective constraint has lineage;
+8. the final Authority Space can be replayed independently;
+9. no Controller Composition can claim authority not present in the committed set;
+10. a later Control Command can be certified as a member of the committed Authority Space.
+
+Only after these conditions are satisfied may Contract 007 introduce Controller Composition evaluation and control-law semantics.

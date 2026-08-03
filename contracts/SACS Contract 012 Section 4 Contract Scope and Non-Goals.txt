@@ -1,0 +1,650 @@
+# SACS Contract 012 — External Verification Profile and Evidence Interface
+
+## Section 4 — Contract Scope and Non-Goals
+
+### Purpose
+
+Section 4 defines the complete functional scope of Contract 012 and establishes the activities that remain constitutionally outside its authority.
+
+This section prevents Contract 012 from expanding into:
+
+* supervisory operation;
+* historical certification;
+* internal audit;
+* implementation approval;
+* regulatory certification;
+* constitutional interpretation;
+* constitutional amendment;
+* autonomous institutional learning.
+
+Contract 012 exists only to transform an eligible committed verification subject into a bounded, immutable external verification submission and to register the result returned by an authorized external verifier.
+
+---
+
+# Constitutional Scope
+
+Contract 012 owns the following constitutional functions:
+
+1. verification-purpose declaration;
+2. verification applicability evaluation;
+3. Verification Profile definition and resolution;
+4. Verification Requirement Set definition and resolution;
+5. verification method definition and authorization;
+6. verification subject binding;
+7. claim definition and identity binding;
+8. evidence requirement resolution;
+9. evidence admissibility evaluation;
+10. evidence completeness evaluation;
+11. evidence integrity evaluation;
+12. Verification Evidence Package construction;
+13. Verification Submission construction;
+14. Verification Submission commitment;
+15. external verification handoff;
+16. External Verification Result intake;
+17. result authenticity and identity validation;
+18. verification-status registration;
+19. verification lineage preservation;
+20. deterministic replay of Contract 012 preparation and registration operations.
+
+These functions define the complete constitutional scope of Contract 012.
+
+No implementation SHALL extend Contract 012 beyond them without a future constitutional contract or explicit amendment to the SACS architecture.
+
+---
+
+# Core Transformation Scope
+
+The primary Contract 012 transformation is:
+
+```text
+Eligible Committed Verification Subject
++
+Committed Verification Configuration
++
+Authorized Verification Claim Set
++
+Resolved Verification Evidence
+=
+Constructed Verification Evidence Package
+```
+
+followed by:
+
+```text
+Constructed Verification Evidence Package
++
+Evidence Completeness Result
++
+Evidence Integrity Result
++
+Authorized External Verifier Binding
+=
+Committed Verification Submission
+```
+
+and subsequently:
+
+```text
+Committed Verification Submission
++
+Authentic External Verification Result
+=
+Committed Verification Status Record
+```
+
+Each transformation SHALL remain separately identifiable.
+
+Each transformation SHALL preserve its own:
+
+* input identity;
+* output identity;
+* authority boundary;
+* commitment boundary;
+* provenance;
+* failure representation.
+
+---
+
+# Verification Preparation Scope
+
+Verification preparation includes only the deterministic assembly of the materials required for an external verifier to evaluate one or more explicit claims.
+
+Preparation MAY include:
+
+* resolving committed artifacts;
+* locating authorized evidence;
+* validating evidence identities;
+* validating evidence lineage;
+* validating evidence schemas;
+* confirming required versions;
+* constructing deterministic evidence manifests;
+* calculating hashes;
+* constructing claim-to-evidence mappings;
+* identifying missing evidence;
+* identifying inadmissible evidence;
+* binding the submission to one external verifier;
+* committing the final submission.
+
+Preparation SHALL NOT include deciding whether the claim is true.
+
+---
+
+# Verification Registration Scope
+
+After an External Verification Result is returned, Contract 012 MAY:
+
+* validate issuer identity;
+* validate signature or integrity proof;
+* validate submission identity;
+* validate claim identity;
+* validate scope consistency;
+* validate result schema;
+* validate method reporting;
+* validate limitation reporting;
+* validate result completeness;
+* register the result;
+* construct a Committed Verification Status Record.
+
+Registration SHALL preserve the result as issued.
+
+Contract 012 SHALL NOT improve, soften, strengthen, reinterpret, or override the result.
+
+---
+
+# Canonical Input Scope
+
+Contract 012 MAY consume only committed or explicitly admissible evidence artifacts.
+
+Its primary canonical input is:
+
+```text
+Committed Supervisory Cycle Record
+```
+
+Additional canonical inputs MAY include committed artifacts referenced by that record or explicitly authorized by a Verification Profile.
+
+Contract 012 MAY also consume external evidence where the applicable Verification Profile expressly permits it and where the evidence satisfies the required admissibility and integrity conditions.
+
+Contract 012 SHALL NOT consume an uncommitted artifact as authoritative evidence.
+
+---
+
+# Canonical Output Scope
+
+The canonical success outputs of Contract 012 are:
+
+```text
+Committed Verification Submission
+```
+
+and, after external verification:
+
+```text
+Committed Verification Status Record
+```
+
+These artifacts have different constitutional meanings.
+
+The `Committed Verification Submission` establishes:
+
+* what was submitted;
+* which claims were submitted;
+* which evidence was included;
+* which verifier was authorized;
+* which scope applied;
+* which methods were requested or permitted.
+
+The `Committed Verification Status Record` establishes:
+
+* which result was received;
+* who issued it;
+* which submission it concerns;
+* which claims were verified, rejected, limited, or unresolved;
+* which methods were reported;
+* which limitations apply;
+* whether the result remains valid within its declared scope.
+
+Neither artifact modifies the verification subject.
+
+---
+
+# Failure Output Scope
+
+Contract 012 SHALL explicitly represent failure.
+
+Failure MAY occur during:
+
+* applicability evaluation;
+* profile resolution;
+* configuration binding;
+* subject binding;
+* claim binding;
+* evidence resolution;
+* admissibility evaluation;
+* completeness evaluation;
+* integrity evaluation;
+* submission construction;
+* submission commitment;
+* external handoff;
+* result intake;
+* issuer validation;
+* result validation;
+* status registration.
+
+A failure occurring before submission commitment SHALL NOT produce a Committed Verification Submission.
+
+A failure occurring after submission commitment SHALL NOT erase or invalidate the committed submission.
+
+A result-intake or registration failure SHALL preserve the fact that a submission was committed and handed off.
+
+---
+
+# Verification Profile Scope
+
+Contract 012 defines the constitutional structure of Verification Profiles.
+
+A Verification Profile MAY specify:
+
+* supported verification purposes;
+* eligible subject classes;
+* eligible claim classes;
+* required evidence classes;
+* optional evidence classes;
+* prohibited evidence classes;
+* admissibility rules;
+* completeness rules;
+* integrity rules;
+* required verification methods;
+* permitted verification methods;
+* external verifier requirements;
+* result schema requirements;
+* validity rules;
+* expiration rules;
+* replay requirements;
+* conformance tests.
+
+A Verification Profile SHALL NOT:
+
+* declare a claim verified;
+* modify the subject;
+* authorize execution;
+* substitute for governance;
+* approve an implementation;
+* amend a SACS contract.
+
+---
+
+# Verification Requirement Scope
+
+A Verification Requirement Set defines what must be satisfied for a claim to be prepared and submitted under a Verification Profile.
+
+Requirements MAY address:
+
+* evidence presence;
+* evidence provenance;
+* evidence integrity;
+* claim specificity;
+* method coverage;
+* temporal coverage;
+* version binding;
+* implementation binding;
+* environmental binding;
+* lineage closure;
+* authority preservation;
+* replayability;
+* external verifier capability.
+
+Verification requirements govern submission preparation.
+
+They do not predetermine the external verdict.
+
+---
+
+# Evidence Scope
+
+Contract 012 owns evidence selection only within the bounds established by the committed Verification Configuration.
+
+It MAY determine whether a candidate artifact:
+
+* matches a required evidence class;
+* belongs to the subject lineage;
+* satisfies the applicable schema;
+* satisfies admissibility requirements;
+* satisfies integrity requirements;
+* falls within the declared scope;
+* is permitted by the Verification Profile.
+
+It SHALL NOT determine:
+
+* whether favorable evidence is more persuasive than unfavorable evidence;
+* whether an inconvenient artifact should be excluded;
+* whether a failed test should be omitted;
+* whether a missing artifact may be reconstructed;
+* whether a contradictory artifact may be ignored.
+
+Evidence selection SHALL be rule-bound, not outcome-seeking.
+
+---
+
+# External Handoff Scope
+
+Contract 012 owns the constitutional handoff of one Committed Verification Submission to one authorized external verification authority.
+
+The handoff MAY include:
+
+* submission transmission;
+* verifier identity binding;
+* submission receipt confirmation;
+* transmission integrity confirmation;
+* handoff timestamp registration;
+* external job identity registration;
+* retry state registration;
+* acknowledgment preservation.
+
+Contract 012 SHALL NOT control how the external verifier conducts its analysis unless a Verification Profile defines mandatory method constraints.
+
+Even where method constraints exist, Contract 012 validates reported conformance but does not perform the external verification itself.
+
+---
+
+# Replay Scope
+
+Contract 012 SHALL support deterministic replay of:
+
+* applicability evaluation;
+* profile resolution;
+* configuration binding;
+* subject binding;
+* evidence resolution;
+* evidence-package construction;
+* completeness evaluation;
+* integrity evaluation;
+* submission construction;
+* result-registration validation.
+
+Replay MAY establish whether Contract 012 performed its own functions correctly.
+
+Replay SHALL NOT recreate the constitutional authority of an external verifier.
+
+An external verdict SHALL NOT be regenerated internally and treated as equivalent to the original external result.
+
+Formally:
+
+```text
+Contract 012 Replay
+≠
+External Reverification
+```
+
+---
+
+# Audit Scope
+
+Contract 012 SHALL expose sufficient records for audit of:
+
+* profile selection;
+* requirement resolution;
+* evidence inclusion;
+* evidence exclusion;
+* completeness evaluation;
+* integrity evaluation;
+* submission commitment;
+* external handoff;
+* result intake;
+* status registration.
+
+Audit MAY determine whether Contract 012 complied with its constitutional duties.
+
+Audit SHALL NOT:
+
+* replace the external result;
+* amend the external result;
+* reinterpret the verification claim;
+* modify the submission;
+* modify the verification subject.
+
+Audit remains observational.
+
+---
+
+# Conformance Scope
+
+A Contract 012 implementation MAY be evaluated for conformance with this contract.
+
+Conformance MAY include:
+
+* schema conformance;
+* deterministic behavior;
+* commitment behavior;
+* failure behavior;
+* profile resolution;
+* evidence completeness behavior;
+* evidence integrity behavior;
+* replay behavior;
+* result-registration behavior;
+* authority separation.
+
+Contract 012 conformance SHALL NOT imply that every submission produced by the implementation is externally verified.
+
+Implementation conformance and claim verification are separate.
+
+---
+
+# Non-Goal: Supervisory Operation
+
+Contract 012 SHALL NOT:
+
+* observe runtime telemetry for supervisory purposes;
+* estimate operational state;
+* select objectives;
+* apply governance;
+* select Operational Profiles;
+* construct Reference States;
+* compute control errors;
+* generate Control Commands;
+* translate Control Commands;
+* adjudicate execution;
+* certify realization;
+* commit supervisory history.
+
+Those functions belong to Contracts 001 through 011.
+
+---
+
+# Non-Goal: Historical Reconstruction
+
+Contract 012 SHALL NOT reconstruct, repair, or supplement constitutional history.
+
+Where required historical evidence is absent, Contract 012 SHALL report:
+
+```text
+REQUIRED_EVIDENCE_UNAVAILABLE
+```
+
+It SHALL NOT fabricate a replacement.
+
+A replay output MAY be included only where explicitly permitted and clearly identified as replay evidence.
+
+Replay evidence SHALL never be mislabeled as original history.
+
+---
+
+# Non-Goal: Internal Self-Verification
+
+SACS SHALL NOT issue its own external verification verdict through Contract 012.
+
+Internal checks MAY establish:
+
+* preparation correctness;
+* package completeness;
+* package integrity;
+* profile conformance;
+* submission validity.
+
+They SHALL NOT establish independent external assurance.
+
+The system that produced the artifact SHALL NOT become the sole constitutional authority declaring that artifact externally verified.
+
+---
+
+# Non-Goal: Implementation Certification
+
+Contract 012 SHALL NOT issue:
+
+* product certification;
+* deployment certification;
+* safety certification;
+* security certification;
+* regulatory certification;
+* legal certification;
+* standards accreditation;
+* commercial approval.
+
+An external verifier MAY issue a result relevant to such activities.
+
+Human institutions determine whether that result satisfies any certification or approval process.
+
+---
+
+# Non-Goal: Governance Replacement
+
+Contract 012 SHALL NOT decide whether:
+
+* a system should be deployed;
+* a system should continue operating;
+* a failed verification requires shutdown;
+* a limitation is acceptable;
+* a risk should be accepted;
+* a contract should be amended;
+* a control strategy should change.
+
+Those decisions belong to authorized governance.
+
+Contract 012 reports verification status.
+
+It does not govern the response to that status.
+
+---
+
+# Non-Goal: Constitutional Interpretation
+
+Contract 012 SHALL NOT create new constitutional meaning by interpreting ambiguous contracts during verification preparation.
+
+Where contract meaning is unresolved, Contract 012 SHALL produce an explicit ambiguity or applicability failure.
+
+It SHALL NOT silently select the interpretation most favorable to submission success.
+
+Constitutional ambiguity requires constitutional resolution outside Contract 012.
+
+---
+
+# Non-Goal: Constitutional Amendment
+
+Contract 012 SHALL NOT:
+
+* change a contract;
+* change an invariant;
+* change an authority boundary;
+* create new artifact authority;
+* redefine a canonical term;
+* weaken a requirement;
+* waive a mandatory failure;
+* authorize a new external verifier without the required governance process.
+
+Verification evidence MAY reveal the need for amendment.
+
+It SHALL NOT perform that amendment.
+
+---
+
+# Non-Goal: Supervisory Learning
+
+Contract 012 SHALL NOT convert verification history into autonomous policy changes, contract revisions, control changes, or institutional learning.
+
+It MAY preserve verification results for later authorized consumers.
+
+It SHALL NOT:
+
+* infer new policy;
+* adopt recommendations;
+* modify profiles;
+* change requirements;
+* update controllers;
+* alter governance;
+* change future supervisory behavior.
+
+Any constitutional learning or improvement authority SHALL exist in a separate downstream module or contract.
+
+---
+
+# Non-Goal: Evidence Advocacy
+
+Contract 012 SHALL not act as an advocate for a favorable verification outcome.
+
+It SHALL NOT:
+
+* omit unfavorable evidence;
+* prioritize favorable evidence;
+* rewrite claim language to avoid failure;
+* suppress limitations;
+* conceal uncertainty;
+* select weaker verification methods to improve pass probability;
+* retry verification until a favorable result appears without preserving prior results;
+* present an inconclusive result as verified.
+
+Contract 012 prepares evidence.
+
+It does not argue the case.
+
+---
+
+# Non-Goal: Universal Assurance
+
+No Contract 012 artifact SHALL be interpreted as proof of:
+
+* universal safety;
+* universal correctness;
+* universal reliability;
+* universal alignment;
+* perpetual validity;
+* absence of all failure modes;
+* fitness for every environment;
+* compliance with every law or standard.
+
+Every verification result remains bounded by its exact claims and scope.
+
+---
+
+# Prohibited Authority Collapse
+
+The following combinations are constitutionally prohibited:
+
+```text
+History Producer + External Verifier
+```
+
+```text
+Submission Constructor + Verdict Issuer
+```
+
+```text
+Verdict Issuer + Constitutional Adopter
+```
+
+```text
+Evidence Resolver + Outcome Advocate
+```
+
+```text
+Verification Registrar + Result Reinterpreter
+```
+
+An implementation MAY technically host multiple components.
+
+Technical co-location SHALL NOT collapse their constitutional identities, credentials, records, or authorities.
+
+---
+
+# Section 4 Invariant
+
+> **Contract 012 SHALL remain limited to verification applicability, profile and requirement binding, evidence preparation, submission commitment, external-verifier handoff, result intake, and verification-status registration. It SHALL NOT operate the supervisory system, modify history, verify its own claims, certify implementations, replace governance, amend the constitution, or convert verification results into autonomous institutional change.**

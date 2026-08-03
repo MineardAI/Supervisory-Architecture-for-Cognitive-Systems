@@ -1,0 +1,19 @@
+name: Architecture question
+description: Ask a question about documented SACS boundaries or terminology.
+title: "architecture: "
+labels: ["question"]
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: Question
+      description: State the question and identify the relevant Contract or public document.
+    validations:
+      required: true
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope acknowledgement
+      options:
+        - label: I understand that the constitutional contracts remain authoritative.
+          required: true

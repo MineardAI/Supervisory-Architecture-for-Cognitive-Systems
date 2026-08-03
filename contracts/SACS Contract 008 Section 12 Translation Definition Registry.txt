@@ -1,0 +1,1708 @@
+12. Translation Definition Registry
+
+12.1 Purpose
+
+This section defines the Translation Definition Registry used by Contract 008.
+
+The Translation Definition Registry is the immutable repository of reusable semantic-preserving Translation Definitions.
+
+A Translation Definition specifies one deterministic mapping from one declared source semantic class into one declared runtime-command construction contract.
+
+The registry establishes:
+
+* definition existence;
+* definition identity;
+* definition structure;
+* immutable registry membership;
+* dependency closure;
+* deterministic lookup;
+* version history;
+* lifecycle state;
+* replay availability.
+
+The registry does not grant cycle authority.
+
+The defining identity is:
+
+The Translation Definition Registry is the immutable repository of reusable semantic-preserving Translation Definitions. Registry membership establishes existence, not authority.
+
+A Translation Definition becomes eligible for use only when it is:
+
+* reachable from the Committed Translation Configuration;
+* organized by the authorized Translation Profile;
+* resolved from the exact committed registry snapshot;
+* within the authorized definition set or deterministic resolution table;
+* accepted by the later Validated Translation Binding.
+
+⸻
+
+12.2 Architectural Identity
+
+The Translation Definition Registry is a passive definition authority.
+
+It publishes and preserves immutable translation semantics.
+
+It is not:
+
+* a Translation Profile;
+* a Committed Translation Configuration;
+* a definition selector;
+* a strategy selector;
+* a runtime selector;
+* a compatibility evaluator;
+* a Translation Evaluator;
+* an execution engine;
+* an adapter implementation;
+* an external verification authority.
+
+The architectural distinction is:
+
+Translation Definition
+    declares the mapping
+Translation Evaluator
+    applies the mapping
+Translation Implementation
+    realizes the evaluator interface
+Translation Definition Registry
+    preserves the mapping identity
+
+All normative mapping behavior SHALL remain explicit, immutable, versioned, and hash-bound.
+
+An implementation MAY realize a Translation Definition through executable code.
+
+The executable implementation SHALL NOT contain hidden normative behavior absent from the registered definition.
+
+⸻
+
+12.3 Translation Definition Identity
+
+A Translation Definition SHALL specify exactly:
+
+one declared source semantic class
++
+one deterministic target-construction contract
+
+One Translation Definition does not necessarily produce one Inference Command.
+
+It MAY produce:
+
+* one Inference Command;
+* several coordinated Inference Commands;
+* one command fragment;
+* one transaction-bound command set;
+* one ordered command group.
+
+Its identity remains singular when it defines one complete semantic mapping and one closed deterministic construction contract.
+
+A Translation Definition SHALL include every:
+
+* precondition;
+* source-domain requirement;
+* parameter transformation;
+* output obligation;
+* restrictive obligation;
+* authority bound;
+* scope bound;
+* cardinality bound;
+* ordering postcondition;
+* transaction postcondition;
+* validation obligation;
+* failure condition;
+
+required to interpret and apply the mapping faithfully.
+
+A Translation Definition SHALL NOT be an unrestricted translation program.
+
+⸻
+
+12.4 Source Semantic Identity
+
+The source side of a Translation Definition SHALL be expressed using canonical Contract 007 Control Command semantics.
+
+It SHALL NOT depend primarily on:
+
+* provider-specific parameter names;
+* adapter-local fields;
+* transport serialization;
+* runtime-native terminology;
+* implementation-local aliases.
+
+A source semantic class MAY correspond to:
+
+* one Control Command Type;
+* one Control Command field;
+* one semantic obligation;
+* one restriction;
+* one scope obligation;
+* one ordering obligation;
+* one transaction obligation;
+* one composite command pattern.
+
+Illustrative, non-normative source semantic classes MAY include:
+
+REDUCE_UPDATE_GAIN
+SUSPEND_ADAPTIVE_WRITES
+RESET_TRANSIENT_STATE
+CLAMP_UPDATE_RANK
+SET_SAMPLING_BOUND
+REQUEST_DETERMINISTIC_FALLBACK
+
+Such vocabulary becomes normative only through the appropriate Contract 007 registries.
+
+A Translation Definition SHALL bind the exact source semantic identifier, version, and hash.
+
+⸻
+
+12.5 Registry Authority Boundary
+
+The Translation Definition Registry owns:
+
+* Translation Definition identity;
+* canonical definition schema;
+* immutable definition entries;
+* definition dependency declarations;
+* Translation Fragment identity;
+* registry snapshots;
+* definition versions;
+* definition hashes;
+* lifecycle status;
+* compatibility declarations between definition versions;
+* deterministic lookup indices;
+* registry conformance rules;
+* replay preservation.
+
+The registry SHALL NOT:
+
+* select the governing Translation Profile;
+* select a Translation Definition for a cycle;
+* search for an alternative mapping after failure;
+* select a runtime;
+* select a provider;
+* decide runtime compatibility;
+* apply a Translation Definition;
+* broaden source authority;
+* infer omitted supervisory meaning;
+* certify external semantic truth;
+* authorize execution.
+
+⸻
+
+12.6 Canonical Translation Definition Schema
+
+A Translation Definition SHALL include at least:
+
+translation_definition_id
+definition_name
+definition_description
+definition_version
+definition_schema_version
+definition_class
+contract_version
+source_semantic_class_id
+source_semantic_class_version
+source_semantic_class_hash
+source_command_type_ids
+source_command_definition_versions
+source_command_definition_hashes
+source_parameter_domain
+source_preconditions
+target_runtime_family_id
+target_runtime_version_range
+target_adapter_type_ids
+target_adapter_version_ranges
+target_inference_command_type_ids
+target_inference_command_definition_versions
+target_action_model_id
+target_parameter_domain
+mapping_specification_id
+mapping_expression
+deterministic_transformation_function_ids
+parameter_binding_rules
+output_cardinality_model
+normalization_rule_references
+numeric_rule_references
+ordering_rule_references
+transaction_rule_references
+validation_rule_references
+positive_semantic_obligations
+restrictive_semantic_obligations
+authority_bound
+scope_bound
+cardinality_bound
+temporal_bound
+expiry_bound
+ordering_postconditions
+transaction_postconditions
+capability_assumptions
+compatibility_requirements
+failure_conditions
+dependency_definition_ids
+dependency_definition_versions
+dependency_hashes
+fragment_ids
+fragment_hashes
+semantic_preservation_claims
+proof_obligation_ids
+conformance_test_profile_id
+verification_claim_references
+registry_snapshot_id
+created_at_context_id
+deprecated_status
+withdrawal_status
+provenance_id
+semantic_payload_hash
+definition_hash
+
+Equivalent semantic fields MAY be serialized under different names.
+
+Every required semantic category SHALL remain represented.
+
+⸻
+
+12.7 Definition Classes
+
+Initial Translation Definition classes MAY include:
+
+ATOMIC_TRANSLATION_DEFINITION
+COMPOSITE_TRANSLATION_DEFINITION
+RESTRICTION_TRANSLATION_DEFINITION
+ORDERING_TRANSLATION_DEFINITION
+TRANSACTION_TRANSLATION_DEFINITION
+SCOPE_TRANSLATION_DEFINITION
+TEMPORAL_TRANSLATION_DEFINITION
+REGISTERED_TRANSLATION_DEFINITION_CLASS
+
+Definition class identifies construction structure.
+
+It does not alter cycle authority.
+
+Every definition class SHALL preserve the same constitutional requirements:
+
+* deterministic construction;
+* semantic preservation;
+* authority non-expansion;
+* restriction preservation;
+* exact identity;
+* immutable dependency closure.
+
+⸻
+
+12.8 Source Semantic Scope
+
+Every Translation Definition SHALL declare its exact source scope.
+
+Source scope SHALL identify:
+
+source_semantic_class_id
+source_command_type_ids
+source_schema_versions
+required_source_fields
+source_parameter_domain
+source_scope_model
+source_cardinality_model
+source_temporal_model
+source_ordering_model
+source_transaction_model
+source_preconditions
+source_exclusions
+
+A definition SHALL apply only when every mandatory source precondition is satisfied.
+
+Source compatibility SHALL NOT be inferred from:
+
+* similar field names;
+* similar numeric ranges;
+* similar runtime effects;
+* prior successful application;
+* implementation judgment.
+
+Unknown precondition status SHALL not count as satisfaction.
+
+⸻
+
+12.9 Target Runtime Scope
+
+Every Translation Definition SHALL declare its exact target scope.
+
+Target scope SHALL identify:
+
+target_runtime_family_id
+target_runtime_version_range
+target_provider_contract_id
+target_adapter_type_ids
+target_adapter_version_ranges
+target_inference_command_type_ids
+target_action_model_id
+target_parameter_domain
+required_runtime_capability_predicates
+required_serialization_profile_ids
+target_exclusions
+
+Broad identifiers such as:
+
+OPENAI
+LOCAL_MODEL
+LLM_RUNTIME
+GENERIC_PROVIDER
+
+SHALL be insufficient unless accompanied by exact:
+
+* runtime schema requirements;
+* adapter contract requirements;
+* capability predicates;
+* version constraints;
+* command-type bindings.
+
+A Translation Definition declares target requirements.
+
+It does not prove that the current runtime satisfies them.
+
+⸻
+
+12.10 Capability Assumptions
+
+Capability assumptions SHALL be explicit, deterministic predicates.
+
+Examples MAY include:
+
+supports_atomic_parameter_bundle == true
+supports_update_gain_control == true
+minimum_precision_bits >= 32
+supports_ordered_command_sequence == true
+supports_transaction_rollback == true
+supports_request_scoped_expiry == true
+
+Capability predicates SHALL be:
+
+* machine-evaluable where possible;
+* immutable;
+* versioned;
+* hash-bound;
+* distinguishable from runtime capability facts.
+
+The later Translation Compatibility Evaluation tests these assumptions against the Committed Runtime Capability Profile.
+
+The Translation Definition SHALL NOT declare compatibility merely because its assumptions are present.
+
+⸻
+
+12.11 Mapping Specification
+
+Every Translation Definition SHALL include one deterministic mapping specification.
+
+The specification SHALL identify:
+
+mapping_specification_id
+source_bindings
+target_construction_rules
+parameter_binding_rules
+transformation_function_ids
+output_cardinality_model
+construction_order
+dependency_evaluation_order
+failure_behavior
+
+The mapping SHALL be deterministic.
+
+For identical canonical inputs and bound numeric rules, it SHALL produce identical constructed output.
+
+The mapping SHALL NOT depend upon:
+
+* probabilistic generation;
+* live provider documentation;
+* mutable runtime configuration;
+* implementation preference;
+* current cost;
+* current latency;
+* runtime load;
+* historical success;
+* undocumented defaults.
+
+⸻
+
+12.12 Parameter Binding Rules
+
+Parameter binding rules SHALL define:
+
+* accepted source values;
+* accepted source ranges;
+* target parameter identities;
+* target ranges;
+* unit relationships;
+* numeric representation;
+* exact conversions;
+* authorized tolerance;
+* invalid-value behavior;
+* boundary behavior;
+* overflow behavior;
+* underflow behavior;
+* nonfinite-value behavior.
+
+A Translation Definition SHALL NOT silently clamp a value.
+
+If a runtime cannot represent the required value within the authorized tolerance and authority bounds, the later compatibility or evaluation stage SHALL fail.
+
+A default target value SHALL not replace an explicit source value unless the definition proves semantic identity.
+
+⸻
+
+12.13 Preconditions
+
+Preconditions answer:
+
+Under what exact conditions may this Translation Definition be applied?
+
+Preconditions MAY include:
+
+* source command type;
+* source semantic class;
+* source parameter domain;
+* source scope;
+* runtime version;
+* adapter version;
+* capability predicates;
+* Numeric Profile;
+* ordering requirement;
+* transaction requirement;
+* registry snapshot;
+* required dependency state.
+
+Preconditions SHALL be deterministic and machine-evaluable where possible.
+
+A failed or unresolved mandatory precondition SHALL make the definition inapplicable.
+
+⸻
+
+12.14 Postconditions
+
+Postconditions answer:
+
+What must be true of the produced Inference Command construction if the mapping succeeds?
+
+Postconditions SHALL include, where applicable:
+
+* positive semantic obligations;
+* restrictive semantic obligations;
+* authority bounds;
+* scope bounds;
+* target identity;
+* parameter-domain guarantees;
+* cardinality guarantees;
+* temporal guarantees;
+* expiry guarantees;
+* ordering guarantees;
+* transaction guarantees;
+* validation obligations;
+* provenance obligations.
+
+Postconditions specify required results.
+
+They do not prove those results were achieved.
+
+Proof belongs to later validation.
+
+⸻
+
+12.15 Positive Semantic Preservation
+
+A Translation Definition SHALL preserve every positive semantic obligation of the source command.
+
+Positive obligations describe what must occur.
+
+Examples MAY include:
+
+* reduce a declared bound;
+* suspend an operation;
+* reset a declared state;
+* apply a deterministic fallback;
+* restrict a parameter domain;
+* prevent a declared adaptive update.
+
+Let:
+
+[
+\mathcal O^{+}(U)
+]
+
+denote the positive obligations of source Control Command (U).
+
+Let:
+
+[
+\mathcal O^{+}(I)
+]
+
+denote the positive obligations represented by constructed Inference Command set (I).
+
+Faithful translation requires:
+
+[
+\mathcal O^{+}(U)
+\subseteq
+\mathcal O^{+}(I)
+]
+
+The translated representation SHALL not omit a mandatory positive obligation.
+
+⸻
+
+12.16 Restrictive Semantic Preservation
+
+A Translation Definition SHALL preserve every restrictive semantic obligation of the source command.
+
+Restrictive obligations describe what must not occur or what bounds must remain enforced.
+
+Examples MAY include:
+
+* do not exceed a maximum;
+* do not permit adaptive writes;
+* do not broaden target scope;
+* do not reorder commands;
+* do not partially apply an atomic set;
+* do not use an alternate runtime behavior.
+
+Let:
+
+[
+\mathcal O^{-}(U)
+]
+
+denote the restrictive obligations of source command (U).
+
+Faithful translation requires that every member of:
+
+[
+\mathcal O^{-}(U)
+]
+
+remain represented and enforceable in the constructed Inference Command semantics.
+
+Preserving the positive action while losing a restriction SHALL be considered translation failure.
+
+⸻
+
+12.17 Authority Preservation
+
+A Translation Definition SHALL preserve the authority ceiling of the source Control Command.
+
+Let:
+
+[
+\mathcal A(U)
+]
+
+denote the authority of source Control Command (U), and:
+
+[
+\mathcal A(I)
+]
+
+denote the aggregate authority of constructed Inference Command set (I).
+
+The translated authority SHALL satisfy:
+
+[
+\mathcal A(I)
+\preceq
+\mathcal A(U)
+]
+
+Authority dimensions MAY include:
+
+* target count;
+* target identity;
+* scope;
+* parameter range;
+* duration;
+* expiry;
+* tool access;
+* state mutation;
+* concurrency;
+* repetition;
+* transaction membership;
+* capability access.
+
+A Translation Definition SHALL NOT authorize authority expansion in any dimension.
+
+⸻
+
+12.18 Obligation Sufficiency
+
+Authority non-expansion alone is insufficient.
+
+The translated result must also perform all mandatory work required by the source command.
+
+Let:
+
+[
+\mathcal O(U)
+]
+
+denote all mandatory source obligations, and:
+
+[
+\mathcal O(I)
+]
+
+denote all obligations represented in the constructed target command set.
+
+Faithful translation requires:
+
+[
+\mathcal O(U)
+\subseteq
+\mathcal O(I)
+]
+
+A translation that produces less authority but also omits required action is not faithful.
+
+⸻
+
+12.19 Scope Preservation
+
+A Translation Definition SHALL preserve exact source scope.
+
+Scope MAY include:
+
+* target subsystem;
+* model instance;
+* deployment;
+* session;
+* request;
+* layer range;
+* parameter family;
+* tool namespace;
+* duration;
+* expiry;
+* cardinality.
+
+A command scoped to one model instance SHALL NOT become runtime-wide.
+
+A command scoped to one request SHALL NOT become session-wide.
+
+A command scoped to one parameter family SHALL NOT affect unrelated parameters.
+
+Scope conversion SHALL be permitted only when exact equivalence is declared and later validated.
+
+⸻
+
+12.20 Target Preservation
+
+A Translation Definition SHALL preserve target identity.
+
+It SHALL define:
+
+source_target_model
+target_target_model
+target_identifier_mapping
+namespace_mapping
+alias_resolution_rules
+uniqueness_requirements
+target_validation_rules
+
+A target alias MAY be used only when its identity mapping is immutable and exact.
+
+An unavailable target SHALL not be replaced by another target.
+
+Target substitution is prohibited.
+
+⸻
+
+12.21 Cardinality Preservation
+
+A Translation Definition SHALL distinguish:
+
+* source semantic action count;
+* constructed Inference Command count;
+* target count;
+* transaction count;
+* application count.
+
+One source semantic action MAY produce several Inference Commands.
+
+That decomposition SHALL NOT multiply independent authority.
+
+A many-to-one mapping MAY be used only when the definition proves that no source semantic distinction is lost within the declared target semantics.
+
+Two distinct source semantic classes SHALL NOT collapse into one target representation unless equivalence is explicitly claimed, bounded, and later validated.
+
+⸻
+
+12.22 Temporal and Expiry Preservation
+
+A Translation Definition SHALL preserve:
+
+* effective time;
+* duration;
+* expiry;
+* deadline;
+* revocation conditions;
+* session validity;
+* request validity.
+
+Translation SHALL NOT:
+
+* extend expiry;
+* reset expiry;
+* convert revocable behavior into permanent behavior;
+* convert request-bound behavior into session-bound behavior;
+* omit required revocation semantics.
+
+Where runtime-native enforcement is absent, the definition SHALL identify the required external enforcement layer.
+
+That declaration does not prove runtime compatibility.
+
+⸻
+
+12.23 Ordering Preservation
+
+A Translation Definition SHALL preserve source ordering obligations.
+
+It SHALL identify:
+
+source_ordering_model
+target_ordering_model
+precedence_relations
+barrier_requirements
+phase_requirements
+construction_order
+execution_order_postconditions
+
+List order SHALL not imply semantic order unless explicitly declared.
+
+A target representation with weaker ordering guarantees SHALL not be treated as equivalent.
+
+⸻
+
+12.24 Transaction Preservation
+
+A Translation Definition SHALL preserve source transaction obligations.
+
+It SHALL define, where applicable:
+
+* transaction grouping;
+* begin semantics;
+* commit semantics;
+* atomic visibility;
+* rollback;
+* compensation;
+* timeout;
+* isolation;
+* failure propagation.
+
+Sequential construction SHALL not be labeled transactional unless the declared target model provides the required semantics.
+
+A definition may declare transaction requirements.
+
+It does not decide that the runtime supports them.
+
+⸻
+
+12.25 Semantic Preservation Claims
+
+Every Translation Definition SHALL declare its semantic-preservation claims.
+
+Claims SHALL identify:
+
+* preserved positive obligations;
+* preserved restrictive obligations;
+* authority non-expansion;
+* scope preservation;
+* target preservation;
+* cardinality preservation;
+* numeric preservation;
+* temporal preservation;
+* ordering preservation;
+* transaction preservation;
+* prohibited effects excluded.
+
+Claims SHALL include supporting:
+
+* preconditions;
+* postconditions;
+* proof obligations;
+* test vectors;
+* conformance-test references;
+* verification references where available.
+
+A claim SHALL NOT become externally verified merely because it is present in the registry.
+
+⸻
+
+12.26 Verification Boundary
+
+Registry acceptance establishes that a Translation Definition satisfies Contract 008’s structural and declared-semantic requirements.
+
+It does not constitute external verification of every semantic-preservation claim.
+
+External verification status SHALL originate from:
+
+* NullBlade Verification Engine; or
+* another explicitly authorized external assurance authority.
+
+The registry MAY record:
+
+verification_claim_references
+verification_artifact_ids
+verification_authority_ids
+verification_status
+
+The registry SHALL NOT self-issue an external verification verdict.
+
+⸻
+
+12.27 Atomic Translation Definitions
+
+An Atomic Translation Definition specifies:
+
+one source semantic class
+one direct target-construction rule
+one complete preservation contract
+
+An Atomic Translation Definition MAY still construct multiple target fields or one bounded command group.
+
+It SHALL not depend on another complete Translation Definition for its primary semantic identity.
+
+It MAY reference Translation Fragments.
+
+⸻
+
+12.28 Composite Translation Definitions
+
+A Composite Translation Definition specifies:
+
+one source semantic class
+one declared dependency graph
+one deterministic aggregate construction
+one complete aggregate preservation contract
+
+A Composite Translation Definition SHALL include:
+
+member_definition_ids
+member_definition_hashes
+dependency_relations
+evaluation_order
+aggregate_output_model
+aggregate_authority_rule
+aggregate_restriction_rule
+aggregate_scope_rule
+aggregate_ordering_rule
+aggregate_transaction_rule
+aggregate_failure_behavior
+
+A Composite Translation Definition remains one definition because it declares one complete mapping and one closed dependency graph.
+
+It SHALL NOT search for alternative dependencies during evaluation.
+
+⸻
+
+12.29 Translation Fragments
+
+A Translation Fragment is an immutable reusable mapping component.
+
+Fragments MAY define:
+
+* parameter conversion;
+* unit normalization;
+* shared target-field construction;
+* common validation logic;
+* serialization construction;
+* reusable restriction representation.
+
+A Translation Fragment SHALL NOT possess direct mapping authority.
+
+The distinction is:
+
+Translation Definition
+    may be authorized for application
+Translation Fragment
+    may be referenced only by a Translation Definition
+
+A fragment SHALL NOT be selected independently by a Translation Profile unless it is separately registered as a complete Translation Definition.
+
+⸻
+
+12.30 Definition Dependency Graph
+
+Definition dependencies MAY be represented as:
+
+[
+G_D=(V_D,E_D)
+]
+
+where:
+
+* (V_D) contains Translation Definitions and Translation Fragments;
+* (E_D) contains declared dependency relations.
+
+The dependency graph SHALL be:
+
+* explicit;
+* deterministic;
+* hash-bound;
+* snapshot-bound;
+* transitively closed;
+* acyclic unless an explicit registered cyclic model exists.
+
+The registry SHALL reject:
+
+* missing dependencies;
+* unbound dependencies;
+* dependency cycles without an authorized model;
+* hash mismatches;
+* version ambiguity;
+* unreachable required fragments;
+* conflicting dependency semantics.
+
+⸻
+
+12.31 Dependency Closure
+
+The dependency closure of every Translation Definition SHALL be immutable and complete.
+
+Let:
+
+[
+\operatorname{Closure}(D)
+]
+
+denote all dependencies required to interpret Translation Definition (D).
+
+Every member of the closure SHALL be:
+
+* identifiable;
+* versioned;
+* hash-bound;
+* present in an explicitly bound registry snapshot;
+* deterministically resolvable.
+
+Ambient dependency resolution is prohibited.
+
+⸻
+
+12.32 Registry Entry Identity
+
+A Translation Definition Registry entry SHALL include:
+
+registry_entry_id
+translation_definition_id
+definition_version
+definition_hash
+entry_schema_version
+registry_snapshot_id
+lifecycle_status
+dependency_closure_hash
+provenance_id
+
+The combination of:
+
+translation_definition_id
+definition_version
+definition_hash
+registry_snapshot_id
+
+SHALL establish exact registry identity.
+
+A matching identifier with a different hash SHALL be treated as a different and incompatible artifact.
+
+⸻
+
+12.33 Registry Snapshot Model
+
+A Translation Definition Registry Snapshot SHALL include at least:
+
+translation_definition_registry_snapshot_id
+registry_version
+entry_ids
+entry_versions
+entry_hashes
+fragment_ids
+fragment_versions
+fragment_hashes
+dependency_closure_hash
+snapshot_created_at_context_id
+snapshot_hash
+provenance_id
+
+A snapshot SHALL be immutable.
+
+Once published, its entries SHALL NOT be:
+
+* replaced;
+* reordered where order is semantic;
+* mutated;
+* rehashed;
+* silently removed.
+
+Corrections require a new definition version and new snapshot.
+
+⸻
+
+12.34 Registry Closure
+
+A registry snapshot is closed only when every:
+
+* Translation Definition;
+* Translation Fragment;
+* referenced schema;
+* dependency;
+* rule reference;
+* required interpretation artifact;
+
+needed to interpret its entries is immutably resolvable.
+
+Every dependency SHALL be either:
+
+* present in the same registry snapshot; or
+* present in another registry snapshot explicitly bound by the Committed Translation Configuration.
+
+A snapshot with unresolved ambient dependencies SHALL not be conforming.
+
+⸻
+
+12.35 Registry Snapshot Binding
+
+Translation Definition resolution SHALL use the exact registry snapshot bound by the Committed Translation Configuration.
+
+Resolution SHALL verify:
+
+expected_registry_snapshot_id
+expected_snapshot_hash
+expected_definition_id
+expected_definition_version
+expected_definition_hash
+
+Replay SHALL resolve the same definition artifact from the same snapshot identity.
+
+Contract 008 SHALL NOT:
+
+* resolve the latest snapshot;
+* substitute a newer version;
+* use a mutable registry view;
+* resolve from an unbound local cache;
+* merge snapshots implicitly.
+
+⸻
+
+12.36 Definition Resolution Authority
+
+Definition Resolution SHALL operate only over definitions already authorized through:
+
+Committed Translation Configuration
+        ↓
+Authorized Translation Profile
+        ↓
+Exact Definition Set
+or
+Deterministic Resolution Table
+
+Resolution SHALL NOT search the unrestricted registry for an alternative mapping.
+
+The registry MAY expose lookup indices.
+
+Those indices SHALL not create authority to consider definitions outside the authorized set.
+
+⸻
+
+12.37 Exact Identifier Resolution
+
+Exact Identifier Resolution occurs when the authorized Translation Profile directly identifies the Translation Definition:
+
+translation_definition_id
+definition_version
+definition_hash
+
+This is the strongest resolution model.
+
+Resolution succeeds only when the exact entry exists in the bound snapshot and all identity fields match.
+
+A missing or mismatched entry SHALL cause failure.
+
+⸻
+
+12.38 Deterministic Predicate Resolution
+
+Deterministic Predicate Resolution MAY occur when the authorized Translation Profile binds an ordered decision table.
+
+The table SHALL include:
+
+resolution_table_id
+input_predicates
+predicate_precedence
+definition_ids
+definition_versions
+definition_hashes
+conflict_rules
+no_match_behavior
+table_hash
+
+Predicates MAY include:
+
+* source semantic class;
+* Control Command Type;
+* runtime family;
+* runtime version;
+* adapter version;
+* parameter domain;
+* target class;
+* ordering requirement;
+* transaction requirement;
+* capability predicate.
+
+The table SHALL be:
+
+* closed;
+* deterministic;
+* hash-bound;
+* complete for its claimed scope;
+* free of discretionary ranking.
+
+⸻
+
+12.39 Resolution Inputs
+
+Definition Resolution SHALL consume only:
+
+* Committed Control Command semantic identity;
+* Committed Translation Configuration;
+* authorized Translation Profile;
+* bound Translation Definition Registry Snapshot;
+* Committed Runtime Capability Profile;
+* committed Translation Numeric Profile where required.
+
+It SHALL NOT consume:
+
+* live provider documentation;
+* latest registry entries;
+* runtime cost;
+* runtime latency;
+* runtime load;
+* implementation preference;
+* historical success;
+* provider priority;
+* uncommitted runtime observations.
+
+Runtime capability facts may participate only through the committed capability profile and the authorized deterministic resolution table.
+
+⸻
+
+12.40 Ambiguity Failure
+
+If two or more authorized definitions match the same source semantic class under the same committed conditions and no deterministic precedence rule exists, resolution SHALL fail.
+
+Contract 008 SHALL NOT choose based on:
+
+* registry insertion order;
+* implementation iteration order;
+* lexical ordering unless explicitly authorized;
+* provider preference;
+* performance;
+* cost;
+* availability;
+* local caching;
+* prior success.
+
+Ambiguity is not compatibility.
+
+Ambiguity is failure.
+
+⸻
+
+12.41 Resolution Result
+
+Definition Resolution SHALL produce one Translation Definition Resolution Record.
+
+It SHALL include:
+
+translation_definition_resolution_id
+translation_cycle_id
+translation_configuration_id
+translation_profile_id
+control_command_id
+source_semantic_class_ids
+authorized_definition_ids
+considered_definition_ids
+resolved_definition_ids
+rejected_definition_ids
+rejection_reasons
+resolution_table_id
+registry_snapshot_id
+resolution_status
+artifact_hash
+provenance_id
+
+Resolution status SHALL be one of:
+
+TRANSLATION_DEFINITION_SET_RESOLVED
+TRANSLATION_DEFINITION_MISSING
+TRANSLATION_DEFINITION_AMBIGUOUS
+TRANSLATION_DEFINITION_RESOLUTION_FAILURE
+
+The resolved set is not yet a Validated Translation Binding.
+
+Resolution proves deterministic identification only.
+
+⸻
+
+12.42 Structural Validation
+
+Structural validation SHALL confirm:
+
+* required fields are present;
+* schema is supported;
+* identifiers are valid;
+* serialization is canonical;
+* hashes are valid;
+* versions are explicit;
+* dependency declarations are complete;
+* parameter domains are declared;
+* preconditions are declared;
+* postconditions are declared;
+* failure behavior is declared.
+
+Structural validity does not prove runtime compatibility.
+
+⸻
+
+12.43 Declared Semantic Validation
+
+Declared semantic validation SHALL confirm that the definition explicitly declares:
+
+* source semantics;
+* target semantics;
+* positive obligations;
+* restrictive obligations;
+* authority bounds;
+* scope bounds;
+* cardinality bounds;
+* ordering requirements;
+* transaction requirements;
+* preconditions;
+* postconditions;
+* failure behavior;
+* preservation claims.
+
+Declared semantic validation confirms declaration completeness.
+
+It does not externally prove the claims.
+
+⸻
+
+12.44 Dependency Validation
+
+Dependency validation SHALL confirm:
+
+* all required dependencies exist;
+* dependency versions match;
+* dependency hashes match;
+* dependency snapshots are bound;
+* dependency closure is complete;
+* no unauthorized cycles exist;
+* no required fragment is unreachable;
+* evaluation order is deterministic.
+
+A dependency failure SHALL invalidate registry resolution for that definition.
+
+⸻
+
+12.45 Hash Verification
+
+Every resolution SHALL verify:
+
+[
+H_{\mathrm{expected}}(D)
+
+H_{\mathrm{resolved}}(D)
+]
+
+A matching identifier with a different definition hash SHALL not be treated as the same definition.
+
+Hash mismatch SHALL produce explicit failure.
+
+⸻
+
+12.46 Registry Conformance
+
+A conforming Translation Definition Registry implementation SHALL preserve:
+
+* immutable entries;
+* deterministic lookup;
+* exact snapshot identity;
+* dependency closure;
+* semantic versioning;
+* lifecycle status;
+* replay availability;
+* canonical serialization;
+* provenance.
+
+Registry conformance does not establish that any individual definition is compatible with the current runtime.
+
+⸻
+
+12.47 Registry Validity Versus Applicability
+
+The following distinctions SHALL be preserved:
+
+Valid Translation Definition
+≠
+Applicable Translation Definition
+≠
+Compatible Translation Definition
+≠
+Authorized Translation Definition
+
+A valid definition is structurally and declaratively conforming.
+
+An applicable definition satisfies source and contextual preconditions.
+
+A compatible definition can be faithfully supported by the committed runtime and numeric environment.
+
+An authorized definition is reachable through the Committed Translation Configuration and authorized Translation Profile.
+
+A definition must satisfy all required states before later validated binding.
+
+⸻
+
+12.48 Resolution Versus Application
+
+Resolution identifies the exact definition.
+
+It does not apply it.
+
+The distinction is:
+
+Definition Resolution
+    determines which definition is identified
+Validated Translation Binding
+    proves that the definition is applicable
+Translation Evaluation
+    applies the definition
+
+A resolved definition SHALL NOT produce Inference Commands until later binding is complete.
+
+⸻
+
+12.49 Semantic Versioning
+
+Translation Definitions SHALL use semantic versioning.
+
+Major Version
+
+A major version change includes any change to:
+
+* source semantics;
+* target semantics;
+* mapping behavior;
+* parameter transformation;
+* positive obligations;
+* restrictive obligations;
+* authority bounds;
+* scope bounds;
+* cardinality;
+* ordering;
+* transaction semantics;
+* capability assumptions;
+* compatibility requirements;
+* output construction.
+
+Minor Version
+
+A minor version MAY add backward-compatible declared support without changing existing mapping results or obligations.
+
+Patch Version
+
+A patch version MAY:
+
+* clarify metadata;
+* correct documentation;
+* repair non-semantic serialization defects;
+* add non-normative examples.
+
+Any output-affecting change SHALL NOT be classified as a patch.
+
+⸻
+
+12.50 Definition Compatibility Records
+
+Compatibility between definition versions SHALL be explicit.
+
+A Definition Compatibility Record SHALL include:
+
+definition_compatibility_record_id
+source_definition_id
+source_definition_version
+source_definition_hash
+target_definition_id
+target_definition_version
+target_definition_hash
+compatibility_class
+compatibility_conditions
+known_exclusions
+validation_evidence_ids
+record_hash
+
+Definitions SHALL NOT be considered compatible merely because they share an identifier family.
+
+⸻
+
+12.51 Definition Deprecation
+
+Deprecation means that a Translation Definition:
+
+* remains immutable;
+* remains available for replay;
+* may be discouraged or prohibited for new configurations;
+* may have a declared replacement;
+* retains historical identity.
+
+Deprecation metadata SHALL include:
+
+deprecation_status
+deprecation_reason
+replacement_definition_id
+deprecation_effective_context
+last_authorized_registry_snapshot
+replay_status
+
+A deprecated definition SHALL not be newly authorized unless the governing selection policy permits it.
+
+⸻
+
+12.52 Definition Withdrawal
+
+Withdrawal is more severe than deprecation.
+
+A withdrawn Translation Definition SHALL:
+
+* be unavailable for future authorization;
+* remain preserved for audit and replay where legally and technically possible;
+* retain historical snapshot identity;
+* include a withdrawal reason;
+* include withdrawal authority;
+* include affected-version scope;
+* identify known impacted configurations.
+
+Withdrawal SHALL NOT rewrite historical registry snapshots.
+
+Previously committed translation artifacts SHALL retain their original lineage.
+
+⸻
+
+12.53 Withdrawal Metadata
+
+Withdrawal metadata SHALL include:
+
+withdrawal_status
+withdrawal_reason_code
+withdrawal_authority_reference
+withdrawal_effective_context
+affected_definition_versions
+affected_runtime_scopes
+known_impacted_configuration_ids
+replacement_definition_id
+replay_status
+verification_evidence_ids
+
+A definition withdrawn before a new translation cycle SHALL not be used in that cycle.
+
+⸻
+
+12.54 Definition Test Vectors
+
+Every Translation Definition SHOULD include deterministic test vectors.
+
+A test vector SHOULD include:
+
+test_vector_id
+translation_definition_id
+source_control_command_fragment
+source_semantic_class
+runtime_capability_profile
+numeric_profile
+expected_constructed_command_fragment
+expected_positive_obligations
+expected_restrictive_obligations
+expected_authority_bound
+expected_scope_bound
+expected_ordering_result
+expected_transaction_result
+expected_success_or_failure
+
+Test vectors SHOULD cover:
+
+* nominal mappings;
+* boundary values;
+* invalid values;
+* unsupported capability predicates;
+* scope mismatch;
+* ordering mismatch;
+* transaction mismatch;
+* restriction loss;
+* authority expansion;
+* dependency failure;
+* hash mismatch.
+
+⸻
+
+12.55 Proof Obligations
+
+A Translation Definition SHALL declare proof obligations appropriate to its mapping.
+
+Initial proof obligations MAY include:
+
+SOURCE_SEMANTIC_IDENTITY_PRESERVED
+TARGET_CONSTRUCTION_DETERMINISTIC
+POSITIVE_OBLIGATIONS_PRESERVED
+RESTRICTIVE_OBLIGATIONS_PRESERVED
+AUTHORITY_NON_EXPANSIVE
+SCOPE_PRESERVED
+TARGET_IDENTITY_PRESERVED
+CARDINALITY_PRESERVED
+NUMERIC_BOUNDS_PRESERVED
+TEMPORAL_SEMANTICS_PRESERVED
+EXPIRY_PRESERVED
+ORDERING_PRESERVED
+TRANSACTION_SEMANTICS_PRESERVED
+PROHIBITED_EFFECTS_EXCLUDED
+DEPENDENCY_CLOSURE_COMPLETE
+
+Proof obligation satisfaction is evaluated later.
+
+Registry publication records the obligations.
+
+⸻
+
+12.56 Registry and Resolution Failure Classes
+
+Initial Section 12 failure classes SHALL include:
+
+TRANSLATION_DEFINITION_MISSING
+TRANSLATION_DEFINITION_AMBIGUOUS
+TRANSLATION_DEFINITION_HASH_MISMATCH
+TRANSLATION_DEFINITION_SCHEMA_INVALID
+TRANSLATION_DEFINITION_IDENTITY_INVALID
+TRANSLATION_DEFINITION_DECLARATION_INCOMPLETE
+TRANSLATION_DEFINITION_DEPENDENCY_MISSING
+TRANSLATION_DEFINITION_DEPENDENCY_HASH_MISMATCH
+TRANSLATION_DEFINITION_DEPENDENCY_CYCLE
+TRANSLATION_DEFINITION_DEPENDENCY_CLOSURE_INCOMPLETE
+TRANSLATION_DEFINITION_FRAGMENT_MISSING
+TRANSLATION_DEFINITION_SCOPE_MISMATCH
+TRANSLATION_DEFINITION_SOURCE_SCOPE_UNSUPPORTED
+TRANSLATION_DEFINITION_RUNTIME_SCOPE_UNSUPPORTED
+TRANSLATION_DEFINITION_VERSION_INCOMPATIBLE
+TRANSLATION_DEFINITION_REGISTRY_SNAPSHOT_MISSING
+TRANSLATION_DEFINITION_REGISTRY_SNAPSHOT_MISMATCH
+TRANSLATION_DEFINITION_WITHDRAWN
+TRANSLATION_DEFINITION_DEPRECATED_NOT_AUTHORIZED
+TRANSLATION_DEFINITION_PRECONDITION_UNSATISFIED
+TRANSLATION_DEFINITION_RESOLUTION_TABLE_MISSING
+TRANSLATION_DEFINITION_RESOLUTION_TABLE_INVALID
+TRANSLATION_DEFINITION_RESOLUTION_INCOMPLETE
+TRANSLATION_DEFINITION_PROVENANCE_INCOMPLETE
+TRANSLATION_DEFINITION_REPLAY_UNAVAILABLE
+
+Semantic incompatibility with the exact Control Command or Runtime Capability Profile SHALL normally be reported later by Translation Compatibility Evaluation.
+
+⸻
+
+12.57 Prohibited Registry Practices
+
+The Translation Definition Registry and Contract 008 SHALL NOT:
+
+* mutate a published definition;
+* reuse an identifier for different semantics;
+* resolve from an unbound snapshot;
+* substitute a newer version;
+* search outside the authorized definition set;
+* rank unrestricted registry candidates;
+* infer a definition from prior success;
+* treat registry order as precedence;
+* treat registry membership as verification;
+* treat resolution as application;
+* allow a fragment to become directly authoritative;
+* silently repair missing dependencies;
+* ignore withdrawal status;
+* merge incompatible snapshots;
+* use a definition whose hash differs from the committed reference.
+
+⸻
+
+12.58 Section 12 Artifact Flow
+
+Committed Translation Configuration
+        ↓
+Authorized Translation Profile
+        ↓
+Authorized Definition Set
+or
+Deterministic Resolution Table
+        ↓
+Bound Translation Definition Registry Snapshot
+        ↓
+Exact Definition Identity Resolution
+        ↓
+Dependency and Fragment Closure
+        ↓
+Structural and Declared-Semantic Validation
+        ↓
+Either:
+Resolved Translation Definition Set
+        or
+Translation Definition Resolution Failure
+
+At the conclusion of Section 12:
+
+* exact Translation Definitions are identified;
+* their registry identity is proven;
+* their dependency closures are known;
+* their declared semantic obligations are known;
+* no runtime compatibility has yet been proven;
+* no Validated Translation Binding exists;
+* no Translation Definition has been applied;
+* no Inference Command has been constructed.
+
+⸻
+
+12.59 Fundamental Translation Definition Invariant
+
+A Translation Definition SHALL specify exactly one deterministic mapping from one declared source semantic class to one declared runtime-command construction contract, including every:
+
+* precondition;
+* parameter transformation;
+* positive obligation;
+* restrictive obligation;
+* authority bound;
+* scope bound;
+* cardinality bound;
+* temporal obligation;
+* expiry obligation;
+* ordering postcondition;
+* transaction postcondition;
+* failure condition;
+
+required for faithful interpretation.
+
+A Translation Definition SHALL possess no supervisory-cycle authority by virtue of registry membership.
+
+It becomes eligible for use only when it is:
+
+* reachable from the Committed Translation Configuration;
+* organized by the authorized Translation Profile;
+* resolved from the exact committed registry snapshot;
+* contained within the authorized definition set or deterministic resolution table;
+* accepted by the later Validated Translation Binding.
+
+A Translation Definition SHALL NOT:
+
+* broaden supervisory authority;
+* weaken mandatory restrictions;
+* infer undeclared supervisory intent;
+* substitute an approximate action;
+* select an alternative mapping;
+* repair unsupported runtime capability;
+* authorize execution.
+
+Registry resolution SHALL be deterministic.
+
+Ambiguous, missing, withdrawn, structurally invalid, dependency-incomplete, or hash-inconsistent definitions SHALL produce explicit failure.

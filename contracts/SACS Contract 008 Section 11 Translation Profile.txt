@@ -1,0 +1,1334 @@
+11. Translation Profile
+
+11.1 Purpose
+
+This section defines the Translation Profile used by Contract 008.
+
+A Translation Profile is a reusable, immutable specification of one complete translation strategy.
+
+It organizes the Translation Definitions, normalization rules, numeric rules, ordering rules, validation rules, transaction rules, compatibility rules, replay requirements, provenance requirements, and failure rules required to transform a declared class of Committed Control Commands into runtime-specific Inference Commands.
+
+A Translation Profile does not possess cycle authority by itself.
+
+It becomes applicable only when it is:
+
+* identified as the sole root Translation Profile;
+* immutably referenced;
+* version-bound;
+* hash-bound;
+* registry-bound;
+
+by the Committed Translation Configuration governing the translation cycle.
+
+The defining identity is:
+
+A Translation Profile is a reusable, immutable specification of one complete translation strategy. It has no cycle authority by itself and becomes applicable only when referenced as the sole root Translation Profile by the Committed Translation Configuration.
+
+⸻
+
+11.2 Architectural Position
+
+The Translation Profile occupies the following position:
+
+Committed Translation Configuration
+        ↓ authorizes
+Translation Profile
+        ↓ organizes
+Translation Definitions and Rule Sets
+        ↓ govern
+Translation Evaluation
+
+The Committed Translation Configuration determines which Translation Profile is authorized.
+
+The Translation Profile determines which definitions and rule families constitute the declared strategy.
+
+The Translation Definitions and rule sets determine the specific transformations and validation requirements.
+
+No lower artifact may replace or reinterpret the root Translation Profile.
+
+⸻
+
+11.3 Profile Authority Boundary
+
+A Translation Profile MAY define:
+
+* supported source Control Command classes;
+* supported source semantic classes;
+* supported runtime classes;
+* required Translation Definitions;
+* permitted subordinate profiles;
+* normalization strategy;
+* numeric strategy;
+* ordering strategy;
+* validation strategy;
+* transaction strategy;
+* compatibility strategy;
+* replay requirements;
+* provenance requirements;
+* failure behavior;
+* deterministic resolution rules.
+
+A Translation Profile SHALL NOT:
+
+* select itself;
+* commit itself to a cycle;
+* select a Control Command;
+* modify a Control Command;
+* select a runtime;
+* select a provider;
+* redefine Runtime Capability Profile facts;
+* authorize execution;
+* weaken mandatory restrictions;
+* expand supervisory authority;
+* generate an unregistered Translation Definition;
+* select an alternative profile after failure.
+
+Profile existence is not profile authority.
+
+Profile compatibility is not profile authority.
+
+Profile registration is not profile authority.
+
+Only the Committed Translation Configuration grants cycle authority.
+
+⸻
+
+11.4 Reusable Strategy Specification
+
+A Translation Profile SHALL be reusable across translation cycles only as a definition artifact.
+
+Reuse means that the same immutable profile definition may be referenced by multiple Committed Translation Configurations.
+
+Reuse does not mean that:
+
+* one committed configuration governs several cycles;
+* one profile may mutate between cycles;
+* prior compatibility applies automatically;
+* runtime capability remains unchanged;
+* registry snapshots may be refreshed silently;
+* a profile may carry authority from one cycle into another.
+
+Each cycle SHALL bind the profile through a distinct Committed Translation Configuration.
+
+⸻
+
+11.5 Canonical Translation Profile Schema
+
+A Translation Profile SHALL include at least:
+
+translation_profile_id
+translation_profile_name
+translation_profile_description
+profile_version
+profile_schema_version
+contract_version
+supported_control_command_type_ids
+supported_control_command_definition_versions
+supported_control_semantic_classes
+supported_translation_requirement_classes
+supported_runtime_types
+supported_runtime_version_scopes
+supported_adapter_types
+supported_adapter_version_scopes
+translation_definition_ids
+translation_definition_versions
+translation_definition_hashes
+subordinate_translation_profile_ids
+subordinate_translation_profile_versions
+subordinate_translation_profile_hashes
+normalization_rule_set_id
+normalization_rule_set_version
+normalization_rule_set_hash
+numeric_rule_set_id
+numeric_rule_set_version
+numeric_rule_set_hash
+translation_numeric_profile_ids
+ordering_rule_set_id
+ordering_rule_set_version
+ordering_rule_set_hash
+supported_ordering_models
+validation_rule_set_id
+validation_rule_set_version
+validation_rule_set_hash
+transaction_rule_set_id
+transaction_rule_set_version
+transaction_rule_set_hash
+supported_transaction_models
+compatibility_rule_set_id
+compatibility_rule_set_version
+compatibility_rule_set_hash
+definition_resolution_model
+definition_resolution_table_id
+definition_resolution_table_hash
+profile_dependencies
+profile_exclusions
+profile_preconditions
+profile_postconditions
+deterministic_replay_policy_id
+provenance_requirement_profile_id
+failure_profile_id
+registry_snapshot_requirements
+certification_requirements
+schema_version
+definition_version
+semantic_payload_hash
+artifact_hash
+provenance_id
+
+An implementation MAY use different field names.
+
+It SHALL preserve equivalent semantic bindings.
+
+⸻
+
+11.6 Root Translation Profile
+
+Every translation cycle SHALL have exactly one root Translation Profile.
+
+The root profile SHALL be identified by the Committed Translation Configuration through:
+
+translation_profile_id
+translation_profile_version
+translation_profile_hash
+
+The root profile SHALL provide the complete strategy entry point for the translation cycle.
+
+Every subordinate profile, Translation Definition, and rule set used during the cycle SHALL be:
+
+* directly referenced by the root profile; or
+* deterministically reachable from it through immutable references.
+
+No second root profile may govern the same translation cycle.
+
+A translation cycle with:
+
+* no root profile;
+* multiple root profiles;
+* an unresolved root profile;
+* a root profile hash mismatch;
+
+SHALL fail.
+
+⸻
+
+11.7 Subordinate Translation Profiles
+
+A root Translation Profile MAY reference subordinate Translation Profiles.
+
+A subordinate profile MAY organize a bounded portion of the strategy, such as:
+
+* one Control Command family;
+* one runtime command family;
+* one numeric regime;
+* one transaction regime;
+* one target class;
+* one adapter class;
+* one semantic decomposition family.
+
+A subordinate profile SHALL:
+
+* have no independent cycle authority;
+* be explicitly referenced;
+* have exact version and hash bindings;
+* declare its scope;
+* declare its dependencies;
+* declare its exclusions;
+* remain within the authority of the root profile.
+
+A subordinate profile SHALL NOT:
+
+* select another root profile;
+* override the root profile;
+* replace root-level rule sets;
+* broaden supported command classes;
+* broaden runtime authority;
+* introduce unbound definitions;
+* change selection precedence.
+
+⸻
+
+11.8 Profile Hierarchy
+
+A Translation Profile hierarchy SHALL be explicit.
+
+The hierarchy MAY be represented as:
+
+[
+G_P = (V_P,E_P)
+]
+
+where:
+
+* (V_P) is the set of Translation Profiles;
+* (E_P) is the set of explicit profile-reference relations.
+
+The hierarchy SHALL have:
+
+* exactly one root;
+* deterministic traversal;
+* explicit dependency relations;
+* no unresolved conflicts;
+* no unauthorized cycles.
+
+Profile-reference cycles SHALL be prohibited unless a later registered model explicitly defines a valid mutually bound profile group.
+
+In the absence of such a model, the profile graph SHALL be acyclic.
+
+⸻
+
+11.9 Profile Scope
+
+Every Translation Profile SHALL declare its scope.
+
+Profile scope SHALL include at least:
+
+source_command_scope
+source_semantic_scope
+translation_requirement_scope
+runtime_scope
+adapter_scope
+target_scope
+numeric_scope
+ordering_scope
+transaction_scope
+
+A profile SHALL be considered applicable only when the later Validated Translation Binding proves that the exact:
+
+* Committed Control Command;
+* Translation Requirement Set;
+* Runtime Capability Profile;
+* registry snapshot set;
+
+fall within its declared scope.
+
+A profile SHALL NOT expand its own scope during translation.
+
+⸻
+
+11.10 Source Command Scope
+
+The profile SHALL identify the Control Command Types and definition versions it supports.
+
+For each supported source command class, it SHALL declare:
+
+control_command_type_id
+control_command_definition_version_scope
+control_command_definition_hash_requirements
+supported_semantic_classes
+required_source_fields
+required_source_restrictions
+known_exclusions
+
+A profile SHALL NOT be considered applicable based only on semantic similarity.
+
+Exact registered source compatibility is required.
+
+⸻
+
+11.11 Translation Requirement Scope
+
+The profile SHALL identify the Translation Requirement classes it can organize.
+
+These MAY include:
+
+POSITIVE_EFFECT_REQUIREMENT
+PROHIBITED_EFFECT_REQUIREMENT
+AUTHORITY_CEILING_REQUIREMENT
+PARAMETER_REQUIREMENT
+TARGET_BINDING_REQUIREMENT
+SCOPE_REQUIREMENT
+TEMPORAL_REQUIREMENT
+EXPIRY_REQUIREMENT
+CARDINALITY_REQUIREMENT
+ORDERING_REQUIREMENT
+ATOMICITY_REQUIREMENT
+TRANSACTION_REQUIREMENT
+COMPENSATION_REQUIREMENT
+FAILURE_SEMANTICS_REQUIREMENT
+REGISTERED_REQUIREMENT_CLASS
+
+Every mandatory requirement in the Translation Requirement Set SHALL fall within the profile’s declared scope.
+
+An unsupported mandatory requirement SHALL make the profile inapplicable.
+
+⸻
+
+11.12 Runtime Scope
+
+A Translation Profile SHALL declare the runtime classes for which its strategy is defined.
+
+Runtime scope SHALL identify:
+
+runtime_type
+runtime_version_scope
+adapter_type
+adapter_version_scope
+required_capability_definition_ids
+required_serialization_profiles
+
+Runtime scope is a compatibility declaration.
+
+It is not runtime selection authority.
+
+The existence of profiles for several runtimes SHALL NOT permit Contract 008 to choose among those runtimes.
+
+The runtime target remains fixed by the governing configuration and referenced Runtime Capability Profile.
+
+⸻
+
+11.13 Translation Definition Organization
+
+A Translation Profile SHALL organize the Translation Definitions permitted under its strategy.
+
+It SHALL identify either:
+
+1. an exact Translation Definition set; or
+2. a deterministic Translation Definition resolution model.
+
+The profile SHALL NOT authorize open-ended registry discovery.
+
+An exact set SHALL include:
+
+translation_definition_ids
+translation_definition_versions
+translation_definition_hashes
+
+A resolution model SHALL include:
+
+definition_resolution_model
+definition_resolution_table_id
+predicate_definitions
+precedence_rules
+conflict_rules
+no_match_behavior
+
+The profile may organize definitions.
+
+Only the Committed Translation Configuration authorizes their use for the cycle.
+
+⸻
+
+11.14 Definition Resolution Models
+
+Initial definition resolution models MAY include:
+
+EXACT_DEFINITION_SET
+COMMAND_TYPE_TABLE
+SEMANTIC_CLASS_TABLE
+RUNTIME_VERSION_TABLE
+PARAMETER_DOMAIN_TABLE
+TARGET_CLASS_TABLE
+COMPOSITE_RESOLUTION_TABLE
+REGISTERED_RESOLUTION_MODEL
+
+Every model SHALL be deterministic.
+
+A resolution model SHALL produce:
+
+* exactly one valid definition set; or
+* one explicit resolution failure.
+
+It SHALL NOT produce an unresolved ranked list.
+
+It SHALL NOT delegate final choice to implementation preference.
+
+⸻
+
+11.15 Rule-Set Organization
+
+A Translation Profile SHALL identify the rule sets constituting its strategy.
+
+These SHALL include, where applicable:
+
+normalization_rule_set_id
+numeric_rule_set_id
+ordering_rule_set_id
+validation_rule_set_id
+transaction_rule_set_id
+compatibility_rule_set_id
+failure_profile_id
+
+The profile MAY reference subordinate rule profiles when those references are:
+
+* explicit;
+* immutable;
+* hash-bound;
+* deterministic;
+* within profile closure.
+
+A rule set absent from the profile and absent from its immutable closure SHALL not be used.
+
+⸻
+
+11.16 Normalization Strategy
+
+The profile SHALL identify the normalization strategy applicable to its Translation Definitions.
+
+The normalization strategy SHALL specify which classes of representation-preserving transformations are permitted.
+
+It SHALL NOT authorize:
+
+* semantic approximation;
+* unsupported-value weakening;
+* automatic clipping;
+* target substitution;
+* scope substitution;
+* authority expansion;
+* omission of mandatory restrictions.
+
+The specific normalization mechanics belong to Section 13.
+
+Section 11 binds only the strategy identity and scope.
+
+⸻
+
+11.17 Numeric Strategy
+
+The profile SHALL identify the permitted numeric strategy.
+
+It SHALL declare:
+
+supported_translation_numeric_profile_ids
+required_numeric_rule_set_id
+numeric_compatibility_requirements
+numeric_failure_behavior
+
+The profile SHALL NOT negotiate numeric precision or tolerance at runtime.
+
+The profile SHALL NOT select a more permissive Numeric Profile after incompatibility.
+
+The specific numeric mechanics belong to Section 14.
+
+⸻
+
+11.18 Ordering Strategy
+
+The profile SHALL identify the ordering models supported by the strategy.
+
+These MAY include:
+
+UNORDERED
+TOTAL_ORDER
+PARTIAL_ORDER
+PHASED_ORDER
+BARRIER_ORDER
+TRANSACTION_ORDER
+REGISTERED_ORDERING_MODEL
+
+The profile SHALL identify:
+
+* which source semantics require ordering;
+* which ordering rules apply;
+* which command groups may be ordered;
+* which ordering models are prohibited.
+
+The specific ordering mechanics belong to Section 15.
+
+⸻
+
+11.19 Validation Strategy
+
+The profile SHALL identify every validation class required by the strategy.
+
+It SHALL bind one exact validation rule set.
+
+Validation obligations MAY include:
+
+* profile identity validation;
+* profile closure validation;
+* source compatibility validation;
+* runtime compatibility validation;
+* parameter-domain validation;
+* numeric validation;
+* target validation;
+* scope validation;
+* temporal validation;
+* ordering validation;
+* transaction validation;
+* authority-preservation validation;
+* restriction-preservation validation;
+* semantic-equivalence validation;
+* provenance validation.
+
+The profile SHALL NOT permit mandatory validation to be skipped.
+
+The specific validation mechanics belong to Section 16.
+
+⸻
+
+11.20 Transaction Strategy
+
+The profile SHALL identify the transaction models supported by the strategy.
+
+It SHALL declare whether the strategy permits or requires:
+
+NON_TRANSACTIONAL
+ATOMIC
+ALL_OR_NONE
+BEST_EFFORT_PROHIBITED
+ORDERED_COMMIT
+ROLLBACK_REQUIRED
+COMPENSATION_REQUIRED
+REGISTERED_TRANSACTION_MODEL
+
+The profile defines how transaction requirements are organized for translation.
+
+It does not determine whether the runtime can execute them.
+
+Runtime compatibility remains a later evaluation.
+
+The specific transaction mechanics belong to Section 17.
+
+⸻
+
+11.21 Compatibility Strategy
+
+The profile SHALL bind one exact compatibility rule set.
+
+The compatibility strategy SHALL define how later evaluation determines whether the profile and its dependencies are compatible with:
+
+* the Committed Control Command;
+* the Translation Requirement Set;
+* the Runtime Capability Profile;
+* the Numeric Profile;
+* the registry snapshot set;
+* the implementation capability profile.
+
+The compatibility strategy SHALL NOT:
+
+* redefine runtime capabilities;
+* waive unsupported requirements;
+* remove known exclusions;
+* authorize partial translation;
+* select another profile.
+
+⸻
+
+11.22 Profile Dependencies
+
+A Translation Profile MAY depend on other immutable artifacts.
+
+Every dependency SHALL be declared through:
+
+dependency_id
+dependency_type
+dependency_version
+dependency_hash
+dependency_requirement
+dependency_failure_behavior
+
+Dependencies MAY include:
+
+* subordinate Translation Profiles;
+* Translation Definitions;
+* rule sets;
+* registries;
+* Numeric Profiles;
+* serialization profiles;
+* certification profiles;
+* replay policies;
+* provenance profiles.
+
+An undeclared dependency is unauthorized.
+
+An unresolved mandatory dependency makes the profile inapplicable.
+
+⸻
+
+11.23 Profile Exclusions
+
+Every Translation Profile SHALL identify known exclusions.
+
+Exclusions MAY include:
+
+* unsupported Control Command Types;
+* unsupported semantic classes;
+* unsupported parameter domains;
+* unsupported target classes;
+* unsupported scopes;
+* unsupported runtime versions;
+* unsupported adapter versions;
+* unsupported ordering models;
+* unsupported transaction models;
+* unsupported numeric profiles;
+* known definition conflicts;
+* known capability gaps.
+
+An applicable exclusion SHALL make the profile inapplicable.
+
+Contract 008 SHALL NOT override a profile exclusion.
+
+⸻
+
+11.24 Preconditions
+
+A Translation Profile SHALL declare its preconditions.
+
+Preconditions MAY include:
+
+* exact source definition availability;
+* valid Translation Requirement Set;
+* required Runtime Capability Profile class;
+* required registry snapshots;
+* required Numeric Profile;
+* required adapter class;
+* required target identity model;
+* required certification status.
+
+A profile SHALL not be evaluated as applicable until all mandatory preconditions are resolved.
+
+Unknown precondition status is not satisfaction.
+
+⸻
+
+11.25 Postconditions
+
+A Translation Profile SHALL declare the postconditions its successful application is intended to establish.
+
+Postconditions MAY include:
+
+* complete Translation Definition resolution;
+* complete requirement coverage;
+* deterministic normalized parameter representation;
+* complete ordering representation;
+* complete transaction representation;
+* complete validation-obligation construction;
+* complete provenance construction.
+
+Profile postconditions describe expected strategy results.
+
+They do not certify that those results were achieved.
+
+Certification belongs to later validation stages.
+
+⸻
+
+11.26 Profile Closure
+
+The complete dependency closure of a Translation Profile SHALL be deterministically resolvable.
+
+Let:
+
+[
+\operatorname{Closure}(P)
+]
+
+denote all artifacts reachable from Translation Profile (P).
+
+The closure MAY include:
+
+* subordinate profiles;
+* Translation Definitions;
+* normalization rules;
+* numeric rules;
+* ordering rules;
+* validation rules;
+* transaction rules;
+* compatibility rules;
+* replay policies;
+* provenance profiles.
+
+Every artifact in the closure SHALL have:
+
+* an identifier;
+* a version;
+* a hash;
+* an immutable registry or embedded-definition binding.
+
+The profile closure SHALL NOT depend on:
+
+* ambient configuration;
+* implementation-local defaults;
+* current registry state;
+* provider documentation;
+* live runtime discovery.
+
+⸻
+
+11.27 Profile Closure Versus Configuration Closure
+
+Translation Profile closure and Committed Translation Configuration closure are related but distinct.
+
+Profile closure answers:
+
+Which artifacts constitute this reusable strategy?
+
+Configuration closure answers:
+
+Which artifacts are authorized for this exact cycle?
+
+Therefore:
+
+[
+\operatorname{Closure}(P_t)
+\subseteq
+\operatorname{Closure}(\Gamma_t)
+]
+
+where:
+
+* (P_t) is the root Translation Profile;
+* (\Gamma_t) is the Committed Translation Configuration.
+
+The governing configuration MAY further bind:
+
+* exact registry snapshots;
+* exact command identity;
+* exact Runtime Capability Profile;
+* selection authority;
+* commitment evidence;
+* cycle-specific replay and provenance requirements.
+
+A profile artifact outside configuration closure is unauthorized for the cycle.
+
+⸻
+
+11.28 Profile Immutability
+
+A published Translation Profile SHALL be immutable.
+
+Any change to:
+
+* supported source classes;
+* supported runtime classes;
+* Translation Definitions;
+* subordinate profiles;
+* rule sets;
+* resolution logic;
+* dependencies;
+* exclusions;
+* preconditions;
+* postconditions;
+* failure behavior;
+
+SHALL create a new profile version and artifact hash.
+
+A prior profile version SHALL remain resolvable for replay.
+
+Silent in-place modification is prohibited.
+
+⸻
+
+11.29 Profile Versioning
+
+Translation Profiles SHALL use semantic versioning.
+
+A major version change indicates a breaking change to:
+
+* strategy semantics;
+* supported command scope;
+* runtime scope;
+* rule-set organization;
+* definition resolution;
+* authority-preservation behavior;
+* validation behavior.
+
+A minor version MAY add backward-compatible:
+
+* command classes;
+* definitions;
+* rule references;
+* optional subordinate profiles;
+* validation capabilities.
+
+A patch version MAY clarify non-semantic defects.
+
+Compatibility across profile versions SHALL be explicit.
+
+Silent profile migration is prohibited.
+
+⸻
+
+11.30 Profile Deprecation
+
+A Translation Profile MAY be deprecated.
+
+Deprecation SHALL identify:
+
+deprecation_reason
+replacement_profile_id
+last_authorized_registry_snapshot
+last_supported_runtime_scope
+deprecation_effective_condition
+replay_status
+
+A deprecated profile SHALL not be selected for a new Committed Translation Configuration unless the selection policy explicitly permits it.
+
+Deprecation does not alter prior committed configurations.
+
+⸻
+
+11.31 Profile Withdrawal
+
+A Translation Profile MAY be withdrawn when the strategy is proven unsound.
+
+Withdrawal SHALL identify:
+
+* affected profile versions;
+* affected Translation Definitions;
+* affected runtime scopes;
+* affected rule sets;
+* withdrawal reason;
+* known impacted configurations;
+* replacement guidance;
+* supporting evidence.
+
+A withdrawn profile SHALL NOT govern new translation cycles.
+
+Previously committed artifacts SHALL retain historical lineage.
+
+They SHALL NOT be silently rewritten.
+
+⸻
+
+11.32 Profile Certification
+
+A Translation Profile MAY require certification.
+
+A Translation Profile Certificate MAY include:
+
+translation_profile_certificate_id
+translation_profile_id
+profile_version
+profile_hash
+certified_source_scope
+certified_runtime_scope
+certified_definition_ids
+certified_rule_set_ids
+verification_method_ids
+test_vector_ids
+known_exclusions
+certificate_authority_id
+issued_at
+validity_interval
+artifact_hash
+
+The Committed Translation Configuration SHALL specify whether certification is required.
+
+Contract 008 SHALL NOT self-certify a profile where external certification is required.
+
+⸻
+
+11.33 Test Vectors
+
+A Translation Profile SHOULD define deterministic test-vector suites.
+
+A profile test vector SHOULD specify:
+
+test_vector_id
+translation_profile_id
+source_control_command
+translation_requirement_set
+runtime_capability_profile
+registry_snapshot_set
+expected_definition_resolution
+expected_rule_set_resolution
+expected_profile_applicability
+expected_failure_or_success
+
+Test-vector coverage SHOULD include:
+
+* valid source command classes;
+* unsupported source command classes;
+* boundary parameter domains;
+* unsupported runtime versions;
+* subordinate-profile resolution;
+* conflicting definitions;
+* missing dependencies;
+* applicable exclusions;
+* numeric incompatibility;
+* ordering incompatibility;
+* transaction incompatibility.
+
+⸻
+
+11.34 Profile Resolution
+
+The root Translation Profile SHALL be resolved directly from the Committed Translation Configuration.
+
+Resolution SHALL include validation of:
+
+translation_profile_id
+translation_profile_version
+translation_profile_hash
+translation_profile_registry_snapshot_id
+
+Contract 008 SHALL NOT search for a substitute profile.
+
+Resolution SHALL produce one of:
+
+TRANSLATION_PROFILE_RESOLVED
+TRANSLATION_PROFILE_MISSING
+TRANSLATION_PROFILE_HASH_MISMATCH
+TRANSLATION_PROFILE_WITHDRAWN
+TRANSLATION_PROFILE_RESOLUTION_FAILURE
+
+Only TRANSLATION_PROFILE_RESOLVED permits later profile-conformance evaluation.
+
+⸻
+
+11.35 Subordinate Profile Resolution
+
+Subordinate profiles SHALL be resolved through the root profile’s immutable dependency graph.
+
+Resolution SHALL be deterministic.
+
+For each subordinate profile, Contract 008 SHALL verify:
+
+* identifier;
+* version;
+* hash;
+* scope;
+* dependency relation;
+* registry snapshot;
+* exclusion status;
+* withdrawal status.
+
+A missing or ambiguous subordinate profile SHALL cause profile-resolution failure.
+
+Contract 008 SHALL NOT omit a mandatory subordinate profile.
+
+⸻
+
+11.36 Profile Applicability
+
+Profile resolution does not establish profile applicability.
+
+The profile may resolve correctly but still be incompatible with:
+
+* the Committed Control Command;
+* the Translation Requirement Set;
+* the Runtime Capability Profile;
+* the Numeric Profile;
+* the target;
+* the registry snapshot set.
+
+Therefore:
+
+Translation Profile Resolution
+≠
+Validated Translation Binding
+
+Profile applicability SHALL be proven later through:
+
+Translation Configuration Conformance
+Translation Compatibility Evaluation
+Validated Translation Binding
+
+⸻
+
+11.37 Deterministic Profile Environment
+
+For identical:
+
+* Committed Translation Configuration;
+* root Translation Profile;
+* profile registry snapshot;
+* subordinate profile graph;
+* profile dependency definitions;
+
+a conforming implementation SHALL resolve the same profile closure.
+
+Formally:
+
+[
+C_P
+
+\operatorname{ResolveProfileClosure}
+\left(
+P,
+V_P
+\right)
+]
+
+where:
+
+* (P) is the root Translation Profile;
+* (V_P) is the bound profile registry snapshot;
+* (C_P) is the resolved profile closure.
+
+The resolution function SHALL be deterministic.
+
+Probabilistic profile resolution is prohibited.
+
+⸻
+
+11.38 Profile Failure Behavior
+
+A Translation Profile SHALL define failure behavior for:
+
+* missing definitions;
+* unresolved subordinate profiles;
+* hash mismatches;
+* dependency failures;
+* exclusion matches;
+* unsupported source classes;
+* unsupported runtime classes;
+* ambiguous resolution;
+* invalid rule-set references;
+* incompatible profile composition;
+* certification failure.
+
+Profile failure behavior SHALL remain fail-closed.
+
+A profile SHALL NOT authorize fallback to:
+
+* another profile;
+* another runtime;
+* another provider;
+* weaker normalization;
+* relaxed numeric semantics;
+* reduced validation;
+* best-effort transaction behavior.
+
+⸻
+
+11.39 Translation Profile Failure Classes
+
+Initial failure classes SHALL include:
+
+TRANSLATION_PROFILE_MISSING
+TRANSLATION_PROFILE_NOT_BOUND
+TRANSLATION_PROFILE_HASH_MISMATCH
+TRANSLATION_PROFILE_SCHEMA_UNSUPPORTED
+TRANSLATION_PROFILE_VERSION_INCOMPATIBLE
+TRANSLATION_PROFILE_WITHDRAWN
+TRANSLATION_PROFILE_DEPRECATED_NOT_AUTHORIZED
+TRANSLATION_PROFILE_SCOPE_UNRESOLVED
+TRANSLATION_PROFILE_SOURCE_SCOPE_MISMATCH
+TRANSLATION_PROFILE_RUNTIME_SCOPE_MISMATCH
+TRANSLATION_PROFILE_ADAPTER_SCOPE_MISMATCH
+TRANSLATION_PROFILE_REQUIREMENT_SCOPE_MISMATCH
+TRANSLATION_PROFILE_DEPENDENCY_MISSING
+TRANSLATION_PROFILE_DEPENDENCY_HASH_MISMATCH
+TRANSLATION_PROFILE_DEPENDENCY_CYCLE
+TRANSLATION_PROFILE_EXCLUSION_APPLIES
+TRANSLATION_PROFILE_PRECONDITION_UNSATISFIED
+TRANSLATION_PROFILE_MULTIPLE_ROOTS
+TRANSLATION_PROFILE_SUBPROFILE_UNRESOLVED
+TRANSLATION_PROFILE_DEFINITION_SET_MISSING
+TRANSLATION_PROFILE_DEFINITION_RESOLUTION_AMBIGUOUS
+TRANSLATION_PROFILE_NORMALIZATION_RULE_SET_MISSING
+TRANSLATION_PROFILE_NUMERIC_RULE_SET_MISSING
+TRANSLATION_PROFILE_ORDERING_RULE_SET_MISSING
+TRANSLATION_PROFILE_VALIDATION_RULE_SET_MISSING
+TRANSLATION_PROFILE_TRANSACTION_RULE_SET_MISSING
+TRANSLATION_PROFILE_COMPATIBILITY_RULE_SET_MISSING
+TRANSLATION_PROFILE_CERTIFICATE_MISSING
+TRANSLATION_PROFILE_CERTIFICATE_INVALID
+TRANSLATION_PROFILE_CLOSURE_INCOMPLETE
+TRANSLATION_PROFILE_PROVENANCE_INCOMPLETE
+
+A Translation Profile failure SHALL prevent later validated binding.
+
+⸻
+
+11.40 Prohibited Profile Practices
+
+Contract 008 SHALL NOT:
+
+* create a profile during translation;
+* modify a profile during translation;
+* select a profile not bound by the configuration;
+* replace the root profile after failure;
+* combine multiple root profiles;
+* infer profile scope from implementation behavior;
+* infer profile compatibility from prior success;
+* search for a “close enough” profile;
+* merge definitions from unrelated profiles;
+* resolve profile dependencies from mutable registries;
+* override profile exclusions;
+* skip mandatory subordinate profiles;
+* ignore certification requirements;
+* permit implementation-local profile extensions;
+* treat a profile as runtime capability authority;
+* treat a profile as execution authority.
+
+⸻
+
+11.41 Profile Registry Binding
+
+Every Translation Profile SHALL resolve through the Translation Profile Registry snapshot bound by the Committed Translation Configuration.
+
+The registry binding SHALL include:
+
+translation_profile_registry_snapshot_id
+translation_profile_id
+translation_profile_version
+translation_profile_hash
+subordinate_profile_ids
+subordinate_profile_hashes
+snapshot_hash
+
+A profile absent from the bound snapshot is unavailable.
+
+A hash mismatch SHALL cause failure.
+
+Contract 008 SHALL NOT resolve a newer profile version.
+
+⸻
+
+11.42 Profile Composition
+
+A root profile MAY compose subordinate profiles only through an explicit Profile Composition Definition.
+
+A Profile Composition Definition SHALL specify:
+
+profile_composition_definition_id
+root_profile_id
+member_profile_ids
+member_roles
+scope_partitioning
+dependency_order
+conflict_resolution
+rule_set_precedence
+definition_resolution_precedence
+aggregate_exclusions
+composition_validation_rules
+
+Composition SHALL NOT be inferred from list membership.
+
+Composition SHALL NOT permit overlapping authority without deterministic precedence.
+
+Unresolved overlap SHALL cause failure.
+
+⸻
+
+11.43 Conflict Resolution
+
+A Translation Profile SHALL define deterministic conflict behavior.
+
+Possible conflicts include:
+
+* two definitions matching the same predicate;
+* two rule sets governing the same field;
+* incompatible numeric requirements;
+* inconsistent ordering models;
+* inconsistent transaction requirements;
+* overlapping subordinate-profile scopes.
+
+Conflict resolution SHALL be:
+
+* explicitly defined;
+* deterministic;
+* non-expansive;
+* hash-bound;
+* within configuration authority.
+
+If no exact conflict rule exists, the conflict SHALL cause failure.
+
+⸻
+
+11.44 Profile Completeness
+
+A Translation Profile is complete when its immutable closure defines or references every strategy category required by its declared scope.
+
+Completeness requires, where applicable:
+
+* source scope;
+* runtime scope;
+* Translation Definitions;
+* normalization strategy;
+* numeric strategy;
+* ordering strategy;
+* validation strategy;
+* transaction strategy;
+* compatibility strategy;
+* replay policy;
+* provenance requirements;
+* failure behavior.
+
+A profile that omits a mandatory strategy category SHALL be incomplete.
+
+Profile completeness does not establish runtime compatibility.
+
+⸻
+
+11.45 Profile Non-Authority
+
+A Translation Profile SHALL remain noncanonical with respect to cycle authority.
+
+Even when a profile is:
+
+* valid;
+* complete;
+* certified;
+* compatible;
+* present in the registry;
+
+it SHALL NOT govern a cycle unless the Committed Translation Configuration binds it as the sole root profile.
+
+This preserves the distinction:
+
+Registry presence
+    means the strategy exists.
+Profile validity
+    means the strategy is internally coherent.
+Profile compatibility
+    means the strategy may apply.
+Configuration commitment
+    means the strategy is authorized for the cycle.
+
+⸻
+
+11.46 Section 11 Artifact Flow
+
+Committed Translation Configuration
+        ↓
+Root Translation Profile Reference
+        ↓
+Profile Identity and Hash Resolution
+        ↓
+Profile Registry Snapshot Resolution
+        ↓
+Subordinate Profile Resolution
+        ↓
+Dependency and Exclusion Resolution
+        ↓
+Profile Closure Construction
+        ↓
+Definition and Rule-Set Organization
+        ↓
+Either:
+Resolved Translation Profile Closure
+        or
+Translation Profile Failure
+
+At the conclusion of Section 11:
+
+* the complete reusable strategy specification is resolved;
+* the root profile and subordinate profile hierarchy are known;
+* the authorized definition and rule-set organization is known;
+* no Translation Configuration Conformance result exists;
+* no Translation Compatibility result exists;
+* no Validated Translation Binding exists;
+* no Translation Evaluation has occurred;
+* no Proposed Inference Command Set exists.
+
+⸻
+
+11.47 Fundamental Translation Profile Invariant
+
+Every translation cycle SHALL have exactly one root Translation Profile bound by the Committed Translation Configuration.
+
+The root Translation Profile SHALL define one complete, immutable, deterministic translation strategy through exact references to:
+
+* Translation Definitions;
+* subordinate profiles;
+* normalization rules;
+* numeric rules;
+* ordering rules;
+* validation rules;
+* transaction rules;
+* compatibility rules;
+* replay requirements;
+* provenance requirements;
+* failure rules.
+
+The profile and every artifact in its closure SHALL be immutable, versioned, hash-bound, and reachable through the Committed Translation Configuration.
+
+A Translation Profile SHALL possess no cycle authority by itself.
+
+Contract 008 SHALL NOT create, select, modify, merge, negotiate, repair, replace, or supplement the root Translation Profile.
+
+When the profile is missing, incomplete, ambiguous, incompatible, withdrawn, or unresolved, Contract 008 SHALL produce an explicit Inference Translation Failure and no canonical Inference Command Set.

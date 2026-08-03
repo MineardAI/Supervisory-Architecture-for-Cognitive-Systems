@@ -1,0 +1,201 @@
+SACS Contract 011 — Realization Certification, Supervisory Provenance, and Audit
+Section 12 — Constructed Realization Record
+Purpose
+
+Section 12 establishes the constitutional authority responsible for constructing the canonical historical representation of a certified supervisory realization.
+
+Following successful Realization Certification Determination, this section assembles the authoritative historical representation of that realization into one canonical artifact.
+
+This section answers exactly one constitutional question:
+
+What canonical historical representation shall be committed for the certified supervisory realization?
+
+It does not commit the Realization Record, assemble supervisory provenance, perform replay, or perform audit.
+
+Constitutional Responsibility
+
+Constructed Realization Record SHALL:
+
+assemble the certified supervisory realization into one canonical historical representation;
+preserve every constitutional determination established by preceding sections;
+preserve artifact identity, authority, and lineage;
+produce one canonical Constructed Realization Record.
+
+Successful completion authorizes progression to Realization Commitment.
+
+Construction Authority
+
+Construction SHALL assemble the certified realization using only:
+
+the Realization Certification Determination;
+the Realization Outcome Classification;
+the Constructed Realization Timeline;
+admitted committed constitutional evidence;
+realization-certification context.
+
+Construction SHALL introduce no additional supervisory evidence.
+
+Construction SHALL perform no additional constitutional adjudication.
+
+Canonical Structure
+
+The Constructed Realization Record SHALL contain, at minimum:
+
+Constitutional Identity
+Realization Record Identifier
+Supervisory Cycle Identifier
+Realization Identifier
+Constitutional Version
+Schema Version
+Registry Snapshot References
+Historical Outcome
+Certified Realization Outcome
+Certification Status
+Certification Timestamp
+Historical Timeline
+Canonical Realization Timeline
+Temporal Relationships
+Preserved Temporal Uncertainty
+Constitutional References
+Committed Execution Disposition
+Committed Supervisory Continuity Record
+Supporting Determination References
+Integrity Information
+Commitment References
+Integrity References
+Construction Timestamp
+
+Implementations MAY extend the record with implementation metadata provided that such metadata:
+
+does not alter constitutional meaning;
+does not modify historical authority;
+is explicitly identified as non-constitutional.
+Construction Rules
+
+Construction SHALL preserve without modification:
+
+supervisory cycle identity;
+realization identity;
+constitutional authority;
+realization outcome;
+temporal ordering;
+uncertainty representation;
+integrity references.
+
+Construction SHALL NOT:
+
+reinterpret supervisory history;
+alter realization classification;
+introduce implementation assumptions;
+infer historical events.
+
+Construction is a representational authority.
+
+It is not an adjudicative authority.
+
+Canonical Representation
+
+The Constructed Realization Record SHALL represent exactly one supervisory realization.
+
+It SHALL NOT:
+
+combine multiple realizations;
+represent partial constitutional records;
+contain unresolved constitutional ambiguity;
+omit mandatory constitutional elements.
+
+Every Constructed Realization Record SHALL be self-identifying and constitutionally complete.
+
+Construction Constraints
+
+Construction SHALL NOT:
+
+commit the Realization Record;
+establish supervisory lineage;
+perform replay;
+perform audit;
+modify previously committed artifacts;
+perform external verification.
+
+Its sole responsibility is constructing the canonical historical artifact that is eligible for commitment.
+
+Construction Failure
+
+Representative constitutional failures include:
+
+REALIZATION_RECORD_CONSTRUCTION_FAILED
+
+REQUIRED_RECORD_ELEMENT_MISSING
+
+CANONICAL_STRUCTURE_INVALID
+
+REALIZATION_RECORD_INCOMPLETE
+
+CONSTITUTIONAL_REPRESENTATION_INVALID
+
+RECORD_IDENTITY_CONFLICT
+
+Upon failure:
+
+no historical commitment SHALL occur;
+supervisory provenance SHALL NOT begin.
+
+Failure SHALL be represented explicitly.
+
+Constitutional Output
+
+Successful completion SHALL produce exactly one:
+
+Constructed Realization Record
+
+The Constructed Realization Record SHALL represent the complete constitutional history of one certified supervisory realization.
+
+It is not yet authoritative constitutional history.
+
+Authority SHALL be established only by the commitment process defined in Section 13.
+
+Architectural Constraints
+
+Constructed Realization Record is a construction authority.
+
+It SHALL NOT:
+
+certify realization;
+commit realization history;
+construct Supervisory Cycle Records;
+establish provenance;
+perform replay;
+perform audit.
+
+Construction prepares the historical representation.
+
+Commitment establishes constitutional authority.
+
+Relationship to Neighboring Sections
+
+The constitutional progression SHALL be:
+
+Section 11
+Realization Certification Determination
+        │
+        ▼
+Section 12
+Constructed Realization Record
+        │
+        ▼
+Section 13
+Realization Commitment
+
+These three sections perform distinct constitutional functions:
+
+Section 11 determines whether the realization is certifiable.
+Section 12 constructs the canonical historical representation.
+Section 13 establishes constitutional authority through immutable commitment.
+
+No section SHALL perform the responsibilities of another.
+
+Fundamental Construction Principle
+
+The defining principle of this section is:
+
+Constructed Realization Record SHALL deterministically assemble exactly one canonical historical representation of one constitutionally certified supervisory realization. Construction SHALL preserve every certified constitutional determination without modification while conferring no historical authority until successful commitment.

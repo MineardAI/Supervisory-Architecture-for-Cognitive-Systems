@@ -1,0 +1,1534 @@
+SACS Contract 005 — Supervisory Objectives
+
+Project: SACS — Supervisory Architecture for Cognitive Systems
+Contract: 005
+Title: Supervisory Objectives
+Version: 1.0.0
+Status: ADOPTED - SACS v1.0.0 BASELINE
+Normative Authority: Supervisory objective declarations, objective evaluation, and Objective Set construction
+Depends On:
+
+* Contract 000 — Architecture and Authority
+* Contract 003 — Operational State Vector
+* Contract 004 — Governance
+
+Canonical State Input: Committed Operational State Vector
+Canonical Governance Input: Committed Governance Snapshot
+Canonical Producer: Objective Evaluator
+Canonical Consumer: Operational Profile Selector
+
+⸻
+
+1. Purpose
+
+This contract defines the canonical supervisory objective model for SACS.
+
+It establishes:
+
+* objective authority;
+* objective declarations;
+* objective registration;
+* objective applicability;
+* objective governance eligibility;
+* objective activation;
+* objective priority;
+* objective compatibility;
+* objective conflict handling;
+* objective satisfaction evaluation;
+* objective status;
+* Objective Set construction;
+* deterministic objective evaluation;
+* objective provenance;
+* Profile Selector handoff;
+* failure handling;
+* conformance requirements.
+
+Supervisory Objectives declare the operational conditions that SACS is intended to preserve, restore, maintain, approach, avoid, or bound.
+
+Objectives do not determine how those conditions are achieved.
+
+⸻
+
+2. Normative Language
+
+The key words MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, and OPTIONAL are normative conformance terms as defined by Contract 000.
+
+⸻
+
+3. Supervisory Objective Identity
+
+A Supervisory Objective is a declarative, versioned, governance-eligible statement of an operational condition.
+
+The defining identity of a Supervisory Objective is:
+
+A Supervisory Objective declares what operational condition should be preserved or approached without specifying the controller, command, tool, model, or execution mechanism used to achieve it.
+
+An objective MAY declare:
+
+* a condition to preserve;
+* a condition to restore;
+* a condition to approach;
+* a condition to avoid;
+* a bounded operating region;
+* a maximum or minimum acceptable state;
+* a required supervisory priority;
+* a stabilization requirement;
+* a continuity requirement;
+* a time-bounded target condition;
+* a tolerance around a desired condition.
+
+An objective MUST NOT contain:
+
+* controller gains;
+* control equations;
+* inference commands;
+* execution instructions;
+* model-routing instructions;
+* tool-call instructions;
+* profile-selection algorithms;
+* governance modifications;
+* OSV field redefinitions;
+* hidden-state inference;
+* task-content instructions.
+
+⸻
+
+4. Objective Authority
+
+Contract 005 owns:
+
+* Supervisory Objective definitions;
+* objective registration;
+* objective applicability;
+* objective evaluation;
+* objective status;
+* objective priority;
+* objective compatibility;
+* objective conflict representation;
+* Objective Set construction;
+* Objective Set commitment;
+* objective provenance;
+* Profile Selector handoff.
+
+Contract 005 does not own:
+
+* external governance content;
+* OSV field semantics;
+* operational profile definitions;
+* profile selection;
+* reference-state construction;
+* controller mathematics;
+* inference-control translation;
+* execution authority;
+* mode guards;
+* verification verdicts.
+
+⸻
+
+5. Canonical Objective Flow
+
+A conforming implementation MUST preserve the following logical flow:
+
+Objective Registry Resolution
+        ↓
+Committed OSV Validation
+        ↓
+Governance Snapshot Validation
+        ↓
+Candidate Objective Resolution
+        ↓
+Applicability Evaluation
+        ↓
+Governance Eligibility Evaluation
+        ↓
+Objective Condition Evaluation
+        ↓
+Priority and Compatibility Resolution
+        ↓
+Conflict Classification
+        ↓
+Objective Status Assignment
+        ↓
+Objective Set Construction
+        ↓
+Atomic Commitment
+        ↓
+Immutable Objective Set
+        ↓
+Operational Profile Selector
+
+Every supervisory cycle requiring profile selection MUST resolve to one committed Objective Set or terminate with an explicit objective-evaluation disposition.
+
+⸻
+
+6. Objective Sources
+
+Supervisory Objectives MAY originate from:
+
+* a registered SACS objective profile;
+* a deployment configuration;
+* an authorized system owner;
+* an external governance requirement;
+* a safety or stabilization requirement;
+* a registered operational policy;
+* a capability-specific objective catalog;
+* a prior-cycle continuation rule;
+* a Contract 010 mode requirement when later defined.
+
+Objective origin MUST be explicit.
+
+Objective origin does not bypass governance eligibility.
+
+An externally proposed objective MUST be normalized into the canonical objective representation before evaluation.
+
+⸻
+
+7. Objective Registry
+
+Every canonical Supervisory Objective MUST be registered.
+
+An Objective Registry entry MUST include:
+
+objective_id
+objective_version
+objective_name
+semantic_definition
+objective_class
+scope
+subject
+osv_field_dependencies
+applicability_rule_id
+satisfaction_rule_id
+priority_class
+compatibility_group_ids
+conflict_group_ids
+governance_requirement_ids
+default_status
+time_behavior
+persistence_policy
+schema_version
+registry_version
+
+Optional fields MAY include:
+
+parent_objective_id
+supersedes_objective_id
+required_capability_profile
+minimum_osv_validity
+minimum_osv_quality
+uncertainty_policy_id
+default_tolerance
+sensitivity_label
+external_authority_reference
+
+An objective identifier MUST NOT be reused for a semantically different objective.
+
+⸻
+
+8. Objective Classes
+
+The initial objective classes are:
+
+PRESERVE
+RESTORE
+APPROACH
+AVOID
+BOUND
+MINIMIZE
+MAXIMIZE
+STABILIZE
+MAINTAIN_CONTINUITY
+HOLD
+
+8.1 Preserve
+
+A PRESERVE objective declares that an acceptable operational condition should remain within its declared region.
+
+8.2 Restore
+
+A RESTORE objective declares that an operational condition outside its acceptable region should return to that region.
+
+8.3 Approach
+
+An APPROACH objective declares that the system should move toward a declared target condition or region.
+
+8.4 Avoid
+
+An AVOID objective declares that the system should remain outside a prohibited or undesirable operational region.
+
+8.5 Bound
+
+A BOUND objective declares upper, lower, or multidimensional limits on operational state.
+
+8.6 Minimize
+
+A MINIMIZE objective declares that a registered operational quantity should be reduced, subject to governance and higher-priority objectives.
+
+8.7 Maximize
+
+A MAXIMIZE objective declares that a registered operational quantity should be increased, subject to governance and higher-priority objectives.
+
+MAXIMIZE MUST NOT imply unlimited increase.
+
+Every MAXIMIZE objective MUST include an admissible bound, saturation rule, or governance-constrained operating region.
+
+8.8 Stabilize
+
+A STABILIZE objective declares that the system should move toward or remain within a registered stabilization region.
+
+STABILIZE does not select the Stabilize operational mode.
+
+Mode selection belongs to later contracts.
+
+8.9 Maintain Continuity
+
+A MAINTAIN_CONTINUITY objective declares that a registered continuity condition should be preserved across cycles.
+
+8.10 Hold
+
+A HOLD objective declares that a state, reference condition, authority level, or supervisory configuration should remain unchanged within declared tolerance.
+
+⸻
+
+9. Canonical Supervisory Objective
+
+Every canonical Supervisory Objective MUST include:
+
+objective_id
+objective_version
+objective_instance_id
+objective_class
+semantic_definition
+scope
+subject
+target_condition
+tolerance
+osv_field_dependencies
+applicability_rule_id
+satisfaction_rule_id
+priority
+criticality
+persistence_policy
+governance_requirement_ids
+status
+schema_version
+registry_version
+provenance_id
+
+Optional fields MAY include:
+
+activation_condition
+deactivation_condition
+deadline
+minimum_duration
+maximum_duration
+uncertainty_policy_id
+compatibility_group_ids
+conflict_group_ids
+predecessor_objective_instance_id
+parent_objective_instance_id
+external_source_reference
+
+The objective instance identifier MUST uniquely identify the objective as evaluated for a particular supervisory context.
+
+⸻
+
+10. Declarative Target Conditions
+
+A target condition MUST be expressed using registered OSV fields or registered composite state predicates.
+
+A target condition MAY be:
+
+equality target
+bounded interval
+upper bound
+lower bound
+multidimensional region
+categorical state requirement
+set-membership requirement
+monotonic direction
+rate-of-change condition
+temporal persistence condition
+logical composition of registered predicates
+
+Examples include:
+
+osv.stability >= 0.80
+osv.strain <= 0.35
+osv.uncertainty within [0.00, 0.25]
+osv.execution == AVAILABLE
+osv.continuity remains VALID for N cycles
+
+These examples are illustrative only until the referenced OSV fields are normatively registered under Contract 003.
+
+An objective MUST NOT create a private interpretation of an OSV field.
+
+⸻
+
+11. Canonical Inputs
+
+The Objective Evaluator MUST consume:
+
+committed_osv
+committed_governance_snapshot
+objective_registry_versions
+objective_evaluation_profile
+capability_profile
+effective_time_context
+prior_objective_set_reference
+
+The Objective Evaluator MUST NOT consume:
+
+* raw observations;
+* Observation Batches;
+* Estimated State;
+* estimator-local state;
+* uncommitted OSV construction state;
+* raw governance-source artifacts;
+* hidden model telemetry;
+* controller state not represented through an authorized canonical artifact.
+
+Where operational state is required, the Objective Evaluator MUST use only the committed OSV.
+
+⸻
+
+12. OSV Validity and Objective Evaluation
+
+An objective MAY depend only on OSV fields declared by its registry entry.
+
+Before evaluating an objective, the Objective Evaluator MUST inspect:
+
+* field presence;
+* field validity;
+* field uncertainty;
+* field quality;
+* schema compatibility;
+* registry compatibility;
+* publication status.
+
+A numeric OSV value MUST NOT be treated as usable solely because it is present.
+
+An objective evaluation rule MUST define behavior for:
+
+VALID
+DEGRADED
+UNRESOLVED
+UNAVAILABLE
+INCOMPATIBLE
+REDACTED
+
+An unresolved or unavailable required field MUST NOT be silently interpreted as objective satisfaction.
+
+⸻
+
+13. Objective Applicability
+
+An objective is applicable only when its registered applicability rule evaluates true.
+
+Applicability MAY depend on:
+
+* system identity;
+* deployment identity;
+* capability profile;
+* committed OSV;
+* Governance Snapshot;
+* effective time;
+* prior Objective Set;
+* session state represented canonically;
+* external authorization represented in governance;
+* registered supervisory context.
+
+Applicability MUST NOT depend on unregistered hidden context.
+
+Each candidate objective MUST resolve to one applicability state:
+
+APPLICABLE
+NOT_APPLICABLE
+APPLICABILITY_UNRESOLVED
+APPLICABILITY_INCOMPATIBLE
+
+An objective with unresolved applicability MUST NOT be activated as nominal.
+
+⸻
+
+14. Governance Eligibility
+
+Every applicable objective MUST be evaluated against the committed Governance Snapshot.
+
+Governance MAY:
+
+* permit the objective;
+* prohibit the objective;
+* require the objective;
+* restrict its scope;
+* bound its target;
+* alter its maximum priority within authorized limits;
+* require review;
+* require escalation;
+* require stabilization-compatible behavior;
+* require additional evidence.
+
+Contract 005 MUST NOT modify the Governance Snapshot.
+
+A prohibited objective MUST NOT enter the active Objective Set.
+
+A required objective MUST be included when applicable unless doing so creates an unresolved higher-precedence governance conflict.
+
+Governance eligibility MUST resolve to one of:
+
+ELIGIBLE
+ELIGIBLE_RESTRICTED
+REQUIRED
+PROHIBITED
+DEFERRED
+REVIEW_REQUIRED
+ESCALATION_REQUIRED
+UNRESOLVED
+
+⸻
+
+15. Objective Status
+
+Every evaluated objective MUST declare one status:
+
+INACTIVE
+CANDIDATE
+ACTIVE
+ACTIVE_RESTRICTED
+SATISFIED
+VIOLATED
+AT_RISK
+DEFERRED
+BLOCKED
+CONFLICTED
+UNRESOLVED
+EXPIRED
+SUPERSEDED
+
+15.1 Inactive
+
+The objective exists but is not currently applicable or selected for inclusion.
+
+15.2 Candidate
+
+The objective is applicable and under evaluation for inclusion.
+
+15.3 Active
+
+The objective is included in the committed Objective Set.
+
+15.4 Active Restricted
+
+The objective is included but narrowed by governance.
+
+15.5 Satisfied
+
+The current OSV satisfies the objective according to its satisfaction rule.
+
+A satisfied objective MAY remain active when its persistence policy requires preservation.
+
+15.6 Violated
+
+The current OSV violates a mandatory target condition or bound.
+
+15.7 At Risk
+
+The objective is not yet violated, but its registered risk condition is satisfied.
+
+15.8 Deferred
+
+The objective cannot currently be activated because required conditions or evidence are absent.
+
+15.9 Blocked
+
+Governance prohibits activation.
+
+15.10 Conflicted
+
+The objective is incompatible with one or more simultaneously applicable objectives and the conflict has not been fully resolved.
+
+15.11 Unresolved
+
+The objective cannot be evaluated because its canonical inputs are unavailable, invalid, or incompatible.
+
+15.12 Expired
+
+The objective’s validity period has ended.
+
+15.13 Superseded
+
+A newer registered objective or objective instance replaces it.
+
+⸻
+
+16. Objective Satisfaction
+
+Every objective MUST define a deterministic satisfaction rule.
+
+A satisfaction rule MUST include:
+
+satisfaction_rule_id
+input_osv_field_ids
+predicate
+tolerance
+uncertainty_treatment
+validity_requirements
+quality_requirements
+temporal_requirement
+numeric_profile_id
+failure_behavior
+schema_version
+registry_version
+
+Satisfaction MAY be:
+
+SATISFIED
+PARTIALLY_SATISFIED
+AT_RISK
+VIOLATED
+UNRESOLVED
+
+Objective satisfaction is an assessment of current operational condition.
+
+It is not a control command.
+
+It does not determine the active profile by itself.
+
+⸻
+
+17. Objective Error Is Not Control Error
+
+Contract 005 MAY compute declarative objective deviation for evaluation and prioritization.
+
+For objective (o_i), an objective deviation MAY be represented as:
+
+[
+d_{i,t}
+
+D_i
+\left(
+X_t^{\mathrm{OSV}},
+\mathcal{T}_i
+\right)
+]
+
+where:
+
+* (X_t^{\mathrm{OSV}}) is the committed OSV;
+* (\mathcal{T}_i) is the objective target condition;
+* (D_i) is a registered deterministic deviation function.
+
+Objective deviation MUST NOT be treated as the canonical controller error.
+
+Contract 007 owns control error.
+
+Contract 006 transforms active objectives into profile-specific reference-state parameters before Contract 007 computes canonical control error.
+
+⸻
+
+18. Objective Priority
+
+Every active objective MUST declare a priority.
+
+Priority MAY include:
+
+priority_class
+priority_rank
+criticality
+mandatory_flag
+governance_precedence_reference
+tie_breaking_key
+
+The initial priority classes are:
+
+CRITICAL
+HIGH
+NORMAL
+LOW
+ADVISORY
+
+Priority MUST NOT override governance.
+
+A lower-priority objective MUST NOT invalidate a higher-precedence governance prohibition or obligation.
+
+Priority resolution MUST be deterministic.
+
+⸻
+
+19. Objective Criticality
+
+Criticality expresses the consequence of objective violation.
+
+The initial criticality classes are:
+
+CATASTROPHIC
+SEVERE
+MAJOR
+MODERATE
+MINOR
+INFORMATIONAL
+
+Criticality and priority are distinct.
+
+A high-criticality objective may not always be the highest-priority objective if governance or context establishes another ordering.
+
+The Objective Evaluation Profile MUST define how criticality contributes to priority resolution.
+
+⸻
+
+20. Objective Compatibility
+
+Objectives are compatible when they can be simultaneously represented without mutually exclusive target conditions, prohibited authority expansion, or impossible requirements.
+
+Every objective SHOULD declare compatibility and conflict groups.
+
+Compatibility evaluation MUST consider:
+
+* overlapping OSV fields;
+* target-region intersection;
+* temporal requirements;
+* governance restrictions;
+* objective class;
+* required persistence;
+* priority;
+* criticality;
+* profile feasibility metadata when available.
+
+Contract 005 MAY determine that objectives are logically compatible or incompatible.
+
+Contract 005 MUST NOT select the Operational Profile used to realize them.
+
+⸻
+
+21. Objective Conflict Types
+
+The initial objective conflict vocabulary is:
+
+TARGET_CONFLICT
+BOUND_CONFLICT
+PRIORITY_CONFLICT
+TEMPORAL_CONFLICT
+SCOPE_CONFLICT
+GOVERNANCE_CONFLICT
+RESOURCE_ASSUMPTION_CONFLICT
+PERSISTENCE_CONFLICT
+UNRESOLVED_CONFLICT
+
+21.1 Target Conflict
+
+Two objectives require mutually exclusive target conditions.
+
+21.2 Bound Conflict
+
+One objective’s required region violates another objective’s bound.
+
+21.3 Priority Conflict
+
+Two objectives claim equal precedence where simultaneous satisfaction is impossible.
+
+21.4 Temporal Conflict
+
+Objectives require incompatible timing, duration, or deadline behavior.
+
+21.5 Scope Conflict
+
+Objectives overlap with incompatible scope.
+
+21.6 Governance Conflict
+
+An objective or objective combination violates the Governance Snapshot.
+
+21.7 Resource-Assumption Conflict
+
+Objectives assume mutually incompatible capability or authority availability.
+
+This classification does not permit Contract 005 to allocate runtime resources.
+
+21.8 Persistence Conflict
+
+One objective requires continued activation while another requires termination or replacement.
+
+21.9 Unresolved Conflict
+
+The available canonical information is insufficient to determine compatibility.
+
+⸻
+
+22. Objective Conflict Resolution
+
+Objective conflicts MAY be resolved by:
+
+* governance precedence;
+* mandatory objective status;
+* criticality;
+* priority;
+* narrower scope;
+* explicit supersession;
+* registered objective hierarchy;
+* target-region intersection;
+* deterministic objective reduction;
+* deferral;
+* escalation;
+* exclusion of a lower-priority objective.
+
+Conflict resolution MUST NOT:
+
+* weaken governance;
+* invent a new objective;
+* modify OSV semantics;
+* select a profile;
+* create a control command;
+* silently discard an objective.
+
+Every excluded, deferred, restricted, or conflicted objective MUST remain represented in Objective Set provenance.
+
+If a conflict cannot be resolved, the Objective Set MUST fail toward reduced supervisory authority.
+
+⸻
+
+23. Objective Composition
+
+A composite objective MAY combine registered objectives using:
+
+ALL_OF
+ANY_OF
+EXACTLY_ONE_OF
+AT_LEAST_N_OF
+ORDERED_SEQUENCE
+CONDITIONAL
+PRIORITIZED_SET
+
+Composite objectives MUST preserve the identities and statuses of their component objectives.
+
+A composite objective MUST NOT conceal an internal conflict.
+
+The composition rule MUST be registered and deterministic.
+
+⸻
+
+24. Objective Persistence
+
+An objective persistence policy defines whether an objective remains active across cycles.
+
+The initial persistence classes are:
+
+CYCLE_ONLY
+UNTIL_SATISFIED
+PRESERVE_AFTER_SATISFACTION
+UNTIL_EXPIRED
+UNTIL_REVOKED
+UNTIL_SUPERSEDED
+UNTIL_GOVERNANCE_CHANGE
+EXPLICIT_RELEASE_REQUIRED
+
+Persistence MUST NOT permit an objective to survive:
+
+* governance prohibition;
+* objective expiration;
+* registry incompatibility;
+* invalid system scope;
+* explicit revocation;
+* semantic supersession.
+
+A continuing objective MUST be reevaluated against the current OSV and Governance Snapshot each cycle.
+
+⸻
+
+25. Objective Time Semantics
+
+An objective MAY include:
+
+effective_from
+effective_until
+deadline
+minimum_active_duration
+maximum_active_duration
+evaluation_interval
+persistence_window
+satisfaction_dwell_requirement
+violation_dwell_requirement
+
+Time-dependent evaluation MUST use a registered clock or time profile.
+
+A future objective MUST NOT activate early.
+
+An expired objective MUST NOT remain active unless a registered continuation rule and governance authority explicitly permit it.
+
+⸻
+
+26. Objective Uncertainty
+
+Objective evaluation MUST preserve relevant OSV uncertainty.
+
+An objective evaluation profile MUST define whether uncertainty results in:
+
+* conservative violation;
+* conservative non-satisfaction;
+* AT_RISK status;
+* unresolved status;
+* restricted activation;
+* deferral;
+* escalation;
+* uncertainty-adjusted target evaluation.
+
+Unknown state MUST NOT be interpreted as objective satisfaction.
+
+Uncertainty MUST NOT increase supervisory authority.
+
+⸻
+
+27. Objective Evaluation Profile
+
+Every objective-evaluation cycle MUST use one registered Objective Evaluation Profile.
+
+The profile MUST define:
+
+objective_evaluation_profile_id
+profile_version
+accepted_osv_versions
+accepted_governance_versions
+accepted_objective_registry_versions
+applicability_policy
+eligibility_policy
+satisfaction_policy
+uncertainty_policy
+priority_policy
+criticality_policy
+compatibility_policy
+conflict_resolution_policy
+persistence_policy
+failure_policy
+numeric_profile_id
+output_schema_version
+
+Profile selection MUST be deterministic and occur before objective evaluation begins.
+
+The Objective Evaluator MUST NOT select its evaluation profile using uncommitted telemetry.
+
+⸻
+
+28. Objective Set
+
+The Objective Set is the canonical output of Contract 005.
+
+It contains the active supervisory objectives and all required evaluation context for Operational Profile Selection.
+
+An Objective Set MUST include:
+
+objective_set_id
+cycle_id
+osv_id
+governance_snapshot_id
+objective_evaluation_profile_id
+active_objective_instance_ids
+restricted_objective_instance_ids
+required_objective_instance_ids
+satisfied_objective_instance_ids
+violated_objective_instance_ids
+at_risk_objective_instance_ids
+deferred_objective_instance_ids
+blocked_objective_instance_ids
+conflicted_objective_instance_ids
+unresolved_objective_instance_ids
+priority_order
+criticality_summary
+compatibility_summary
+conflict_summary
+objective_set_status
+schema_version
+registry_versions
+numeric_profile_id
+provenance_id
+committed_at
+artifact_hash
+
+The Objective Set MUST be immutable after commitment.
+
+A correction or reevaluation MUST produce a new Objective Set with explicit supersession lineage.
+
+⸻
+
+29. Objective Set Status
+
+Every Objective Set MUST declare one status:
+
+VALID
+VALID_RESTRICTED
+DEGRADED
+CONFLICTED
+INCOMPLETE
+WITHHELD
+FAULTED
+
+29.1 Valid
+
+All mandatory objective evaluations are resolved and the active objective combination is governance-eligible and internally compatible.
+
+29.2 Valid Restricted
+
+The Objective Set is valid but one or more objectives have been narrowed, deferred, or restricted by governance.
+
+29.3 Degraded
+
+The Objective Set may be used only under a registered degraded-objective policy.
+
+29.4 Conflicted
+
+One or more objective conflicts remain unresolved.
+
+29.5 Incomplete
+
+Mandatory objective inputs or evaluations are absent.
+
+29.6 Withheld
+
+The Objective Set was constructed but is not eligible for Profile Selector consumption.
+
+29.7 Faulted
+
+Objective evaluation failed due to integrity, compatibility, determinism, or authority failure.
+
+A WITHHELD or FAULTED Objective Set MUST NOT be consumed by the Profile Selector.
+
+A CONFLICTED or INCOMPLETE Objective Set MAY be consumed only if Contract 006 defines and registers a reduced-authority handling profile.
+
+⸻
+
+30. Atomic Commitment
+
+Objective Set commitment MUST be atomic.
+
+Before commitment, an Objective Set is not canonical.
+
+After commitment:
+
+* all included objectives are fixed;
+* all objective statuses are fixed;
+* the priority order is fixed;
+* the conflict summary is fixed;
+* the OSV reference is fixed;
+* the Governance Snapshot reference is fixed;
+* registry versions are fixed;
+* the artifact hash is fixed;
+* the Objective Set is immutable.
+
+The Profile Selector MUST NOT read a partially constructed Objective Set.
+
+⸻
+
+31. Objective Set Binding
+
+An Objective Set MUST be bound to:
+
+* one supervisory cycle;
+* one committed OSV;
+* one committed Governance Snapshot;
+* one Objective Evaluation Profile;
+* one objective-registry version set;
+* one effective-time context.
+
+Objectives derived from different OSVs or Governance Snapshots MUST NOT be combined into one Objective Set.
+
+⸻
+
+32. Profile Selector Handoff
+
+The Objective Evaluator MUST hand Contract 006 one immutable Objective Set.
+
+The handoff MUST include:
+
+objective_set_id
+cycle_id
+osv_id
+governance_snapshot_id
+active_objectives
+objective_statuses
+objective_priorities
+objective_criticalities
+objective_target_conditions
+objective_tolerances
+objective_uncertainty_requirements
+objective_compatibility_summary
+objective_conflict_summary
+objective_set_status
+evaluation_profile_id
+schema_version
+registry_versions
+numeric_profile_id
+provenance_reference
+
+The Profile Selector MUST NOT consume hidden objective-evaluator state not included in the handoff.
+
+Contract 005 MUST NOT select the Operational Profile.
+
+⸻
+
+33. Relationship to Operational Profiles
+
+Supervisory Objectives state what condition is sought.
+
+Operational Profiles define how those objectives and governance constraints are translated into:
+
+* mode-specific expectations;
+* allowed operating regions;
+* profile permissions;
+* reference-state parameters;
+* controller limits;
+* gain selections;
+* transition eligibility.
+
+The separation is:
+
+Objective:
+Preserve stability above a declared threshold.
+Profile:
+Use the profile-specific operating region, limits,
+reference parameters, and controller configuration
+appropriate to pursuing that objective.
+
+An Objective MUST NOT contain profile-specific gains, commands, or reference-state construction logic.
+
+⸻
+
+34. Relationship to Reference State
+
+Contract 005 declares target conditions and tolerances.
+
+Contract 006 owns construction of the canonical Reference State.
+
+An objective target condition MAY be qualitative, bounded, set-valued, or multidimensional.
+
+Contract 006 MAY transform an active Objective Set into a profile-specific reference representation.
+
+That transformation MUST preserve objective semantics and governance constraints.
+
+⸻
+
+35. Relationship to Governance
+
+Governance defines what authority exists.
+
+Objectives define what operational condition should be preserved or approached within that authority.
+
+An objective MUST NOT:
+
+* broaden permission;
+* weaken prohibition;
+* override a governance limit;
+* remove an obligation;
+* reinterpret a governance disposition;
+* treat ALLOW as a requirement;
+* treat absence of prohibition as objective eligibility unless permitted by the active governance model.
+
+A governance-required objective remains declarative and must still be evaluated under this contract.
+
+⸻
+
+36. Relationship to Modes
+
+Contract 010 owns modes, guards, transitions, resets, hysteresis, and dwell time.
+
+A Supervisory Objective MAY indicate that stabilization is required.
+
+It MUST NOT:
+
+* activate Entry;
+* activate Bloom;
+* activate Harmonic;
+* activate Fracture;
+* activate Stabilize;
+* evaluate a mode guard;
+* execute a reset map.
+
+Mode-dependent objective rules MAY be added after Contract 010 is adopted, provided they do not transfer mode-selection authority to Contract 005.
+
+⸻
+
+37. Failure Principle
+
+Objective evaluation MUST fail toward reduced supervisory authority.
+
+When OSV validity, governance validity, objective applicability, eligibility, compatibility, priority, uncertainty treatment, registry compatibility, or provenance is unresolved, the Objective Evaluator MUST NOT activate a more permissive or expansive objective configuration.
+
+Failure MAY produce:
+
+VALID_RESTRICTED
+DEGRADED
+CONFLICTED
+INCOMPLETE
+WITHHELD
+FAULTED
+
+Missing or uncertain objective information MUST NOT create a new permission or widen the operating region.
+
+⸻
+
+38. Determinism
+
+For identical:
+
+committed OSV
+committed Governance Snapshot
+candidate objective set
+Objective Registry versions
+Objective Evaluation Profile
+prior Objective Set
+effective-time context
+capability profile
+numeric profile
+
+a conforming implementation MUST produce the same canonical Objective Set.
+
+Undeclared implementation-order dependence is prohibited.
+
+Randomized objective selection or conflict resolution is prohibited in the canonical objective-evaluation path.
+
+⸻
+
+39. Objective Provenance
+
+Every canonical Objective Set MUST be traceable to:
+
+* candidate objectives;
+* objective origins;
+* registry definitions;
+* OSV fields;
+* Governance Snapshot rules;
+* applicability decisions;
+* eligibility decisions;
+* satisfaction evaluations;
+* priority decisions;
+* conflict decisions;
+* persistence decisions;
+* commitment.
+
+Objective provenance MUST include at least:
+
+provenance_id
+objective_set_id
+cycle_id
+osv_id
+governance_snapshot_id
+candidate_objective_ids
+active_objective_instance_ids
+objective_registry_versions
+evaluation_profile_id
+applicability_rule_ids
+governance_evaluation_ids
+satisfaction_rule_ids
+priority_rule_ids
+compatibility_rule_ids
+conflict_ids
+conflict_resolution_rule_ids
+persistence_rule_ids
+schema_version
+numeric_profile_id
+committed_at
+
+No Objective Set is canonical without provenance.
+
+⸻
+
+40. Objective Updates During a Cycle
+
+A committed Objective Set is immutable for its supervisory cycle.
+
+An objective update received after commitment MUST NOT mutate the active Objective Set.
+
+A conforming implementation MAY:
+
+* apply the update during the next cycle;
+* terminate the current cycle;
+* initiate an explicitly authorized reevaluation cycle;
+* withhold profile selection pending reevaluation.
+
+The selected behavior MUST be defined by a registered Objective Update Policy.
+
+⸻
+
+41. Objective Supersession
+
+An objective MAY supersede another objective only through an explicit registered relationship.
+
+Supersession MUST preserve:
+
+superseding_objective_id
+superseded_objective_id
+effective_time
+scope
+reason_code
+authority_reference
+provenance_id
+
+Supersession MUST NOT erase the prior objective or its historical evaluation.
+
+⸻
+
+42. Security and Integrity
+
+Objective interfaces SHOULD support:
+
+* registry integrity;
+* objective-source authentication;
+* artifact signing;
+* tamper-evident storage;
+* replay protection;
+* schema validation;
+* version verification;
+* sensitivity labeling;
+* least-privilege evaluator execution.
+
+A failed integrity check MUST NOT produce a VALID Objective Set.
+
+⸻
+
+43. Sensitive Objectives
+
+Objectives MAY contain sensitive operational conditions.
+
+An objective sensitivity profile SHOULD define:
+
+* permitted consumers;
+* disclosure restrictions;
+* storage requirements;
+* retention limits;
+* redaction behavior;
+* audit requirements.
+
+Redaction MUST NOT conceal an active requirement, prohibition interaction, priority, or enforcement-relevant target from the Profile Selector.
+
+A redacted objective MAY expose a canonical identifier, target class, and required handling without exposing protected descriptive text.
+
+⸻
+
+44. Architectural Prohibitions
+
+A conforming Objective implementation MUST NOT:
+
+* consume raw telemetry;
+* consume Estimated State directly;
+* modify the committed OSV;
+* modify the Governance Snapshot;
+* activate a governance-prohibited objective;
+* create permissions;
+* weaken prohibitions;
+* define controller gains;
+* construct the canonical Reference State;
+* select an Operational Profile;
+* calculate canonical control error;
+* issue control commands;
+* issue inference commands;
+* execute runtime instructions;
+* silently discard objective conflicts;
+* silently reinterpret unresolved OSV fields;
+* silently merge incompatible registry versions;
+* mutate a committed Objective Set;
+* treat satisfaction as execution success;
+* claim external verification based solely on objective evaluation.
+
+⸻
+
+45. Required Registries and Companion Artifacts
+
+A complete Contract 005 implementation will require:
+
+Supervisory Objective Registry
+Objective Class Registry
+Objective Applicability Rule Registry
+Objective Satisfaction Rule Registry
+Objective Priority Profile Registry
+Objective Criticality Registry
+Objective Compatibility Registry
+Objective Conflict Registry
+Objective Conflict Resolution Registry
+Objective Composition Registry
+Objective Persistence Policy Registry
+Objective Update Policy Registry
+Objective Evaluation Profile Registry
+Objective Set Schema
+Objective Provenance Schema
+Objective Compatibility Profile
+Objective Numeric Profile
+
+These artifacts MAY be maintained separately but MUST remain version-compatible with this contract.
+
+⸻
+
+46. Initial Conformance Tests
+
+OJT-001 — Registered Objective Enforcement
+OJT-002 — OSV-Only State Consumption
+OJT-003 — Governance Snapshot Enforcement
+OJT-004 — Governance-Prohibited Objective Rejection
+OJT-005 — Governance-Required Objective Inclusion
+OJT-006 — Applicability Determinism
+OJT-007 — Satisfaction Determinism
+OJT-008 — Unresolved OSV Non-Satisfaction
+OJT-009 — Uncertainty Preservation
+OJT-010 — Priority Determinism
+OJT-011 — Conflict Classification
+OJT-012 — Conflict Non-Suppression
+OJT-013 — Objective Persistence Reevaluation
+OJT-014 — Objective Supersession Lineage
+OJT-015 — Objective Set Atomicity
+OJT-016 — Objective Set Immutability
+OJT-017 — Cross-Cycle Combination Rejection
+OJT-018 — Profile Selection Non-Authority
+OJT-019 — Control Implementation Exclusion
+OJT-020 — Provenance Completeness
+OJT-021 — Registry Compatibility
+OJT-022 — Deterministic Replay
+
+⸻
+
+47. Assumptions Discharged
+
+This contract discharges the Contract 000 requirement that Supervisory Objectives remain declarative by defining:
+
+* objective identity;
+* declarative target conditions;
+* objective classes;
+* objective eligibility;
+* objective satisfaction;
+* objective priority;
+* objective conflicts;
+* Objective Set construction;
+* Profile Selector handoff.
+
+This contract retains the assumptions that:
+
+* Contract 003 provides a committed OSV;
+* Contract 004 provides a committed Governance Snapshot;
+* objective registries are available at evaluation time;
+* Contract 006 can translate active objectives into profiles and Reference States;
+* Contract 011 can preserve full objective lineage.
+
+⸻
+
+48. Non-Goals
+
+This contract does not define:
+
+* OSV field semantics;
+* governance content;
+* laws or policies;
+* operational-profile parameters;
+* profile-selection algorithms;
+* Reference State construction;
+* controller gains;
+* controller mathematics;
+* inference-command schemas;
+* execution behavior;
+* mode guards;
+* reset maps;
+* verification proofs;
+* task-level goals or generated content.
+
+Task goals and Supervisory Objectives are not necessarily equivalent.
+
+A task goal describes work the supervised system is attempting to perform.
+
+A Supervisory Objective describes the operational condition SACS is attempting to preserve while that work occurs.
+
+⸻
+
+49. Required Next Contract
+
+The next required contract is:
+
+Contract 006 — Operational Profiles and Reference States
+
+Contract 006 MUST define:
+
+* Operational Profile authority;
+* profile registration;
+* profile eligibility;
+* profile selection;
+* profile compatibility with the Objective Set;
+* profile compatibility with governance;
+* profile transition eligibility;
+* mode-specific expectations;
+* operating regions;
+* profile limits;
+* profile permissions;
+* profile gains;
+* Reference State construction;
+* Reference State validity;
+* profile and reference-state provenance;
+* deterministic Profile Selector behavior;
+* Controller handoff;
+* profile conformance tests.
+
+Contract 006 MUST consume:
+
+* one committed OSV;
+* one committed Governance Snapshot;
+* one committed Objective Set.
+
+Contract 006 MUST NOT redefine objective semantics or governance authority.
+
+⸻
+
+50. Current Canonical Status
+
+Project:
+SACS — Supervisory Architecture for Cognitive Systems
+System Role:
+Deterministic supervisory control plane
+Contract:
+005 — Supervisory Objectives
+Version:
+0.1.0
+Status:
+Initial Draft for Council Review
+Objective Authority:
+Established
+Canonical State Input:
+Committed OSV only
+Canonical Governance Input:
+Committed Governance Snapshot
+Canonical Output:
+Immutable Objective Set
+Control Implementation:
+Prohibited
+Profile Selection:
+Prohibited
+Governance Modification:
+Prohibited
+Failure Direction:
+Reduced supervisory authority
+Canonical Consumer:
+Operational Profile Selector
+Next Contract:
+006 — Operational Profiles and Reference States
+
+⸻
+
+51. Adoption Criteria
+
+Contract 005 may advance from Draft to Adopted when:
+
+1. Supervisory Objective identity is accepted;
+2. objective authority boundaries are accepted;
+3. objective classes are accepted;
+4. declarative target-condition semantics are accepted;
+5. OSV-only state consumption is accepted;
+6. governance eligibility behavior is accepted;
+7. objective applicability rules are accepted;
+8. objective satisfaction semantics are accepted;
+9. objective status vocabulary is accepted;
+10. priority and criticality separation is accepted;
+11. compatibility and conflict semantics are accepted;
+12. persistence behavior is accepted;
+13. Objective Set schema is accepted;
+14. Objective Set immutability is accepted;
+15. Profile Selector handoff is accepted;
+16. Contract 006 can consume the Objective Set without redefining objective semantics;
+17. Contract 007 is not required to reinterpret objectives directly;
+18. no Contract 005 rule overlaps Profile, Reference State, Controller, or Execution authority.
+
+Upon adoption, all SACS objective registries, evaluators, Objective Sets, and Profile Selector handoffs MUST conform to this contract.
+
+⸻
+
+End of Contract 005

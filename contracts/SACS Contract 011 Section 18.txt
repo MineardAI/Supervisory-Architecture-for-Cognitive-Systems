@@ -1,0 +1,556 @@
+SACS Contract 011 — Realization Certification, Supervisory Provenance, and Audit
+Section 18 — Cross-Contract Relationship Resolution
+Purpose
+
+Section 18 establishes the constitutional authority responsible for resolving the canonical relationships among the committed artifacts identified by Canonical Artifact Resolution.
+
+This section determines how the committed artifacts participating in one supervisory cycle are constitutionally connected.
+
+It answers exactly one constitutional question:
+
+How are the resolved committed artifacts constitutionally related within this supervisory cycle?
+
+Cross-Contract Relationship Resolution does not construct the complete supervisory lineage, evaluate lineage completeness, evaluate integrity, commit provenance, perform replay, or perform audit.
+
+Architectural Identity
+
+Cross-Contract Relationship Resolution deterministically identifies the constitutional relationships already established among committed artifacts without creating, inferring, repairing, or reinterpreting those relationships.
+
+Its defining identity is:
+
+Relationship Resolution identifies how resolved committed artifacts are constitutionally connected without creating new lineage or modifying existing authority.
+
+Constitutional Responsibility
+
+Cross-Contract Relationship Resolution SHALL:
+
+identify every required constitutional relationship among resolved artifacts;
+resolve the exact source and target of each relationship;
+resolve the constitutional relationship type;
+preserve originating contract ownership;
+preserve artifact identity;
+preserve authority direction;
+preserve derivation and dependency semantics;
+produce one canonical relationship-resolution result.
+
+Successful completion authorizes progression to Lineage Graph Construction.
+
+Resolution Authority
+
+Cross-Contract Relationship Resolution SHALL consume only:
+
+the Canonical Artifact Resolution Set;
+the Committed Realization Record;
+the committed artifacts referenced by the resolution set;
+committed relationship evidence contained within or referenced by those artifacts;
+the applicable contract, schema, and relationship-definition versions.
+
+It SHALL determine only:
+
+whether a constitutional relationship exists;
+which committed artifacts participate in that relationship;
+the direction of that relationship;
+the constitutional type of that relationship;
+the originating contract authority for that relationship;
+whether the relationship is uniquely resolvable.
+
+It SHALL NOT determine:
+
+whether the relationship set is complete;
+whether the relationship is valid in content;
+whether hashes or signatures are correct;
+whether the resulting lineage is internally coherent;
+whether the supervisory action was correct;
+whether external verification succeeds.
+Resolved Artifact Domain
+
+Cross-Contract Relationship Resolution SHALL operate over the committed artifacts resolved under Section 17.
+
+The minimum direct artifact domain is:
+
+Committed Operational Profile
+
+Committed Reference State
+
+Committed Control Error
+
+Committed Control Command
+
+Committed Translation Transaction
+
+Committed Execution Disposition
+
+Committed Supervisory Continuity Record
+
+Committed Realization Record
+
+These artifacts form the directly resolved supervisory spine for Contract 011 Stage Two.
+
+Earlier constitutional artifacts MAY remain reachable through references preserved by these artifacts.
+
+Contract 011 SHALL NOT independently reconstruct earlier artifacts merely to create additional relationship edges.
+
+Canonical Relationship Categories
+
+Every resolved relationship SHALL belong to one registered constitutional relationship category.
+
+The minimum categories are:
+
+Derivation Relationship
+
+A committed artifact was constitutionally produced from, computed from, translated from, certified from, or otherwise derived from another committed artifact.
+
+A derivation relationship preserves transformation lineage.
+
+Dependency Relationship
+
+A committed artifact required another committed artifact as an authorized input or prerequisite.
+
+A dependency relationship does not necessarily imply that the dependent artifact was mathematically derived from the prerequisite.
+
+Reference Relationship
+
+A committed artifact preserves the identity of another committed artifact for traceability, continuity, evidence, or cross-contract binding.
+
+A reference relationship carries no new authority.
+
+Configuration Relationship
+
+A committed artifact configures, constrains, or defines the context within which another artifact was constructed.
+
+A configuration relationship does not itself constitute control or execution authority.
+
+Authority-Preservation Relationship
+
+A downstream artifact preserves, narrows, or carries forward authority established by an upstream artifact.
+
+An authority-preservation relationship SHALL NOT broaden upstream authority.
+
+Certification Relationship
+
+A committed artifact was made authoritative history through a contract-defined certification process consuming one or more committed artifacts.
+
+Continuity Relationship
+
+A committed artifact preserves supervisory continuity, mode identity, transition lineage, or cross-cycle binding.
+
+Minimum Required Relationships
+
+The relationship-resolution process SHALL resolve the constitutional relationships required by the applicable contract versions.
+
+At minimum, where established by the owning contracts, the following relationship structure SHALL be resolvable:
+
+Committed Operational Profile
+        │
+        ├── configures / constrains
+        ▼
+Committed Reference State
+
+Committed Reference State
+        │
+        ├── participates in derivation of
+        ▼
+Committed Control Error
+
+Committed Control Error
+        │
+        ├── participates in derivation of
+        ▼
+Committed Control Command
+
+Committed Control Command
+        │
+        ├── translated into
+        ▼
+Committed Translation Transaction
+
+Committed Translation Transaction
+        │
+        ├── adjudicated through
+        ▼
+Committed Execution Disposition
+
+Committed Execution Disposition
+        │
+        ├── referenced by
+        ▼
+Committed Supervisory Continuity Record
+
+Committed Execution Disposition
+        +
+Committed Supervisory Continuity Record
+        │
+        ├── certified into
+        ▼
+Committed Realization Record
+
+This diagram identifies the minimum constitutional progression.
+
+It SHALL NOT replace the exact relationship types defined by the owning contracts.
+
+Relationship Identity
+
+Every resolved relationship SHALL possess a canonical identity.
+
+The relationship identity SHALL include:
+
+relationship identifier;
+source artifact identifier;
+target artifact identifier;
+relationship category;
+originating contract;
+originating section or rule reference where required;
+supervisory cycle identifier;
+source commitment identifier;
+target commitment identifier;
+schema version;
+relationship-definition version;
+resolution evidence references;
+relationship hash.
+
+Two relationships SHALL be considered identical only where all constitutionally material identity fields are identical.
+
+Relationship Direction
+
+Every relationship SHALL possess explicit directionality.
+
+The direction SHALL reflect constitutional meaning rather than storage layout.
+
+Examples include:
+
+source artifact
+    ↓ derives
+target artifact
+dependent artifact
+    ↓ depends on
+required artifact
+historical artifact
+    ↓ references
+execution artifact
+
+Implementations SHALL NOT reverse relationship direction for convenience without preserving the canonical direction.
+
+Relationship Source Authority
+
+Every resolved relationship SHALL identify the contract that constitutionally owns the relationship.
+
+Relationship ownership SHALL remain with the contract that established the underlying transformation, dependency, reference, or commitment.
+
+Contract 011 SHALL NOT claim ownership of a relationship merely because it resolves that relationship.
+
+For example:
+
+Contract 007 owns the relationship between committed control artifacts;
+Contract 008 owns the translation relationship;
+Contract 009 owns the execution-disposition relationship;
+Contract 010 owns the continuity relationship;
+Contract 011 owns the realization-certification relationship.
+
+Relationship resolution preserves ownership.
+
+It does not transfer ownership.
+
+Relationship Resolution Rules
+
+A relationship SHALL be considered resolved only when:
+
+the source artifact resolves uniquely;
+the target artifact resolves uniquely;
+the relationship type is constitutionally defined;
+the relationship direction is unambiguous;
+the originating authority is identified;
+the relationship is supported by committed evidence;
+the relationship belongs to the same supervisory cycle or an explicitly authorized cross-cycle binding;
+no conflicting relationship claims remain unresolved.
+
+If any condition fails, the relationship SHALL remain unresolved.
+
+No Inferential Relationship Creation
+
+Cross-Contract Relationship Resolution SHALL NOT create a relationship solely because:
+
+two artifacts share a cycle identifier;
+two artifacts were produced near the same time;
+one artifact appears after another;
+an implementation convention expects them to be connected;
+their content appears semantically similar;
+a relationship would make the lineage complete;
+a missing relationship can be guessed from contract order.
+
+Constitutional relationship evidence SHALL be explicit.
+
+Contract order alone is not sufficient evidence of a relationship.
+
+Multiple Relationship Types
+
+Two committed artifacts MAY possess more than one constitutional relationship.
+
+For example, one artifact may:
+
+depend on another artifact;
+reference that artifact;
+preserve authority from that artifact.
+
+Each relationship SHALL remain separately represented.
+
+Multiple constitutional relationships SHALL NOT be collapsed into one generic edge where doing so would lose meaning.
+
+Cross-Cycle Relationships
+
+A relationship between artifacts from different supervisory cycles SHALL be permitted only where an owning contract explicitly authorizes cross-cycle continuity, state carry-forward, reset history, or another cross-cycle dependency.
+
+Every authorized cross-cycle relationship SHALL identify:
+
+source cycle;
+target cycle;
+authorizing contract;
+authorizing rule;
+continuity or carry-forward semantics;
+preserved authority limits.
+
+An unexplained cross-cycle relationship SHALL fail resolution.
+
+Relationship Conflict
+
+A relationship conflict exists when:
+
+one source resolves to multiple incompatible targets;
+multiple relationship types make mutually exclusive claims;
+directionality is inconsistent;
+originating authority is disputed;
+cycle bindings conflict;
+commitment references disagree;
+relationship evidence is contradictory;
+one artifact claims a relationship that the referenced artifact does not preserve where reciprocal preservation is required.
+
+Relationship conflicts SHALL NOT be repaired through precedence unless a committed constitutional rule explicitly defines that precedence.
+
+Resolution Ordering
+
+Cross-Contract Relationship Resolution SHALL execute in deterministic order.
+
+The minimum canonical ordering is:
+
+1. Bind relationship-definition versions
+2. Bind supervisory cycle identity
+3. Resolve source artifact identities
+4. Resolve target artifact identities
+5. Resolve relationship categories
+6. Resolve relationship direction
+7. Resolve originating authority
+8. Resolve cycle and commitment bindings
+9. Detect conflicts and ambiguity
+10. Construct the relationship-resolution result
+
+An implementation MAY optimize internal execution, but the observable result SHALL remain equivalent to this order.
+
+Constitutional Output
+
+Successful resolution SHALL produce exactly one internal constitutional artifact:
+
+Resolved Constitutional Relationship Set
+
+The set SHALL contain:
+
+supervisory cycle identity;
+Canonical Artifact Resolution Set identity;
+Committed Realization Record identity;
+all resolved relationship identities;
+source and target artifact references;
+relationship categories;
+relationship directions;
+originating contract authorities;
+cycle bindings;
+commitment bindings;
+resolution evidence references;
+unresolved relationship declarations, if any;
+deterministic resolution timestamp;
+set hash.
+
+The Resolved Constitutional Relationship Set is an internal constitutional working artifact.
+
+It is not a committed supervisory history artifact.
+
+Resolution Status
+
+The Resolved Constitutional Relationship Set SHALL produce exactly one terminal status:
+
+RESOLVED
+
+UNRESOLVED
+
+The result SHALL be RESOLVED only when every relationship required to proceed to lineage construction has been uniquely resolved.
+
+No probable, inferred, substantially resolved, or best-effort status SHALL be canonical.
+
+Failure Conditions
+
+Representative failures include:
+
+RELATIONSHIP_SOURCE_UNRESOLVED
+
+RELATIONSHIP_TARGET_UNRESOLVED
+
+RELATIONSHIP_TYPE_UNRESOLVED
+
+RELATIONSHIP_DIRECTION_CONFLICT
+
+RELATIONSHIP_AUTHORITY_UNRESOLVED
+
+RELATIONSHIP_EVIDENCE_MISSING
+
+RELATIONSHIP_IDENTITY_CONFLICT
+
+MULTIPLE_INCOMPATIBLE_RELATIONSHIPS
+
+UNAUTHORIZED_CROSS_CYCLE_RELATIONSHIP
+
+COMMITMENT_BINDING_CONFLICT
+
+RELATIONSHIP_DEFINITION_MISSING
+
+RELATIONSHIP_DEFINITION_CONFLICT
+
+INFERRED_RELATIONSHIP_PROHIBITED
+
+Failure codes SHALL identify the exact unresolved condition.
+
+Failure Consequences
+
+If required relationships cannot be resolved:
+
+Lineage Graph Construction SHALL NOT begin;
+no Constructed Supervisory Lineage SHALL exist;
+no Constructed Supervisory Cycle Record SHALL be created;
+Supervisory Cycle Commitment SHALL NOT begin;
+no Committed Supervisory Cycle Record SHALL exist;
+Stage Two SHALL progress toward Committed Supervisory Provenance Failure.
+
+Failure SHALL NOT authorize:
+
+relationship inference;
+edge substitution;
+relationship repair;
+generic-edge insertion;
+cycle merging;
+authority reassignment;
+use of implementation-defined relationships.
+Prohibitions
+
+Cross-Contract Relationship Resolution SHALL NOT:
+
+create new constitutional relationships;
+infer missing relationships;
+validate artifact content;
+evaluate completeness;
+evaluate integrity;
+construct the lineage graph;
+reinterpret originating authority;
+collapse distinct relationship types;
+broaden authority;
+perform replay;
+perform audit;
+perform external verification;
+commit any supervisory history artifact.
+Determinism
+
+For identical:
+
+Canonical Artifact Resolution Set;
+committed artifacts;
+relationship evidence;
+relationship-definition versions;
+contract versions;
+schema versions;
+
+Cross-Contract Relationship Resolution SHALL produce an identical result.
+
+No ambient state, mutable registry pointer, implementation preference, or processing order may affect the canonical outcome.
+
+Immutability
+
+Once constructed, the Resolved Constitutional Relationship Set SHALL be immutable.
+
+A correction SHALL produce:
+
+a new set identity;
+explicit supersession lineage;
+preserved reference to the prior set;
+no in-place modification.
+
+A corrected relationship set does not retroactively modify the committed artifacts from which it was resolved.
+
+Relationship to Neighboring Sections
+
+The constitutional progression SHALL be:
+
+Section 17
+Canonical Artifact Resolution
+        │
+        ▼
+Section 18
+Cross-Contract Relationship Resolution
+        │
+        ▼
+Section 19
+Lineage Graph Construction
+
+These sections answer distinct constitutional questions:
+
+Section 17 — Which committed artifacts belong to the supervisory cycle?
+Section 18 — How are those committed artifacts constitutionally related?
+Section 19 — What complete lineage structure is constructed from those artifacts and relationships?
+
+Artifact membership is not relationship resolution.
+
+Relationship resolution is not lineage construction.
+
+Mathematical Interpretation
+
+Let:
+
+(A) be the Canonical Artifact Resolution Set;
+(D) be the applicable constitutional relationship definitions;
+(E) be the resolved relationship set.
+
+Then:
+
+[
+E = ResolveRelationships(A,D)
+]
+
+For every resolved relationship (e \in E):
+
+[
+e = (a_s,a_t,t,d,o)
+]
+
+where:
+
+(a_s) is the source artifact;
+(a_t) is the target artifact;
+(t) is the relationship type;
+(d) is the relationship direction;
+(o) is the originating constitutional authority.
+
+Every required relationship SHALL resolve exactly once as a constitutional identity:
+
+[
+\forall r \in R_e(c),\ |Resolve(r)| = 1
+]
+
+Relationship resolution does not imply completeness:
+
+[
+Resolved(E) \nRightarrow Complete(E)
+]
+
+Relationship resolution does not imply integrity:
+
+[
+Resolved(E) \nRightarrow IntegrityValid(E)
+]
+
+Fundamental Relationship Resolution Principle
+
+Cross-Contract Relationship Resolution SHALL deterministically resolve the exact constitutional relationships among the committed artifacts of one supervisory cycle while preserving artifact identity, relationship type, direction, originating authority, cycle binding, and commitment binding without inference, repair, substitution, reinterpretation, or authority transfer.

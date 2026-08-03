@@ -1,0 +1,294 @@
+This is the point where Contract 007 reaches its mathematical core.
+
+Sections 14–18 establish what the Controller is allowed to use.
+
+Section 19 defines what the Controller is allowed to compute.
+
+Everything after Section 19 (Validation, Authority Certification, Atomic Commitment) concerns whether that computation may become the canonical supervisory decision.
+
+I would make Section 19 the constitutional centerpiece of Contract 007.
+
+⸻
+
+Contract 007 — Section 19
+
+Controller Composition Evaluation
+
+19.1 Purpose
+
+This section defines the deterministic mathematical evaluation performed by one Committed Validated Controller Composition to compute the supervisory correction for one supervisory cycle.
+
+Its defining identity is:
+
+Controller Composition Evaluation deterministically computes one proposed supervisory correction and one proposed controller state outcome from one committed validated controller composition without modifying any committed input artifact.
+
+Controller Composition Evaluation is the sole mathematical computation stage of Contract 007.
+
+⸻
+
+19.2 Architectural Position
+
+Committed Validated Controller Composition
+        ↓
+Controller Composition Evaluation
+        ↓
+Controller Evaluation Result
+        ↓
+Validation
+        ↓
+Authority Certification
+        ↓
+Atomic Commitment
+
+Evaluation SHALL consume only committed artifacts.
+
+Evaluation SHALL produce only proposed artifacts.
+
+⸻
+
+19.3 Constitutional Authority
+
+This section owns:
+
+* controller mathematics;
+* controller execution order;
+* arbitration mathematics;
+* control synthesis;
+* intermediate controller outputs;
+* proposed Control Command;
+* proposed Controller State Outcome;
+* evaluation evidence.
+
+This section SHALL NOT:
+
+* modify committed artifacts;
+* validate results;
+* certify authority;
+* commit supervisory decisions;
+* translate runtime commands;
+* execute runtime commands.
+
+⸻
+
+19.4 Evaluation Inputs
+
+Controller Composition Evaluation SHALL consume exactly one:
+
+* Committed Validated Controller Composition.
+
+That composition encapsulates:
+
+* Committed Controller Configuration;
+* Committed Controller State Set;
+* Committed Control Error;
+* Committed Control Constraint Set.
+
+No additional runtime inputs SHALL participate in canonical evaluation.
+
+⸻
+
+19.5 Deterministic Evaluation
+
+Let
+
+C_t
+
+denote the committed validated controller composition.
+
+Evaluation is defined as
+
+R_t
+=
+\mathcal{E}
+\left(
+C_t
+\right)
+
+where
+
+* \mathcal E is the deterministic evaluation operator;
+* R_t is the Controller Evaluation Result.
+
+Given identical committed inputs and numeric profiles, every conforming implementation SHALL produce an identical Controller Evaluation Result.
+
+⸻
+
+19.6 Controller Execution Order
+
+Controller instances SHALL execute only in the order established by the validated Controller Composition.
+
+Evaluation SHALL NOT:
+
+* reorder controllers;
+* dynamically schedule controllers;
+* bypass declared dependencies;
+* discover additional execution paths.
+
+Execution order is fixed before evaluation begins.
+
+⸻
+
+19.7 Intermediate Results
+
+Intermediate controller outputs MAY be produced.
+
+Intermediate outputs SHALL:
+
+* remain internal to evaluation;
+* preserve deterministic ordering;
+* preserve provenance.
+
+Intermediate outputs SHALL NOT become canonical supervisory artifacts.
+
+⸻
+
+19.8 Arbitration
+
+Where multiple controller outputs require reconciliation, arbitration SHALL occur according to the validated Controller Composition.
+
+Arbitration SHALL be deterministic.
+
+No arbitration policy SHALL be introduced during evaluation.
+
+⸻
+
+19.9 Constraint Satisfaction
+
+Evaluation SHALL compute candidate supervisory corrections subject to the committed Control Constraint Set.
+
+Constraint evaluation may reject candidate corrections.
+
+Evaluation SHALL NOT modify constraints.
+
+⸻
+
+19.10 Proposed Control Command
+
+Successful evaluation SHALL produce exactly one:
+
+Proposed Control Command
+
+The Proposed Control Command represents the mathematical supervisory correction before validation and authority certification.
+
+It is not yet canonical.
+
+⸻
+
+19.11 Proposed Controller State Outcome
+
+Evaluation SHALL also produce exactly one:
+
+Proposed Controller State Outcome
+
+The outcome SHALL be one of:
+
+* Proposed Next Controller State Set;
+* Stateless Composition;
+* Registered State Retention.
+
+No other state disposition SHALL be produced.
+
+⸻
+
+19.12 Controller Evaluation Result
+
+The canonical output of this section is not the command itself.
+
+It is the Controller Evaluation Result.
+
+The Controller Evaluation Result SHALL contain:
+
+Controller Evaluation Result
+├── Proposed Control Command
+├── Proposed Controller State Outcome
+├── Intermediate Controller Outputs
+├── Arbitration Results
+├── Constraint Evaluation Results
+├── Evaluation Evidence
+├── Numeric Profile Reference
+├── Evaluation Metadata
+
+Every downstream section SHALL consume only this artifact.
+
+⸻
+
+19.13 Evaluation Metadata
+
+The Controller Evaluation Result SHALL record:
+
+controller_evaluation_result_id
+validated_controller_composition_id
+evaluation_operator_id
+numeric_profile_id
+evaluation_order_hash
+evaluation_duration
+schema_version
+artifact_hash
+
+⸻
+
+19.14 Evaluation Failure
+
+Evaluation failures SHALL terminate before Validation.
+
+Failure classes include:
+
+CONTROLLER_FAILURE
+ARBITRATION_FAILURE
+NUMERIC_FAILURE
+CONSTRAINT_EVALUATION_FAILURE
+STATE_CONSTRUCTION_FAILURE
+DETERMINISM_FAILURE
+
+Evaluation SHALL NOT attempt self-repair.
+
+⸻
+
+19.15 Architectural Prohibitions
+
+Controller Composition Evaluation SHALL NOT:
+
+* validate results;
+* certify authority;
+* alter committed controller state;
+* replace controller definitions;
+* substitute constraints;
+* expand supervisory authority;
+* execute runtime instructions.
+
+Those authorities belong to subsequent sections.
+
+⸻
+
+19.16 Fundamental Evaluation Invariant
+
+Controller Composition Evaluation SHALL deterministically transform one Committed Validated Controller Composition into one Controller Evaluation Result without modifying any committed supervisory artifact.
+
+The Controller Evaluation Result SHALL contain exactly one Proposed Control Command and exactly one Proposed Controller State Outcome together with the complete mathematical evidence required for subsequent validation and authority certification.
+
+⸻
+
+Architectural Consequence
+
+Section 19 completes the Controller’s computational responsibility.
+
+The lifecycle now becomes:
+
+Sections 14–18
+Construct and validate immutable controller inputs
+        ↓
+Section 19
+Compute supervisory correction
+        ↓
+Controller Evaluation Result
+        ↓
+Section 20
+Validation
+        ↓
+Section 21
+Authority Certification
+        ↓
+Section 22
+Atomic Commitment
+        ↓
+Committed Control Command

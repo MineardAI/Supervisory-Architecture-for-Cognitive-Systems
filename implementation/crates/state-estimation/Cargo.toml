@@ -1,0 +1,18 @@
+[package]
+name = "sacs-state-estimation"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+sacs-canonical-hashing = { path = "../canonical-hashing" }
+sacs-canonical-identity = { path = "../canonical-identity" }
+sacs-canonical-serialization = { path = "../canonical-serialization" }
+sacs-canonical-versioning = { path = "../canonical-versioning" }
+sacs-commitment-engine = { path = "../commitment-engine" }
+sacs-failure-model = { path = "../failure-model" }
+sacs-observation = { path = "../observation" }
+
+[lib]
+name = "state_estimation"

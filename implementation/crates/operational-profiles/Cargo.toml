@@ -1,0 +1,17 @@
+[package]
+name = "sacs-operational-profiles"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+canonical-hashing = { package = "sacs-canonical-hashing", path = "../canonical-hashing" }
+canonical-identity = { package = "sacs-canonical-identity", path = "../canonical-identity" }
+canonical-serialization = { package = "sacs-canonical-serialization", path = "../canonical-serialization" }
+canonical-versioning = { package = "sacs-canonical-versioning", path = "../canonical-versioning" }
+commitment-engine = { package = "sacs-commitment-engine", path = "../commitment-engine" }
+failure-model = { package = "sacs-failure-model", path = "../failure-model" }
+sacs-governance = { package = "sacs-governance", path = "../governance" }
+sacs-operational-state-vector = { package = "sacs-operational-state-vector", path = "../operational-state-vector" }
+sacs-supervisory-objectives = { package = "sacs-supervisory-objectives", path = "../supervisory-objectives" }

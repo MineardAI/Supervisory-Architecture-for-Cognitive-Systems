@@ -1,0 +1,1353 @@
+# SACS Contract 012 — External Verification Profile and Evidence Interface
+
+## Section 7 — Verification Profile
+
+### Purpose
+
+Section 7 defines the canonical constitutional artifact that governs how one or more Verifiable Claims may be prepared for external verification.
+
+A `Verification Profile` establishes the authorized verification environment for a defined class of claims.
+
+It determines:
+
+* which claim types are supported;
+* which verification subjects are eligible;
+* which evidence classes are required;
+* which evidence classes are optional;
+* which evidence classes are prohibited;
+* which verification methods are required;
+* which verification methods are permitted;
+* which verifier capabilities are necessary;
+* which result schemas are accepted;
+* which validity, expiration, replay, and reporting rules apply.
+
+A Verification Profile SHALL govern the preparation and interpretation boundaries of external verification.
+
+It SHALL NOT determine the external result.
+
+---
+
+# Constitutional Question
+
+Section 7 answers:
+
+> **Which committed constitutional rules govern the preparation, submission, external evaluation, and registration of a defined class of Verifiable Claims?**
+
+The Verification Profile establishes the rules under which verification may proceed.
+
+It does not answer whether any particular claim is true.
+
+Formally:
+
+```text
+Verification Profile
+≠
+Verification Result
+```
+
+and:
+
+```text
+Verification Profile Authorization
+≠
+Claim Verification
+```
+
+---
+
+# Constitutional Identity
+
+The defining constitutional identity of a Verification Profile is:
+
+> **A Verification Profile is one reusable, versioned, immutable constitutional definition that authorizes a bounded class of verification subjects, claims, evidence, methods, verifier capabilities, result forms, and validity conditions without issuing or predetermining any external verification judgment.**
+
+A Verification Profile is reusable across eligible verification operations.
+
+A committed profile binding is operation-specific.
+
+The distinction SHALL remain:
+
+```text
+Verification Profile Definition
+≠
+Committed Verification Profile Binding
+```
+
+---
+
+# Profile Authority
+
+Contract 012 owns the constitutional representation, validation, resolution, and binding of Verification Profiles.
+
+Contract 012 MAY:
+
+* define the profile schema;
+* register approved profile definitions;
+* resolve a profile by exact identity and version;
+* validate profile integrity;
+* evaluate subject and claim compatibility;
+* bind one profile to one verification operation;
+* preserve profile provenance;
+* preserve profile supersession relationships;
+* reject ambiguous or conflicting profile resolution.
+
+Contract 012 SHALL NOT:
+
+* select a profile based on expected verifier outcome;
+* create new verification policy during runtime;
+* silently substitute another profile;
+* weaken a profile requirement;
+* override an adopted prohibition;
+* treat an expired profile as currently authoritative;
+* infer profile authority from implementation availability.
+
+---
+
+# Profile Definition and Profile Binding
+
+A `Verification Profile Definition` is a reusable constitutional artifact.
+
+A `Committed Verification Profile Binding` is the immutable cycle- or operation-bound selection of one exact profile definition for one verification operation.
+
+The transition is:
+
+```text
+Verification Profile Definition
+        ↓
+Registry Resolution
+        ↓
+Eligibility Evaluation
+        ↓
+Compatibility Evaluation
+        ↓
+Configuration Binding
+        ↓
+Committed Verification Profile Binding
+```
+
+The profile definition remains reusable.
+
+The profile binding becomes specific to:
+
+* one verification subject;
+* one claim set;
+* one verification purpose;
+* one requirement set;
+* one verifier;
+* one submission operation.
+
+---
+
+# Canonical Profile Structure
+
+Every Verification Profile Definition SHALL contain at minimum:
+
+```text
+verification_profile_id
+verification_profile_name
+verification_profile_version
+profile_status
+profile_authority
+profile_purpose
+supported_verification_purposes
+supported_subject_types
+supported_claim_types
+supported_property_definitions
+required_evidence_classes
+optional_evidence_classes
+prohibited_evidence_classes
+evidence_admissibility_policy_id
+evidence_completeness_policy_id
+evidence_integrity_policy_id
+required_verification_methods
+permitted_verification_methods
+prohibited_verification_methods
+required_verifier_capabilities
+permitted_verifier_classes
+result_schema_id
+result_class_vocabulary_id
+scope_rules
+version_binding_rules
+environment_binding_rules
+assumption_rules
+exclusion_rules
+limitation_rules
+validity_rules
+expiration_rules
+reverification_rules
+supersession_rules
+replay_rules
+audit_rules
+reporting_rules
+failure_rules
+conformance_tests
+profile_created_at
+profile_hash
+```
+
+Where applicable, the profile SHALL also identify:
+
+```text
+numeric_profile_requirements
+formalism_requirements
+threat_model_id
+fault_model_id
+trust_model_id
+cryptographic_profile_id
+privacy_constraints
+retention_requirements
+external_standard_mappings
+human_review_requirements
+```
+
+Every mandatory field SHALL be resolved before the profile becomes eligible for binding.
+
+---
+
+# Profile Purpose
+
+Every Verification Profile SHALL declare one or more supported verification purposes.
+
+Examples include:
+
+```text
+CONFORMANCE
+AUTHORITY_PRESERVATION
+LINEAGE_INTEGRITY
+NUMERIC_CONFORMANCE
+DETERMINISTIC_REPLAY
+TEMPORAL_ATOMICITY
+STABILITY_PROPERTY
+TRANSLATION_EQUIVALENCE
+REALIZATION_PROVENANCE
+IMPLEMENTATION_CAPABILITY
+```
+
+A profile SHALL not be applied to a purpose it does not support.
+
+A generic profile label such as:
+
+```text
+GENERAL_VERIFICATION
+```
+
+SHALL NOT be sufficient unless the profile explicitly defines all supported claim, evidence, method, scope, and result rules.
+
+---
+
+# Supported Subject Types
+
+Every Verification Profile SHALL identify the subject types it may govern.
+
+Supported subject types MAY include:
+
+* Committed Supervisory Cycle Record;
+* Committed Realization Record;
+* Committed Supervisory Continuity Record;
+* Committed Execution Disposition;
+* Committed Translation Transaction;
+* Committed Control Command;
+* Committed Operational Profile;
+* Committed Reference State;
+* committed implementation build;
+* committed deployment instance;
+* profile-authorized composed subject.
+
+A profile SHALL not be bound to an unsupported subject type.
+
+Subject compatibility SHALL be evaluated before profile commitment.
+
+---
+
+# Supported Claim Types
+
+A Verification Profile SHALL define the exact claim types it supports.
+
+The profile MAY:
+
+* permit one claim type;
+* permit a bounded set of claim types;
+* require a mandatory claim bundle;
+* permit profile-defined composite claims;
+* prohibit incompatible claim combinations.
+
+A profile SHALL not accept an unregistered or unsupported claim type.
+
+Where multiple claim types are submitted together, the profile SHALL define:
+
+* whether joint submission is permitted;
+* whether evidence may be shared;
+* whether methods may be shared;
+* whether results remain independent;
+* whether aggregate status is permitted.
+
+---
+
+# Property Definition Binding
+
+A Verification Profile MAY authorize registered Verification Property Definitions.
+
+The profile SHALL identify:
+
+* permitted property definitions;
+* required parameter sets;
+* supported subject mappings;
+* required evidence mappings;
+* permitted verification methods;
+* result interpretation rules.
+
+A Verifiable Claim instantiated from a Property Definition SHALL remain bound to the exact Property Definition version authorized by the profile.
+
+A later Property Definition version SHALL not silently apply.
+
+---
+
+# Evidence Class Rules
+
+A Verification Profile SHALL define three distinct evidence classes:
+
+```text
+Required Evidence
+Optional Evidence
+Prohibited Evidence
+```
+
+These classes SHALL remain separate.
+
+## Required Evidence
+
+Required evidence SHALL be present unless the profile defines an explicit conditional rule.
+
+Missing required evidence SHALL result in:
+
+```text
+EVIDENCE_INCOMPLETE
+```
+
+or another profile-defined failure.
+
+## Optional Evidence
+
+Optional evidence MAY be included where:
+
+* it is admissible;
+* it is relevant;
+* it remains within scope;
+* inclusion is deterministic under the profile.
+
+Optional evidence SHALL not become outcome-selected.
+
+## Prohibited Evidence
+
+Prohibited evidence SHALL not appear in the canonical Verification Evidence Package.
+
+Examples MAY include:
+
+* uncommitted artifacts;
+* unverifiable summaries;
+* mutable runtime state;
+* evidence from unauthorized sources;
+* evidence outside temporal scope;
+* evidence whose integrity cannot be established;
+* evidence that violates privacy or policy constraints.
+
+---
+
+# Evidence Admissibility Policy
+
+Every profile SHALL reference or contain one Evidence Admissibility Policy.
+
+The policy SHALL define:
+
+* authorized source classes;
+* required artifact states;
+* provenance requirements;
+* schema requirements;
+* integrity requirements;
+* temporal requirements;
+* version requirements;
+* chain-of-custody requirements;
+* external evidence rules;
+* replay evidence rules;
+* audit evidence rules;
+* exclusion rules.
+
+Admissibility establishes whether evidence may be considered.
+
+It does not establish whether evidence proves a claim.
+
+---
+
+# Evidence Completeness Policy
+
+Every profile SHALL define the evidence required for a package to be complete.
+
+Completeness rules MAY include:
+
+* mandatory artifact presence;
+* mandatory lineage closure;
+* minimum method-input coverage;
+* required registry snapshots;
+* required configuration snapshots;
+* required failure records;
+* required counterexample inclusion;
+* required external evidence;
+* required replay artifacts;
+* required audit artifacts.
+
+Completeness SHALL be deterministically evaluable.
+
+A package SHALL not be declared complete because it appears persuasive.
+
+---
+
+# Evidence Integrity Policy
+
+Every profile SHALL define the integrity requirements for included evidence.
+
+Integrity requirements MAY include:
+
+* cryptographic hashes;
+* digital signatures;
+* commitment-record validation;
+* chain-of-custody validation;
+* schema validation;
+* serialization validation;
+* timestamp validation;
+* provenance validation;
+* immutable storage references;
+* source-authority validation.
+
+Evidence that fails a mandatory integrity requirement SHALL not remain authoritative evidence.
+
+---
+
+# Verification Method Rules
+
+Every profile SHALL classify verification methods as:
+
+```text
+Required
+Permitted
+Prohibited
+```
+
+## Required Methods
+
+Required methods SHALL be performed unless the external verifier returns an explicit inability or unsupported-method result.
+
+## Permitted Methods
+
+Permitted methods MAY be used at the verifier's discretion.
+
+## Prohibited Methods
+
+Prohibited methods SHALL not be represented as valid verification methods for that profile.
+
+A profile MAY prohibit a method because:
+
+* it cannot evaluate the claim class;
+* it introduces unacceptable nondeterminism;
+* it lacks required auditability;
+* it violates data constraints;
+* it exceeds authorized scope;
+* it depends upon an incompatible trust model.
+
+---
+
+# Method Coverage Rules
+
+The profile SHALL define whether method coverage is:
+
+```text
+ALL_REQUIRED
+AT_LEAST_ONE_REQUIRED
+ORDERED_METHOD_CHAIN
+CONDITIONAL_METHOD_SET
+PROFILE_DEFINED_THRESHOLD
+```
+
+The profile SHALL define how missing or failed methods affect the result.
+
+Contract 012 SHALL preserve method requirements in the submission.
+
+The external verifier SHALL report actual method performance.
+
+---
+
+# Verifier Capability Requirements
+
+Every profile SHALL identify the capabilities required of the external verifier.
+
+Capabilities MAY include:
+
+* formal proof evaluation;
+* model checking;
+* deterministic replay;
+* symbolic execution;
+* numeric analysis;
+* cryptographic validation;
+* fault injection;
+* runtime observation;
+* provenance inspection;
+* secure evidence handling;
+* privacy-preserving verification;
+* human expert review.
+
+A verifier lacking a required capability SHALL not be bound to the profile unless the profile explicitly permits partial capability coverage.
+
+---
+
+# Permitted Verifier Classes
+
+A profile MAY restrict verification to one or more verifier classes.
+
+Examples include:
+
+```text
+NULLBLADE
+ACCREDITED_EXTERNAL_VERIFIER
+HUMAN_REVIEW_PANEL
+FORMAL_VERIFICATION_ENGINE
+CRYPTOGRAPHIC_ATTESTATION_SERVICE
+HYBRID_VERIFICATION_AUTHORITY
+```
+
+A verifier class is not the same as a verifier identity.
+
+The profile may authorize the class.
+
+The committed profile binding SHALL identify the exact verifier identity.
+
+---
+
+# Result Schema
+
+Every Verification Profile SHALL define or reference one result schema.
+
+The result schema SHALL specify:
+
+* mandatory result fields;
+* claim-level result structure;
+* method reporting structure;
+* evidence-consumption reporting;
+* evidence-rejection reporting;
+* limitation reporting;
+* exclusion reporting;
+* uncertainty reporting;
+* validity scope;
+* validity interval;
+* issuer identity;
+* integrity proof;
+* result hash.
+
+A result that does not conform to the required schema SHALL fail registration unless the profile permits an explicit compatibility translation.
+
+---
+
+# Result Class Vocabulary
+
+Every profile SHALL define the permitted result classes.
+
+Examples MAY include:
+
+```text
+VERIFIED
+VERIFIED_WITH_LIMITATIONS
+NOT_VERIFIED
+REJECTED
+INCONCLUSIVE
+INSUFFICIENT_EVIDENCE
+UNSUPPORTED_METHOD
+OUT_OF_SCOPE
+VERIFIER_FAILURE
+WITHDRAWN
+EXPIRED
+```
+
+The profile SHALL define the exact meaning of each class.
+
+Contract 012 SHALL not reinterpret result classes based on favorable or unfavorable connotation.
+
+---
+
+# Scope Rules
+
+The Verification Profile SHALL define how claim and result scope are constrained.
+
+Scope rules SHALL address:
+
+* subject scope;
+* temporal scope;
+* version scope;
+* implementation scope;
+* environment scope;
+* evidence scope;
+* method scope;
+* result scope;
+* partial-scope results;
+* scope reduction;
+* scope conflict.
+
+A result SHALL not exceed the profile-authorized submitted scope.
+
+---
+
+# Version Binding Rules
+
+The profile SHALL define which versions must be bound.
+
+Required bindings MAY include:
+
+* contract versions;
+* artifact schema versions;
+* registry versions;
+* profile version;
+* requirement-set version;
+* method-definition versions;
+* implementation version;
+* runtime version;
+* numeric profile version;
+* cryptographic profile version.
+
+A profile MAY define compatibility rules.
+
+Compatibility SHALL be explicit and deterministic.
+
+---
+
+# Environment Binding Rules
+
+Where environment affects the claim, the profile SHALL define mandatory environment bindings.
+
+These MAY include:
+
+* hardware;
+* operating system;
+* runtime;
+* dependency set;
+* container identity;
+* network conditions;
+* timing source;
+* resource limits;
+* deployment region;
+* external service versions.
+
+The profile SHALL define whether environment equivalence is permitted.
+
+It SHALL not rely upon informal similarity.
+
+---
+
+# Assumption Rules
+
+The profile SHALL define:
+
+* which assumptions are permitted;
+* which assumptions must be validated;
+* which assumptions may remain externally supplied;
+* which assumptions invalidate the claim;
+* how assumption dependence affects result interpretation.
+
+A profile SHALL prohibit hidden assumptions.
+
+An assumption introduced after submission commitment SHALL not alter the committed claim.
+
+---
+
+# Exclusion Rules
+
+The profile SHALL define:
+
+* which exclusions are permitted;
+* which exclusions are mandatory;
+* which exclusions are prohibited;
+* how exclusions affect scope;
+* how exclusions affect result status;
+* how exclusions must be reported.
+
+Exclusions SHALL not be used to remove mandatory contradictory evidence.
+
+---
+
+# Limitation Rules
+
+The profile SHALL define:
+
+* permitted predeclared limitations;
+* mandatory limitation reporting;
+* limitation impact on result classes;
+* whether a limited result may qualify as verified;
+* whether limitations trigger reverification.
+
+A favorable result SHALL preserve every applicable limitation.
+
+---
+
+# Numeric Requirements
+
+Where the profile governs numeric claims, it SHALL identify:
+
+* numeric profile;
+* precision rules;
+* rounding rules;
+* tolerance rules;
+* uncertainty treatment;
+* overflow behavior;
+* exceptional-value behavior;
+* comparison semantics;
+* deterministic arithmetic requirements.
+
+A profile SHALL not permit unstated numeric tolerances.
+
+---
+
+# Formalism Requirements
+
+Where formal verification is required, the profile SHALL identify:
+
+* property language;
+* logic;
+* model language;
+* proof system;
+* solver class;
+* accepted proof artifact;
+* proof-checking requirements;
+* trust assumptions;
+* soundness limitations;
+* completeness limitations.
+
+A profile SHALL distinguish:
+
+```text
+Proof Generation
+≠
+Proof Checking
+```
+
+Where proof checking is required, the external result SHALL include the required checkable artifact or reference.
+
+---
+
+# Threat and Fault Models
+
+Where relevant, a profile SHALL bind an explicit threat model or fault model.
+
+The model SHALL identify:
+
+* covered actors or faults;
+* excluded actors or faults;
+* assumed capabilities;
+* environmental assumptions;
+* temporal assumptions;
+* trust boundaries;
+* maximum fault cardinality;
+* recovery assumptions.
+
+A verification result SHALL not be interpreted beyond the bound threat or fault model.
+
+---
+
+# Privacy and Data Constraints
+
+A profile MAY define constraints governing sensitive evidence.
+
+These MAY include:
+
+* redaction requirements;
+* pseudonymization requirements;
+* minimum disclosure;
+* secure enclave processing;
+* zero-knowledge evidence;
+* retention limits;
+* geographic restrictions;
+* access restrictions;
+* destruction requirements.
+
+Privacy-preserving transformation SHALL preserve claim-relevant meaning.
+
+Contract 012 SHALL not omit required evidence merely to simplify privacy handling.
+
+---
+
+# Reporting Rules
+
+The profile SHALL define how the verifier reports:
+
+* claim outcomes;
+* methods performed;
+* evidence consumed;
+* evidence rejected;
+* counterexamples;
+* limitations;
+* exclusions;
+* uncertainties;
+* verifier failures;
+* partial results;
+* unsupported requirements.
+
+Reporting rules SHALL preserve unfavorable findings.
+
+---
+
+# Validity Rules
+
+A Verification Profile SHALL define the conditions under which a result remains valid.
+
+Validity MAY depend upon:
+
+* unchanged subject;
+* unchanged implementation version;
+* unchanged environment;
+* unchanged profile;
+* unchanged requirement set;
+* unchanged threat model;
+* unchanged evidence;
+* unexpired cryptographic credentials;
+* bounded time interval.
+
+A result SHALL not be treated as perpetually valid unless the profile explicitly establishes that property.
+
+---
+
+# Expiration Rules
+
+The profile SHALL define whether and when results expire.
+
+Expiration MAY be:
+
+* time-based;
+* version-based;
+* environment-based;
+* evidence-currency-based;
+* credential-based;
+* policy-based;
+* supersession-based.
+
+Expiration SHALL not delete the original result.
+
+It changes only the current status associated with that result.
+
+---
+
+# Reverification Rules
+
+The profile SHALL define when reverification is required.
+
+Triggers MAY include:
+
+* subject change;
+* implementation change;
+* environment change;
+* profile change;
+* requirement-set change;
+* new contradictory evidence;
+* result expiration;
+* verifier revocation;
+* threat-model change;
+* material dependency change.
+
+Reverification SHALL require a new submission identity.
+
+---
+
+# Supersession Rules
+
+The profile SHALL define whether:
+
+* a later profile supersedes an earlier profile;
+* a later result may supersede an earlier result;
+* supersession applies to equal scope only;
+* prior results remain valid for historical periods;
+* migration is permitted.
+
+Supersession SHALL preserve all prior artifacts.
+
+---
+
+# Replay Rules
+
+A profile SHALL define which Contract 012 operations must support deterministic replay.
+
+Replay rules MAY cover:
+
+* profile resolution;
+* claim construction;
+* requirement resolution;
+* evidence resolution;
+* package construction;
+* completeness evaluation;
+* integrity evaluation;
+* submission construction;
+* result-registration validation.
+
+Replay SHALL not recreate external verification authority.
+
+---
+
+# Audit Rules
+
+The profile SHALL define required audit records.
+
+Audit requirements MAY include:
+
+* profile-resolution trace;
+* claim-normalization trace;
+* evidence inclusion and exclusion trace;
+* method-requirement trace;
+* verifier-selection trace;
+* submission-commitment trace;
+* result-registration trace;
+* expiration and supersession trace.
+
+Audit records SHALL remain observational.
+
+---
+
+# Failure Rules
+
+Every profile SHALL define mandatory failure behavior.
+
+Failure rules SHALL specify:
+
+* failure classes;
+* mandatory failure fields;
+* whether partial progression is permitted;
+* whether partial results may be registered;
+* whether retry is permitted;
+* whether reverification is required;
+* whether governance notification is required.
+
+A profile SHALL not convert mandatory failure into silent fallback.
+
+---
+
+# Conformance Tests
+
+Every Verification Profile SHALL include or reference conformance tests sufficient to evaluate an implementation of that profile.
+
+Conformance tests MAY cover:
+
+* supported subject enforcement;
+* supported claim enforcement;
+* evidence-class enforcement;
+* method-rule enforcement;
+* scope enforcement;
+* version binding;
+* environment binding;
+* assumption and exclusion enforcement;
+* result-schema enforcement;
+* expiration behavior;
+* replay behavior;
+* failure behavior.
+
+Passing profile conformance tests does not verify any claim.
+
+---
+
+# Profile Status
+
+A Verification Profile SHALL possess one registered status.
+
+Permitted statuses MAY include:
+
+```text
+DRAFT
+PROPOSED
+ADOPTED
+ACTIVE
+RESTRICTED
+DEPRECATED
+SUSPENDED
+REVOKED
+EXPIRED
+ARCHIVED
+```
+
+Only statuses explicitly authorized for use SHALL permit new profile binding.
+
+A deprecated or archived profile MAY remain necessary for historical replay.
+
+It SHALL not automatically authorize new submissions.
+
+---
+
+# Profile Adoption
+
+A Verification Profile becomes constitutionally authoritative only through the required governance process.
+
+Profile creation alone does not establish authority.
+
+The profile SHALL preserve:
+
+* proposing authority;
+* reviewing authority;
+* adopting authority;
+* adoption decision;
+* effective time;
+* applicable scope;
+* adoption record identity.
+
+Contract 012 SHALL not self-adopt a Verification Profile.
+
+---
+
+# Profile Registry
+
+Every authoritative Verification Profile SHALL be resolved through a committed Verification Profile Registry snapshot.
+
+The registry SHALL identify:
+
+```text
+profile_id
+profile_version
+profile_status
+profile_hash
+effective_time
+expiration_time
+supersession_relationship
+authorized_subject_types
+authorized_claim_types
+authorized_verifier_classes
+```
+
+Runtime lookup against mutable registry state SHALL not establish deterministic authority.
+
+The exact registry snapshot SHALL be bound to the verification operation.
+
+---
+
+# Profile Resolution
+
+Profile resolution SHALL use:
+
+* exact profile identity;
+* exact version;
+* committed registry snapshot;
+* explicit status;
+* explicit effective interval;
+* explicit subject and claim compatibility.
+
+Terms such as:
+
+```text
+latest
+default
+recommended
+current
+best available
+```
+
+SHALL not resolve a profile unless the registry defines an exact deterministic rule for the term.
+
+---
+
+# Profile Eligibility
+
+A profile is eligible only where:
+
+* it exists in the committed registry snapshot;
+* its integrity is valid;
+* its status permits use;
+* its effective interval includes the operation;
+* its subject type is supported;
+* its claim type is supported;
+* its purpose is supported;
+* its verifier class is compatible.
+
+Eligibility does not establish compatibility with the complete verification operation.
+
+---
+
+# Profile Compatibility
+
+Profile compatibility SHALL evaluate:
+
+* subject compatibility;
+* claim compatibility;
+* purpose compatibility;
+* requirement compatibility;
+* evidence availability constraints;
+* method compatibility;
+* verifier capability compatibility;
+* version compatibility;
+* environment compatibility;
+* privacy compatibility;
+* result-schema compatibility.
+
+A profile MAY be eligible but incompatible with a particular operation.
+
+Contract 012 SHALL preserve this distinction.
+
+---
+
+# Profile Selection
+
+Profile selection authority SHALL originate outside the runtime evaluation logic or through a deterministic constitutionally authorized rule.
+
+Contract 012 MAY resolve and validate the selected profile.
+
+It SHALL NOT choose among eligible profiles based on:
+
+* expected pass probability;
+* weaker evidence requirements;
+* fewer required methods;
+* broader favorable result vocabulary;
+* lower verifier burden;
+* operator preference not represented in committed authority.
+
+---
+
+# Profile Binding
+
+A successful profile-binding operation SHALL produce:
+
+```text
+Committed Verification Profile Binding
+```
+
+The binding SHALL contain:
+
+```text
+verification_profile_binding_id
+verification_profile_id
+verification_profile_version
+verification_profile_hash
+registry_snapshot_id
+verification_subject_id
+claim_set_hash
+verification_purpose
+verification_requirement_set_id
+authorized_verifier_id
+binding_scope
+binding_timestamp
+binding_authority
+binding_hash
+```
+
+The binding SHALL be immutable.
+
+---
+
+# One-Profile Principle
+
+One verification submission SHALL be governed by exactly one primary Verification Profile.
+
+A profile MAY reference subordinate policies or method definitions.
+
+Those references SHALL not create multiple competing primary profiles.
+
+Where claims require incompatible profiles, they SHALL be separated into different verification submissions unless a governing composite profile explicitly authorizes their combination.
+
+---
+
+# Profile Composition
+
+A Verification Profile MAY be composed from subordinate profile modules where the composition rules are explicit.
+
+A composed profile SHALL identify:
+
+```text
+component_profile_ids
+component_versions
+composition_operator
+precedence_rules
+conflict_rules
+merged_hash
+```
+
+Profile composition SHALL fail where mandatory rules conflict and no adopted precedence rule resolves the conflict.
+
+Silent precedence is prohibited.
+
+---
+
+# Profile Conflict
+
+A profile conflict exists where two applicable rules impose incompatible obligations.
+
+Examples include:
+
+* one rule requires evidence that another prohibits;
+* one rule requires a method that another prohibits;
+* result vocabularies conflict;
+* scope rules conflict;
+* validity rules conflict;
+* privacy rules conflict.
+
+Contract 012 SHALL not resolve a profile conflict through implementation preference.
+
+The conflict SHALL be explicitly represented.
+
+---
+
+# Profile Supersession
+
+A new profile version MAY supersede an earlier version.
+
+Supersession SHALL identify:
+
+```text
+superseding_profile_id
+superseding_profile_version
+superseded_profile_id
+superseded_profile_version
+supersession_basis
+effective_time
+migration_rules
+historical_replay_rules
+```
+
+Supersession SHALL not modify prior profile bindings or submissions.
+
+---
+
+# Profile Deprecation and Revocation
+
+Deprecation discourages or prohibits new use according to registry policy.
+
+Revocation invalidates the profile for new use from the effective revocation time.
+
+Neither deprecation nor revocation SHALL erase:
+
+* historical bindings;
+* historical submissions;
+* historical results;
+* historical status records.
+
+The profile remains resolvable for historical interpretation and replay.
+
+---
+
+# Profile Change
+
+Any material change to a Verification Profile SHALL require a new version and new profile hash.
+
+Material changes include:
+
+* supported subject changes;
+* supported claim changes;
+* evidence requirement changes;
+* method changes;
+* verifier capability changes;
+* scope changes;
+* result-schema changes;
+* validity changes;
+* expiration changes;
+* assumption changes;
+* exclusion changes;
+* failure changes.
+
+A material change SHALL not be applied through mutable configuration.
+
+---
+
+# Deterministic Profile Resolution
+
+For identical:
+
+* selected profile identity;
+* selected profile version;
+* registry snapshot;
+* subject;
+* claim set;
+* verification purpose;
+* verifier identity;
+* environment;
+* applicable versions,
+
+Contract 012 SHALL produce the same profile-resolution, eligibility, compatibility, and binding results.
+
+Resolution SHALL not depend upon mutable ambient state.
+
+---
+
+# Profile Replay
+
+Contract 012 SHALL support deterministic replay of:
+
+* registry resolution;
+* status evaluation;
+* eligibility evaluation;
+* compatibility evaluation;
+* composition;
+* conflict detection;
+* binding construction;
+* binding identity generation.
+
+Replay SHALL reproduce the exact committed profile binding.
+
+It SHALL not alter the original binding.
+
+---
+
+# Profile Auditability
+
+Every profile operation SHALL preserve sufficient records to determine:
+
+* which profile was requested;
+* which registry snapshot was used;
+* which profiles were considered;
+* why a profile was eligible or ineligible;
+* why it was compatible or incompatible;
+* which conflicts were detected;
+* which authority selected it;
+* when it was bound;
+* which claims and subject it governed;
+* which submissions used it.
+
+---
+
+# Failure Conditions
+
+Verification Profile processing SHALL fail when:
+
+* the profile cannot be resolved;
+* the profile version is ambiguous;
+* the registry snapshot is unavailable;
+* the profile hash is invalid;
+* the profile status prohibits use;
+* the profile is not yet effective;
+* the profile has expired;
+* the subject type is unsupported;
+* the claim type is unsupported;
+* the verification purpose is unsupported;
+* required evidence rules are undefined;
+* method rules are contradictory;
+* verifier capabilities are insufficient;
+* the result schema is unavailable;
+* scope rules are ambiguous;
+* version rules are unresolved;
+* profile composition conflicts;
+* selection authority is absent;
+* binding identity construction fails.
+
+Every failure SHALL be explicit.
+
+---
+
+# Prohibitions
+
+Contract 012 SHALL NOT:
+
+* use an unregistered profile;
+* use a mutable profile;
+* resolve “latest” without deterministic registry authority;
+* silently substitute profiles;
+* select weaker profiles to improve outcomes;
+* bind multiple conflicting primary profiles to one submission;
+* alter profile requirements after claim commitment;
+* treat a profile as a verification result;
+* treat profile conformance as claim verification;
+* allow a revoked profile to authorize new submissions;
+* erase historical uses of deprecated or revoked profiles;
+* merge conflicting profile rules without explicit precedence;
+* transfer a profile binding to another subject or claim set.
+
+---
+
+# Section 7 Invariants
+
+> **Every Contract 012 verification operation SHALL be governed by exactly one immutable, versioned, registry-resolved Verification Profile whose authority, subject coverage, claim coverage, evidence rules, method rules, verifier requirements, scope rules, result schema, validity conditions, and failure behavior are fully determined before evidence construction begins.**
+
+> **A Verification Profile SHALL authorize and constrain external verification preparation without issuing, predicting, weakening, strengthening, or substituting for the external verification judgment.**

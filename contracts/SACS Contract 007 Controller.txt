@@ -1,0 +1,590 @@
+# SACS Contract 007 — Controller
+
+**Project:** SACS — Supervisory Architecture for Cognitive Systems  
+**Contract:** 007  
+**Title:** Controller  
+**Version:** 1.0.0  
+**Status:** ADOPTED - SACS v1.0.0 BASELINE  
+**Normative Authority:** Control Error, Controller State, Control Authority Binding, Controller Composition Compatibility, Controller Evaluation, Command Authorization, and Controller Decision Commitment  
+**Depends On:**
+
+- Contract 000 — Architecture and Authority
+- Contract 003 — Operational State Vector
+- Contract 004 — Governance
+- Contract 005 — Supervisory Objectives
+- Contract 006 — Operational Profiles and Reference States
+
+**Canonical Supervisory Inputs:**
+
+- Committed Operational State Vector
+- Committed Governance Snapshot
+- Committed Objective Set
+- Committed Operational Profile
+- Committed Reference State
+- Committed Controller Configuration
+- Committed Controller State Set or explicit stateless input disposition
+- Committed Numeric Profile
+- immutable registry definitions resolved through committed snapshots or exact definition hashes
+
+**Canonical Output to Contract 008:**
+
+- Committed Control Command, reachable only through one canonical Controller Commitment Record
+
+**Canonical Internal Continuation Output:**
+
+- Committed Next Controller State Outcome, eligible for a later Contract 007 cycle according to its committed lifecycle policy
+
+---
+
+## 1. Purpose
+
+This contract defines the canonical Controller layer of SACS.
+
+It establishes the deterministic lifecycle by which SACS:
+
+- derives a canonical Control Error from committed supervisory state and committed reference state;
+- binds the Control Constraint Set and authorized Action Space applicable to the cycle;
+- represents all persistent controller memory as explicit committed Controller State;
+- verifies that the exact authorized Controller Configuration is mathematically compatible with the exact committed inputs supplied for the cycle;
+- evaluates the validated Controller Composition under one canonical Numeric Profile;
+- produces one proposed bounded Control Command and one complete proposed Controller State outcome;
+- validates the proposed mathematical outputs;
+- certifies command authorization and constraint conformance within the committed SACS supervisory authority model;
+- atomically canonicalizes the complete controller decision through one Controller Commitment Record;
+- publishes one immutable Committed Control Command to Contract 008;
+- preserves complete controller lineage, deterministic replay, failure evidence, and next-cycle state continuity.
+
+The Controller computes bounded corrective action intended to reduce or otherwise resolve registered supervisory deviation.
+
+The Controller does not define the desired operating condition.
+
+The Controller does not author Governance.
+
+The Controller does not select its own Operational Profile, Controller Configuration, authority, runtime implementation, or execution mechanism.
+
+The Controller does not generate primary task content.
+
+The Controller does not execute its own command.
+
+Its defining identity is:
+
+> **Contract 007 deterministically transforms committed supervisory deviation, committed control authority, committed controller configuration, and committed controller state into one canonical bounded Control Command without redefining supervisory intent or broadening authority.**
+
+---
+
+## 2. Normative Language
+
+The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**, **SHOULD**, **SHOULD NOT**, **RECOMMENDED**, **MAY**, and **OPTIONAL** are normative conformance terms as defined by Contract 000.
+
+A requirement marked **MUST**, **MUST NOT**, **SHALL**, or **SHALL NOT** is binding on every conforming implementation within the applicable capability profile.
+
+A requirement marked **SHOULD** or **SHOULD NOT** may be departed from only when the implementation records a justified reason and preserves every higher-order invariant defined by Contract 000 and this contract.
+
+A requirement marked **MAY** is optional.
+
+---
+
+## 3. Controller Identity
+
+The Controller is the SACS authority responsible for computing bounded mathematical correction from committed supervisory inputs.
+
+The defining identity of the Controller is:
+
+> **The Controller determines what bounded corrective action follows from the committed deviation, configuration, state, and authority applicable to one supervisory cycle.**
+
+The Controller MAY implement or compose registered control methods including:
+
+- proportional control;
+- integral control;
+- derivative control;
+- PID-family control;
+- state feedback;
+- gain-scheduled control;
+- adaptive control;
+- robust control;
+- model-predictive control;
+- rule-based control;
+- finite-state control;
+- constrained optimization;
+- hybrid control;
+- ensemble control;
+- safety restriction;
+- registered custom control.
+
+Algorithm family does not change Contract 007 authority.
+
+Every conforming controller remains subject to the same requirements for:
+
+- committed inputs;
+- explicit state;
+- bounded authority;
+- deterministic semantics;
+- exact artifact binding;
+- complete lineage;
+- immutable canonical outputs;
+- reduced-authority failure;
+- prohibition of hidden selection, repair, substitution, and execution.
+
+---
+
+## 4. Contract Authority
+
+### 4.1 Contract 007 Owns
+
+Contract 007 owns:
+
+- Control Error Definitions;
+- Error Representation Definitions;
+- Control Error evaluation;
+- Committed Control Error construction;
+- Controller State Definitions;
+- Controller State Set and partition semantics;
+- state initialization, transition, preservation, reset, migration, and eligibility rules;
+- Control Constraint binding;
+- Control Constraint Set construction;
+- Action Space binding;
+- controller-instance identity and binding;
+- Controller Composition topology semantics;
+- controller compatibility evaluation;
+- Committed Validated Controller Composition construction;
+- Controller Composition Evaluation;
+- intermediate mathematical outputs;
+- arbitration, restriction, safety, ensemble, cascade, and fallback evaluation semantics;
+- Proposed Control Command construction;
+- proposed Controller State outcome construction;
+- command validation;
+- Controller State transition validation;
+- command authorization and constraint-conformance certification;
+- Controller Commitment Bundle construction;
+- Controller Commitment Record publication;
+- Committed Control Command publication;
+- committed next-state outcome publication;
+- controller-specific lineage;
+- controller failure and incomplete-cycle artifacts;
+- Contract 007 conformance declarations.
+
+### 4.2 Contract 007 Does Not Own
+
+Contract 007 does not own:
+
+- observation collection;
+- state estimation;
+- OSV field semantics;
+- external governance authorship;
+- objective declaration;
+- Operational Profile selection;
+- Reference State authority;
+- controller implementation discovery outside the committed configuration;
+- Inference Command translation;
+- runtime scheduling;
+- execution acceptance or rejection;
+- task generation;
+- model generation;
+- tool internals;
+- external legal certification;
+- verification verdicts;
+- cross-contract accreditation.
+
+---
+
+## 5. Separation of Supervisory Authorities
+
+Contract 007 SHALL preserve the following authority separation:
+
+```text
+Committed OSV
+        +
+Committed Reference State
+        ↓
+Control Error Evaluator
+        ↓
+Committed Control Error
+
+Committed Governance Snapshot
+        +
+Committed Operational Profile
+        ↓
+Control Constraint Binder
+        ↓
+Committed Control Constraint Set
+
+Committed Controller Configuration
+        +
+Committed Controller State Input
+        +
+Committed Mathematical Inputs
+        +
+Immutable Registry Definitions
+        ↓
+Controller Configuration Binder
+        ↓
+Committed Validated Controller Composition
+
+Committed Validated Controller Composition
+        ↓
+Controller Composition Evaluation
+        ↓
+Controller Evaluation Result
+        ├── Proposed Control Command
+        └── Proposed Controller State Outcome
+
+Controller Evaluation Result
+        ↓
+Command Validation
+        +
+Controller State Transition Validation
+        +
+Authority Certification
+        ↓
+Prepared Controller Commitment Bundle
+        ↓
+Controller Commitment Record Publication
+        ↓
+Canonical Controller Commitment Bundle
+        ├── Committed Control Command
+        └── Committed Next Controller State Outcome
+```
+
+Each transformation SHALL have exactly one normative authority.
+
+No stage may silently perform the work of another stage.
+
+---
+
+## 6. Canonical Controller Flow
+
+A conforming implementation SHALL preserve the following logical flow:
+
+```text
+Committed supervisory inputs received
+        ↓
+Cycle and lineage coherence validated
+        ↓
+Control Error evaluated and committed
+        ↓
+Control authority and Action Space bound and committed
+        ↓
+Controller State input resolved
+        ↓
+Controller Configuration and definitions resolved
+        ↓
+Composition compatibility evaluated
+        ↓
+Validated composition committed
+        ↓
+Controller instances evaluated
+        ↓
+Composition resolved deterministically
+        ↓
+Controller Evaluation Result constructed
+        ↓
+Command and state outcomes validated
+        ↓
+Command authority certified
+        ↓
+Controller Commitment Bundle prepared
+        ↓
+Controller Commitment Record atomically published
+        ↓
+Committed Control Command exposed to Contract 008
+        +
+Committed next-state outcome retained for later Contract 007 use
+```
+
+Every required Controller cycle SHALL resolve to exactly one of:
+
+- one canonical Controller Commitment Bundle;
+- one immutable Controller Evaluation Failure;
+- one immutable Controller Commitment Failure;
+- one explicit incomplete-cycle disposition owned by the applicable upstream or provenance contract.
+
+A cycle SHALL NOT terminate silently.
+
+---
+
+## 7. Foundational Controller Invariant
+
+Every Controller transformation SHALL operate only on committed cycle artifacts and immutable registered definitions identified by exact snapshot or definition hash.
+
+A Controller SHALL NOT:
+
+- read mutable supervisory state as canonical input;
+- reconstruct hidden OSV semantics;
+- infer undeclared objectives;
+- weaken Governance;
+- select an Operational Profile;
+- select a substitute Controller Configuration;
+- search registries for an alternative controller during binding or evaluation;
+- create authority absent from the Committed Control Constraint Set;
+- omit mandatory constraints;
+- repair incompatible state inside the Configuration Binder;
+- migrate, reset, initialize, or mutate state outside the lifecycle authority defined by this contract;
+- resolve the latest registry definition at evaluation time;
+- use hidden mutable memory that affects canonical output;
+- expose intermediate output as a canonical Control Command;
+- commit a command without a complete state outcome or explicit stateless disposition;
+- execute or translate the committed command.
+
+---
+
+## 8. Canonical Artifact Classes
+
+Contract 007 distinguishes four artifact classes.
+
+### 8.1 Reusable Registry Definitions
+
+Reusable Registry Definitions define mathematical and structural semantics that may be reused across cycles.
+
+They include:
+
+- Controller Definition;
+- Controller State Definition;
+- Error Representation Definition;
+- Constraint Definition;
+- Action Space Definition;
+- Composition Profile;
+- Numeric Profile;
+- Arbitration Policy;
+- Transformation Definition;
+- compatibility rule sets;
+- state-transition policies.
+
+Reusable definitions are not cycle-bound runtime artifacts.
+
+Every reusable definition consumed during a cycle SHALL be resolved through:
+
+- an immutable registry snapshot; or
+- an exact definition identifier, version, and definition hash already bound into a committed cycle artifact.
+
+### 8.2 Cycle-Bound Committed Inputs
+
+Cycle-Bound Committed Inputs include:
+
+- Committed OSV;
+- Committed Governance Snapshot;
+- Committed Objective Set;
+- Committed Operational Profile;
+- Committed Reference State;
+- Committed Controller Configuration;
+- Committed Controller State Set or explicit stateless input disposition;
+- Committed Numeric Profile;
+- Committed Control Error;
+- Committed Control Constraint Set;
+- Committed Validated Controller Composition.
+
+### 8.3 Proposed Evaluation Artifacts
+
+Proposed Evaluation Artifacts include:
+
+- Intermediate Controller Outputs;
+- Controller Evaluation Result;
+- Proposed Control Command;
+- Proposed Controller State Outcome;
+- Proposed Next Controller State Set;
+- command validation inputs;
+- state-transition validation inputs;
+- Authority Certificate request;
+- prepared commitment artifacts.
+
+Proposed artifacts are not canonical supervisory authority.
+
+### 8.4 Canonical Controller Outputs
+
+Canonical Controller Outputs include:
+
+- Committed Control Command;
+- Committed Next Controller State Outcome;
+- Authority Certificate;
+- Command Validation Result;
+- Controller State Transition Validation Result;
+- Controller Commitment Record;
+- Controller Commitment Bundle;
+- Controller Evaluation Failure;
+- Controller Commitment Failure.
+
+No proposed artifact becomes canonical merely because it has been physically persisted.
+
+Canonical status arises only through the commitment semantics defined by this contract.
+
+---
+
+## 9. Canonical Terminology
+
+The following terms are normative throughout Contract 007.
+
+### 9.1 Controller State Set
+
+The complete collection of persistent Controller State partitions authorized as input to one Controller Composition.
+
+### 9.2 Controller State Partition
+
+The persistent state assigned to one controller instance, one shared-state authority, one Arbiter, one Safety component, or another explicitly registered state owner.
+
+### 9.3 Controller State Outcome
+
+The complete evaluation result for controller persistence. It SHALL be exactly one of:
+
+- `NEXT_STATE_SET_PROPOSED` or `NEXT_STATE_SET_COMMITTED`;
+- `STATELESS_COMPOSITION`;
+- `STATE_RETAINED_BY_REGISTERED_POLICY`;
+- an explicit state-transition failure disposition.
+
+State retention is valid only when Section 8 explicitly proposes retention under a registered policy. Section 9 SHALL NOT silently reuse prior state.
+
+### 9.4 Controller Evaluation Result
+
+The complete noncanonical output of Controller Composition Evaluation, containing:
+
+- exactly one Proposed Control Command or one explicit evaluation failure;
+- exactly one complete proposed Controller State outcome;
+- complete Controller Evaluation Evidence.
+
+### 9.5 Committed Validated Controller Composition
+
+The immutable, cycle-bound proof that the exact controller instances, roles, state partitions, definitions, mathematical interfaces, topology, constraints, Action Spaces, arbitration rules, and Numeric Profile may be evaluated together for one cycle.
+
+### 9.6 Authority Certificate
+
+The immutable evidence that the Proposed Control Command is authorized and constraint-conforming within the committed SACS supervisory authority model for the cycle.
+
+It does not certify external legal compliance, runtime applicability, execution success, downstream translation correctness, or downstream safety.
+
+### 9.7 Controller Commitment Record
+
+The sole canonicalization switch for one controller decision.
+
+Prepared artifacts become canonical only when one valid Controller Commitment Record references the complete successful output set and is atomically published according to Section 9.
+
+### 9.8 Controller Commitment Bundle
+
+The complete canonical transaction containing:
+
+- one Committed Control Command;
+- one complete Committed Controller State outcome;
+- one Authority Certificate;
+- one Command Validation Result;
+- one Controller State Transition Validation Result;
+- one Controller Commitment Record;
+- the minimum required Controller Commitment Lineage.
+
+---
+
+## 10. Configuration Versus Control
+
+Contract 006 determines which supervisory operating configuration is authorized.
+
+Contract 007 determines what bounded corrective action follows from that exact configuration.
+
+The separation is:
+
+```text
+Contract 006
+Which supervisory configuration is authorized?
+
+Contract 007, Configuration Binder
+Can that exact configuration consume these exact committed artifacts?
+
+Contract 007, Composition Evaluation
+What bounded correction follows mathematically?
+
+Contract 007, Commitment
+What controller decision becomes canonical?
+```
+
+Technical capability SHALL NOT be interpreted as supervisory permission.
+
+A Controller Definition may be mathematically capable of producing outputs outside the committed Action Space.
+
+That capability grants no authority.
+
+The Committed Control Constraint Set defines what the composition may produce.
+
+---
+
+## 11. Contract 008 Handoff Boundary
+
+The sole normative control artifact transmitted from Contract 007 to Contract 008 is the Committed Control Command identified by a valid Controller Commitment Record.
+
+Contract 008 SHALL NOT consume as command authority:
+
+- Proposed Control Commands;
+- Intermediate Controller Outputs;
+- Controller State;
+- Control Error;
+- branch outputs;
+- arbitration diagnostics;
+- fallback internals;
+- uncommitted certificates;
+- prepared but unpublished commitment artifacts.
+
+The Committed Next Controller State Outcome remains within the Contract 007 lifecycle for later controller evaluation, audit, replay, or termination handling.
+
+The handoff is therefore:
+
+```text
+Canonical Controller Commitment Bundle
+        ├── Committed Control Command
+        │       ↓
+        │   Contract 008 — Inference Control
+        │
+        └── Committed Next Controller State Outcome
+                ↓
+            Later Contract 007 cycle
+```
+
+Contract 008 may use the exact command metadata required to preserve translation authority, including:
+
+- Action Space Definition reference;
+- Numeric Profile reference;
+- serialization profile;
+- authority certificate reference;
+- applicable translation bounds;
+- controller commitment lineage reference.
+
+Contract 008 SHALL NOT reopen controller mathematics or broaden command authority.
+
+---
+
+## 12. Contract-Wide Success and Failure Rule
+
+A successful Contract 007 cycle SHALL produce exactly one canonical Controller Commitment Bundle.
+
+An unsuccessful Contract 007 cycle SHALL produce exactly one immutable failure or incomplete-cycle disposition.
+
+No unsuccessful cycle may expose:
+
+- a canonical Control Command;
+- a partially committed state set;
+- an orphaned Authority Certificate as supervisory authority;
+- an ambiguous canonical output;
+- more than one controller decision for the same cycle.
+
+Failure SHALL be authority-monotonic.
+
+A failed Controller cycle SHALL not create more authority than the corresponding successful path.
+
+---
+
+## 13. Integrated Redraft Structure
+
+The remainder of this contract is organized as follows:
+
+```text
+Section 14 — Controller Definitions and Configuration Interface
+Section 15 — Controller State and Memory
+Section 16 — Control Error and Error Representation
+Section 17 — Control Constraint Set and Authority Space
+Section 18 — Controller Configuration Binding and Instance Conformance
+Section 19 — Controller Composition Evaluation Semantics
+Section 20 — Command Validation and State Transition Validation
+Section 21 — Authority Certification
+Section 22 — Controller Commitment Bundle and Atomic Canonicalization
+Section 23 — Failure and Incomplete-Cycle Semantics
+Section 24 — Time, Identity, Serialization, and Hashing
+Section 25 — Controller Commitment Lineage
+Section 26 — Deterministic Replay and Idempotence
+Section 27 — Conformance Requirements
+Section 28 — Contract-Wide Invariants
+Section 29 — Contract 008 Handoff
+Section 30 — Completion and Freeze Criteria
+```

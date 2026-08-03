@@ -1,0 +1,1312 @@
+10. Committed Translation Configuration
+
+10.1 Purpose
+
+This section defines the Committed Translation Configuration governing one inference translation cycle.
+
+The Committed Translation Configuration establishes the complete authorized translation environment before translation compatibility evaluation or translation evaluation begins.
+
+Its purpose is to identify and immutably bind:
+
+* the sole authorized Translation Profile;
+* every authorized Translation Definition;
+* every authorized normalization rule;
+* every authorized numeric rule;
+* every authorized ordering rule;
+* every authorized validation rule;
+* every authorized transaction rule;
+* every authorized compatibility rule;
+* every authoritative registry snapshot;
+* every deterministic replay requirement;
+* every provenance requirement;
+* every configuration-level failure rule;
+
+that may be used during the translation cycle.
+
+The Committed Translation Configuration governs how one existing supervisory decision may be represented.
+
+It does not:
+
+* create a supervisory decision;
+* revise a supervisory decision;
+* prioritize supervisory decisions;
+* reinterpret supervisory intent;
+* change the Committed Control Command;
+* redefine runtime capability;
+* select a runtime;
+* authorize execution.
+
+The defining identity is:
+
+The Committed Translation Configuration is the immutable, cycle-bound artifact that authorizes every translation profile, definition, rule set, numeric semantic, ordering semantic, transaction semantic, compatibility rule, and validation procedure permitted during one inference translation cycle.
+
+⸻
+
+10.2 Architectural Identity
+
+A Translation Configuration is a configuration artifact type.
+
+A Committed Translation Configuration is one immutable canonical instance of that type, bound to one translation cycle and one Committed Control Command.
+
+The distinction is:
+
+Translation Configuration
+    reusable artifact type or candidate configuration
+Committed Translation Configuration
+    canonical cycle-bound authority artifact
+
+Only a Committed Translation Configuration may govern canonical translation.
+
+An uncommitted, draft, proposed, default, ambient, locally configured, or dynamically discovered configuration SHALL NOT govern Contract 008 translation.
+
+The Committed Translation Configuration is the root of translation-strategy authority.
+
+Every normative translation behavior used downstream SHALL be derivable from:
+
+translation_configuration_id
+
+and the immutable artifacts bound by that configuration.
+
+⸻
+
+10.3 Authority Boundary
+
+The Committed Translation Configuration authorizes representational strategy only.
+
+It MAY authorize:
+
+* one Translation Profile;
+* one deterministic Translation Definition resolution model;
+* one normalization regime;
+* one numeric regime;
+* one ordering regime;
+* one transaction regime;
+* one compatibility-evaluation regime;
+* one validation regime;
+* one replay regime;
+* one provenance regime.
+
+It SHALL NOT authorize Contract 008 to:
+
+* reconsider the Control Command;
+* choose another Control Command;
+* modify command scope;
+* modify command targets;
+* change command bounds;
+* weaken mandatory restrictions;
+* expand command authority;
+* substitute unsupported semantics;
+* select another runtime;
+* select another provider;
+* select another model;
+* route around incompatibility;
+* authorize dispatch;
+* authorize execution.
+
+The configuration answers:
+
+Which translation mechanisms are authorized?
+
+It does not answer:
+
+Can the declared runtime faithfully support them?
+
+That question belongs to later compatibility evaluation and validated binding.
+
+⸻
+
+10.4 Sole Configuration Per Translation Cycle
+
+Every inference translation cycle SHALL execute under exactly one Committed Translation Configuration.
+
+The configuration SHALL be bound to:
+
+* one translation cycle;
+* one supervisory cycle;
+* one Committed Control Command;
+* one declared Runtime Capability Profile;
+* one root Translation Profile;
+* one immutable registry snapshot set.
+
+A translation cycle SHALL NOT:
+
+* consume more than one Committed Translation Configuration;
+* switch configurations during evaluation;
+* combine rule sets from separate configurations;
+* inherit unspecified configuration from an implementation;
+* use provider defaults not bound by the configuration;
+* mix definitions from separate registry snapshots.
+
+Every downstream Contract 008 artifact SHALL reference the governing:
+
+translation_configuration_id
+
+This requirement applies at least to:
+
+configuration_conformance_result
+translation_compatibility_result
+validated_translation_binding
+translation_evaluation_record
+proposed_inference_command_set
+translation_equivalence_certificate
+inference_command_commitment_record
+committed_inference_command_set
+inference_translation_failure
+
+A downstream artifact whose configuration reference is missing, mismatched, ambiguous, or altered SHALL be invalid.
+
+⸻
+
+10.5 Canonical Configuration Schema
+
+A Committed Translation Configuration SHALL include or immutably reference at least:
+
+translation_configuration_id
+translation_cycle_id
+supervisory_cycle_id
+control_command_id
+control_command_hash
+control_command_type_id
+control_command_definition_version
+control_command_definition_hash
+configuration_version
+configuration_schema_version
+contract_version
+runtime_capability_profile_id
+runtime_capability_profile_hash
+runtime_target_id
+translation_profile_id
+translation_profile_version
+translation_profile_hash
+authorized_translation_definition_ids
+authorized_translation_definition_versions
+authorized_translation_definition_hashes
+translation_definition_resolution_table_id
+translation_definition_resolution_table_hash
+normalization_rule_set_id
+normalization_rule_set_version
+normalization_rule_set_hash
+numeric_rule_set_id
+numeric_rule_set_version
+numeric_rule_set_hash
+translation_numeric_profile_id
+translation_numeric_profile_hash
+ordering_rule_set_id
+ordering_rule_set_version
+ordering_rule_set_hash
+required_ordering_model
+validation_rule_set_id
+validation_rule_set_version
+validation_rule_set_hash
+transaction_rule_set_id
+transaction_rule_set_version
+transaction_rule_set_hash
+required_transaction_model
+compatibility_rule_set_id
+compatibility_rule_set_version
+compatibility_rule_set_hash
+translation_definition_registry_snapshot_id
+translation_profile_registry_snapshot_id
+normalization_registry_snapshot_id
+numeric_registry_snapshot_id
+ordering_registry_snapshot_id
+validation_registry_snapshot_id
+transaction_registry_snapshot_id
+compatibility_registry_snapshot_id
+runtime_capability_registry_snapshot_id
+deterministic_replay_policy_id
+deterministic_replay_policy_hash
+provenance_requirement_profile_id
+provenance_requirement_profile_hash
+selection_authority_reference
+selection_evidence_id
+selection_policy_id
+commitment_record_id
+committed_time_context_id
+committed_at
+supersedes_translation_configuration_id
+supersession_reason_code
+supersession_authority_reference
+registry_snapshot_ids
+semantic_payload_hash
+artifact_hash
+provenance_id
+
+An implementation MAY serialize equivalent semantics under different field names.
+
+It SHALL preserve every required binding.
+
+Optional fields SHALL have explicit absence semantics.
+
+Absence SHALL NOT imply:
+
+* default authorization;
+* unrestricted registry search;
+* provider-native behavior;
+* implementation discretion;
+* permission to omit a required rule set.
+
+⸻
+
+10.6 Direct Control Command Binding
+
+The Committed Translation Configuration SHALL bind directly to exactly one Committed Control Command through:
+
+control_command_id
+control_command_hash
+
+The configuration SHALL also identify the exact source command definition through:
+
+control_command_type_id
+control_command_definition_version
+control_command_definition_hash
+
+This binding prevents configuration reuse ambiguity within the canonical translation path.
+
+A reusable candidate configuration MAY exist outside the cycle.
+
+Before canonical use, it SHALL be instantiated or committed as a command-bound configuration.
+
+A configuration bound only to a general command class SHALL not govern translation until a later conformance stage proves and records its exact applicability to the committed command.
+
+The preferred canonical model is direct command binding.
+
+⸻
+
+10.7 Translation-Cycle Identity
+
+A translation cycle is the complete Contract 008 attempt governed by one Committed Translation Configuration.
+
+The translation cycle SHALL identify:
+
+translation_cycle_id
+supervisory_cycle_id
+control_command_id
+translation_configuration_id
+runtime_capability_profile_id
+opened_at
+translation_cycle_status
+
+Initial translation-cycle statuses MAY include:
+
+CONFIGURATION_COMMITTED
+CONFIGURATION_CONFORMANCE_PENDING
+COMPATIBILITY_PENDING
+BINDING_PENDING
+EVALUATION_PENDING
+VALIDATION_PENDING
+COMMITMENT_PENDING
+COMPLETED
+FAILED
+SUPERSEDED
+
+A new translation attempt SHALL receive a new:
+
+translation_cycle_id
+
+even when it belongs to the same supervisory cycle and consumes the same Committed Control Command.
+
+Translation attempts SHALL not share mutable state.
+
+⸻
+
+10.8 Root Translation Profile
+
+Every Committed Translation Configuration SHALL bind exactly one root Translation Profile.
+
+The root Translation Profile organizes the complete translation strategy authorized for the cycle.
+
+It MAY reference:
+
+* subordinate Translation Profiles;
+* Translation Definitions;
+* normalization rules;
+* Numeric Profiles;
+* ordering rules;
+* validation procedures;
+* transaction rules;
+* compatibility rules.
+
+Nested or subordinate profiles SHALL be permitted only when:
+
+* they are explicitly reachable from the root profile;
+* their identifiers, versions, and hashes are bound;
+* their resolution order is deterministic;
+* no downstream component may substitute another profile.
+
+The existence of multiple compatible profiles in a registry SHALL NOT grant selection authority to Contract 008.
+
+Exactly one root Translation Profile governs the cycle.
+
+⸻
+
+10.9 Authorized Translation Definitions
+
+The Committed Translation Configuration SHALL bind either:
+
+1. the exact Translation Definitions applicable to the cycle; or
+2. one deterministic resolution table mapping declared predicates to exact Translation Definitions.
+
+A deterministic resolution table SHALL specify:
+
+translation_definition_resolution_table_id
+input_predicates
+predicate_precedence
+selected_definition_ids
+conflict_rules
+no_match_behavior
+definition_hashes
+
+Permitted predicates MAY include:
+
+* Control Command Type;
+* source semantic class;
+* runtime type;
+* runtime version;
+* adapter version;
+* parameter domain;
+* target class;
+* scope class;
+* required ordering model;
+* required transaction model.
+
+Contract 008 SHALL NOT perform open-ended registry search.
+
+Contract 008 SHALL NOT:
+
+* rank candidate definitions independently;
+* negotiate among definitions;
+* choose a preferred provider mapping;
+* select a “closest” mapping;
+* synthesize an unregistered mapping;
+* use a definition not bound by the configuration.
+
+When deterministic resolution produces no exact definition, translation SHALL fail.
+
+When deterministic resolution produces unresolved ambiguity, translation SHALL fail.
+
+⸻
+
+10.10 Normalization Rule Binding
+
+The Committed Translation Configuration SHALL bind one exact normalization rule set.
+
+Normalization authority SHALL be limited to representation-preserving operations.
+
+Authorized normalization MAY include:
+
+* canonical field ordering;
+* canonical identifier formatting;
+* exact unit conversion;
+* exact enum mapping;
+* type-preserving serialization normalization;
+* deterministic structural expansion;
+* deterministic structural reduction;
+* explicitly permitted numeric normalization.
+
+Normalization SHALL NOT authorize:
+
+* semantic approximation;
+* weakening unsupported values;
+* clipping values to provider limits;
+* silently saturating parameters;
+* replacing missing capability;
+* changing target;
+* changing scope;
+* changing duration;
+* extending expiry;
+* broadening authority;
+* removing mandatory restrictions.
+
+Normalization remains subordinate to semantic preservation.
+
+⸻
+
+10.11 Numeric Rule Binding
+
+The Committed Translation Configuration SHALL bind one exact translation Numeric Profile and one exact numeric rule set.
+
+The numeric binding SHALL determine at least:
+
+numeric_representation
+precision
+rounding_mode
+authorized_tolerance
+overflow_behavior
+underflow_behavior
+nonfinite_value_behavior
+comparison_semantics
+interval_semantics
+canonical_numeric_serialization
+
+Numeric rules SHALL NOT permit a translated value to cross any bound imposed by the Committed Control Command.
+
+Where a source command requires:
+
+[
+p \leq p_{\max}
+]
+
+a numeric transformation SHALL NOT produce:
+
+[
+p’ > p_{\max}
+]
+
+even when the deviation falls within a generic implementation tolerance.
+
+Authority bounds take precedence over representational convenience.
+
+An unresolved numeric condition SHALL cause failure.
+
+⸻
+
+10.12 Ordering Rule Binding
+
+The Committed Translation Configuration SHALL bind one exact ordering rule set and declare the required ordering model.
+
+Initial required ordering models MAY include:
+
+UNORDERED
+TOTAL_ORDER
+PARTIAL_ORDER
+PHASED_ORDER
+BARRIER_ORDER
+TRANSACTION_ORDER
+REGISTERED_ORDERING_MODEL
+
+The configuration SHALL identify whether ordering semantics apply at:
+
+* command level;
+* group level;
+* phase level;
+* transaction level;
+* whole-set level.
+
+The configuration establishes ordering authority.
+
+Later Translation Evaluation constructs the required ordering representation.
+
+Contract 009 evaluates whether execution can honor the committed ordering.
+
+The configuration SHALL NOT authorize runtime execution.
+
+⸻
+
+10.13 Validation Rule Binding
+
+The Committed Translation Configuration SHALL bind one exact validation rule set.
+
+The validation rule set SHALL identify every mandatory validation procedure required before an Inference Command Set may be committed.
+
+Validation classes MAY include:
+
+SOURCE_IDENTITY_VALIDATION
+CONFIGURATION_CLOSURE_VALIDATION
+REGISTRY_BINDING_VALIDATION
+RUNTIME_CAPABILITY_VALIDATION
+PARAMETER_DOMAIN_VALIDATION
+NUMERIC_VALIDATION
+TARGET_VALIDATION
+SCOPE_VALIDATION
+TEMPORAL_VALIDATION
+EXPIRY_VALIDATION
+CARDINALITY_VALIDATION
+ORDERING_VALIDATION
+ATOMICITY_VALIDATION
+TRANSACTION_VALIDATION
+RESTRICTION_PRESERVATION_VALIDATION
+AUTHORITY_NON_EXPANSION_VALIDATION
+SEMANTIC_EQUIVALENCE_VALIDATION
+PROVENANCE_VALIDATION
+REPLAY_VALIDATION
+
+A validation procedure is mandatory when bound by the configuration.
+
+Contract 008 SHALL NOT omit a mandatory validation because the implementation considers it redundant.
+
+⸻
+
+10.14 Transaction Rule Binding
+
+The Committed Translation Configuration SHALL bind one exact transaction rule set and declare the required transaction model.
+
+Initial transaction requirements MAY include:
+
+NON_TRANSACTIONAL
+ATOMIC
+ALL_OR_NONE
+BEST_EFFORT_PROHIBITED
+ORDERED_COMMIT
+ROLLBACK_REQUIRED
+COMPENSATION_REQUIRED
+REGISTERED_TRANSACTION_MODEL
+
+The transaction rule set SHALL identify:
+
+* transaction grouping;
+* begin semantics;
+* commit semantics;
+* rollback semantics;
+* compensation semantics;
+* visibility requirements;
+* isolation requirements;
+* failure propagation;
+* acknowledgement requirements.
+
+Contract 008 defines what transaction semantics must be preserved.
+
+Contract 009 determines whether the runtime can enforce those semantics.
+
+The Committed Translation Configuration SHALL NOT itself grant execution authority.
+
+⸻
+
+10.15 Compatibility Rule Binding
+
+The Committed Translation Configuration SHALL bind one exact compatibility rule set.
+
+The compatibility rules SHALL define how later stages determine whether:
+
+* the Control Command;
+* the Translation Requirement Set;
+* the root Translation Profile;
+* the selected Translation Definitions;
+* the Numeric Profile;
+* the rule sets;
+* the Runtime Capability Profile;
+* the registry snapshots;
+
+can be bound together without semantic loss or authority expansion.
+
+Compatibility rules SHALL NOT redefine runtime capability facts.
+
+They define evaluation logic only.
+
+A Runtime Capability Profile declares what the runtime supports.
+
+The Committed Translation Configuration declares which translation rules are authorized.
+
+Neither artifact may redefine the other.
+
+⸻
+
+10.16 Runtime Capability Profile Reference
+
+The Committed Translation Configuration SHALL reference one exact Committed Runtime Capability Profile through:
+
+runtime_capability_profile_id
+runtime_capability_profile_hash
+runtime_target_id
+
+This reference establishes the runtime capability declaration against which the authorized translation strategy will later be evaluated.
+
+The configuration SHALL NOT:
+
+* embed competing capability facts;
+* add unsupported runtime capabilities;
+* remove declared limitations;
+* override capability exclusions;
+* reinterpret capability certification;
+* mutate the capability profile.
+
+Commitment of the configuration does not prove compatibility with the referenced Runtime Capability Profile.
+
+Compatibility SHALL be evaluated separately.
+
+⸻
+
+10.17 Registry Snapshot Binding
+
+Every registry dependency SHALL be bound through an immutable registry snapshot and exact definition hashes.
+
+Registry version labels alone SHALL be insufficient.
+
+For every referenced registry, the configuration SHALL identify:
+
+registry_snapshot_id
+registry_version
+referenced_definition_ids
+referenced_definition_versions
+referenced_definition_hashes
+snapshot_hash
+
+A registry snapshot SHALL be immutable.
+
+A referenced definition absent from the bound snapshot SHALL be unavailable.
+
+A definition whose hash does not match the configuration SHALL be invalid.
+
+Contract 008 SHALL NOT:
+
+* resolve a newer registry snapshot;
+* resolve a “latest” definition;
+* substitute a compatible version;
+* silently migrate definitions;
+* combine definitions across snapshots;
+* repair missing references using implementation-local copies.
+
+Any migration or compatibility substitution requires a new Committed Translation Configuration.
+
+⸻
+
+10.18 Embedded and Referenced Definitions
+
+A Committed Translation Configuration MAY bind normative artifacts through:
+
+* embedded immutable definitions;
+* content-addressed registry references;
+* a combination of embedded and referenced definitions.
+
+Embedded definitions SHALL include:
+
+* definition identifier;
+* definition version;
+* definition hash;
+* source registry identity where applicable.
+
+Referenced definitions SHALL include:
+
+* registry snapshot identifier;
+* definition identifier;
+* definition version;
+* definition hash.
+
+The semantic standard is immutable binding, not physical storage location.
+
+A configuration SHALL identify and immutably bind every normative definition required for deterministic translation.
+
+⸻
+
+10.19 Configuration Closure
+
+Every normative translation behavior used during a translation cycle SHALL be explicitly identified by, or deterministically reachable from, the Committed Translation Configuration through immutable and hash-bound references.
+
+Configuration closure applies to:
+
+* Translation Profiles;
+* Translation Definitions;
+* normalization rules;
+* Numeric Profiles;
+* numeric rules;
+* ordering rules;
+* validation procedures;
+* transaction rules;
+* compatibility rules;
+* serialization rules;
+* replay procedures;
+* provenance requirements;
+* failure rules.
+
+Anything not reachable from the committed configuration is unauthorized.
+
+The following are prohibited:
+
+* undeclared defaults;
+* ambient configuration;
+* process-global configuration;
+* implementation-local rule substitution;
+* live registry resolution;
+* provider documentation lookups;
+* runtime-native semantic assumptions;
+* hidden adapter transformations;
+* undocumented fallback logic;
+* unbound validation procedures;
+* unbound numeric behavior.
+
+Let:
+
+[
+\operatorname{Closure}(\Gamma_t)
+]
+
+denote the complete immutable dependency closure of Committed Translation Configuration (\Gamma_t).
+
+Every normative artifact (d) used during translation SHALL satisfy:
+
+[
+d \in \operatorname{Closure}(\Gamma_t)
+]
+
+If:
+
+[
+d \notin \operatorname{Closure}(\Gamma_t)
+]
+
+then use of (d) is unauthorized and translation SHALL fail.
+
+⸻
+
+10.20 Selection Authority and Provenance
+
+The Committed Translation Configuration SHALL identify the authority and evidence by which it was selected and committed.
+
+It SHALL include:
+
+selection_authority_reference
+selection_evidence_id
+selection_policy_id
+commitment_record_id
+
+Contract 008 does not define the upstream selection authority in this section.
+
+It SHALL require sufficient evidence to establish that:
+
+* the selector was authorized;
+* the selected configuration falls within the selector’s authority;
+* the selection policy is identified;
+* the configuration was committed before translation evaluation;
+* the committed artifact has not been altered.
+
+Contract 008 SHALL NOT self-select its governing Translation Configuration.
+
+Contract 008 SHALL NOT accept arbitrary configuration injection.
+
+⸻
+
+10.21 Non-Selection Invariant
+
+Inference Control may evaluate and apply the strategy committed to it.
+
+It may not choose the strategy.
+
+The existence of multiple:
+
+* Translation Profiles;
+* Translation Definitions;
+* normalization rule sets;
+* Numeric Profiles;
+* ordering policies;
+* transaction policies;
+* validation procedures;
+
+SHALL NOT grant Contract 008 authority to compare, rank, negotiate, or select among them.
+
+Any permitted resolution SHALL be fully determined by:
+
+* the Committed Translation Configuration;
+* its root Translation Profile;
+* its deterministic resolution table;
+* its exact precedence rules.
+
+Contract 008 SHALL NOT:
+
+* search for an alternative profile;
+* switch to another definition after failure;
+* choose a cheaper mapping;
+* choose a faster mapping;
+* choose a safer but nonequivalent mapping;
+* choose a provider-preferred mapping;
+* negotiate numeric tolerance;
+* downgrade transaction guarantees;
+* substitute best-effort behavior.
+
+When the committed configuration cannot be applied faithfully, translation SHALL fail.
+
+⸻
+
+10.22 Applicability Versus Authority
+
+Commitment of a Translation Configuration establishes authority to use its referenced translation mechanisms.
+
+It does not establish that those mechanisms are applicable to the particular command and runtime.
+
+Therefore:
+
+Committed Translation Configuration
+≠
+Validated Translation Binding
+
+The Committed Translation Configuration proves:
+
+These mechanisms are authorized.
+
+The later Validated Translation Binding proves:
+
+These authorized mechanisms are applicable
+to this exact Control Command,
+Runtime Capability Profile,
+and registry snapshot set.
+
+A committed configuration may be:
+
+* structurally invalid;
+* incomplete;
+* incompatible with the Control Command;
+* incompatible with the runtime;
+* incompatible with the Numeric Profile;
+* incompatible with its own registry bindings.
+
+Such conditions SHALL be detected in later configuration conformance and compatibility stages.
+
+Commitment alone SHALL NOT permit Translation Evaluation.
+
+⸻
+
+10.23 Configuration Immutability
+
+A Committed Translation Configuration SHALL be immutable.
+
+After commitment, Contract 008 SHALL NOT:
+
+* modify a field;
+* replace a reference;
+* change a rule set;
+* update a registry snapshot;
+* alter a definition hash;
+* add a fallback;
+* remove a validation obligation;
+* change the Runtime Capability Profile;
+* change the root Translation Profile;
+* change the resolution table;
+* change the Numeric Profile;
+* extend configuration validity;
+* repair an incomplete configuration.
+
+A correction requires a new configuration artifact.
+
+The prior configuration SHALL remain immutable and resolvable for replay and audit.
+
+⸻
+
+10.24 Configuration Supersession
+
+A Committed Translation Configuration MAY be superseded only before a canonical Inference Command Set has been committed and only through an explicitly authorized supersession process.
+
+Supersession SHALL produce:
+
+* a new Translation Configuration identifier;
+* a new translation-cycle identifier;
+* a new artifact hash;
+* new commitment evidence;
+* new provenance;
+* explicit supersession lineage.
+
+The superseding configuration SHALL include:
+
+supersedes_translation_configuration_id
+supersession_reason_code
+supersession_authority_reference
+
+The superseded configuration SHALL remain immutable.
+
+Supersession SHALL NOT occur:
+
+* silently;
+* during one active translation evaluation;
+* after validation has begun without terminating the prior attempt;
+* after Inference Command Set commitment;
+* through mutation of the prior configuration.
+
+When supersession occurs, the prior translation attempt SHALL terminate with an explicit disposition such as:
+
+TRANSLATION_CONFIGURATION_SUPERSEDED
+
+A later attempt under the superseding configuration SHALL use a new translation cycle.
+
+⸻
+
+10.25 Configuration Replacement Within a Supervisory Cycle
+
+SACS does not require that every replacement configuration occur in a later supervisory cycle.
+
+A replacement MAY occur within the same supervisory cycle when:
+
+* the prior translation attempt has terminated;
+* no canonical Inference Command Set was committed;
+* the same Committed Control Command remains valid and unexpired;
+* an authorized upstream process commits the replacement;
+* a new translation cycle is opened;
+* explicit supersession lineage is preserved.
+
+No configuration change may occur within one translation attempt or after Translation Evaluation has begun without terminating that attempt.
+
+A replacement configuration does not retroactively alter the prior attempt.
+
+⸻
+
+10.26 Deterministic Translation Environment Resolution
+
+The Committed Translation Configuration establishes a deterministic translation environment.
+
+Given identical:
+
+* Committed Control Command;
+* Committed Translation Configuration;
+* Committed Runtime Capability Profile;
+* bound registry snapshots;
+* Translation Numeric Profile;
+* implementation capability profile;
+
+a conforming implementation SHALL resolve an identical set of:
+
+* applicable Translation Profiles;
+* applicable Translation Definitions;
+* normalization rules;
+* numeric rules;
+* ordering requirements;
+* validation obligations;
+* transaction requirements;
+* compatibility procedures;
+* replay obligations;
+* provenance obligations.
+
+Let:
+
+[
+\Gamma_t
+]
+
+denote the Committed Translation Configuration.
+
+The resolved translation environment is:
+
+[
+\mathcal{E}_t
+
+\operatorname{ResolveEnvironment}
+\left(
+U_t,
+\Gamma_t,
+K_t,
+V_t,
+N_t,
+C_t
+\right)
+]
+
+where:
+
+* (U_t) is the Committed Control Command;
+* (K_t) is the Runtime Capability Profile;
+* (V_t) is the immutable registry snapshot set;
+* (N_t) is the Translation Numeric Profile;
+* (C_t) is the implementation capability profile;
+* (\mathcal{E}_t) is the resolved translation environment.
+
+This section requires deterministic environment resolution.
+
+It does not yet assert that Translation Evaluation succeeds or produces an identical final command set.
+
+Those claims belong to later stages.
+
+⸻
+
+10.27 Replay Binding
+
+The Committed Translation Configuration SHALL bind one deterministic replay policy.
+
+The replay policy SHALL identify:
+
+* all required input artifacts;
+* all required registry snapshots;
+* all required definition hashes;
+* Numeric Profile requirements;
+* serialization requirements;
+* implementation capability assumptions;
+* permitted replay environments;
+* expected deterministic outputs for configuration resolution.
+
+Replay SHALL NOT depend on:
+
+* current registry state;
+* provider defaults;
+* latest adapter behavior;
+* mutable configuration;
+* live discovery;
+* external documentation.
+
+The configuration SHALL be sufficient to reconstruct the exact authorized translation environment.
+
+⸻
+
+10.28 Provenance Requirement Binding
+
+The Committed Translation Configuration SHALL bind one provenance requirement profile.
+
+The provenance profile SHALL require recording at least:
+
+translation_configuration_id
+translation_cycle_id
+control_command_id
+runtime_capability_profile_id
+translation_profile_id
+resolved_translation_definition_ids
+normalization_rule_set_id
+numeric_rule_set_id
+ordering_rule_set_id
+validation_rule_set_id
+transaction_rule_set_id
+compatibility_rule_set_id
+registry_snapshot_ids
+selection_authority_reference
+selection_evidence_id
+commitment_record_id
+semantic_payload_hash
+artifact_hash
+
+Later artifacts SHALL add their own stage-specific provenance.
+
+No canonical translation result may omit the governing configuration lineage.
+
+⸻
+
+10.29 Configuration Commitment Record
+
+A Committed Translation Configuration SHALL be accompanied by one Translation Configuration Commitment Record.
+
+The commitment record SHALL include at least:
+
+translation_configuration_commitment_record_id
+translation_configuration_id
+translation_cycle_id
+supervisory_cycle_id
+control_command_id
+runtime_capability_profile_id
+configuration_artifact_hash
+semantic_payload_hash
+selection_authority_reference
+selection_evidence_id
+selection_policy_id
+committed_time_context_id
+committed_at
+commitment_method
+commitment_authority_reference
+supersedes_translation_configuration_id
+provenance_id
+
+The commitment record establishes that the configuration was fixed before the translation attempt proceeded.
+
+The commitment record does not establish configuration conformance or translation compatibility.
+
+⸻
+
+10.30 Configuration Failure Classes
+
+Initial configuration-related failure classes SHALL include:
+
+TRANSLATION_CONFIGURATION_MISSING
+MULTIPLE_TRANSLATION_CONFIGURATIONS_SUPPLIED
+TRANSLATION_CONFIGURATION_NOT_COMMITTED
+TRANSLATION_CONFIGURATION_HASH_MISMATCH
+TRANSLATION_CONFIGURATION_SCHEMA_UNSUPPORTED
+TRANSLATION_CONFIGURATION_INCOMPLETE
+TRANSLATION_CONFIGURATION_CYCLE_MISMATCH
+TRANSLATION_CONFIGURATION_COMMAND_MISMATCH
+TRANSLATION_CONFIGURATION_RUNTIME_PROFILE_MISMATCH
+TRANSLATION_CONFIGURATION_ROOT_PROFILE_MISSING
+TRANSLATION_CONFIGURATION_MULTIPLE_ROOT_PROFILES
+TRANSLATION_PROFILE_HASH_MISMATCH
+AUTHORIZED_DEFINITION_SET_MISSING
+AUTHORIZED_DEFINITION_HASH_MISMATCH
+DEFINITION_RESOLUTION_TABLE_MISSING
+DEFINITION_RESOLUTION_AMBIGUOUS
+NORMALIZATION_RULE_SET_MISSING
+NUMERIC_RULE_SET_MISSING
+TRANSLATION_NUMERIC_PROFILE_MISSING
+ORDERING_RULE_SET_MISSING
+VALIDATION_RULE_SET_MISSING
+TRANSACTION_RULE_SET_MISSING
+COMPATIBILITY_RULE_SET_MISSING
+REGISTRY_SNAPSHOT_BINDING_MISSING
+REGISTRY_SNAPSHOT_HASH_MISMATCH
+CONFIGURATION_CLOSURE_INCOMPLETE
+UNAUTHORIZED_AMBIENT_CONFIGURATION_DETECTED
+UNAUTHORIZED_DEFAULT_DETECTED
+UNAUTHORIZED_RULE_SUBSTITUTION_DETECTED
+SELECTION_AUTHORITY_REFERENCE_MISSING
+SELECTION_EVIDENCE_MISSING
+SELECTION_POLICY_MISSING
+CONFIGURATION_COMMITMENT_RECORD_MISSING
+CONFIGURATION_COMMITMENT_INVALID
+CONFIGURATION_SUPERSESSION_INVALID
+CONFIGURATION_SUPERSEDED
+CONFIGURATION_MUTATION_DETECTED
+CONFIGURATION_PROVENANCE_INCOMPLETE
+CONFIGURATION_REPLAY_POLICY_MISSING
+CONFIGURATION_REPLAY_BINDING_INVALID
+
+A configuration failure SHALL prevent compatibility evaluation or Translation Evaluation, according to the stage at which it is detected.
+
+No configuration failure may produce a canonical Inference Command Set.
+
+⸻
+
+10.31 Prohibited Configuration Practices
+
+Contract 008 SHALL NOT:
+
+* construct its own Translation Configuration;
+* select its own Translation Profile;
+* choose among multiple unranked profiles;
+* search registries outside the committed closure;
+* use “latest” registry state;
+* use unbound provider defaults;
+* use implementation-local numeric policy;
+* change rounding behavior dynamically;
+* downgrade ordering requirements;
+* downgrade atomicity or transaction requirements;
+* omit configured validation;
+* repair missing definitions;
+* infer missing configuration from prior cycles;
+* inherit configuration from another command;
+* merge configurations;
+* mutate a committed configuration;
+* continue an attempt after unauthorized configuration change;
+* treat configuration commitment as proof of compatibility;
+* treat compatibility as execution authorization.
+
+⸻
+
+10.32 Configuration Authority Flow
+
+The constitutional authority flow is:
+
+Authorized Configuration Selection Process
+        ↓
+Candidate Translation Configuration
+        ↓
+Exact Control Command Binding
+        ↓
+Exact Runtime Capability Profile Reference
+        ↓
+Root Translation Profile Binding
+        ↓
+Definition and Rule-Set Binding
+        ↓
+Registry Snapshot and Hash Binding
+        ↓
+Replay and Provenance Binding
+        ↓
+Atomic Configuration Commitment
+        ↓
+Committed Translation Configuration
+
+The subsequent Contract 008 flow is:
+
+Committed Control Command
+        +
+Committed Translation Configuration
+        +
+Committed Runtime Capability Profile
+        ↓
+Translation Configuration Conformance
+        ↓
+Translation Compatibility Evaluation
+        ↓
+Validated Translation Binding
+        ↓
+Translation Evaluation
+        ↓
+Proposed Inference Command Set
+        ↓
+Semantic Equivalence and
+Authority-Preservation Validation
+        ↓
+Atomic Commitment
+        ↓
+Committed Inference Command Set
+
+The Committed Translation Configuration is not committed again later.
+
+Later stages validate, bind, evaluate, certify, and commit the translated command set.
+
+⸻
+
+10.33 Configuration Portability
+
+A complete Committed Translation Configuration MAY serve as a portable translation manifest.
+
+A verifier or conforming implementation SHOULD be able to determine from the configuration and its immutable closure:
+
+* which Translation Profile governed the cycle;
+* which Translation Definitions were authorized;
+* which definitions were deterministically applicable;
+* which normalization rules applied;
+* which numeric semantics applied;
+* which ordering model was required;
+* which transaction semantics were required;
+* which validation procedures were mandatory;
+* which compatibility rules applied;
+* which registry snapshots were authoritative;
+* which replay policy governed reconstruction;
+* which provenance obligations were mandatory;
+* which authority selected and committed the configuration.
+
+Portability SHALL NOT permit reinterpretation.
+
+A portable configuration remains bound to its exact command, runtime profile, registry snapshots, and translation cycle unless an external process creates a new committed instance.
+
+⸻
+
+10.34 Configuration Conformance Boundary
+
+Section 10 defines what the Committed Translation Configuration is and what authority it carries.
+
+It does not yet prove that the configuration is:
+
+* internally complete;
+* structurally valid;
+* registry-consistent;
+* compatible with the Control Command;
+* compatible with the Runtime Capability Profile;
+* numerically valid;
+* applicable to the translation cycle.
+
+Those questions belong to:
+
+Section 18 — Translation Configuration Conformance
+Section 19 — Translation Compatibility Evaluation
+Section 20 — Validated Translation Binding
+
+This preserves the distinction:
+
+Commitment
+    grants authority
+Conformance
+    proves internal validity
+Compatibility
+    proves support
+Validated Binding
+    proves exact applicability
+
+⸻
+
+10.35 Fundamental Translation Configuration Invariant
+
+Every inference translation cycle SHALL be governed by exactly one immutable Committed Translation Configuration.
+
+That configuration SHALL bind:
+
+* the sole authorized root Translation Profile;
+* every authorized Translation Definition;
+* every authorized normalization rule;
+* the Translation Numeric Profile;
+* every authorized numeric rule;
+* every authorized ordering rule;
+* every authorized validation rule;
+* every authorized transaction rule;
+* every authorized compatibility rule;
+* every authoritative registry snapshot;
+* every deterministic replay requirement;
+* every provenance obligation;
+
+permitted during the cycle.
+
+Every normative behavior used downstream SHALL be explicitly identified by, or deterministically reachable from, the Committed Translation Configuration through immutable and hash-bound references.
+
+Inference Control SHALL NOT construct, select, compare, rank, negotiate, modify, extend, repair, replace, supplement, or silently supersede the Committed Translation Configuration.
+
+Translation Configuration declares authorized translation behavior.
+
+Runtime Capability Profiles declare runtime support.
+
+Neither artifact may redefine the other.
+
+Commitment of the configuration establishes authority to use its referenced mechanisms.
+
+It does not establish compatibility or applicability.
+
+When the committed configuration is incomplete, invalid, incompatible, ambiguous, or incapable of supporting faithful translation, Contract 008 SHALL produce an explicit Inference Translation Failure and no canonical Inference Command Set.
+

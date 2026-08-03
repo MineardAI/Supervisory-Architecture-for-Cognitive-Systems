@@ -1,0 +1,187 @@
+SACS Contract 011 — Realization Certification, Supervisory Provenance, and Audit
+Section 4 — Canonical Inputs, Outputs, and Two-Stage Commitment Model
+Purpose
+
+Section 4 establishes the canonical information flow, commitment boundaries, and constitutional transformation model of Contract 011.
+
+It defines the authoritative artifacts consumed and produced by this contract and formally establishes the two-stage commitment doctrine governing the transformation of supervisory execution history into authoritative constitutional history.
+
+Every subsequent section of this contract SHALL preserve this model.
+
+Constitutional Information Flow
+
+Contract 011 receives only committed constitutional artifacts from preceding contracts.
+
+It performs two sequential constitutional transformations.
+
+The first establishes authoritative realization history.
+
+The second establishes authoritative whole-cycle constitutional lineage.
+
+The canonical flow SHALL be:
+
+Contract 009
+Committed Execution Disposition
+                │
+                │
+Contract 010
+Committed Supervisory Continuity Record
+                │
+                ▼
+──────────────────────────────────────────
+Stage One
+Realization Certification
+──────────────────────────────────────────
+                │
+                ▼
+Committed Realization Record
+                │
+                ▼
+──────────────────────────────────────────
+Stage Two
+Supervisory Provenance
+──────────────────────────────────────────
+                │
+                ▼
+Committed Supervisory Cycle Record
+                │
+                ▼
+Contract 012
+Verification
+
+No implementation SHALL alter this constitutional ordering.
+
+Canonical Inputs
+
+The required canonical inputs for Stage One are:
+
+Committed Execution Disposition
+Committed Supervisory Continuity Record
+
+These artifacts SHALL be accepted exactly as committed by their originating contracts.
+
+Contract 011 SHALL NOT modify, reinterpret, or replace them.
+
+During Stage Two, Contract 011 MAY additionally resolve previously committed constitutional artifacts required to construct complete supervisory lineage, including but not limited to:
+
+Committed Operational Profile
+Committed Reference State
+Committed Control Error
+Committed Control Command
+Committed Translation Transaction
+Committed Execution Disposition
+Committed Supervisory Continuity Record
+Committed Realization Record
+
+These artifacts SHALL remain immutable throughout provenance construction.
+
+Stage One Commitment Boundary
+
+Stage One terminates with one—and only one—constitutional commitment.
+
+Successful certification SHALL produce exactly one:
+
+Committed Realization Record
+
+If certification cannot be completed, Stage One SHALL instead produce exactly one committed realization-certification failure.
+
+Stage Two SHALL NOT begin unless a Committed Realization Record exists.
+
+Realization-certification failures SHALL terminate Stage One.
+
+They SHALL NOT enter Stage Two.
+
+Stage Two Commitment Boundary
+
+Stage Two consumes only:
+
+the Committed Realization Record; and
+previously committed constitutional artifacts required for lineage construction.
+
+Successful provenance assembly SHALL produce exactly one:
+
+Committed Supervisory Cycle Record
+
+If provenance cannot be completed, Stage Two SHALL instead produce exactly one committed provenance or cycle-commitment failure.
+
+No additional constitutional commitment exists within Contract 011.
+
+Commitment Independence
+
+The two commitment boundaries serve different constitutional purposes.
+
+The first commitment establishes authoritative realization history.
+
+The second commitment establishes authoritative constitutional lineage.
+
+Neither commitment SHALL replace or invalidate the other.
+
+The Committed Supervisory Cycle Record SHALL reference the Committed Realization Record as one of its constituent historical authorities.
+
+It SHALL NOT recreate or supersede it.
+
+Commitment Preconditions
+
+Stage One SHALL begin only when all required committed inputs are available.
+
+Stage Two SHALL begin only after successful completion of Stage One.
+
+Accordingly:
+
+Stage Two SHALL NOT consume uncommitted realization artifacts.
+Stage Two SHALL NOT certify realization history.
+Stage One SHALL NOT construct supervisory lineage.
+
+Each stage SHALL remain constitutionally independent while preserving deterministic sequencing.
+
+Canonical Artifact Ownership
+
+Ownership of every canonical artifact SHALL remain unique.
+
+Artifact	Constitutional Owner
+Committed Execution Disposition	Contract 009
+Committed Supervisory Continuity Record	Contract 010
+Committed Realization Record	Contract 011 (Stage One)
+Committed Supervisory Cycle Record	Contract 011 (Stage Two)
+
+Contract 011 SHALL preserve the ownership of all referenced artifacts.
+
+Construction of the Supervisory Cycle Record SHALL NOT transfer ownership of constituent artifacts.
+
+Atomic Commitment
+
+Each constitutional commitment performed by Contract 011 SHALL be atomic.
+
+A commitment SHALL either:
+
+complete successfully and become immutable; or
+fail explicitly without producing a partially committed canonical artifact.
+
+Partial commitment SHALL NOT occur.
+
+Rollback SHALL NOT create alternate historical representations.
+
+Retry SHALL produce the same committed artifact or the same explicit committed failure when supplied with identical committed inputs.
+
+Information Preservation
+
+Throughout both constitutional stages, Contract 011 SHALL preserve:
+
+artifact identity;
+authority;
+provenance;
+temporal ordering;
+uncertainty representation;
+integrity references;
+commitment identity;
+originating contract ownership.
+
+Information MAY be organized into canonical historical structures.
+
+Information SHALL NOT be silently added, removed, inferred, repaired, or reinterpreted.
+
+Two-Stage Commitment Principle
+
+The defining commitment principle of Contract 011 is:
+
+Contract 011 SHALL transform committed supervisory execution history into constitutional history through two sequential and independent commitment boundaries. The first SHALL establish exactly one authoritative Realization Record or one explicit realization-certification failure. Only a committed Realization Record may enter the second stage, which SHALL establish exactly one authoritative Supervisory Cycle Record or one explicit provenance or cycle-commitment failure.

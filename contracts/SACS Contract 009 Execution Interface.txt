@@ -1,0 +1,545 @@
+# SACS Contract 009 — Execution Interface
+
+**Project:** SACS — Supervisory Architecture for Cognitive Systems  
+**Contract:** 009  
+**Title:** Execution Interface  
+**Version:** 1.0.0  
+**Status:** ADOPTED - SACS v1.0.0 BASELINE  
+**Normative Authority:** Execution Adjudication, Runtime Application, Recovery / Compensation Evaluation, and Execution Commitment  
+**Verification Authority:** External — NullBlade Verification Engine  
+
+**Depends On:**
+
+- Contract 000 — Architecture and Authority
+- Contract 008 — Inference Control
+
+**Canonical Supervisory Input:**
+
+- one Committed Translation Transaction
+- one Execution Interface Handoff Envelope
+- referenced validation, compatibility, registry, and provenance evidence
+
+**Canonical Success Output:**
+
+- one Committed Execution Disposition
+
+**Canonical Failure Output:**
+
+- one explicit Execution Interface Failure
+
+**Canonical Consumer:**
+
+- Contract 010 — Modes, Guards, Resets, Hysteresis, and Dwell Time
+
+---
+
+## 1. Purpose
+
+This contract defines the canonical Execution Interface layer of SACS.
+
+It establishes the deterministic constitutional process by which SACS receives one committed translated supervisory instruction, evaluates whether that instruction is eligible to enter runtime, applies it to the declared runtime under the applicable governance boundary, evaluates the resulting execution outcome, evaluates recovery or compensation requirements where needed, and commits one authoritative execution disposition for downstream historical certification.
+
+Contract 009 is the exclusive constitutional authority that adjudicates and commits the realization of supervisory intent without modifying, broadening, or reinterpreting the intent committed by Contract 008.
+
+Execution Interface is the constitutional boundary between committed translation and committed historical certification.
+
+It does not determine supervisory intent.
+
+It does not translate supervisory intent.
+
+It does not certify history.
+
+It does not observe runtime consequences as a replacement for execution adjudication.
+
+It does not broaden the authority of the received command.
+
+Its defining identity is:
+
+> Contract 009 is the exclusive constitutional authority that adjudicates and commits the realization of supervisory intent without modifying, broadening, or reinterpreting the intent committed by Contract 008.
+
+---
+
+## 2. Normative Language
+
+The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**, **SHOULD**, **SHOULD NOT**, **RECOMMENDED**, **MAY**, and **OPTIONAL** are normative conformance terms as defined by Contract 000.
+
+A requirement marked **MUST**, **MUST NOT**, **SHALL**, or **SHALL NOT** is binding on every conforming implementation within the applicable capability profile.
+
+A requirement marked **SHOULD** or **SHOULD NOT** may be departed from only when the implementation records a justified reason and preserves every higher-order invariant defined by Contract 000, Contract 008, and this contract.
+
+A requirement marked **MAY** is optional.
+
+---
+
+## 3. Constitutional Identity
+
+The Execution Interface is the SACS authority responsible for adjudicating whether one committed translated supervisory instruction may become a runtime realization and for committing the result of that adjudication.
+
+The defining identity of Contract 009 is:
+
+> **Contract 009 deterministically transforms one Committed Translation Transaction into one committed execution disposition without revisiting translation, expanding authority, or altering the supervisory intent established by Contract 008.**
+
+Contract 009 MAY implement or compose registered execution behaviors including:
+
+- receipt processing;
+- eligibility evaluation;
+- runtime gating;
+- dispatch planning;
+- runtime application;
+- execution acknowledgement processing;
+- execution outcome capture;
+- recovery evaluation;
+- compensation evaluation;
+- execution commitment;
+- disposition publication;
+- execution receipt construction;
+- provenance preservation.
+
+Algorithm family does not change Contract 009 authority.
+
+Every conforming execution interface remains subject to the same requirements for:
+
+- committed inputs;
+- explicit state;
+- bounded authority;
+- deterministic adjudication;
+- explicit failure;
+- atomic commitment;
+- immutable disposition records;
+- downstream traceability.
+
+---
+
+## 4. Constitutional Authority
+
+Contract 009 exclusively owns:
+
+- receipt processing;
+- eligibility evaluation;
+- execution gating;
+- runtime acceptance;
+- runtime refusal;
+- runtime restriction;
+- runtime deferral;
+- runtime scheduling where applicable;
+- runtime application;
+- execution outcome capture;
+- recovery evaluation;
+- compensation evaluation;
+- execution commitment;
+- execution receipt construction;
+- execution disposition semantics;
+- execution disposition publication;
+- provenance of the execution result.
+
+Contract 009 does not own:
+
+- translation of supervisory intent;
+- profile selection;
+- controller mathematics;
+- supervisory objective selection;
+- governance authoring;
+- historical certification;
+- external verification;
+- observation;
+- runtime task generation outside the committed translation;
+- broadening of translated authority;
+- reinterpretation of the committed translation transaction.
+
+No later contract may redefine these authorities.
+
+---
+
+## 5. Canonical Input and Output Boundary
+
+Contract 009 SHALL receive exactly one committed translated supervisory artifact from Contract 008:
+
+- the Committed Translation Transaction;
+- the Execution Interface Handoff Envelope;
+- referenced validation, compatibility, registry, and provenance evidence.
+
+The Committed Translation Transaction SHALL be treated as the complete and exclusive expression of Contract 008's translated command output.
+
+Contract 009 SHALL NOT reconstruct translated commands from earlier Contract 008 artifacts.
+
+Contract 009 SHALL NOT derive additional runtime commands from earlier Contract 008 artifacts.
+
+Contract 009 MAY inspect referenced evidence only to determine receipt integrity, eligibility, runtime applicability, and commitment validity.
+
+Contract 009 SHALL produce exactly one canonical success output:
+
+- one Committed Execution Disposition.
+
+If canonical success cannot be established, Contract 009 SHALL produce one explicit Execution Interface Failure and SHALL NOT fabricate a committed disposition.
+
+---
+
+## 6. Canonical Execution Chain
+
+The canonical Contract 009 chain is:
+
+```text
+Committed Translation Transaction
+        ↓
+Receipt and Eligibility Evaluation
+        ↓
+Pre-Execution Disposition
+        ↓
+Execution Plan
+        ↓
+Runtime Application
+        ↓
+Execution Outcome
+        ↓
+Recovery / Compensation Evaluation
+        ↓
+Execution Commitment
+        ↓
+Committed Execution Disposition
+```
+
+That chain is singular and ordered.
+
+Contract 009 MAY also produce supporting execution receipts, acknowledgment records, and provenance evidence, but those artifacts SHALL remain subordinate to the chain above.
+
+No stage in the chain may be silently omitted, conflated, or replaced by a later stage.
+
+---
+
+## 7. Receipt and Eligibility Evaluation
+
+Receipt and Eligibility Evaluation answers one constitutional question:
+
+> Is this exact committed translation artifact eligible to enter execution under the current governance, runtime, and commitment boundary?
+
+Receipt and Eligibility Evaluation SHALL confirm, at minimum:
+
+- identity match between the received envelope and the committed transaction;
+- hash or equivalent integrity binding;
+- cycle binding;
+- destination binding where applicable;
+- governance binding;
+- required evidence presence;
+- translation-commitment completeness;
+- whether the runtime is eligible to receive the artifact.
+
+Receipt and Eligibility Evaluation SHALL NOT:
+
+- revisit controller mathematics;
+- revisit translation semantics;
+- reinterpret supervisory intent;
+- broaden command authority;
+- infer missing command content;
+- substitute a different translated command;
+- treat receipt as execution success;
+- treat eligibility as execution application.
+
+The output of this stage is the initial adjudicative basis for execution.
+
+The stage MAY produce:
+
+- Receipt and Eligibility Evaluation Report;
+- Receipt Acknowledgement;
+- Eligibility Result;
+- explicit failure evidence.
+
+---
+
+## 8. Pre-Execution Disposition
+
+Pre-Execution Disposition answers one constitutional question:
+
+> Given the exact received committed translation artifact, what may Contract 009 do next?
+
+Pre-Execution Disposition SHALL deterministically classify the received artifact for one of the contract's registered execution paths.
+
+The disposition vocabulary MUST be explicit and cycle-bound.
+
+The initial disposition vocabulary MAY include:
+
+- ALLOW;
+- RESTRICT;
+- DEFER;
+- REFUSE;
+- ABORT;
+- FAIL.
+
+Pre-Execution Disposition SHALL preserve:
+
+- command scope;
+- target scope;
+- temporal scope;
+- cardinality;
+- ordering;
+- atomicity requirements;
+- expiry requirements;
+- compensation obligations;
+- mandatory restrictions;
+- authority limits.
+
+Pre-Execution Disposition SHALL NOT:
+
+- widen authority;
+- drop a mandatory restriction;
+- convert a refusal into approval;
+- invent a new runtime command;
+- infer additional execution permission from silence;
+- create a future historical record.
+
+The output of this stage MAY be represented by a Pre-Execution Disposition Record.
+
+---
+
+## 9. Execution Plan and Runtime Application
+
+Execution Plan answers one constitutional question:
+
+> If execution may proceed, how shall the committed translation be applied at runtime without altering its authority?
+
+The Execution Plan SHALL be derived only from the received committed translation artifact and the authoritative pre-execution disposition.
+
+The Execution Plan SHALL preserve:
+
+- ordering;
+- atomic grouping;
+- timing constraints;
+- retry constraints where explicitly authorized;
+- scope;
+- target binding;
+- required compensating obligations;
+- delivery semantics;
+- refusal semantics.
+
+Runtime Application answers one constitutional question:
+
+> Did the declared runtime apply the planned execution according to the committed disposition?
+
+Runtime Application SHALL:
+
+- apply only the committed plan;
+- report observed runtime application results;
+- preserve the distinction between application and success;
+- preserve evidence of partial application when applicable;
+- preserve evidence of refusal, rejection, or interruption when applicable.
+
+Runtime Application SHALL NOT:
+
+- modify the committed translation transaction;
+- reinterpret supervisory meaning;
+- invent a recovery policy;
+- silently continue after an unrecoverable violation;
+- collapse runtime availability into execution success.
+
+The stage MAY produce:
+
+- Execution Plan;
+- Runtime Application Record;
+- runtime acknowledgements;
+- execution evidence.
+
+---
+
+## 10. Execution Outcome
+
+Execution Outcome answers one constitutional question:
+
+> What happened when the runtime applied, rejected, or failed to apply the committed execution path?
+
+Execution Outcome SHALL preserve the factual result of runtime application.
+
+It MAY represent:
+
+- successful application;
+- partial application;
+- refused application;
+- deferred application;
+- interrupted application;
+- failed application;
+- compensated application.
+
+Execution Outcome SHALL NOT by itself become the committed execution disposition.
+
+Execution Outcome SHALL remain subordinate to execution commitment.
+
+The output of this stage MAY be represented by one Execution Outcome Record.
+
+---
+
+## 11. Recovery / Compensation Evaluation
+
+Recovery / Compensation Evaluation answers one constitutional question:
+
+> If the execution outcome was not a clean success, what recovery or compensation action is constitutionally required or permitted?
+
+This stage exists to preserve explicit failure handling and bounded recovery semantics.
+
+Recovery / Compensation Evaluation SHALL determine whether:
+
+- no compensation is required;
+- a registered compensation path is required;
+- a runtime recovery path is required;
+- a refusal disposition is required;
+- a failure disposition is required;
+- the execution commitment may proceed.
+
+Recovery / Compensation Evaluation SHALL NOT:
+
+- broaden the original committed translation;
+- invent a new translated command;
+- silently repair missing authority;
+- treat compensation as retroactive translation;
+- treat compensation as external verification.
+
+The output of this stage MAY be represented by a Recovery / Compensation Evaluation Report.
+
+---
+
+## 12. Execution Commitment and Committed Execution Disposition
+
+Execution Commitment answers one constitutional question:
+
+> Which execution result becomes the authoritative execution disposition for this supervisory cycle?
+
+Execution Commitment SHALL atomically establish exactly one authoritative execution disposition from the completed receipt, eligibility, plan, runtime application, outcome, and recovery or compensation evaluation chain.
+
+Execution Commitment SHALL be indivisible.
+
+Either the execution disposition is committed, or it is not.
+
+Partial commitment is prohibited.
+
+Execution Commitment SHALL produce exactly one immutable Execution Commitment Record.
+
+The Execution Commitment Record SHALL include, at minimum:
+
+- execution_commitment_id;
+- cycle_id;
+- committed_translation_transaction_id;
+- execution_interface_handoff_envelope_id;
+- receipt_and_eligibility_report_id;
+- pre_execution_disposition_id;
+- execution_plan_id;
+- execution_outcome_id;
+- recovery_compensation_evaluation_id;
+- committed_execution_disposition_id;
+- commit_timestamp;
+- schema_version;
+- artifact_hash;
+- provenance_id.
+
+The canonical publication order SHALL be:
+
+Execution Commitment Record
+        +
+Committed Execution Disposition
+
+The Committed Execution Disposition is the sole canonical output consumed by Contract 010.
+
+The Committed Execution Disposition SHALL be constitutionally complete.
+
+Contract 009 SHALL NOT reopen execution adjudication after commitment.
+
+Contract 009 SHALL NOT revise the committed disposition in place.
+
+Contract 009 SHALL NOT treat later historical reasoning as part of the execution disposition.
+
+---
+
+## 13. Failure Model
+
+Contract 009 MUST fail toward reduced authority.
+
+When receipt integrity, eligibility, governance binding, runtime availability, execution admissibility, recovery handling, or commitment atomicity is unavailable, invalid, stale, incompatible, or below required confidence, Contract 009 MUST NOT increase execution freedom.
+
+The failure disposition vocabulary MAY include:
+
+- RECEIPT_INVALID;
+- ELIGIBILITY_FAILED;
+- GOVERNANCE_CONFLICT;
+- RUNTIME_UNAVAILABLE;
+- APPLICATION_FAILED;
+- RECOVERY_UNRESOLVED;
+- COMMITMENT_FAILED;
+- DISPOSITION_WITHHELD.
+
+Contract 009 MUST produce explicit failure evidence when a committed execution disposition cannot be established.
+
+Contract 009 SHALL NOT:
+
+- silently repair missing evidence;
+- substitute a best-effort runtime action;
+- broaden execution authority to avoid a failure;
+- hand Contract 010 an uncommitted or ambiguous result;
+- convert a failed disposition into a successful one by declaration.
+
+---
+
+## 14. Determinism Boundary
+
+Contract 009 execution adjudication MUST be deterministic with respect to identical canonical inputs.
+
+For identical committed translation transactions, identical handoff envelopes, identical referenced evidence, identical governance context, identical runtime capability profiles, and identical implementation capability profiles, a conforming implementation MUST produce the same canonical execution disposition.
+
+Runtime nondeterminism MAY exist in the supervised system, but the constitutional disposition path MUST normalize it into a deterministic committed result or explicit failure.
+
+Probabilistic behavior MUST NOT occur inside the canonical execution-disposition path unless a later contract explicitly defines a deterministic normalization and conformance procedure.
+
+---
+
+## 15. Relationship to Contract 008
+
+Contract 008 defines the translated command.
+
+Contract 009 receives that exact translated command and determines whether and how it may enter runtime execution.
+
+Contract 009 SHALL NOT:
+
+- revisit controller mathematics;
+- reinterpret the translated supervisory meaning;
+- widen command authority;
+- reconstruct translation from earlier artifacts;
+- accept uncommitted translation as authoritative;
+- turn translation failure into execution success.
+
+The terminal artifact of Contract 008 is a committed translation transaction.
+
+The terminal canonical success artifact of Contract 009 is a committed execution disposition.
+
+Those are distinct constitutional artifacts.
+
+---
+
+## 16. Relationship to Contract 010 and Contract 011
+
+Contract 010 consumes the Committed Execution Disposition from Contract 009.
+
+Contract 011 consumes the Committed Supervisory Continuity Record and the committed execution disposition by reference.
+
+Contract 009 SHALL treat that disposition as constitutionally complete once committed.
+
+Contract 009 SHALL NOT perform historical certification.
+
+Contract 009 SHALL NOT decide what historical authority the result receives after commitment.
+
+Contract 009 MAY preserve provenance, evidence lineage, and execution receipts for downstream historical reasoning.
+
+Contract 009 MUST NOT reinterpret those artifacts as history.
+
+---
+
+## 17. Fundamental Invariant
+
+The fundamental invariant of Contract 009 is:
+
+> Contract 009 deterministically transforms one Committed Translation Transaction into one Committed Execution Disposition through explicit receipt, eligibility, execution, outcome, recovery, and commitment stages without broadening the authority committed by Contract 008.
+
+---
+
+## 18. Source Traceability
+
+- `SACS Contract 000 Architecture_and_Authority v0.1.0.md` - execution interface ownership, contract chain, and concept ownership matrix.
+- `SACS Contract 004 Governance.txt` - execution-gate boundary, execution disposition semantics, and reduced-authority failure rules.
+- `SACS Contract 008 Inference Control.txt` - Contract 009 boundary, execution disposition ownership, and handoff constraints.
+- `SACS Contract 008 Section 19 Translation Transaction Commitment.txt` - committed translation transaction as the complete expression of Contract 008 and the handoff to Contract 009.
+- `SACS Contract 010 Section 1 Modes Guards Resets Dwell Time.md` through `SACS Contract 010 Section 5 Modes Guards Resets Dwell Time.md` - expected Contract 010 continuity interface.
+- `SACS Contract 011 Realization Certification, Supervisory Provenance, and Audit.txt` - expected Contract 011 realization and cycle-record interface.

@@ -1,0 +1,337 @@
+# SACS Contract 012 — External Verification Profile and Evidence Interface
+
+## Section 2 — Authority Boundary
+
+### Purpose
+
+Section 2 establishes the constitutional authority boundary governing external verification.
+
+It defines precisely:
+
+* what Contract 012 owns;
+* what Contract 011 owns;
+* what the external verification authority owns;
+* what downstream consumers may rely upon;
+* which authorities SHALL remain permanently separated.
+
+This boundary is absolute.
+
+No implementation architecture, deployment topology, optimization, or integration MAY collapse these authorities into a single constitutional function.
+
+---
+
+# Constitutional Authority
+
+Contract 012 owns only the constitutional preparation and registration of external verification.
+
+Its authority consists of:
+
+* defining Verification Profiles;
+* defining verification claims;
+* defining verification evidence requirements;
+* defining admissibility requirements;
+* constructing Verification Evidence Packages;
+* committing Verification Submissions;
+* validating the identity of externally issued verification results;
+* registering externally issued verification status.
+
+Contract 012 does not own:
+
+* supervisory operation;
+* supervisory history;
+* supervisory replay;
+* supervisory audit;
+* external verification;
+* constitutional amendment;
+* implementation accreditation.
+
+---
+
+# Contract 011 Authority Boundary
+
+Contract 011 is constitutionally complete before Contract 012 begins.
+
+Contract 011 exclusively owns:
+
+* realization certification;
+* supervisory provenance;
+* supervisory replay;
+* supervisory audit;
+* supervisory cycle commitment;
+* immutable supervisory history.
+
+The canonical boundary is therefore:
+
+```text
+Contract 011
+
+"What happened?"
+
+↓
+
+Committed Supervisory Cycle Record
+
+↓
+
+Contract 012
+
+"What evidence should be submitted for external verification?"
+```
+
+Contract 012 SHALL NOT:
+
+* reopen supervisory history;
+* modify supervisory history;
+* reinterpret supervisory history;
+* repair supervisory history;
+* reconstruct supervisory history;
+* replace supervisory history.
+
+The Committed Supervisory Cycle Record remains immutable regardless of every subsequent verification outcome.
+
+---
+
+# External Verification Authority
+
+External verification belongs exclusively to an external verification authority recognized by Contract 000.
+
+Initially this authority is:
+
+```text
+NullBlade Verification Engine
+```
+
+The external authority alone determines:
+
+* whether submitted claims are verified;
+* whether submitted evidence satisfies the Verification Profile;
+* analytical verification;
+* simulation verification;
+* runtime verification;
+* verification confidence;
+* verification limitations;
+* verification exclusions;
+* verification validity.
+
+These determinations SHALL originate outside SACS.
+
+---
+
+# Registration Is Not Verification
+
+Contract 012 may register an externally issued result.
+
+Registration SHALL NOT become verification.
+
+Formally:
+
+```text
+Verification
+≠
+Registration
+```
+
+Likewise,
+
+```text
+Submission
+≠
+Verification
+```
+
+and
+
+```text
+Evidence Package
+≠
+Verification
+```
+
+The constitutional sequence is therefore:
+
+```text
+Evidence
+↓
+
+Committed Verification Submission
+
+↓
+
+External Verification
+
+↓
+
+External Verification Result
+
+↓
+
+Committed Verification Status Record
+```
+
+Each stage represents a different constitutional authority.
+
+---
+
+# Internal Validation Is Not External Verification
+
+Contract 012 MAY validate:
+
+* schema conformance;
+* profile conformance;
+* artifact identity;
+* evidence completeness;
+* evidence integrity;
+* submission consistency;
+* issuer authenticity.
+
+These activities establish only that the submission is constitutionally well-formed.
+
+They SHALL NOT establish:
+
+```text
+Externally Verified
+```
+
+Internal conformance remains preparation.
+
+External verification remains external.
+
+---
+
+# Verification Does Not Modify History
+
+An External Verification Result SHALL NOT:
+
+* replace a Committed Supervisory Cycle Record;
+* invalidate constitutional history;
+* rewrite provenance;
+* alter committed identities;
+* modify supervisory lineage;
+* reopen supervisory commitment.
+
+Verification changes only the externally recognized verification status associated with explicitly submitted claims.
+
+History remains immutable.
+
+---
+
+# Verification Scope Boundary
+
+Every verification SHALL remain bounded by:
+
+* verification subject;
+* claim identity;
+* Verification Profile;
+* verification methods;
+* evidence package;
+* implementation version;
+* registry versions;
+* schema versions;
+* declared limitations.
+
+Verification SHALL NOT silently expand to:
+
+* other supervisory cycles;
+* future executions;
+* different implementations;
+* different profiles;
+* different contract versions;
+* unrelated constitutional claims.
+
+Verification scope SHALL remain explicit.
+
+---
+
+# Human Authority Boundary
+
+Contract 012 SHALL NOT authorize:
+
+* deployment;
+* certification;
+* legal compliance;
+* regulatory approval;
+* constitutional amendment;
+* operational acceptance.
+
+External verification provides evidence.
+
+It does not replace human governance.
+
+Human constitutional authority remains external to SACS.
+
+---
+
+# Downstream Consumer Boundary
+
+Consumers of Contract 012 MAY rely upon:
+
+* registered verification status;
+* externally issued verification evidence;
+* verification scope;
+* verification limitations;
+* verification validity interval;
+* verification lineage.
+
+Consumers SHALL NOT infer:
+
+* universal correctness;
+* universal safety;
+* perpetual validity;
+* unrestricted applicability;
+* verification of claims that were never submitted.
+
+Every consumer remains bound by the exact scope of the registered verification result.
+
+---
+
+# Constitutional Separation of Authority
+
+The complete constitutional separation is:
+
+```text
+Contract 011
+Produces immutable supervisory history.
+
+↓
+
+Contract 012
+Produces immutable verification submissions.
+
+↓
+
+NullBlade
+Produces external verification results.
+
+↓
+
+Contract 012
+Registers external verification status.
+
+↓
+
+External Consumers
+Interpret registered verification status within its declared scope.
+```
+
+No constitutional authority SHALL perform more than one of these roles.
+
+---
+
+# Authority Matrix
+
+| Authority                        | Constitutional Owner |
+| -------------------------------- | -------------------- |
+| Supervisory History              | Contract 011         |
+| Verification Profile             | Contract 012         |
+| Verification Submission          | Contract 012         |
+| External Verification Verdict    | NullBlade            |
+| Verification Status Registration | Contract 012         |
+| Constitutional Adoption          | Human Governance     |
+
+This authority allocation SHALL remain invariant across all conforming SACS implementations.
+
+---
+
+# Section 2 Invariant
+
+> **Contract 012 SHALL prepare, commit, and register external verification without issuing an external verification verdict, modifying constitutional history, expanding verification scope, or collapsing the constitutional separation between supervisory history, verification submission, external verification, and verification-status registration.**

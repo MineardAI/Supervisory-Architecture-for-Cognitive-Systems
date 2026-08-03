@@ -1,0 +1,910 @@
+## SACS Contract 011 — Realization Certification, Supervisory Provenance, and Audit
+
+# Section 21 — Lineage Integrity Evaluation
+
+## Purpose
+
+Section 21 establishes the constitutional authority responsible for determining whether the complete Constructed Supervisory Lineage is internally coherent, identity-consistent, commitment-consistent, authority-preserving, and constitutionally valid.
+
+This section answers exactly one constitutional question:
+
+> **Is the complete supervisory lineage internally coherent and constitutionally valid as represented?**
+
+Lineage Integrity Evaluation begins only after Section 20 has produced a `COMPLETE` Lineage Completeness Evaluation Result.
+
+Completeness establishes that all required lineage elements are present.
+
+Integrity establishes that those present elements agree with one another and preserve their constitutional meaning.
+
+---
+
+# Architectural Identity
+
+Lineage Integrity Evaluation deterministically evaluates the internal coherence and constitutional consistency of a complete supervisory lineage without reperforming, correcting, or reinterpreting any upstream decision.
+
+Its defining identity is:
+
+> **Integrity determines whether the complete lineage is internally coherent and authority-preserving; it does not recreate the lineage or re-adjudicate its contents.**
+
+---
+
+# Constitutional Responsibility
+
+Lineage Integrity Evaluation SHALL:
+
+* verify artifact identity consistency;
+* verify commitment identity consistency;
+* verify relationship identity consistency;
+* verify cycle-binding consistency;
+* verify schema and contract-version consistency;
+* verify lineage-hash consistency;
+* verify derivation-path coherence;
+* verify authority-path coherence;
+* verify temporal-reference coherence;
+* verify root and terminal consistency;
+* detect contradiction, mutation, substitution, or identity collision;
+* produce exactly one canonical integrity result.
+
+Successful completion authorizes construction of the Constructed Supervisory Cycle Record.
+
+---
+
+# Integrity Authority
+
+Lineage Integrity Evaluation SHALL consume only:
+
+* the Canonical Artifact Resolution Set from Section 17;
+* the Resolved Constitutional Relationship Set from Section 18;
+* the Constructed Supervisory Lineage from Section 19;
+* a `COMPLETE` Lineage Completeness Evaluation Result from Section 20;
+* the committed artifacts represented in the lineage;
+* applicable integrity rules;
+* applicable contract, schema, registry, and relationship-definition versions.
+
+It SHALL determine only whether the complete lineage is internally coherent and constitutionally consistent.
+
+It SHALL NOT determine:
+
+* whether the upstream supervisory decision was desirable;
+* whether controller mathematics should have produced another command;
+* whether translation should have selected another representation;
+* whether execution should have produced another disposition;
+* whether Contract 010 should have selected another mode;
+* whether realization should be recertified;
+* whether physical-world evidence is externally true;
+* whether NullBlade verification succeeds.
+
+---
+
+# Preconditions
+
+Lineage Integrity Evaluation SHALL NOT begin unless:
+
+1. the Canonical Artifact Resolution Set has a successful terminal status;
+2. the Resolved Constitutional Relationship Set has status `RESOLVED`;
+3. the Constructed Supervisory Lineage has status `CONSTRUCTED`;
+4. the Lineage Completeness Evaluation Result has status `COMPLETE`;
+5. all required identities and version bindings are available;
+6. the applicable Integrity Requirement Set is constitutionally fixed.
+
+If any precondition is absent, unresolved, or failed, Integrity Evaluation SHALL NOT proceed.
+
+---
+
+# Integrity Requirement Set
+
+Every integrity evaluation SHALL be governed by exactly one immutable:
+
+> **Integrity Requirement Set**
+
+The Integrity Requirement Set SHALL identify:
+
+* supervisory cycle identity;
+* Constructed Supervisory Lineage identity;
+* applicable contract versions;
+* applicable schema versions;
+* applicable registry snapshot identities;
+* applicable relationship-definition versions;
+* required artifact-integrity checks;
+* required commitment-integrity checks;
+* required relationship-integrity checks;
+* required path-integrity checks;
+* authority-preservation rules;
+* temporal-coherence rules;
+* permitted cross-cycle relationships;
+* permitted optional references;
+* hash and canonical-serialization rules;
+* failure codes;
+* deterministic evaluation order.
+
+The Integrity Requirement Set SHALL be committed or otherwise constitutionally fixed before evaluation begins.
+
+It SHALL NOT be changed during evaluation.
+
+---
+
+# Integrity Dimensions
+
+Lineage Integrity Evaluation SHALL evaluate each integrity dimension independently.
+
+A successful result requires every required integrity dimension to pass.
+
+---
+
+## Artifact Identity Integrity
+
+Every artifact vertex SHALL preserve one unique and stable constitutional identity.
+
+Artifact identity integrity SHALL verify consistency among:
+
+* artifact identifier;
+* artifact class;
+* owning contract;
+* commitment identifier;
+* supervisory cycle identifier;
+* schema version;
+* canonical hash;
+* source-resolution entry;
+* canonical-status declaration.
+
+An artifact identity SHALL fail integrity where:
+
+* one identifier refers to materially different contents;
+* materially identical constitutional artifacts are presented under conflicting identities where singular identity is required;
+* an artifact class conflicts with its owning contract;
+* a proposed or constructed artifact is represented as committed;
+* a deprecated alias is treated as a distinct canonical artifact;
+* one artifact has incompatible cycle bindings;
+* the artifact content no longer matches its committed hash.
+
+---
+
+## Commitment Integrity
+
+Every committed artifact SHALL preserve an internally coherent commitment identity.
+
+Commitment integrity SHALL verify:
+
+* commitment identifier;
+* committed artifact identifier;
+* owning commitment authority;
+* commitment timestamp or ordering marker where required;
+* canonical serialization identity;
+* commitment hash;
+* idempotency identity where required;
+* supersession status;
+* failure-or-success exclusivity;
+* referenced commitment records.
+
+A commitment SHALL fail integrity where:
+
+* the artifact and commitment record disagree;
+* multiple incompatible commitments claim the same canonical role;
+* commitment identity is missing;
+* commitment authority belongs to another contract;
+* a superseded artifact is represented as current for the evaluated cycle;
+* a committed artifact appears to have been modified in place;
+* success and failure artifacts coexist where mutually exclusive.
+
+---
+
+## Relationship Integrity
+
+Every edge in the Constructed Supervisory Lineage SHALL exactly preserve one relationship resolved under Section 18.
+
+Relationship integrity SHALL verify:
+
+* relationship identifier;
+* source artifact identity;
+* target artifact identity;
+* relationship category;
+* relationship direction;
+* originating contract;
+* cycle binding;
+* source commitment binding;
+* target commitment binding;
+* relationship-definition version;
+* relationship hash;
+* supporting evidence references.
+
+A relationship SHALL fail integrity where:
+
+* its direction is reversed;
+* its source or target differs from the resolved relationship;
+* its type has been generalized in a way that loses constitutional meaning;
+* its originating authority has been reassigned;
+* it points to an artifact outside the authorized lineage;
+* it broadens authority;
+* it conflicts with another mutually exclusive relationship;
+* it lacks the required committed evidence.
+
+---
+
+## Cycle Identity Integrity
+
+Every direct lineage member SHALL belong to the same supervisory cycle unless an explicit cross-cycle relationship is constitutionally authorized.
+
+Cycle identity integrity SHALL verify:
+
+* cycle identifier agreement;
+* cycle-bound artifact membership;
+* cross-cycle source and target identities;
+* authorizing continuity rule;
+* permitted carry-forward semantics;
+* reset and transition bindings;
+* prohibited cycle merging.
+
+An unauthorized cycle mismatch SHALL fail integrity.
+
+Shared timestamps, similar content, or adjacent execution order SHALL NOT establish common cycle identity.
+
+---
+
+## Schema and Version Integrity
+
+Every artifact and relationship SHALL conform to the exact schema, contract, registry, and definition versions bound to the evaluated cycle.
+
+Schema and version integrity SHALL verify:
+
+* schema identifier;
+* schema version;
+* contract version;
+* registry snapshot identifier;
+* definition version;
+* numeric profile version where relevant;
+* canonical representation version;
+* migration or supersession lineage where applicable.
+
+Implicit migration SHALL be prohibited.
+
+A newer schema or definition SHALL NOT silently replace the version committed for the cycle.
+
+---
+
+## Hash and Serialization Integrity
+
+Every hash-bearing artifact, relationship, and lineage structure SHALL conform to the canonical serialization and hashing rules applicable to its committed version.
+
+Hash and serialization integrity SHALL verify:
+
+* canonical byte representation;
+* field ordering;
+* explicit absence representation;
+* numeric canonicalization;
+* identifier normalization;
+* relationship ordering;
+* vertex ordering;
+* included and excluded fields;
+* declared hash algorithm;
+* stored hash value.
+
+A hash mismatch SHALL fail integrity.
+
+Lineage Integrity Evaluation SHALL NOT repair or recalculate a conflicting committed artifact as though the conflict had not occurred.
+
+A recalculated hash MAY be included as diagnostic evidence but SHALL NOT replace the committed hash.
+
+---
+
+## Derivation-Path Integrity
+
+Every required derivation path SHALL preserve coherent transformation lineage.
+
+Derivation-path integrity SHALL verify that:
+
+* each path begins and ends at the declared artifacts;
+* every edge is a resolved derivation or dependency relationship;
+* artifact order agrees with constitutional transformation order;
+* no artifact is derived from itself;
+* no prohibited derivation cycle exists;
+* no required transformation boundary is bypassed;
+* no downstream artifact precedes its required committed input;
+* no uncommitted intermediate artifact is substituted for a committed boundary artifact.
+
+The presence of a path is evaluated under completeness.
+
+The coherence of that path is evaluated under integrity.
+
+---
+
+## Authority-Path Integrity
+
+Every authority-bearing path SHALL preserve constitutional authority monotonically.
+
+Authority-path integrity SHALL verify that:
+
+* authority originates from the correct owning contract;
+* downstream artifacts preserve or narrow authority;
+* no edge introduces unowned authority;
+* no relationship converts evidence into decision authority;
+* no capability declaration becomes authorization;
+* no validation result becomes external verification;
+* no historical artifact acquires execution authority;
+* no Contract 011 artifact reopens upstream adjudication.
+
+Formally, for every authority transition:
+
+[
+Authority_{downstream} \subseteq Authority_{upstream}
+]
+
+unless an explicit constitutional contract establishes a separate authority category.
+
+Contract 011 SHALL NOT infer such an exception.
+
+---
+
+## Temporal Integrity
+
+Temporal integrity SHALL determine whether preserved temporal references are internally coherent with constitutional ordering.
+
+It SHALL verify:
+
+* source-event time where applicable;
+* receipt time where applicable;
+* commitment ordering;
+* execution ordering references;
+* continuity-boundary ordering;
+* realization-certification ordering;
+* cross-cycle ordering;
+* supersession ordering;
+* audit timestamp distinction.
+
+Temporal integrity SHALL NOT assume that wall-clock order alone defines constitutional order.
+
+A later timestamp SHALL NOT override an earlier committed authority boundary.
+
+A timestamp conflict SHALL remain explicit.
+
+---
+
+## Root Integrity
+
+The root declaration of the Constructed Supervisory Lineage SHALL agree with:
+
+* the Canonical Artifact Resolution Set;
+* the Resolved Constitutional Relationship Set;
+* the lineage-representation definition;
+* the applicable Integrity Requirement Set.
+
+For the minimum direct supervisory spine, the expected root is normally:
+
+> **Committed Operational Profile**
+
+A different root MAY be valid only where the applicable lineage rules explicitly establish it.
+
+An unexplained or conflicting root SHALL fail integrity.
+
+---
+
+## Terminal Integrity
+
+The terminal declaration of the Constructed Supervisory Lineage SHALL identify exactly one:
+
+> **Committed Realization Record**
+
+Terminal integrity SHALL verify that the declared terminal artifact:
+
+* is committed;
+* belongs to the evaluated supervisory cycle;
+* was produced by Contract 011 Stage One;
+* binds the required Committed Execution Disposition;
+* binds the required Committed Supervisory Continuity Record;
+* is not superseded for the evaluated cycle;
+* is not accompanied by a mutually exclusive Realization Certification Failure;
+* matches the terminal vertex and terminal relationship structure.
+
+The Constructed Supervisory Cycle Record does not yet exist and SHALL NOT be treated as the lineage terminal at this stage.
+
+---
+
+## External Reference Integrity
+
+Every external lineage reference SHALL preserve:
+
+* exact referenced artifact identity;
+* owning contract;
+* cycle identity where required;
+* commitment identity where required;
+* reference category;
+* source artifact carrying the reference;
+* authorization for inclusion;
+* availability or unavailability status.
+
+External references SHALL remain distinguishable from direct lineage members.
+
+A reference SHALL fail integrity where it is:
+
+* promoted to direct membership without Section 17 resolution;
+* used as a substitute for a required direct member;
+* rebound to a different artifact;
+* stripped of its cycle or commitment identity;
+* interpreted as carrying authority it does not own.
+
+---
+
+## Optional-Element Integrity
+
+Every optional lineage element SHALL remain explicitly classified as optional.
+
+Optional-element integrity SHALL verify that optional elements:
+
+* are constitutionally permitted;
+* preserve exact identity;
+* do not replace required elements;
+* do not alter root or terminal identity;
+* do not broaden lineage authority;
+* do not create contradictory relationships;
+* do not change the canonical result of required lineage evaluation.
+
+An optional artifact that materially changes the required constitutional lineage SHALL not be treated as merely optional.
+
+---
+
+# Cross-Artifact Consistency
+
+Lineage Integrity Evaluation SHALL compare constitutionally shared fields across artifacts.
+
+Representative cross-artifact consistency checks include:
+
+```text
+supervisory_cycle_id
+
+execution_disposition_id
+
+committed_supervisory_continuity_record_id
+
+committed_supervisory_mode_id
+
+control_command_id
+
+translation_transaction_id
+
+operational_profile_id
+
+reference_state_id
+
+control_error_id
+
+realization_record_id
+
+contract_version
+
+schema_version
+
+commitment_id
+
+lineage_hash
+```
+
+Where two artifacts are required to preserve the same binding, their values SHALL agree exactly unless an explicit transformation rule defines another canonical representation.
+
+Representational differences SHALL NOT be silently normalized during integrity evaluation.
+
+---
+
+# Contradiction Detection
+
+A contradiction exists where two or more lineage elements make mutually incompatible constitutional claims.
+
+Representative contradictions include:
+
+* two committed artifacts claim the same exclusive role;
+* one artifact references a commitment that denies that relationship;
+* one artifact declares a different supervisory cycle;
+* a success artifact coexists with its mutually exclusive failure artifact;
+* an artifact hash conflicts with committed content;
+* authority direction conflicts with relationship direction;
+* a continuity record references a different execution disposition;
+* a realization record binds a different continuity record;
+* contract versions require mutually incompatible artifact identities;
+* an artifact is both active and superseded for the same cycle.
+
+Contradiction SHALL result in integrity failure.
+
+Integrity Evaluation SHALL NOT select one contradictory claim as preferred unless an explicit committed precedence rule authorizes that choice.
+
+---
+
+# Mutation Detection
+
+Lineage Integrity Evaluation SHALL detect evidence that a committed artifact or committed relationship was modified after commitment.
+
+Representative mutation indicators include:
+
+* hash mismatch;
+* canonical serialization mismatch;
+* commitment-record mismatch;
+* changed identity field;
+* altered lineage reference;
+* missing previously committed field;
+* added authority-bearing field;
+* rewritten relationship direction;
+* replaced contract or schema version.
+
+Detected mutation SHALL fail integrity.
+
+A mutated artifact SHALL NOT be repaired in place.
+
+---
+
+# Substitution Detection
+
+Lineage Integrity Evaluation SHALL detect substitution where one artifact, relationship, definition, or version has been used in place of the exact committed element required for the cycle.
+
+Representative substitutions include:
+
+* newer artifact for committed artifact;
+* similar artifact for missing artifact;
+* constructed artifact for committed artifact;
+* deprecated alias treated as separate artifact;
+* current registry state for committed registry snapshot;
+* alternate schema version;
+* alternate relationship definition;
+* inferred cross-cycle predecessor;
+* implementation-generated edge.
+
+Substitution SHALL fail integrity even where the substitute appears semantically equivalent.
+
+Constitutional identity is exact.
+
+---
+
+# Integrity Evaluation Ordering
+
+Lineage Integrity Evaluation SHALL execute in deterministic order.
+
+The minimum canonical sequence SHALL be:
+
+```text
+1. Bind Integrity Requirement Set
+2. Verify Section 20 COMPLETE status
+3. Verify lineage identity and hash
+4. Verify artifact identities
+5. Verify commitment identities
+6. Verify relationship identities
+7. Verify cycle bindings
+8. Verify schema and version bindings
+9. Verify canonical serialization and hashes
+10. Verify derivation-path coherence
+11. Verify authority-path coherence
+12. Verify temporal coherence
+13. Verify root and terminal integrity
+14. Verify external and optional reference integrity
+15. Detect contradictions, mutation, and substitution
+16. Construct the integrity result
+```
+
+An implementation MAY optimize execution internally, but the observable result SHALL be equivalent to this canonical ordering.
+
+---
+
+# Lineage Integrity Evaluation Result
+
+Every evaluation SHALL produce exactly one internal constitutional artifact:
+
+> **Lineage Integrity Evaluation Result**
+
+The result SHALL contain:
+
+* integrity result identifier;
+* supervisory cycle identifier;
+* Integrity Requirement Set identifier;
+* Canonical Artifact Resolution Set identifier;
+* Resolved Constitutional Relationship Set identifier;
+* Constructed Supervisory Lineage identifier;
+* Lineage Completeness Evaluation Result identifier;
+* artifact-identity results;
+* commitment-integrity results;
+* relationship-integrity results;
+* cycle-integrity results;
+* schema and version results;
+* hash and serialization results;
+* derivation-path results;
+* authority-path results;
+* temporal-integrity results;
+* root-integrity result;
+* terminal-integrity result;
+* external-reference results;
+* optional-element results;
+* contradiction declarations;
+* mutation declarations;
+* substitution declarations;
+* integrity status;
+* failure codes;
+* deterministic evaluation timestamp;
+* result hash.
+
+The Lineage Integrity Evaluation Result is an internal constitutional working artifact.
+
+It is not a Committed Supervisory Cycle Record.
+
+---
+
+# Integrity Status
+
+The Lineage Integrity Evaluation Result SHALL produce exactly one terminal status:
+
+```text
+INTEGRITY_VALID
+
+INTEGRITY_INVALID
+```
+
+No probable, mostly valid, conditionally valid, substantially valid, repaired, or best-effort status SHALL be canonical.
+
+The result SHALL be `INTEGRITY_VALID` only where every required integrity dimension succeeds.
+
+If any required integrity condition fails:
+
+```text
+Integrity = INTEGRITY_INVALID
+```
+
+---
+
+# Failure Conditions
+
+Representative integrity failures include:
+
+```text
+INTEGRITY_PRECONDITION_FAILED
+
+INTEGRITY_REQUIREMENT_SET_MISSING
+
+INTEGRITY_REQUIREMENT_SET_CONFLICT
+
+ARTIFACT_IDENTITY_MISMATCH
+
+ARTIFACT_CLASS_MISMATCH
+
+ARTIFACT_OWNER_MISMATCH
+
+COMMITMENT_IDENTITY_MISMATCH
+
+COMMITMENT_AUTHORITY_MISMATCH
+
+MULTIPLE_EXCLUSIVE_COMMITMENTS
+
+SUCCESS_FAILURE_COEXISTENCE
+
+RELATIONSHIP_IDENTITY_MISMATCH
+
+RELATIONSHIP_DIRECTION_MISMATCH
+
+RELATIONSHIP_AUTHORITY_MISMATCH
+
+CYCLE_IDENTITY_MISMATCH
+
+UNAUTHORIZED_CROSS_CYCLE_BINDING
+
+SCHEMA_VERSION_MISMATCH
+
+CONTRACT_VERSION_MISMATCH
+
+REGISTRY_SNAPSHOT_MISMATCH
+
+DEFINITION_VERSION_MISMATCH
+
+CANONICAL_SERIALIZATION_MISMATCH
+
+ARTIFACT_HASH_MISMATCH
+
+RELATIONSHIP_HASH_MISMATCH
+
+LINEAGE_HASH_MISMATCH
+
+DERIVATION_PATH_INCOHERENT
+
+PROHIBITED_DERIVATION_CYCLE
+
+AUTHORITY_PATH_INCOHERENT
+
+AUTHORITY_EXPANSION_DETECTED
+
+TEMPORAL_ORDER_CONFLICT
+
+ROOT_IDENTITY_CONFLICT
+
+TERMINAL_IDENTITY_CONFLICT
+
+EXTERNAL_REFERENCE_IDENTITY_MISMATCH
+
+OPTIONAL_ELEMENT_AUTHORITY_EXPANSION
+
+CONTRADICTORY_LINEAGE_CLAIMS
+
+COMMITTED_ARTIFACT_MUTATION_DETECTED
+
+CONSTITUTIONAL_SUBSTITUTION_DETECTED
+
+UPSTREAM_ADJUDICATION_REOPENED
+```
+
+Failure codes SHALL identify the exact integrity violation.
+
+A generic integrity failure SHALL NOT replace a more specific available failure code.
+
+---
+
+# Failure Consequences
+
+If lineage integrity is invalid:
+
+* the Constructed Supervisory Cycle Record SHALL NOT be created;
+* Supervisory Cycle Commitment SHALL NOT begin;
+* no Committed Supervisory Cycle Record SHALL exist;
+* the invalid lineage SHALL remain immutable as evaluated evidence;
+* Stage Two SHALL progress toward Committed Supervisory Provenance Failure.
+
+Integrity failure SHALL NOT authorize:
+
+* artifact repair;
+* hash replacement;
+* identity rebinding;
+* relationship reversal;
+* version migration;
+* cycle reassignment;
+* authority reassignment;
+* removal of contradictory evidence;
+* selection among conflicting artifacts;
+* reconstruction of missing history;
+* partial cycle commitment.
+
+---
+
+# Prohibitions
+
+Lineage Integrity Evaluation SHALL NOT:
+
+* add or remove artifacts;
+* add or remove relationships;
+* repair the lineage graph;
+* recalculate and replace committed hashes;
+* migrate schemas;
+* resolve completeness defects;
+* infer missing authority;
+* choose among contradictory claims without explicit precedence;
+* reinterpret upstream decisions;
+* reperform realization certification;
+* construct the supervisory cycle record;
+* commit supervisory history;
+* perform external verification.
+
+---
+
+# Determinism
+
+For identical:
+
+* Canonical Artifact Resolution Set;
+* Resolved Constitutional Relationship Set;
+* Constructed Supervisory Lineage;
+* Lineage Completeness Evaluation Result;
+* Integrity Requirement Set;
+* committed artifacts;
+* contract versions;
+* schema versions;
+* registry snapshots;
+* relationship definitions;
+* canonical serialization and hashing rules;
+
+Lineage Integrity Evaluation SHALL produce an identical result.
+
+Formally:
+
+[
+Integrity(L,Q_i)=Integrity(L,Q_i)
+]
+
+for identical lineage (L) and Integrity Requirement Set (Q_i).
+
+No ambient state, runtime preference, mutable pointer, or implementation-specific ordering may affect the canonical result.
+
+---
+
+# Immutability
+
+Once constructed, the Lineage Integrity Evaluation Result SHALL be immutable.
+
+A later reevaluation SHALL produce:
+
+* a new integrity result identifier;
+* explicit supersession lineage;
+* preserved reference to the earlier result;
+* the identity of the lineage reevaluated;
+* no in-place modification.
+
+A new result SHALL NOT retroactively change the earlier result or the lineage that was evaluated.
+
+---
+
+# Relationship to Neighboring Sections
+
+The constitutional progression SHALL be:
+
+```text
+Section 20
+Lineage Completeness Evaluation
+        │
+        ▼
+Section 21
+Lineage Integrity Evaluation
+        │
+        ▼
+Section 22
+Constructed Supervisory Cycle Record
+```
+
+These sections answer distinct constitutional questions:
+
+* **Section 20** — Is every required lineage element present?
+* **Section 21** — Are the present lineage elements internally coherent and constitutionally valid?
+* **Section 22** — How are the complete and integrity-valid lineage results assembled into the proposed whole-cycle record?
+
+Completeness does not imply integrity.
+
+Integrity validation does not imply commitment.
+
+A complete and integrity-valid lineage remains an internal constitutional representation until Sections 22–24 construct and commit the Committed Supervisory Cycle Record.
+
+---
+
+# Mathematical Interpretation
+
+Let:
+
+* (L) be the Constructed Supervisory Lineage;
+* (C(L)) be its completeness result;
+* (I_a) be artifact-identity integrity;
+* (I_c) be commitment integrity;
+* (I_r) be relationship integrity;
+* (I_y) be cycle integrity;
+* (I_v) be version integrity;
+* (I_h) be hash and serialization integrity;
+* (I_d) be derivation-path integrity;
+* (I_p) be authority-path integrity;
+* (I_t) be temporal integrity;
+* (I_x) be root and terminal integrity.
+
+Integrity Evaluation is defined only where:
+
+[
+C(L)=COMPLETE
+]
+
+The lineage is integrity-valid exactly when:
+
+[
+I_a \land I_c \land I_r \land I_y \land I_v \land I_h \land I_d \land I_p \land I_t \land I_x
+]
+
+Therefore:
+
+[
+IntegrityValid(L)=
+\begin{cases}
+true, & \text{if every required integrity condition holds} \
+false, & \text{otherwise}
+\end{cases}
+]
+
+Completeness does not imply integrity:
+
+[
+Complete(L)\nRightarrow IntegrityValid(L)
+]
+
+Integrity does not imply commitment:
+
+[
+IntegrityValid(L)\nRightarrow Committed(L)
+]
+
+---
+
+# Fundamental Integrity Principle
+
+The defining constitutional principle of this section is:
+
+> **Lineage Integrity Evaluation SHALL deterministically determine whether one complete constructed supervisory lineage preserves exact artifact identity, commitment identity, relationship identity, cycle binding, schema and version binding, canonical serialization, derivation coherence, authority monotonicity, temporal coherence, and terminal realization identity without repairing, substituting, migrating, re-adjudicating, or reinterpreting any constitutional information.**

@@ -1,0 +1,1409 @@
+Contract 007 — Controller
+
+Section 4 — Controller State and Memory
+
+4.1 Purpose
+
+This section defines the canonical representation, lifecycle, authority, and conformance requirements for persistent mathematical state used by Contract 007.
+
+Controller State exists to support deterministic stateful control while preserving the SACS requirements for:
+
+* committed inputs;
+* immutable artifacts;
+* deterministic replay;
+* explicit lineage;
+* cycle isolation;
+* reduced-authority failure;
+* prohibition of hidden runtime authority.
+
+Its defining rule is:
+
+Every value from a prior controller evaluation that may influence a future canonical Control Command SHALL exist in an immutable, cycle-bound Committed Controller State artifact.
+
+Hidden mutable Controller State is prohibited.
+
+⸻
+
+4.2 Controller State Identity
+
+Controller State is the persistent mathematical memory legally available to a Controller Composition during one supervisory cycle.
+
+Controller State MAY include:
+
+* accumulated error;
+* prior error;
+* prior derivative estimates;
+* prior controller output;
+* integrator state;
+* observer state owned by the controller;
+* adaptive parameters;
+* adaptive covariance;
+* optimization warm-start state;
+* composition arbitration state;
+* fallback activation state;
+* controller dwell counters;
+* controller-local timers;
+* finite-state controller mode;
+* constraint-activation history;
+* registered numerical solver state.
+
+Controller State SHALL contain only information required for deterministic control computation.
+
+Controller State SHALL NOT contain:
+
+* raw observations;
+* estimator internals;
+* hidden OSV reconstruction;
+* uncommitted governance information;
+* uncommitted objective information;
+* inferred supervisory intent;
+* execution instructions;
+* task content;
+* undocumented runtime memory.
+
+⸻
+
+4.3 Contract Authority
+
+Contract 007 owns:
+
+* Controller State semantics;
+* Controller State Definitions;
+* Controller State schemas;
+* state initialization rules;
+* state validity rules;
+* state transition evaluation;
+* state reset semantics;
+* state partitioning within compositions;
+* state lineage;
+* proposed next-state construction;
+* committed next-state artifacts;
+* Controller State conformance;
+* prohibition of hidden mutable state.
+
+Contract 007 does not own:
+
+* supervised-system state;
+* OSV state;
+* estimator state;
+* governance state;
+* objective persistence;
+* Operational Profile transition state;
+* inference-runtime state;
+* execution-system state.
+
+Controller State SHALL remain distinct from all upstream and downstream state artifacts.
+
+⸻
+
+4.4 Controller State Definition
+
+A Controller State Definition is a reusable registry artifact describing the persistent state required by a Controller Definition or Controller Composition.
+
+Every stateful Controller Definition SHALL reference at least one Controller State Definition.
+
+A Controller State Definition SHALL include:
+
+controller_state_definition_id
+state_definition_version
+state_name
+semantic_definition
+controller_definition_ids
+supported_composition_roles
+state_schema_id
+state_components
+component_types
+component_dimensions
+component_units
+component_ranges
+initialization_policy_id
+transition_policy_id
+reset_policy_ids
+validity_policy_id
+numeric_profile_requirements
+serialization_profile_id
+schema_version
+registry_version
+definition_hash
+
+Optional fields MAY include:
+
+shared_state_policy_id
+partition_policy_id
+migration_policy_id
+maximum_state_age
+required_prior_artifact_types
+stability_assumptions
+confidentiality_profile_id
+verification_claim_ids
+
+A Controller State Definition is reusable.
+
+It is not a cycle-specific runtime artifact.
+
+⸻
+
+4.5 Stateful and Stateless Controllers
+
+A Controller Definition SHALL declare one memory class:
+
+STATELESS
+STATEFUL
+
+A stateless controller:
+
+* does not require persistent controller memory;
+* SHALL produce identical output from identical current-cycle committed inputs;
+* MAY use temporary local values that do not survive the evaluation;
+* SHALL NOT allow temporary values to affect a later cycle.
+
+A stateful controller:
+
+* requires a Committed Controller State;
+* SHALL identify its required State Definition;
+* SHALL consume exactly the committed state authorized for the current cycle;
+* SHALL produce a proposed next Controller State when evaluation succeeds or when its registered failure policy requires one.
+
+A controller SHALL NOT be treated as stateless merely because its persistent memory is stored inside an implementation process.
+
+⸻
+
+4.6 Committed Controller State
+
+A Committed Controller State is the immutable cycle-bound artifact containing all persistent mathematical memory legally available to a Controller Composition.
+
+Every Committed Controller State SHALL include:
+
+controller_state_id
+cycle_id
+effective_for_cycle_id
+previous_cycle_id
+previous_controller_state_id
+controller_state_definition_id
+state_definition_version
+controller_definition_id
+controller_configuration_id
+composition_instance_id
+composition_profile_id
+state_schema_id
+state_vector
+state_validity
+initialization_reason
+transition_reason
+previous_control_error_id
+previous_control_command_id
+prior_execution_reference_id
+numeric_profile_id
+registry_versions
+schema_version
+contract_version
+committed_at
+provenance_id
+artifact_hash
+
+Optional fields MAY include:
+
+controller_instance_states
+shared_composition_state
+active_controller_roles
+fallback_state
+safety_state
+arbitration_state
+warm_start_state
+state_quality
+state_uncertainty
+state_age
+reset_lineage
+migration_lineage
+supersedes_controller_state_id
+
+The Committed Controller State SHALL be immutable after commitment.
+
+⸻
+
+4.7 Cycle Binding
+
+Every Committed Controller State SHALL identify the cycle for which it is an authorized input.
+
+A state committed as the result of cycle (t) normally becomes effective for cycle (t+1).
+
+Conceptually:
+
+[
+z_t
+\longrightarrow
+\mathcal{K}t
+\longrightarrow
+\widetilde z{t+1}
+\longrightarrow
+\operatorname{Commit}
+\longrightarrow
+z_{t+1}
+]
+
+where:
+
+* (z_t) is the Committed Controller State consumed during cycle (t);
+* (\widetilde z_{t+1}) is the Proposed Controller State produced during evaluation;
+* (z_{t+1}) is the immutable Controller State committed for the next authorized cycle.
+
+A Controller Composition SHALL NOT mutate (z_t).
+
+⸻
+
+4.8 Canonical Stateful Computation
+
+A stateful Controller Composition SHALL be modeled as a deterministic state transition:
+
+[
+\left(
+u_t,
+\widetilde z_{t+1}
+\right)
+
+\mathcal{K}
+\left(
+\varepsilon_t,
+X_t^{\mathrm{OSV}},
+R_t,
+\mathcal{G}_t,
+\Theta_t,
+C_t,
+z_t
+\right)
+]
+
+where:
+
+* (\varepsilon_t) is the Committed Control Error;
+* (X_t^{\mathrm{OSV}}) is the Committed OSV when explicitly required by the registered controller interface;
+* (R_t) is the Committed Reference State when explicitly required;
+* (\mathcal{G}_t) is the Committed Governance Snapshot or its authorized mathematical projection;
+* (\Theta_t) is the Committed Controller Configuration;
+* (C_t) is the Committed Control Constraint Set;
+* (z_t) is the Committed Controller State;
+* (u_t) is the proposed bounded control output;
+* (\widetilde z_{t+1}) is the Proposed Controller State.
+
+A conforming implementation SHALL produce identical (u_t) and (\widetilde z_{t+1}) from identical canonical inputs, subject to the declared Numeric Profile.
+
+⸻
+
+4.9 Proposed Controller State
+
+Controller evaluation SHALL NOT directly mutate or commit future state.
+
+It SHALL produce a Proposed Controller State.
+
+Every Proposed Controller State SHALL include:
+
+proposed_controller_state_id
+source_controller_state_id
+source_cycle_id
+effective_for_cycle_id
+controller_state_definition_id
+controller_configuration_id
+composition_instance_id
+proposed_state_vector
+state_transition_rule_id
+transition_result
+state_validity_result
+related_control_command_id
+numeric_profile_id
+registry_versions
+schema_version
+computed_at
+provenance_id
+artifact_hash
+
+A Proposed Controller State is not canonical Controller State.
+
+It SHALL NOT be consumed by a later supervisory cycle until committed.
+
+⸻
+
+4.10 Controller State Commitment
+
+Controller State commitment SHALL be atomic.
+
+Before commitment, proposed state is noncanonical.
+
+After commitment:
+
+* the state vector is fixed;
+* its schema is fixed;
+* its effective cycle is fixed;
+* its configuration binding is fixed;
+* its composition binding is fixed;
+* its prior-state reference is fixed;
+* its prior-command references are fixed;
+* its Numeric Profile is fixed;
+* its provenance is fixed;
+* its artifact hash is fixed.
+
+A correction SHALL create a new artifact with explicit supersession lineage.
+
+A committed state SHALL never be edited in place.
+
+⸻
+
+4.11 Initialization
+
+Every stateful Controller Definition SHALL declare a registered initialization policy.
+
+Initialization MAY occur because:
+
+SYSTEM_START
+CONTROLLER_FIRST_ACTIVATION
+CONTROLLER_CONFIGURATION_CHANGE
+CONTROLLER_DEFINITION_CHANGE
+COMPOSITION_CHANGE
+PROFILE_CHANGE
+STATE_SCHEMA_CHANGE
+STATE_INVALID
+STATE_UNAVAILABLE
+STATE_EXPIRED
+EXPLICIT_RESET
+RECOVERY
+MIGRATION
+
+An initialization policy SHALL define:
+
+initialization_policy_id
+applicable_state_schema_ids
+trigger_conditions
+initial_values
+required_prior_artifacts
+numeric_profile_id
+authority_requirements
+validity_result
+failure_behavior
+schema_version
+registry_version
+
+Initialization values SHALL be deterministic.
+
+Default initialization SHALL NOT be inferred from undocumented implementation behavior.
+
+⸻
+
+4.12 First-Cycle Initialization
+
+When no prior Committed Controller State exists, the Controller State Binder SHALL construct an initial state according to the registered initialization policy.
+
+The first-cycle state SHALL identify:
+
+previous_controller_state_id = NONE
+initialization_reason = CONTROLLER_FIRST_ACTIVATION
+
+A stateful controller SHALL NOT evaluate without either:
+
+* a valid prior Committed Controller State; or
+* a successfully committed initialized Controller State.
+
+⸻
+
+4.13 State Validity
+
+Every Committed Controller State SHALL declare one validity status:
+
+VALID
+VALID_RESTRICTED
+DEGRADED
+STALE
+INCOMPATIBLE
+UNRESOLVED
+INVALID
+WITHHELD
+FAULTED
+
+Validity evaluation SHALL consider:
+
+* schema compatibility;
+* Controller Definition compatibility;
+* Controller Configuration compatibility;
+* composition compatibility;
+* Numeric Profile compatibility;
+* state age;
+* prior-cycle lineage;
+* required prior-artifact availability;
+* component range validity;
+* integrity checks;
+* initialization correctness;
+* reset requirements.
+
+An INVALID, INCOMPATIBLE, WITHHELD, or FAULTED Controller State SHALL NOT be consumed as nominal state.
+
+⸻
+
+4.14 Invalid-State Failure
+
+When required Controller State is unavailable, invalid, incompatible, stale beyond its permitted age, or fails integrity validation, Contract 007 SHALL NOT permit hidden reconstruction.
+
+The registered failure policy MAY require:
+
+INITIALIZE_RESTRICTED_STATE
+RESET_STATE
+ACTIVATE_REGISTERED_FALLBACK
+PRODUCE_ZERO_CORRECTION
+PRODUCE_RESTRICTED_CORRECTION
+WITHHOLD_CONTROL_COMMAND
+TERMINATE_CONTROLLER_EVALUATION
+
+Failure handling SHALL satisfy Controller Failure Monotonicity.
+
+State failure SHALL NOT produce:
+
+* expanded gains;
+* relaxed limits;
+* increased authority;
+* an unregistered controller;
+* an undocumented default state;
+* reuse of invalid state as nominal.
+
+⸻
+
+4.15 State Reset
+
+A reset is a registered Controller State transition that replaces some or all prior persistent mathematical memory.
+
+A reset policy SHALL define:
+
+reset_policy_id
+applicable_controller_definition_ids
+applicable_state_schema_ids
+reset_trigger
+reset_scope
+reset_values
+preserved_components
+cleared_components
+authority_requirement
+resulting_validity
+numeric_profile_id
+failure_behavior
+schema_version
+registry_version
+
+Reset scope MAY be:
+
+FULL
+CONTROLLER_INSTANCE
+STATE_PARTITION
+COMPONENT
+INTEGRATOR
+ADAPTATION
+WARM_START
+FALLBACK
+SAFETY
+ARBITRATION
+
+A Controller Composition SHALL NOT invent a reset condition.
+
+Reset authority SHALL originate from a committed configuration, registered failure policy, or authorized upstream transition artifact.
+
+⸻
+
+4.16 Profile and Configuration Changes
+
+A change in Operational Profile, Controller Definition, Controller Configuration, Error Representation, Control Constraint Set, Numeric Profile, or composition topology MAY invalidate prior Controller State.
+
+The compatibility policy SHALL determine whether prior state is:
+
+PRESERVED
+PARTIALLY_PRESERVED
+MIGRATED
+RESET
+WITHHELD
+
+State SHALL NOT be carried into an incompatible configuration silently.
+
+Any migration SHALL be deterministic, registered, and recorded in lineage.
+
+⸻
+
+4.17 State Migration
+
+A Controller State Migration Definition SHALL include:
+
+migration_policy_id
+source_state_schema_id
+target_state_schema_id
+source_controller_definition_id
+target_controller_definition_id
+source_configuration_requirements
+target_configuration_requirements
+component_mapping
+numeric_conversion_rules
+preserved_semantics
+discarded_components
+initialization_rules
+validity_rules
+failure_behavior
+schema_version
+registry_version
+
+Migration SHALL produce a new Committed Controller State.
+
+Migration SHALL NOT mutate the source state.
+
+Migration SHALL NOT silently convert semantically incompatible controller memory.
+
+⸻
+
+4.18 Composition State Partitioning
+
+A Controller Composition MAY contain:
+
+* controller-instance-local state;
+* topology-level shared state;
+* arbitration state;
+* safety-controller state;
+* fallback state;
+* restrictor state.
+
+Every state component SHALL have exactly one declared owner.
+
+A composition state schema SHALL identify:
+
+composition_instance_id
+controller_instance_id
+controller_role
+state_partition_id
+state_definition_id
+read_authority
+write_authority
+transition_authority
+sharing_policy
+
+Undeclared shared mutable state is prohibited.
+
+⸻
+
+4.19 Controller-Local State
+
+Controller-local state SHALL be readable and transitionable only by its owning controller instance unless a registered composition policy explicitly permits another component to consume it.
+
+A controller instance SHALL NOT modify another instance’s state directly.
+
+Cross-instance effects SHALL occur only through:
+
+* committed composition inputs;
+* registered arbitration results;
+* registered shared-state transitions;
+* explicit state-transition operators.
+
+⸻
+
+4.20 Shared Composition State
+
+Shared composition state MAY be used when multiple controller instances require common deterministic memory.
+
+Shared state SHALL:
+
+* have a registered definition;
+* have explicit read and transition authorities;
+* use deterministic conflict resolution;
+* be committed atomically with the composition’s next state;
+* preserve full contribution provenance.
+
+Parallel branches SHALL NOT race to mutate shared state.
+
+Physical concurrency SHALL NOT affect canonical results.
+
+⸻
+
+4.21 Controller Roles
+
+Controller roles SHALL be separated from composition topology.
+
+The initial controller-role vocabulary is:
+
+PRIMARY
+SECONDARY
+RESTRICTOR
+SAFETY
+FALLBACK
+ARBITER
+MONITOR
+COMPENSATOR
+
+A controller instance MAY hold one or more compatible registered roles.
+
+Controller roles SHALL determine permitted participation in control computation and state transition.
+
+Roles SHALL NOT independently grant execution authority.
+
+⸻
+
+4.22 Composition Topology
+
+The initial composition-topology vocabulary is:
+
+SINGLE
+CASCADE
+HIERARCHICAL
+PARALLEL
+ENSEMBLE
+HYBRID
+
+Safety, fallback, and arbitration behavior SHALL be represented through controller roles and composition policies rather than treated as mutually exclusive topologies.
+
+A topology SHALL define:
+
+* logical evaluation graph;
+* input distribution;
+* intermediate result semantics;
+* operator precedence;
+* arbitration points;
+* termination rules;
+* state partitioning;
+* failure propagation;
+* canonical output rule.
+
+⸻
+
+4.23 Evaluation Order
+
+Contract 007 SHALL use the terms:
+
+controller evaluation order
+composition evaluation order
+operator precedence
+
+Contract 007 SHALL NOT use “controller execution order” to describe mathematical evaluation.
+
+Runtime execution authority belongs downstream.
+
+Evaluation order SHALL be deterministic and registered.
+
+⸻
+
+4.24 Parallel Evaluation Semantics
+
+Parallel controller branches SHALL be logically independent evaluations over identical committed inputs unless a registered topology explicitly defines differing branch inputs.
+
+Physical simultaneity is not required.
+
+Implementations MAY evaluate branches:
+
+* concurrently;
+* sequentially;
+* through distributed deterministic workers.
+
+Scheduling differences SHALL NOT change the canonical result.
+
+⸻
+
+4.25 Prior Command References
+
+Controller State MAY reference prior canonical commands when required for:
+
+* derivative calculation;
+* command smoothing;
+* command-change constraints;
+* fallback continuity;
+* controller bumpless transfer;
+* composition continuity.
+
+The applicable baseline SHALL be explicitly declared.
+
+The initial baseline vocabulary is:
+
+PREVIOUS_COMPUTED_COMMAND
+PREVIOUS_ACCEPTED_COMMAND
+PREVIOUS_APPLIED_COMMAND
+PREVIOUS_ACKNOWLEDGED_COMMAND
+PREVIOUS_CONTROLLER_STATE_OUTPUT
+
+These baselines are not semantically equivalent.
+
+⸻
+
+4.26 Computed-Command Rate Limiting
+
+When rate limits apply to the change between canonical computed commands, Contract 007 MAY use the previous Committed Control Command as the rate-limit baseline.
+
+Conceptually:
+
+[
+\left|
+u_t-u_{t-1}^{\mathrm{computed}}
+\right|
+\leq
+\Delta u_{\max}
+]
+
+The prior command reference SHALL be canonical and cycle-linked.
+
+⸻
+
+4.27 Applied-Command Rate Limiting
+
+When a rate limit is defined relative to what was actually applied by the runtime, Contract 007 SHALL consume a canonical prior-cycle execution-derived artifact.
+
+It SHALL NOT query live execution state during canonical controller evaluation.
+
+The required execution-derived artifact SHALL identify at least:
+
+execution_receipt_id
+source_control_command_id
+accepted_control_value
+applied_control_value
+application_status
+application_time
+numeric_profile_id
+provenance_id
+artifact_hash
+
+Contract 009 owns execution receipt semantics.
+
+Contract 007 may consume an authorized mathematical projection of a prior committed receipt when its Controller Configuration requires applied-command rate limiting.
+
+⸻
+
+4.28 Rate-Limit Baseline Invariant
+
+Every rate-limiting rule SHALL declare exactly one canonical baseline semantic.
+
+A conforming implementation SHALL NOT substitute:
+
+* previous computed command for previous applied command;
+* previous accepted command for previous applied command;
+* internal actuator state for a canonical receipt;
+* undocumented local memory for a committed artifact.
+
+If the required baseline is unavailable, the registered reduced-authority failure policy SHALL apply.
+
+⸻
+
+4.29 Adaptive Controller State
+
+Adaptive controllers MAY maintain:
+
+* parameter estimates;
+* adaptation gains;
+* parameter covariance;
+* confidence state;
+* bounded learning accumulators;
+* model coefficients;
+* registered adaptation history.
+
+All adaptation state capable of affecting canonical output SHALL be included in Committed Controller State.
+
+Adaptation SHALL NOT:
+
+* modify Governance;
+* modify the Operational Profile;
+* replace the committed Controller Configuration;
+* broaden Controller authority;
+* alter unregistered algorithm structure;
+* learn from noncanonical hidden inputs.
+
+Adaptive state updates SHALL remain bounded by registered adaptation constraints.
+
+⸻
+
+4.30 MPC and Solver State
+
+An MPC or optimization-based controller MAY use:
+
+* prior solution trajectories;
+* active-set state;
+* dual variables;
+* primal warm starts;
+* solver continuation state;
+* horizon-local cached matrices.
+
+Such state MAY be canonical only when it can affect the resulting Control Command.
+
+Warm-start information that affects only performance and provably cannot affect the canonical result MAY remain noncanonical implementation-local cache.
+
+When warm-start state may affect convergence, selected optimum, termination, or numeric output, it SHALL be included in Committed Controller State.
+
+⸻
+
+4.31 Canonical State Versus Noncanonical Cache
+
+An implementation MAY maintain noncanonical caches only when those caches cannot alter:
+
+* the canonical Control Error;
+* the canonical Control Command;
+* the proposed next Controller State;
+* the Authority Certificate;
+* failure disposition;
+* deterministic replay.
+
+The burden of proof belongs to the implementation.
+
+Any value capable of affecting canonical output SHALL be canonicalized as Controller State.
+
+⸻
+
+4.32 State Transition Validity
+
+Every Proposed Controller State SHALL be evaluated against its State Definition before commitment.
+
+Validation SHALL include:
+
+* component presence;
+* type validity;
+* dimension validity;
+* unit validity;
+* range validity;
+* finite-number checks;
+* Numeric Profile conformance;
+* schema compatibility;
+* transition-rule conformance;
+* authority conformance;
+* cycle linkage;
+* provenance completeness.
+
+An invalid Proposed Controller State SHALL NOT be committed.
+
+⸻
+
+4.33 Command and State Atomic Relationship
+
+The relationship between a Control Command and its Proposed Controller State SHALL be explicit.
+
+A successful stateful controller evaluation SHALL produce:
+
+one Proposed Control Command
+one Proposed Controller State transition
+
+These outputs SHALL share:
+
+cycle_id
+controller_configuration_id
+composition_instance_id
+evaluation_id
+numeric_profile_id
+provenance_root_id
+
+The state transition SHALL identify the Control Command evaluation that caused it.
+
+⸻
+
+4.34 State Commitment and Command Failure
+
+A Proposed Controller State SHALL NOT be committed as nominal future state when its associated Control Command fails canonical commitment, unless a registered failure-transition policy explicitly permits the state transition.
+
+Examples of permitted failure transitions MAY include:
+
+* incrementing a deterministic failure counter;
+* activating registered fallback state;
+* clearing an invalid warm start;
+* recording safety-controller activation;
+* resetting an integrator after saturation.
+
+Failure-transition state SHALL remain reduced-authority and fully traceable.
+
+⸻
+
+4.35 Controller Failure Artifact
+
+An unsuccessful controller evaluation SHALL produce no canonical Control Command.
+
+It SHALL produce exactly one explicit Controller Failure Artifact or the canonical incomplete-cycle disposition required by the SACS cycle model.
+
+A Controller Failure Artifact SHALL include:
+
+controller_failure_id
+cycle_id
+control_error_id
+controller_configuration_id
+controller_state_id
+composition_instance_id
+failure_stage
+failure_class
+failure_reason
+affected_controller_instance_ids
+constraint_status
+state_status
+fallback_attempts
+resulting_authority_level
+proposed_failure_state_id
+numeric_profile_id
+schema_version
+registry_versions
+occurred_at
+provenance_id
+artifact_hash
+
+The initial failure classes SHOULD include:
+
+INPUT_INVALID
+STATE_INVALID
+STATE_UNAVAILABLE
+CONFIGURATION_INCOMPATIBLE
+ERROR_INCOMPATIBLE
+CONSTRAINT_INCOMPATIBLE
+NUMERIC_FAILURE
+STABILITY_FAILURE
+SATURATION_FAILURE
+RATE_LIMIT_BASELINE_UNAVAILABLE
+COMPOSITION_FAILURE
+ARBITRATION_FAILURE
+AUTHORITY_FAILURE
+DETERMINISM_FAILURE
+INTEGRITY_FAILURE
+
+⸻
+
+4.36 Controller Failure Monotonicity
+
+Controller failure SHALL NOT produce greater supervisory authority than successful computation.
+
+Formally, if (A_{\mathrm{success}}) is the maximum authority available under successful controller evaluation and (A_{\mathrm{failure}}) is the authority resulting from failure handling, then:
+
+[
+A_{\mathrm{failure}}
+\preceq
+A_{\mathrm{success}}
+]
+
+Failure SHALL NOT result in:
+
+* expanded control bounds;
+* higher gains;
+* relaxed rate limits;
+* removed saturation;
+* wider action spaces;
+* increased execution permission;
+* activation of an unregistered controller;
+* undocumented state restoration.
+
+⸻
+
+4.37 Hidden Mutable State Prohibition
+
+A conforming Contract 007 implementation SHALL NOT use hidden mutable state capable of affecting canonical output.
+
+Prohibited hidden state includes:
+
+* process-local integrator values;
+* undocumented prior-error storage;
+* unregistered adaptive parameters;
+* hidden fallback counters;
+* runtime-only dwell counters;
+* undocumented solver warm starts;
+* mutable singleton controller memory;
+* host-specific persisted values;
+* undeclared random generator state.
+
+The presence of hidden output-affecting state is a conformance failure.
+
+⸻
+
+4.38 Deterministic Replay
+
+A stateful controller evaluation SHALL be replayable from:
+
+Committed Control Error
+Committed Controller Configuration
+Committed Control Constraint Set
+Committed Controller State
+required committed mathematical projections
+Controller Definition
+Controller State Definition
+composition topology
+controller roles
+Numeric Profile
+registry versions
+
+No external mutable process state SHALL be required.
+
+For identical canonical inputs, a conforming implementation SHALL reproduce:
+
+* the same proposed control output;
+* the same proposed next Controller State;
+* the same failure disposition, if any;
+* the same Authority Certificate;
+* the same canonical hashes, subject to artifact-identifier policy.
+
+⸻
+
+4.39 Controller State Provenance
+
+Every Committed Controller State SHALL be traceable to:
+
+* its prior state;
+* its initialization or transition rule;
+* its Controller Definition;
+* its Controller Configuration;
+* its composition topology;
+* its controller roles;
+* its Control Error;
+* its associated Control Command or failure;
+* its Numeric Profile;
+* its reset or migration history.
+
+Controller State provenance SHALL include at least:
+
+provenance_id
+controller_state_id
+cycle_id
+previous_controller_state_id
+controller_state_definition_id
+controller_definition_id
+controller_configuration_id
+composition_instance_id
+control_error_id
+control_command_id
+controller_failure_id
+initialization_policy_id
+transition_policy_id
+reset_policy_id
+migration_policy_id
+numeric_profile_id
+registry_versions
+committed_at
+
+No Controller State is canonical without provenance.
+
+⸻
+
+4.40 Controller State Invariants
+
+Every conforming implementation SHALL preserve the following invariants.
+
+Explicit Memory
+
+Any prior value capable of affecting a future canonical Control Command SHALL be represented in Controller State.
+
+Immutability
+
+Committed Controller State SHALL never mutate.
+
+Cycle Isolation
+
+Controller State SHALL be authorized for exactly one effective supervisory cycle.
+
+Functional Evaluation
+
+Controller evaluation SHALL be purely functional with respect to all committed inputs, including Controller State.
+
+State Separation
+
+Controller State SHALL remain distinct from OSV, estimator state, Profile state, and execution state.
+
+No Hidden Reconstruction
+
+Missing Controller State SHALL not be reconstructed from noncanonical history.
+
+Deterministic Transition
+
+Identical canonical inputs SHALL produce identical proposed next state.
+
+Authority Preservation
+
+State initialization, transition, migration, reset, and failure SHALL not expand supervisory authority.
+
+Composition Ownership
+
+Every state component SHALL have one declared owner and one registered transition authority.
+
+Replayability
+
+Independent conforming implementations SHALL be able to replay the state transition from canonical artifacts.
+
+⸻
+
+Amendments to Sections 1–3
+
+Amendment A — Contract and Component Terminology
+
+Contract 007 SHALL distinguish four concepts:
+
+Concept	Authority
+Contract 007	Owns normative control mathematics
+Control Error Evaluator	Produces Committed Control Error
+Controller Composition	Transforms committed mathematical inputs into bounded corrective action
+Controller Instance	Evaluates one registered control law within a composition
+
+The term Controller Composition SHALL be used when referring to the canonical consumer of Control Error and producer of Control Command.
+
+⸻
+
+Amendment B — Revised Constitutional Statement
+
+The governing identity of Contract 007 is:
+
+Contract 007 SHALL compute. A Controller Composition SHALL transform committed mathematical deviation and committed Controller State into bounded corrective action using only committed mathematical artifacts. It SHALL neither reinterpret supervisory intent, reconstruct supervisory inputs, nor expand supervisory authority.
+
+⸻
+
+Amendment C — Revised Contract 007 Inputs
+
+Contract 007 SHALL consume, as applicable:
+
+Committed Operational State Vector
+Committed Governance Snapshot
+Committed Operational Profile
+Committed Reference State
+Committed Controller Configuration
+Committed Controller Numeric Profile
+Committed Control Constraint Set
+Committed Controller State
+prior canonical execution-derived mathematical projections
+
+The Control Error Evaluator consumes the state and reference artifacts required to produce the Committed Control Error.
+
+The Controller Composition consumes the Committed Control Error, Controller Configuration, Control Constraint Set, Controller State, and any additional mathematical artifacts explicitly required by its registered interface.
+
+⸻
+
+Amendment D — Control Error Evaluator Boundary
+
+The canonical internal flow of Contract 007 SHALL be:
+
+Committed OSV
+        +
+Committed Reference State
+        +
+Committed Error Metric Configuration
+        ↓
+Control Error Evaluator
+        ↓
+Committed Control Error
+        +
+Committed Controller Configuration
+        +
+Committed Control Constraint Set
+        +
+Committed Controller State
+        ↓
+Controller Composition
+        ↓
+Proposed Control Command
+        +
+Proposed Controller State
+
+The Control Error Evaluator and Controller Composition are separate canonical components owned by Contract 007.
+
+⸻
+
+Amendment E — Revised Control Error Identity
+
+The defining identity of Control Error is:
+
+The Committed Control Error represents the mathematical deviation between the committed Operational State and the committed Reference State under a registered Error Representation.
+
+It answers:
+
+What mathematical deviation currently exists under the registered representation?
+
+A scalar distance is one conforming representation, but is not required.
+
+⸻
+
+Amendment F — Revised Control Error Schema
+
+Every Committed Control Error SHALL include:
+
+control_error_id
+cycle_id
+osv_id
+reference_state_id
+error_representation_definition_id
+error_representation_configuration_id
+error_representation
+error_dimension
+error_metric_weighting_id
+state_domain_projection_id
+numeric_profile_id
+computed_at
+schema_version
+contract_version
+registry_versions
+artifact_hash
+provenance_id
+
+The following field SHALL be removed:
+
+controller_configuration_id
+
+unless a future registered Error Representation explicitly requires and normatively justifies controller-configuration binding.
+
+The generic field:
+
+weighting_profile
+
+SHALL be replaced by:
+
+error_metric_weighting_id
+
+when weighting is part of deviation representation.
+
+⸻
+
+Amendment G — State-Domain Projection
+
+Control Error MAY contain a state-domain projection only when required to represent mathematical deviation correctly.
+
+A state-domain projection MAY define:
+
+* comparable state dimensions;
+* excluded undefined dimensions;
+* coordinate transformations;
+* tangent-space mappings;
+* unit normalization;
+* manifold charts;
+* valid residual domains.
+
+A state-domain projection SHALL NOT define:
+
+* permitted correction directions;
+* control bounds;
+* saturation;
+* rate limits;
+* Governance permissions;
+* action-space authority.
+
+Those belong to the Committed Control Constraint Set.
+
+⸻
+
+Amendment H — Committed Control Constraint Set
+
+A Committed Control Constraint Set SHALL be introduced as a separate canonical mathematical artifact.
+
+Its defining identity is:
+
+The Committed Control Constraint Set represents the authorized mathematical space within which Contract 007 may compute corrective action.
+
+It MAY include:
+
+control_constraint_set_id
+cycle_id
+governance_snapshot_id
+committed_profile_id
+controller_configuration_id
+action_space_definition_id
+permitted_control_dimensions
+lower_bounds
+upper_bounds
+saturation_profile_id
+rate_limit_profile_id
+coupled_constraint_ids
+inequality_constraints
+equality_constraints
+authority_ordering_reference
+numeric_profile_id
+schema_version
+registry_versions
+committed_at
+provenance_id
+artifact_hash
+
+Control Error describes deviation.
+
+The Control Constraint Set describes authorized correction space.
+
+They SHALL remain separate artifacts.
+
+⸻
+
+Amendment I — Configuration Ownership
+
+Contract 007 owns:
+
+* Controller Definition semantics;
+* Controller Configuration semantics;
+* Controller Configuration schema;
+* Controller Configuration conformance.
+
+Contract 006 selects and commits the controller-related profile references required for the cycle, including:
+
+* Controller Definition reference;
+* gain schedule reference;
+* Numeric Profile reference;
+* constraint profile reference;
+* composition profile reference.
+
+Contract 007 SHALL perform a deterministic Controller Configuration Binding operation that materializes those references into one Committed Controller Configuration.
+
+The binding operation SHALL NOT select alternatives or reinterpret the Operational Profile.
+
+Its only authority is deterministic materialization and compatibility validation.
+
+⸻
+
+Amendment J — Revised Composition Ontology
+
+Composition shall be represented through two separate concepts.
+
+Composition Topology
+
+SINGLE
+CASCADE
+HIERARCHICAL
+PARALLEL
+ENSEMBLE
+HYBRID
+
+Controller Roles
+
+PRIMARY
+SECONDARY
+RESTRICTOR
+SAFETY
+FALLBACK
+ARBITER
+MONITOR
+COMPENSATOR
+
+Safety and fallback behavior SHALL not be treated as mutually exclusive composition topologies.
+
+⸻
+
+Amendment K — Evaluation Failure Companion
+
+Exactly one canonical Control Command SHALL exist for every successful controller evaluation.
+
+An unsuccessful controller evaluation SHALL:
+
+* produce no canonical Control Command; and
+* produce exactly one Controller Failure Artifact or canonical incomplete-cycle disposition.
+
+No ambiguous partial command SHALL cross the Contract 007 output boundary.
+
+⸻
+
+Revised Mathematical Evidence Chain
+
+Contract 007 now establishes the following complete mathematical artifact flow:
+
+Committed OSV
+        +
+Committed Reference State
+        +
+Committed Error Representation Configuration
+        ↓
+Committed Control Error
+        +
+Committed Controller Configuration
+        +
+Committed Control Constraint Set
+        +
+Committed Controller State_t
+        ↓
+Controller Composition
+        ↓
+Proposed Control Command_t
+        +
+Proposed Controller State_t+1
+        ↓
+Validation and Atomic Commitment
+        ↓
+Committed Control Command_t
+        +
+Committed Controller State_t+1
+
+This preserves controller-family neutrality without permitting hidden memory.
+
+PID integrators, adaptive parameters, prior outputs, MPC warm starts, fallback history, safety state, and composition memory can now be used without violating deterministic replay.
+
+The resulting constitutional rule is:
+
+A Controller Composition may be stateful, but its state may never be hidden. Every output-affecting memory value must enter as committed Controller State and leave as an explicit proposed state transition.

@@ -1,0 +1,1384 @@
+8. Runtime Capability Registry
+
+8.1 Purpose
+
+This section defines the immutable registry and committed profile model by which Contract 008 determines what one declared runtime can faithfully represent.
+
+The Runtime Capability Registry describes runtime representational capability.
+
+It does not select a runtime.
+
+It does not authorize a runtime.
+
+It does not determine whether a runtime is available.
+
+It does not decide whether an alternative runtime should be used.
+
+Its sole purpose is to answer:
+
+What inference-command semantics can this exact declared runtime faithfully represent under this exact versioned capability model?
+
+Contract 008 SHALL use the Runtime Capability Registry only to evaluate faithful representability.
+
+Capability knowledge SHALL NOT become adaptation authority.
+
+Capability knowledge SHALL NOT become routing authority.
+
+Capability knowledge SHALL NOT become execution authority.
+
+⸻
+
+8.2 Architectural Identity
+
+The Runtime Capability Registry is an immutable definition system containing reusable descriptions of runtime command capabilities.
+
+A Committed Runtime Capability Profile is a cycle-applicable binding of those definitions to one exact declared runtime target.
+
+The registry answers:
+
+What capability definitions exist?
+
+The committed profile answers:
+
+Which exact capabilities apply to this runtime for this translation cycle?
+
+These are distinct artifacts.
+
+A registry entry is reusable.
+
+A profile is an immutable applicability commitment.
+
+⸻
+
+8.3 Registry Authority
+
+The Runtime Capability Registry owns definitions for:
+
+* supported Inference Command types;
+* supported parameter domains;
+* supported units;
+* supported numeric representations;
+* supported target models;
+* supported scope models;
+* supported temporal semantics;
+* supported expiry semantics;
+* supported cardinality models;
+* supported ordering models;
+* supported atomicity models;
+* supported transaction models;
+* supported compensation models;
+* supported failure semantics;
+* supported acknowledgement models;
+* supported restriction-preservation classes;
+* supported authority-expression classes;
+* supported serialization models;
+* supported translation profiles;
+* supported runtime-native command definitions;
+* capability limitations;
+* capability incompatibilities;
+* capability proof requirements.
+
+The Runtime Capability Registry does not own:
+
+* supervisory intent;
+* runtime selection;
+* provider selection;
+* model selection;
+* translation-strategy selection;
+* Translation Configuration;
+* Control Command authorization;
+* execution gating;
+* execution availability;
+* resource availability;
+* dispatch;
+* retries;
+* execution receipts.
+
+⸻
+
+8.4 Runtime Capability Definition
+
+A Runtime Capability Definition is an immutable reusable artifact describing one bounded representational capability.
+
+It SHALL include at least:
+
+runtime_capability_definition_id
+runtime_type
+runtime_version_scope
+capability_class
+capability_name
+semantic_description
+supported_inference_command_type_ids
+supported_control_semantic_classes
+supported_parameter_domains
+supported_units
+supported_numeric_profiles
+supported_target_models
+supported_scope_models
+supported_temporal_models
+supported_expiry_models
+supported_cardinality_models
+supported_ordering_models
+supported_atomicity_models
+supported_transaction_models
+supported_compensation_models
+supported_failure_models
+supported_acknowledgement_models
+supported_restriction_classes
+supported_authority_expression_classes
+supported_serialization_profiles
+supported_translation_profile_ids
+capability_constraints
+capability_exclusions
+capability_dependencies
+verification_requirements
+schema_version
+definition_version
+definition_hash
+
+A capability definition SHALL describe only what the runtime can represent.
+
+It SHALL NOT declare that a translation is authorized.
+
+It SHALL NOT declare that a command is safe.
+
+It SHALL NOT declare that execution will succeed.
+
+⸻
+
+8.5 Capability Classes
+
+Initial capability classes MAY include:
+
+COMMAND_TYPE_SUPPORT
+PARAMETER_DOMAIN_SUPPORT
+NUMERIC_REPRESENTATION_SUPPORT
+UNIT_REPRESENTATION_SUPPORT
+TARGET_BINDING_SUPPORT
+SCOPE_REPRESENTATION_SUPPORT
+TEMPORAL_SEMANTICS_SUPPORT
+EXPIRY_SEMANTICS_SUPPORT
+CARDINALITY_SUPPORT
+ORDERING_SUPPORT
+ATOMICITY_SUPPORT
+TRANSACTION_SUPPORT
+COMPENSATION_SUPPORT
+FAILURE_SEMANTICS_SUPPORT
+ACKNOWLEDGEMENT_SUPPORT
+RESTRICTION_PRESERVATION_SUPPORT
+AUTHORITY_EXPRESSION_SUPPORT
+SERIALIZATION_SUPPORT
+COMPOSITE_COMMAND_SUPPORT
+REGISTERED_CUSTOM_CAPABILITY
+
+Each capability class SHALL have an exact semantic definition.
+
+A generic declaration such as:
+
+supports_control_commands = true
+
+is insufficient.
+
+Capability SHALL be decomposed into independently verifiable dimensions.
+
+⸻
+
+8.6 Runtime Identity
+
+Every Committed Runtime Capability Profile SHALL bind to one exact runtime identity.
+
+Runtime identity SHALL include at least:
+
+runtime_target_id
+runtime_type
+runtime_provider_id
+runtime_product_id
+runtime_version
+runtime_build_id
+runtime_adapter_id
+runtime_adapter_version
+deployment_profile_id
+capability_profile_id
+
+Where applicable, it MAY additionally include:
+
+model_family
+model_identifier
+model_version
+execution_engine
+execution_engine_version
+hardware_profile_id
+firmware_version
+protocol_version
+api_version
+
+A runtime capability profile SHALL NOT rely on an ambiguous runtime name.
+
+The following is insufficient:
+
+runtime = OpenAI
+
+A conforming identity must distinguish the exact runtime interface, version, and applicable adapter behavior.
+
+⸻
+
+8.7 Committed Runtime Capability Profile
+
+A Committed Runtime Capability Profile is an immutable artifact declaring the exact representational capabilities assumed by Contract 008 for one translation cycle.
+
+It SHALL include at least:
+
+runtime_capability_profile_id
+cycle_id
+runtime_target_id
+runtime_type
+runtime_provider_id
+runtime_product_id
+runtime_version
+runtime_build_id
+runtime_adapter_id
+runtime_adapter_version
+capability_definition_ids
+supported_inference_command_type_ids
+supported_parameter_domains
+supported_numeric_profiles
+supported_target_models
+supported_scope_models
+supported_temporal_models
+supported_expiry_models
+supported_cardinality_models
+supported_ordering_models
+supported_atomicity_models
+supported_transaction_models
+supported_compensation_models
+supported_failure_models
+supported_acknowledgement_models
+supported_restriction_classes
+supported_authority_expression_classes
+supported_serialization_profiles
+supported_translation_profile_ids
+declared_limitations
+declared_exclusions
+profile_validity_interval
+registry_snapshot_ids
+schema_version
+artifact_hash
+commitment_id
+provenance_id
+
+The profile SHALL be sufficient to evaluate whether every Translation Requirement can be faithfully represented.
+
+⸻
+
+8.8 Profile Commitment Authority
+
+A Committed Runtime Capability Profile SHALL be selected and committed outside the translation evaluation itself by an authorized deployment, runtime-registration, or capability-certification authority.
+
+Contract 008 MAY:
+
+* consume the committed profile;
+* verify profile integrity;
+* resolve its definitions;
+* validate cycle applicability;
+* evaluate translation compatibility against it.
+
+Contract 008 SHALL NOT:
+
+* create a new capability profile during translation;
+* expand the profile based on provider documentation;
+* infer missing capabilities from runtime behavior;
+* substitute a different profile;
+* select a different runtime;
+* merge profiles from several runtimes;
+* treat unverified capability discovery as canonical.
+
+⸻
+
+8.9 Profile Immutability
+
+The Committed Runtime Capability Profile SHALL be immutable for the translation evaluation.
+
+Contract 008 SHALL NOT resolve mutable runtime state through terms such as:
+
+* latest;
+* current;
+* default;
+* generally supported;
+* commonly available;
+* provider recommended.
+
+Every applicable capability SHALL resolve through exact identifiers, versions, and hashes.
+
+When the runtime changes materially, a new profile SHALL be committed.
+
+A changed profile SHALL receive:
+
+* a new profile identifier;
+* a new artifact hash;
+* updated lineage;
+* explicit validity metadata.
+
+⸻
+
+8.10 Capability Versus Availability
+
+Capability and availability are distinct.
+
+Capability asks:
+
+Can this runtime type and version faithfully represent this command?
+
+Availability asks:
+
+Is the runtime currently reachable and able to accept execution?
+
+Capability belongs to Contract 008.
+
+Availability belongs primarily to Contract 009.
+
+The Runtime Capability Profile SHALL NOT include transient availability unless:
+
+1. the availability state is itself committed;
+2. Contract 008 is explicitly authorized to consume it;
+3. the state affects representability rather than dispatch;
+4. no Contract 009 authority is assumed.
+
+Examples of transient execution state include:
+
+* endpoint reachability;
+* queue depth;
+* rate-limit exhaustion;
+* current memory pressure;
+* current accelerator availability;
+* temporary provider outage;
+* current session liveness.
+
+These SHALL NOT normally determine translation identity.
+
+⸻
+
+8.11 Capability Granularity
+
+Capabilities SHALL be declared at sufficient granularity to support exact compatibility evaluation.
+
+For example, the following is insufficient:
+
+supports_temperature = true
+
+A conforming capability declaration should specify:
+
+parameter = generation_temperature
+supported_type = FLOAT
+supported_domain = [0.0, 2.0]
+precision = binary32
+rounding_mode = nearest_even
+scope = REQUEST
+mutability = PRE_EXECUTION_ONLY
+atomicity = SINGLE_PARAMETER_WRITE
+default_semantics = EXPLICIT
+
+Granularity SHALL be sufficient to prove:
+
+* parameter-domain compatibility;
+* numeric compatibility;
+* scope compatibility;
+* timing compatibility;
+* authority compatibility;
+* restriction preservation.
+
+⸻
+
+8.12 Supported Command Types
+
+The profile SHALL identify every supported Inference Command type by exact identifier and version.
+
+For each supported type, the profile SHALL define:
+
+inference_command_type_id
+definition_version
+definition_hash
+support_status
+parameter_support
+scope_support
+target_support
+ordering_support
+atomicity_support
+transaction_support
+failure_support
+acknowledgement_support
+serialization_support
+limitations
+
+Support status MAY initially include:
+
+FULLY_SUPPORTED
+SUPPORTED_WITH_REGISTERED_CONSTRAINTS
+UNSUPPORTED
+DEPRECATED
+PROHIBITED
+
+A command marked SUPPORTED_WITH_REGISTERED_CONSTRAINTS SHALL identify every applicable constraint.
+
+Unspecified constraints SHALL not be assumed.
+
+⸻
+
+8.13 Parameter Domain Support
+
+For each supported runtime parameter, the capability profile SHALL define:
+
+runtime_parameter_id
+semantic_role
+runtime_type
+runtime_unit
+supported_domain
+supported_precision
+supported_tolerance
+rounding_behavior
+overflow_behavior
+underflow_behavior
+null_behavior
+default_behavior
+mutability_model
+scope_model
+coupled_parameter_ids
+interaction_constraints
+
+A runtime parameter domain SHALL be evaluated against the Translation Requirement Set.
+
+If the runtime domain cannot represent the required value or interval without semantic alteration, the parameter is incompatible.
+
+Clipping SHALL NOT convert incompatibility into compatibility.
+
+⸻
+
+8.14 Numeric Representation Support
+
+The profile SHALL declare exact numeric representation capability.
+
+This MAY include:
+
+* integer widths;
+* floating-point formats;
+* fixed-point formats;
+* decimal formats;
+* rational representations;
+* bounded intervals;
+* quantized values;
+* enum-coded values;
+* symbolic values.
+
+For each numeric representation, the profile SHALL define:
+
+numeric_type
+precision
+range
+rounding_mode
+serialization_format
+special_value_behavior
+comparison_semantics
+determinism_properties
+
+A runtime SHALL be considered numerically compatible only when the required command semantics can be represented within the committed tolerance.
+
+⸻
+
+8.15 Unit Support
+
+Unit capability SHALL identify:
+
+* accepted runtime units;
+* conversion requirements;
+* conversion exactness;
+* scaling semantics;
+* prohibited coercions.
+
+A runtime accepting milliseconds does not directly support seconds unless an exact registered conversion exists.
+
+A unit conversion MAY be used only when:
+
+* the conversion definition is registered;
+* the numeric profile permits it;
+* the conversion preserves required tolerance;
+* no overflow or underflow occurs;
+* semantic scope remains unchanged.
+
+⸻
+
+8.16 Target Binding Support
+
+The capability profile SHALL define which target models the runtime can represent.
+
+Target models MAY include:
+
+RUNTIME_INSTANCE
+MODEL_INSTANCE
+SESSION
+REQUEST
+TOOL_CLASS
+CACHE_PARTITION
+STATE_PARTITION
+PARAMETER_NAMESPACE
+REGISTERED_TARGET_GROUP
+
+For each target model, the profile SHALL identify:
+
+* identifier format;
+* binding method;
+* uniqueness guarantees;
+* namespace;
+* lifecycle;
+* aliasing behavior;
+* target validation requirements.
+
+If the runtime cannot uniquely bind the intended target, translation SHALL fail.
+
+A broad target selector SHALL NOT be accepted for a narrow source target.
+
+⸻
+
+8.17 Scope Representation Support
+
+The profile SHALL define supported scope dimensions and combinations.
+
+A runtime MAY support request scope but not session scope.
+
+A runtime MAY support model-instance scope but not state-partition scope.
+
+The capability profile SHALL identify:
+
+supported_scope_dimensions
+supported_scope_combinations
+scope_nesting_rules
+scope_precedence_rules
+scope_default_behavior
+scope_exclusion_behavior
+
+An implicit global default SHALL not satisfy a narrower required scope.
+
+An implicit local default SHALL not satisfy a global mandatory scope.
+
+⸻
+
+8.18 Temporal Semantics Support
+
+The capability profile SHALL define which temporal models the runtime can represent.
+
+Initial temporal capability models MAY include:
+
+IMMEDIATE_ON_ACCEPTANCE
+ABSOLUTE_EFFECTIVE_TIME
+RELATIVE_DELAY
+REQUEST_BOUND
+SESSION_BOUND
+DURATION_BOUND
+UNTIL_REVERSED
+TRANSACTION_BOUND
+DEADLINE_BOUND
+REGISTERED_TEMPORAL_MODEL
+
+For each supported temporal model, the profile SHALL define:
+
+* clock source;
+* timestamp precision;
+* clock synchronization assumptions;
+* late-arrival behavior;
+* delay semantics;
+* duration semantics;
+* renewal semantics;
+* reversal semantics.
+
+A runtime incapable of preserving the required effective-time semantics SHALL be incompatible.
+
+⸻
+
+8.19 Expiry Support
+
+The capability profile SHALL define whether and how the runtime can enforce expiry.
+
+Expiry support MAY include:
+
+NATIVE_EXPIRY
+EXECUTION_GATE_EXPIRY
+REQUEST_BOUND_EXPIRY
+SESSION_BOUND_EXPIRY
+TRANSACTION_BOUND_EXPIRY
+UNSUPPORTED_EXPIRY
+
+Native expiry means the runtime itself enforces expiration.
+
+Execution-gate expiry means Contract 009 can prevent late submission, but the runtime cannot revoke an already-applied command.
+
+These are not semantically identical.
+
+The Translation Definition SHALL identify which model is sufficient for the source command.
+
+Contract 008 SHALL NOT treat pre-dispatch expiry checks as equivalent to post-application expiration unless explicitly proven.
+
+⸻
+
+8.20 Cardinality Support
+
+The profile SHALL declare supported cardinality models, including whether one command may target:
+
+* exactly one target;
+* a bounded set;
+* all registered targets;
+* a dynamic target group;
+* a statically enumerated group.
+
+It SHALL also identify whether cardinality is:
+
+* enforced by the runtime;
+* enforced by the adapter;
+* enforced by Contract 009;
+* merely descriptive.
+
+A runtime that accepts wildcard targets SHALL not be considered compatible with a strict exactly-one target requirement unless the wildcard can be deterministically reduced to one exact target.
+
+⸻
+
+8.21 Ordering Support
+
+The capability profile SHALL declare supported ordering models.
+
+It SHALL identify whether the runtime supports:
+
+NO_ORDER_GUARANTEE
+SUBMISSION_ORDER
+ACKNOWLEDGED_TOTAL_ORDER
+PARTIAL_ORDER
+BARRIER_ORDER
+TRANSACTION_ORDER
+REGISTERED_ORDERING_MODEL
+
+For each model, the profile SHALL define:
+
+* enforcement authority;
+* ordering scope;
+* concurrency behavior;
+* reordering behavior;
+* acknowledgement behavior;
+* failure behavior.
+
+Submission order alone SHALL NOT be treated as execution order unless the capability definition proves equivalence.
+
+⸻
+
+8.22 Atomicity Support
+
+The capability profile SHALL define supported atomicity models.
+
+Initial models MAY include:
+
+SINGLE_COMMAND_ATOMIC
+MULTI_PARAMETER_ATOMIC
+COMMAND_GROUP_ATOMIC
+TARGET_LOCAL_ATOMIC
+GLOBAL_ATOMIC
+TRANSACTIONAL_ATOMIC
+NO_ATOMICITY_GUARANTEE
+
+For each atomicity model, the profile SHALL identify:
+
+* atomic unit;
+* commit boundary;
+* visibility boundary;
+* failure behavior;
+* rollback behavior;
+* partial-application risk;
+* target scope.
+
+A runtime that serially applies commands without rollback does not support all-or-none atomicity.
+
+⸻
+
+8.23 Transaction Support
+
+Transaction capability SHALL identify:
+
+transaction_model
+begin_support
+commit_support
+rollback_support
+isolation_model
+visibility_model
+timeout_model
+nested_transaction_support
+failure_propagation
+compensation_support
+
+Transaction support SHALL be evaluated separately from ordering support.
+
+A totally ordered command sequence is not necessarily transactional.
+
+A runtime that supports rollback only for some members SHALL not be considered fully transactional for a composite command unless the source semantics permit partial rollback.
+
+⸻
+
+8.24 Compensation Support
+
+The profile SHALL define whether compensating actions can be represented.
+
+Compensation support SHALL identify:
+
+* supported compensation command types;
+* trigger-condition support;
+* conditional execution support;
+* authority binding;
+* ordering support;
+* compensation scope;
+* evidence and acknowledgement requirements.
+
+The existence of a possible reverse action does not establish compensation support.
+
+Compensation must be explicitly modeled and authorized.
+
+⸻
+
+8.25 Failure Semantics Support
+
+The profile SHALL define supported runtime failure semantics.
+
+Initial classes MAY include:
+
+FAIL_BEFORE_APPLICATION
+FAIL_WITH_PARTIAL_APPLICATION_POSSIBLE
+FAIL_WITH_ROLLBACK
+FAIL_WITH_COMPENSATION
+FAIL_WITH_UNKNOWN_APPLICATION_STATE
+FAIL_ATOMICALLY
+REGISTERED_FAILURE_MODEL
+
+The capability profile SHALL state whether the runtime can distinguish:
+
+* rejection before application;
+* failure during application;
+* partial application;
+* successful application without acknowledgement;
+* unknown application state.
+
+If the source command requires no partial application, a runtime that may fail after partial application is incompatible unless an equivalent transactional mechanism exists.
+
+⸻
+
+8.26 Acknowledgement Support
+
+The profile SHALL define acknowledgement semantics.
+
+Acknowledgement classes MAY include:
+
+RECEIVED
+VALIDATED
+ACCEPTED
+APPLIED
+COMMITTED
+DURABLY_APPLIED
+REJECTED
+UNKNOWN
+
+An acknowledgement that a command was received is not proof that it was applied.
+
+Contract 008 SHALL record acknowledgement requirements in the Inference Command Set where they are part of semantic preservation.
+
+Contract 009 owns evaluation of actual acknowledgements.
+
+⸻
+
+8.27 Restriction-Preservation Capability
+
+The runtime capability profile SHALL explicitly declare which classes of restrictions it can preserve.
+
+Restriction classes MAY include:
+
+UPPER_BOUND
+LOWER_BOUND
+CLOSED_INTERVAL
+OPEN_INTERVAL
+ALLOWED_SET
+PROHIBITED_SET
+TARGET_LIMIT
+SCOPE_LIMIT
+DURATION_LIMIT
+CARDINALITY_LIMIT
+CAPABILITY_PROHIBITION
+TOOL_PROHIBITION
+WRITE_PROHIBITION
+CONCURRENCY_LIMIT
+RATE_LIMIT
+ATOMICITY_RESTRICTION
+ORDERING_RESTRICTION
+REGISTERED_RESTRICTION_CLASS
+
+A runtime capable of setting a value is not necessarily capable of enforcing a bound over time.
+
+A runtime capable of disabling one tool is not necessarily capable of enforcing an exclusive allowed-tool set.
+
+Capability evaluation SHALL distinguish these semantics.
+
+⸻
+
+8.28 Authority-Expression Capability
+
+The capability profile SHALL declare how the runtime expresses bounded authority.
+
+Authority-expression models MAY include:
+
+* direct parameter assignment;
+* bounded parameter assignment;
+* permission allowlist;
+* permission denylist;
+* scoped capability token;
+* target-bound command;
+* time-bound command;
+* transaction-bound command;
+* immutable policy attachment;
+* registered authority encoding.
+
+The runtime representation SHALL be capable of expressing no more than the source authority ceiling.
+
+If the runtime command inherently grants broader authority than required, the runtime is incompatible unless an additional registered restriction mechanism closes the gap.
+
+⸻
+
+8.29 Composite Command Support
+
+The profile SHALL state whether the runtime supports composite supervisory effects.
+
+Composite support SHALL identify:
+
+* supported component count;
+* grouping model;
+* ordering support;
+* atomicity support;
+* transaction support;
+* failure propagation;
+* shared-target support;
+* shared-scope support;
+* aggregate-authority evaluation requirements.
+
+A runtime supporting each component independently does not automatically support the composite command.
+
+The interaction model must also be compatible.
+
+⸻
+
+8.30 Capability Dependencies
+
+A capability MAY depend on one or more other capabilities.
+
+For example:
+
+ATOMIC_MULTI_PARAMETER_UPDATE
+depends on:
+TRANSACTION_SUPPORT
++
+MULTI_PARAMETER_COMMAND_SUPPORT
+
+Every dependency SHALL be explicit.
+
+A capability SHALL be considered available only when all mandatory dependencies resolve within the same committed profile.
+
+Circular capability dependencies SHALL be prohibited unless a registered definition establishes a valid mutually bound capability group.
+
+⸻
+
+8.31 Capability Exclusions
+
+A profile SHALL explicitly identify known exclusions.
+
+Examples MAY include:
+
+* parameter unsupported at session scope;
+* atomicity unavailable across target groups;
+* expiry supported only before application;
+* rollback unavailable after external side effects;
+* deterministic ordering unavailable under concurrency;
+* parameter range narrowed for a specific runtime version;
+* tool restrictions unenforceable for inherited tools.
+
+An exclusion overrides a general support declaration.
+
+Contract 008 SHALL evaluate the most specific applicable capability statement.
+
+⸻
+
+8.32 Conditional Capability
+
+A capability MAY be conditionally supported only when the condition is deterministic, immutable, and committed.
+
+Permitted conditions MAY include:
+
+* runtime version;
+* adapter version;
+* command type;
+* target class;
+* parameter domain;
+* selected translation profile;
+* declared deployment profile.
+
+Transient conditions SHOULD NOT be used for canonical capability.
+
+Conditional capability SHALL include:
+
+condition_definition_id
+condition_inputs
+condition_result
+condition_hash
+
+A condition that requires live mutable lookup is not a stable translation capability.
+
+⸻
+
+8.33 Capability Proof
+
+Each capability claim SHALL identify its verification basis.
+
+Verification bases MAY include:
+
+FORMAL_SPECIFICATION
+ADAPTER_CONFORMANCE_TEST
+RUNTIME_CONFORMANCE_TEST
+PROVIDER_SCHEMA_VERIFICATION
+DETERMINISTIC_REPLAY_TEST
+FORMAL_PROOF
+EXTERNAL_CERTIFICATION
+REGISTERED_VERIFICATION_METHOD
+
+A capability claim without a verification basis SHALL not enter a committed profile.
+
+Provider marketing language is not sufficient verification.
+
+Observed behavior without version binding is not sufficient verification.
+
+⸻
+
+8.34 Capability Certification
+
+A Runtime Capability Profile MAY be accompanied by a Runtime Capability Certificate.
+
+The certificate MAY include:
+
+runtime_capability_certificate_id
+runtime_capability_profile_id
+runtime_target_id
+verified_capability_definition_ids
+verification_method_ids
+test_vector_ids
+verification_results
+unsupported_capability_ids
+limitations
+certificate_authority_id
+issued_at
+validity_interval
+registry_snapshot_ids
+artifact_hash
+
+Contract 008 MAY require such certification according to the Translation Configuration.
+
+Contract 008 SHALL NOT issue the certificate unless explicitly assigned that authority.
+
+⸻
+
+8.35 Profile Validity
+
+A capability profile SHALL define a validity interval or validity condition.
+
+Validity MAY depend on:
+
+* runtime version;
+* adapter version;
+* deployment profile;
+* registry snapshot;
+* certificate validity;
+* model version;
+* protocol version.
+
+A profile becomes invalid when any identity-defining dependency changes incompatibly.
+
+Contract 008 SHALL reject an invalid or expired capability profile.
+
+It SHALL NOT silently refresh it.
+
+⸻
+
+8.36 Registry Snapshot Binding
+
+Every consumed capability definition SHALL resolve through the Committed Registry Snapshot Set.
+
+The profile SHALL identify:
+
+runtime_capability_registry_snapshot_id
+capability_definition_ids
+definition_versions
+definition_hashes
+
+A profile referring to a definition absent from the committed snapshot is invalid.
+
+A hash mismatch SHALL produce failure.
+
+Contract 008 SHALL NOT search another registry version for a compatible definition.
+
+⸻
+
+8.37 Capability Compatibility Relation
+
+Let:
+
+[
+R_t
+]
+
+denote the Translation Requirement Set, and let:
+
+[
+K_t
+]
+
+denote the Committed Runtime Capability Profile.
+
+Capability compatibility exists only when every mandatory requirement in (R_t) is supported by a corresponding capability in (K_t).
+
+Formally:
+
+[
+R_t
+\preceq_{\mathrm{cap}}
+K_t
+]
+
+means that:
+
+* every required command semantic is representable;
+* every required parameter is representable;
+* every required target and scope are representable;
+* every required temporal and expiry semantic is representable;
+* every required cardinality rule is representable;
+* every required ordering relation is representable;
+* every required atomicity and transaction semantic is representable;
+* every required failure semantic is representable;
+* every mandatory restriction is enforceable;
+* the authority ceiling can be expressed without expansion;
+* numeric obligations can be preserved.
+
+Compatibility is conjunctive.
+
+One unsupported mandatory requirement makes the profile incompatible.
+
+⸻
+
+8.38 Partial Capability Is Not Partial Translation Authority
+
+A runtime may support only part of the Translation Requirement Set.
+
+This SHALL be recorded as incompatibility.
+
+Contract 008 SHALL NOT:
+
+* translate only supported requirements;
+* omit unsupported restrictions;
+* split mandatory composite commands;
+* weaken unsupported bounds;
+* replace unsupported semantics;
+* return a partially executable set.
+
+Partial capability MAY be reported diagnostically.
+
+It SHALL NOT produce a canonical partial Inference Command Set.
+
+⸻
+
+8.39 Capability Equivalence Across Runtimes
+
+Two runtimes MAY support semantically equivalent command representations.
+
+This does not permit Contract 008 to switch between them.
+
+Cross-runtime equivalence MAY support:
+
+* testing;
+* comparison;
+* portability analysis;
+* deterministic backend validation.
+
+It SHALL NOT create routing authority.
+
+The declared runtime target remains fixed for the translation cycle.
+
+⸻
+
+8.40 Runtime Adapter Capability
+
+When translation output is expressed through an adapter, the adapter becomes part of the runtime capability boundary.
+
+The profile SHALL declare:
+
+* adapter identity;
+* adapter version;
+* supported command mappings;
+* serialization behavior;
+* normalization behavior;
+* error behavior;
+* ordering behavior;
+* atomicity behavior;
+* target-binding behavior;
+* known limitations.
+
+The runtime and adapter capability intersection defines effective capability.
+
+Let:
+
+[
+K_{\mathrm{effective}}
+
+K_{\mathrm{runtime}}
+\cap
+K_{\mathrm{adapter}}
+]
+
+Contract 008 SHALL evaluate compatibility against (K_{\mathrm{effective}}).
+
+An adapter cannot create runtime capability absent from the runtime.
+
+A runtime capability inaccessible through the adapter is not effective capability for that translation path.
+
+⸻
+
+8.41 No Capability Inference From Translation Definitions
+
+The existence of a Translation Definition SHALL NOT prove runtime capability.
+
+A Translation Definition may describe how a command would be represented if the runtime supports the required mechanism.
+
+Capability SHALL be proven independently through the committed profile.
+
+Translation definitions and capability definitions SHALL remain separate.
+
+This prevents circular reasoning:
+
+A mapping exists
+therefore the runtime supports it
+
+Such reasoning is prohibited.
+
+⸻
+
+8.42 No Capability Inference From Prior Success
+
+Prior execution success SHALL NOT establish current canonical capability.
+
+Prior success may be evidence for an external capability-certification process.
+
+It SHALL NOT replace:
+
+* exact version binding;
+* profile commitment;
+* capability definition resolution;
+* certification requirements.
+
+A runtime may change.
+
+An adapter may change.
+
+A provider may change behavior.
+
+Historical success is not immutable capability authority.
+
+⸻
+
+8.43 Capability Registry Failure Classes
+
+Initial failure classes SHALL include:
+
+RUNTIME_CAPABILITY_PROFILE_MISSING
+RUNTIME_CAPABILITY_PROFILE_NOT_COMMITTED
+RUNTIME_CAPABILITY_PROFILE_EXPIRED
+RUNTIME_CAPABILITY_PROFILE_HASH_MISMATCH
+RUNTIME_IDENTITY_AMBIGUOUS
+RUNTIME_VERSION_UNRESOLVED
+RUNTIME_ADAPTER_UNRESOLVED
+RUNTIME_ADAPTER_VERSION_UNRESOLVED
+CAPABILITY_DEFINITION_MISSING
+CAPABILITY_DEFINITION_HASH_MISMATCH
+CAPABILITY_REGISTRY_SNAPSHOT_MISSING
+CAPABILITY_REGISTRY_VERSION_INCOMPATIBLE
+CAPABILITY_DEPENDENCY_UNSATISFIED
+CAPABILITY_EXCLUSION_APPLIES
+CONDITIONAL_CAPABILITY_UNRESOLVED
+CAPABILITY_VERIFICATION_MISSING
+CAPABILITY_CERTIFICATE_INVALID
+COMMAND_TYPE_CAPABILITY_UNSUPPORTED
+PARAMETER_DOMAIN_CAPABILITY_UNSUPPORTED
+NUMERIC_CAPABILITY_UNSUPPORTED
+UNIT_CAPABILITY_UNSUPPORTED
+TARGET_BINDING_CAPABILITY_UNSUPPORTED
+SCOPE_CAPABILITY_UNSUPPORTED
+TEMPORAL_CAPABILITY_UNSUPPORTED
+EXPIRY_CAPABILITY_UNSUPPORTED
+CARDINALITY_CAPABILITY_UNSUPPORTED
+ORDERING_CAPABILITY_UNSUPPORTED
+ATOMICITY_CAPABILITY_UNSUPPORTED
+TRANSACTION_CAPABILITY_UNSUPPORTED
+COMPENSATION_CAPABILITY_UNSUPPORTED
+FAILURE_SEMANTICS_CAPABILITY_UNSUPPORTED
+ACKNOWLEDGEMENT_CAPABILITY_UNSUPPORTED
+RESTRICTION_PRESERVATION_UNSUPPORTED
+AUTHORITY_EXPRESSION_UNSUPPORTED
+COMPOSITE_COMMAND_CAPABILITY_UNSUPPORTED
+EFFECTIVE_RUNTIME_CAPABILITY_INSUFFICIENT
+CAPABILITY_PROVENANCE_INCOMPLETE
+
+A capability failure SHALL prevent translation binding.
+
+⸻
+
+8.44 Prohibited Capability Practices
+
+Contract 008 SHALL NOT:
+
+* infer support from undocumented behavior;
+* infer support from field-name similarity;
+* infer support from provider branding;
+* infer support from a related runtime version;
+* infer support from prior success;
+* merge capabilities from multiple runtimes;
+* treat adapter coercion as semantic support;
+* treat clipping as domain support;
+* treat serialization acceptance as semantic support;
+* treat command receipt as capability proof;
+* treat best-effort behavior as faithful representation;
+* treat provider defaults as committed capability;
+* select another runtime when capability is absent;
+* mutate the capability profile during translation.
+
+⸻
+
+8.45 Runtime Capability Evaluation Artifact
+
+Consumption of the Runtime Capability Profile SHALL produce one noncanonical Runtime Capability Evaluation artifact.
+
+It SHALL include at least:
+
+runtime_capability_evaluation_id
+cycle_id
+translation_requirement_set_id
+runtime_capability_profile_id
+runtime_target_id
+requirement_ids
+matched_capability_definition_ids
+unsupported_requirement_ids
+conditionally_supported_requirement_ids
+applicable_exclusion_ids
+dependency_results
+effective_capability_summary
+numeric_compatibility_summary
+scope_compatibility_summary
+ordering_compatibility_summary
+atomicity_compatibility_summary
+transaction_compatibility_summary
+restriction_preservation_summary
+authority_expression_summary
+overall_capability_result
+registry_snapshot_ids
+artifact_hash
+provenance_id
+
+The overall capability result SHALL be one of:
+
+CAPABILITY_COMPATIBLE
+CAPABILITY_INCOMPATIBLE
+CAPABILITY_EVALUATION_FAILURE
+
+No partial-success result SHALL authorize partial translation.
+
+⸻
+
+8.46 Capability Evaluation Determinism
+
+For identical:
+
+* Translation Requirement Set;
+* Runtime Capability Profile;
+* capability definitions;
+* adapter definitions;
+* registry snapshots;
+* Numeric Profile;
+
+Contract 008 SHALL produce the same Runtime Capability Evaluation.
+
+Formally:
+
+[
+E^{\mathrm{cap}}_t
+
+C
+\left(
+R_t,
+K_t,
+D_t,
+V_t,
+N_t
+\right)
+]
+
+where:
+
+* (R_t) is the Translation Requirement Set;
+* (K_t) is the Runtime Capability Profile;
+* (D_t) is the capability-definition set;
+* (V_t) is the registry snapshot set;
+* (N_t) is the Numeric Profile;
+* (E^{\mathrm{cap}}_t) is the Runtime Capability Evaluation.
+
+The function (C) SHALL be deterministic.
+
+Probabilistic capability inference is prohibited.
+
+⸻
+
+8.47 Section 8 Artifact Flow
+
+Translation Requirement Set
+        +
+Committed Runtime Capability Profile
+        +
+Runtime Capability Registry Snapshot
+        +
+Runtime and Adapter Definitions
+        ↓
+Runtime Identity Validation
+        ↓
+Capability Definition Resolution
+        ↓
+Dependency and Exclusion Evaluation
+        ↓
+Effective Capability Construction
+        ↓
+Requirement-by-Requirement Capability Matching
+        ↓
+Aggregate Capability Evaluation
+        ↓
+Either:
+CAPABILITY_COMPATIBLE
+        or
+CAPABILITY_INCOMPATIBLE
+        or
+CAPABILITY_EVALUATION_FAILURE
+
+At the conclusion of Section 8:
+
+* runtime representational capability has been evaluated;
+* no Translation Definition has yet been selected;
+* no Translation Configuration binding has yet been validated;
+* no Proposed Inference Command has been constructed;
+* no semantic-equivalence certificate exists;
+* no canonical Inference Command Set exists.
+
+⸻
+
+8.48 Section 8 Invariant
+
+The governing invariant for the Runtime Capability Registry is:
+
+Contract 008 SHALL evaluate one exact committed runtime target only against immutable, versioned, and verifiable capability definitions. Capability evaluation SHALL determine whether every mandatory Translation Requirement can be faithfully represented, but SHALL NOT select another runtime, weaken a requirement, omit an unsupported restriction, infer undocumented support, or convert partial capability into partial translation authority.
+

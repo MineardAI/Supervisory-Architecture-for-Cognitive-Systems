@@ -1,0 +1,1476 @@
+# SACS Contract 012 — External Verification Profile and Evidence Interface
+
+## Section 9 — Verification Method Definition
+
+### Purpose
+
+Section 9 defines the canonical constitutional vocabulary of external verification methods recognized by Contract 012.
+
+A `Verification Method Definition` establishes the exact meaning, authority, prerequisites, capabilities, limitations, inputs, outputs, and reporting obligations of one verification method.
+
+Verification Methods are reusable constitutional definitions.
+
+They enable Verification Profiles and Verification Requirement Sets to reference exact verification procedures without redefining those procedures for every operation.
+
+This section ensures that terms such as:
+
+```text
+formal verification
+replay
+simulation
+model checking
+static analysis
+runtime verification
+human review
+```
+
+possess explicit, versioned, registry-resolved meanings before they are used as verification requirements.
+
+---
+
+# Constitutional Question
+
+Section 9 answers:
+
+> **Which verification methods are constitutionally recognized, what may each method establish, and under what assumptions, prerequisites, limits, and reporting conditions may it be used?**
+
+A method definition SHALL establish:
+
+* what the method evaluates;
+* which claim types it supports;
+* which subjects it supports;
+* which evidence it requires;
+* which verifier capabilities it requires;
+* which assumptions it depends upon;
+* which guarantees it may produce;
+* which conclusions it cannot produce;
+* which artifacts it must return.
+
+A method name alone SHALL NOT establish constitutional meaning.
+
+---
+
+# Constitutional Identity
+
+The defining identity of a Verification Method Definition is:
+
+> **A Verification Method Definition is one reusable, immutable, versioned constitutional artifact that defines a recognized procedure for evaluating bounded Verifiable Claims without itself selecting a claim, preparing evidence, issuing a verification result, or determining governance action.**
+
+A Verification Method Definition is not:
+
+* a Verification Profile;
+* a Verification Requirement Set;
+* an execution instance of the method;
+* a verification result;
+* a verifier;
+* an implementation approval;
+* a governance decision.
+
+Formally:
+
+```text
+Verification Method Definition
+≠
+Verification Method Execution
+≠
+External Verification Result
+```
+
+---
+
+# Method Authority
+
+Contract 012 owns the constitutional representation, registration, resolution, and binding of Verification Method Definitions.
+
+Contract 012 MAY:
+
+* define the method schema;
+* register approved method definitions;
+* resolve method identity and version;
+* validate method-definition integrity;
+* evaluate method applicability;
+* bind methods into Verification Profiles;
+* bind method obligations into Verification Requirement Sets;
+* preserve method lineage and supersession.
+
+Contract 012 SHALL NOT:
+
+* perform external verification merely because it defines the method;
+* select weaker methods to increase favorable outcomes;
+* claim a method was performed without external evidence;
+* treat method availability as method success;
+* infer guarantees beyond the method definition;
+* silently substitute one method for another.
+
+---
+
+# Method Definition and Method Execution
+
+The distinction SHALL remain:
+
+```text
+Verification Method Definition
+≠
+Verification Method Execution
+```
+
+A Verification Method Definition specifies the reusable procedure.
+
+A Verification Method Execution is one externally performed application of that procedure to:
+
+* one submitted claim;
+* one submitted subject;
+* one committed evidence package;
+* one exact method version;
+* one verifier;
+* one execution environment.
+
+The method definition is reusable.
+
+The execution is operation-specific.
+
+---
+
+# Canonical Method Structure
+
+Every Verification Method Definition SHALL contain at minimum:
+
+```text
+verification_method_id
+verification_method_name
+verification_method_version
+method_status
+method_authority
+method_class
+method_purpose
+supported_claim_types
+supported_subject_types
+required_input_classes
+optional_input_classes
+prohibited_input_classes
+required_evidence_classes
+required_preconditions
+required_assumptions
+required_verifier_capabilities
+required_execution_environment
+method_procedure_definition
+method_determinism_class
+method_soundness_statement
+method_completeness_statement
+method_guarantee_scope
+method_limitation_scope
+method_failure_classes
+required_output_artifacts
+required_reporting_fields
+replay_requirements
+audit_requirements
+privacy_requirements
+security_requirements
+method_created_at
+method_hash
+```
+
+Where applicable, the definition SHALL also include:
+
+```text
+formalism_id
+solver_class
+proof_system_id
+simulation_model_id
+fault_model_id
+threat_model_id
+numeric_profile_id
+randomness_policy
+sampling_policy
+coverage_metric
+confidence_model
+human_qualification_requirements
+toolchain_identity_requirements
+```
+
+Every mandatory field SHALL be resolved before the method becomes eligible for profile use.
+
+---
+
+# Method Classes
+
+Contract 012 MAY recognize method classes including:
+
+```text
+SCHEMA_VALIDATION
+STATIC_ANALYSIS
+FORMAL_ANALYSIS
+FORMAL_PROOF
+PROOF_CHECKING
+MODEL_CHECKING
+SYMBOLIC_EXECUTION
+NUMERIC_ANALYSIS
+DETERMINISTIC_REPLAY
+SIMULATION
+PROPERTY_TESTING
+FAULT_INJECTION
+RUNTIME_OBSERVATION
+RUNTIME_MONITORING
+PROVENANCE_INSPECTION
+CRYPTOGRAPHIC_INTEGRITY_CHECK
+CROSS_IMPLEMENTATION_COMPARISON
+CONFORMANCE_TESTING
+SECURITY_ANALYSIS
+PRIVACY_ANALYSIS
+HUMAN_EXPERT_REVIEW
+HYBRID_VERIFICATION
+```
+
+Each class SHALL be defined through one or more exact Method Definitions.
+
+A method class label SHALL not substitute for a versioned Method Definition.
+
+---
+
+# Method Purpose
+
+Every Verification Method Definition SHALL identify the verification purposes it may support.
+
+Examples include:
+
+* structural conformance;
+* authority preservation;
+* deterministic reproducibility;
+* temporal consistency;
+* numerical correctness;
+* semantic equivalence;
+* lineage integrity;
+* stability analysis;
+* fault tolerance;
+* provenance verification;
+* implementation conformance.
+
+A method SHALL not be used to support a purpose outside its declared capability unless another adopted Method Definition explicitly extends it.
+
+---
+
+# Supported Claim Types
+
+Every method SHALL define the claim types it can evaluate.
+
+For example:
+
+* schema validation MAY support `SCHEMA_CONFORMANCE`;
+* deterministic replay MAY support `DETERMINISTIC_REPLAY`;
+* model checking MAY support bounded temporal or state-transition properties;
+* cryptographic integrity checking MAY support artifact integrity claims;
+* human review MAY support profile-authorized interpretive claims.
+
+A method SHALL NOT be represented as evaluating a claim type it does not support.
+
+---
+
+# Supported Subject Types
+
+Each Method Definition SHALL identify eligible verification subjects.
+
+A method MAY apply to:
+
+* one committed artifact;
+* one artifact lineage;
+* one supervisory cycle;
+* one state-transition model;
+* one controller implementation;
+* one translation implementation;
+* one execution interface;
+* one realization record;
+* one deployment instance;
+* one composed verification subject.
+
+A method applicable to one subject type SHALL not automatically apply to another.
+
+---
+
+# Required Inputs
+
+Every method SHALL identify its required inputs.
+
+Required inputs MAY include:
+
+* canonical subject artifact;
+* canonical claim;
+* Verification Profile;
+* Verification Requirement Set;
+* evidence manifest;
+* registry snapshots;
+* configuration snapshots;
+* implementation binaries;
+* source code;
+* execution traces;
+* replay inputs;
+* formal models;
+* property expressions;
+* numeric profiles;
+* environment descriptions.
+
+Missing required input SHALL prevent valid method execution.
+
+---
+
+# Optional Inputs
+
+A method MAY define optional inputs.
+
+Optional input use SHALL be:
+
+* profile-authorized;
+* relevant to the claim;
+* reported by the verifier;
+* preserved in the execution record;
+* outcome-neutral.
+
+Optional inputs SHALL not be selectively included or omitted to conceal unfavorable findings.
+
+---
+
+# Prohibited Inputs
+
+A Method Definition MAY prohibit inputs that would invalidate or distort the method.
+
+Examples include:
+
+* mutable artifacts;
+* uncommitted evidence;
+* evidence outside declared scope;
+* unverifiable summaries;
+* unsupported formal models;
+* nondeterministic runtime data where determinism is required;
+* privileged information not available under the profile;
+* evidence whose provenance cannot be established.
+
+Use of prohibited input SHALL invalidate the affected method execution.
+
+---
+
+# Required Preconditions
+
+A method SHALL define all preconditions necessary for meaningful execution.
+
+Preconditions MAY include:
+
+* subject schema validity;
+* complete lineage;
+* model availability;
+* deterministic environment;
+* fixed numeric profile;
+* solver compatibility;
+* replay input completeness;
+* implementation build identity;
+* verifier capability;
+* required access authority.
+
+Preconditions SHALL be checked or explicitly reported as unresolved.
+
+A method performed without mandatory preconditions SHALL not be reported as conforming.
+
+---
+
+# Required Assumptions
+
+Every assumption necessary for method validity SHALL be explicit.
+
+Examples include:
+
+* model fidelity;
+* clock monotonicity;
+* bounded input domain;
+* bounded adversary capability;
+* solver soundness;
+* trusted compiler;
+* deterministic seed handling;
+* accurate environment representation;
+* complete observation coverage.
+
+A verification result dependent upon an assumption SHALL preserve that dependency.
+
+A method SHALL not claim unconditional assurance when its validity is conditional.
+
+---
+
+# Method Procedure Definition
+
+Every method SHALL define the procedure sufficiently for:
+
+* implementation conformance;
+* external execution;
+* audit;
+* replay where applicable;
+* independent interpretation of the result.
+
+The procedure MAY be defined through:
+
+* formal algorithm;
+* normative steps;
+* registered tool protocol;
+* proof system;
+* test suite;
+* execution model;
+* review rubric;
+* hybrid workflow.
+
+The procedure SHALL not rely upon undocumented operator practice.
+
+---
+
+# Method Determinism Class
+
+Every Verification Method Definition SHALL declare one determinism class.
+
+Permitted classes MAY include:
+
+```text
+FULLY_DETERMINISTIC
+DETERMINISTIC_WITH_BOUND_INPUTS
+SEEDED_STOCHASTIC
+STATISTICAL
+ENVIRONMENT_DEPENDENT
+HUMAN_JUDGMENT_DEPENDENT
+HYBRID
+```
+
+The determinism class SHALL define:
+
+* which inputs must be fixed;
+* whether randomness is permitted;
+* how seeds are managed;
+* whether repeated executions must match;
+* how variation is reported;
+* what replay can establish.
+
+A stochastic or human-dependent method SHALL not be presented as fully deterministic.
+
+---
+
+# Soundness Statement
+
+Where applicable, every method SHALL include a soundness statement.
+
+The soundness statement SHALL define:
+
+* what a favorable method result legitimately establishes;
+* under which assumptions it establishes that conclusion;
+* which subject and scope are covered;
+* which forms of false acceptance the method is designed to exclude;
+* which trust dependencies remain.
+
+A method SHALL not claim greater soundness than its procedure supports.
+
+---
+
+# Completeness Statement
+
+Where applicable, every method SHALL include a completeness statement.
+
+The completeness statement SHALL define:
+
+* whether the method can detect every violation in the defined domain;
+* whether coverage is bounded;
+* whether search may be incomplete;
+* whether resource limits affect results;
+* whether an inconclusive result is possible.
+
+Soundness and completeness SHALL remain distinct.
+
+Formally:
+
+```text
+Sound Method
+≠
+Complete Method
+```
+
+---
+
+# Guarantee Scope
+
+Every method SHALL define the maximum guarantee it may contribute toward.
+
+A guarantee scope MAY be:
+
+* exact within a finite formal model;
+* bounded by test coverage;
+* bounded by observed execution;
+* bounded by sampled inputs;
+* bounded by a threat model;
+* bounded by a fault model;
+* bounded by human review criteria;
+* limited to evidence integrity;
+* limited to procedural conformance.
+
+The external result SHALL not exceed the method guarantee scope.
+
+---
+
+# Limitation Scope
+
+Every method SHALL declare its limitations.
+
+Limitations MAY include:
+
+* state-space bounds;
+* abstraction loss;
+* model fidelity;
+* sampling limits;
+* solver limits;
+* runtime coverage;
+* environment dependence;
+* false-negative risk;
+* false-positive risk;
+* reviewer subjectivity;
+* unverifiable dependencies;
+* unsupported input classes.
+
+Method limitations SHALL be preserved in the External Verification Result where they materially affect interpretation.
+
+---
+
+# Method Composition
+
+A Verification Profile MAY require multiple methods.
+
+Method composition SHALL define:
+
+```text
+method_set_id
+component_method_ids
+component_method_versions
+composition_operator
+execution_order
+dependency_rules
+shared_input_rules
+shared_evidence_rules
+aggregate_interpretation_rule
+partial-completion rule
+composition_hash
+```
+
+Permitted composition operators MAY include:
+
+```text
+ALL_REQUIRED
+ANY_SUFFICIENT
+ORDERED_CHAIN
+CONDITIONAL_CHAIN
+INDEPENDENT_CORROBORATION
+MAJORITY_CONFIRMATION
+HUMAN_MACHINE_HYBRID
+```
+
+A composed method set SHALL not erase component-level outcomes.
+
+---
+
+# Independent Corroboration
+
+A Verification Profile MAY require independent corroboration.
+
+Independence SHALL be explicitly defined.
+
+It MAY require:
+
+* separate verifier identities;
+* separate tools;
+* separate implementations;
+* separate trust domains;
+* separate evidence analyses;
+* separate organizational control.
+
+Running the same tool twice under the same authority SHALL not automatically constitute independent corroboration.
+
+---
+
+# Method Ordering
+
+Where method order affects validity, the Method Definition or Verification Profile SHALL specify the required order.
+
+Examples include:
+
+```text
+Schema Validation
+        ↓
+Integrity Verification
+        ↓
+Formal Model Construction
+        ↓
+Model Checking
+```
+
+or:
+
+```text
+Static Analysis
+        ↓
+Targeted Fault Injection
+        ↓
+Runtime Observation
+```
+
+A required ordering SHALL be preserved in the submission and external result.
+
+---
+
+# Method Dependencies
+
+A method MAY depend upon another method.
+
+Dependencies SHALL identify:
+
+* prerequisite method;
+* required prerequisite outcome;
+* permitted fallback behavior;
+* consequence of prerequisite failure;
+* whether partial execution remains meaningful.
+
+A dependent method SHALL not be reported as complete where its mandatory prerequisite failed.
+
+---
+
+# Static Analysis
+
+A Static Analysis Method Definition SHALL specify:
+
+* analyzed artifact type;
+* source or binary requirements;
+* analysis rules;
+* dataflow assumptions;
+* control-flow assumptions;
+* language and compiler support;
+* coverage limits;
+* false-positive and false-negative characteristics;
+* output artifact requirements.
+
+Static analysis SHALL not be interpreted as runtime verification unless the profile explicitly establishes the relationship.
+
+---
+
+# Formal Analysis
+
+A Formal Analysis Method Definition SHALL identify:
+
+* formal model;
+* formal property;
+* logic;
+* abstraction rules;
+* model-construction rules;
+* proof or decision procedure;
+* trusted computing base;
+* soundness conditions;
+* completeness conditions;
+* proof or counterexample artifact.
+
+A formal model SHALL not silently replace the actual verification subject.
+
+The relationship between subject and model SHALL be explicitly verified.
+
+---
+
+# Formal Proof
+
+A Formal Proof Method Definition SHALL specify:
+
+* theorem statement;
+* proof system;
+* axiom set;
+* inference rules;
+* proof artifact format;
+* trusted kernel;
+* proof-checking procedure;
+* assumptions;
+* subject-model binding;
+* proof scope.
+
+Proof generation and proof checking SHALL remain distinct.
+
+A generated proof SHALL not be treated as valid until the required proof-checking conditions are satisfied.
+
+---
+
+# Model Checking
+
+A Model Checking Method Definition SHALL identify:
+
+* system model;
+* state space;
+* transition relation;
+* initial states;
+* properties;
+* temporal logic;
+* fairness assumptions;
+* bounds;
+* state-reduction rules;
+* termination conditions;
+* counterexample format.
+
+A bounded model-checking result SHALL not be represented as unbounded verification.
+
+---
+
+# Symbolic Execution
+
+A Symbolic Execution Method Definition SHALL specify:
+
+* execution model;
+* symbolic input domain;
+* path-exploration policy;
+* path constraints;
+* solver identity;
+* resource limits;
+* path-coverage reporting;
+* unsupported operations;
+* counterexample generation.
+
+Incomplete path coverage SHALL be reported.
+
+---
+
+# Numeric Analysis
+
+A Numeric Analysis Method Definition SHALL specify:
+
+* numeric profile;
+* precision;
+* rounding;
+* tolerances;
+* error bounds;
+* uncertainty propagation;
+* overflow behavior;
+* exceptional-value handling;
+* stability criteria;
+* comparison semantics.
+
+A numeric analysis SHALL not rely upon undeclared tolerances.
+
+---
+
+# Deterministic Replay
+
+A Deterministic Replay Method Definition SHALL define:
+
+* replay subject;
+* canonical replay inputs;
+* initial state;
+* registry and configuration snapshots;
+* execution order;
+* numeric profile;
+* expected outputs;
+* comparison rules;
+* permitted nondeterminism;
+* mismatch classification.
+
+Replay SHALL establish reproducibility only within its declared boundary.
+
+It SHALL not replace original history or external verification authority.
+
+---
+
+# Simulation
+
+A Simulation Method Definition SHALL identify:
+
+* simulation model;
+* model-to-subject relationship;
+* input domain;
+* scenario set;
+* environment model;
+* temporal horizon;
+* stochastic policy;
+* seeds;
+* repetition count;
+* coverage metrics;
+* model limitations.
+
+Simulation results SHALL not be represented as proof of behavior outside the simulated domain.
+
+---
+
+# Property Testing
+
+A Property Testing Method Definition SHALL specify:
+
+* tested properties;
+* generator definitions;
+* input domain;
+* shrinking rules;
+* number of trials;
+* random-seed policy;
+* coverage metrics;
+* stopping conditions;
+* counterexample format.
+
+Passing sampled tests SHALL not establish universal correctness unless the profile provides a valid formal basis.
+
+---
+
+# Fault Injection
+
+A Fault Injection Method Definition SHALL identify:
+
+* fault model;
+* injection points;
+* fault classes;
+* fault cardinality;
+* timing rules;
+* recovery criteria;
+* safety constraints;
+* observation requirements;
+* termination rules.
+
+A result SHALL remain bounded to the injected fault classes and conditions.
+
+---
+
+# Runtime Observation
+
+A Runtime Observation Method Definition SHALL specify:
+
+* observed signals;
+* observation boundary;
+* sampling policy;
+* temporal window;
+* synchronization rules;
+* missing-data handling;
+* instrumentation effects;
+* expected events;
+* anomaly criteria.
+
+Observed absence of failure SHALL not be interpreted as universal absence of failure.
+
+---
+
+# Runtime Monitoring
+
+A Runtime Monitoring Method Definition SHALL define:
+
+* monitored properties;
+* event vocabulary;
+* temporal rules;
+* monitor state;
+* detection latency;
+* coverage;
+* false-positive and false-negative behavior;
+* failure response;
+* monitor integrity.
+
+Runtime monitoring establishes only what the monitored event boundary permits.
+
+---
+
+# Provenance Inspection
+
+A Provenance Inspection Method Definition SHALL identify:
+
+* required lineage;
+* authority relationships;
+* expected commitment records;
+* required registry snapshots;
+* completeness rules;
+* conflict rules;
+* provenance-integrity checks;
+* unresolved-lineage handling.
+
+Provenance inspection SHALL not infer missing provenance.
+
+---
+
+# Cryptographic Integrity Check
+
+A Cryptographic Integrity Check Method Definition SHALL specify:
+
+* supported algorithms;
+* key identity requirements;
+* signature requirements;
+* certificate or credential requirements;
+* hash requirements;
+* revocation checks;
+* timestamp requirements;
+* trust-anchor requirements;
+* failure conditions.
+
+Cryptographic integrity establishes identity and non-alteration within the declared trust model.
+
+It does not establish substantive correctness.
+
+---
+
+# Cross-Implementation Comparison
+
+A Cross-Implementation Comparison Method Definition SHALL specify:
+
+* compared implementations;
+* equivalence input set;
+* expected equivalence relation;
+* output comparison rule;
+* tolerance;
+* state comparison;
+* divergence classification;
+* shared-dependency treatment.
+
+Agreement between implementations SHALL not prove correctness where both may share the same defect.
+
+---
+
+# Conformance Testing
+
+A Conformance Testing Method Definition SHALL identify:
+
+* governing contract or profile;
+* mandatory conformance tests;
+* test inputs;
+* expected outputs;
+* pass criteria;
+* failure criteria;
+* coverage;
+* implementation bindings;
+* result artifacts.
+
+Passing conformance tests SHALL establish only conformance within the tested scope.
+
+---
+
+# Human Expert Review
+
+A Human Expert Review Method Definition SHALL specify:
+
+* reviewer qualifications;
+* conflict-of-interest rules;
+* review rubric;
+* evidence access;
+* decision criteria;
+* disagreement handling;
+* number of reviewers;
+* independence requirements;
+* rationale requirements;
+* uncertainty reporting.
+
+Human review SHALL not be described as deterministic unless the profile defines an exact deterministic adjudication procedure.
+
+---
+
+# Hybrid Verification
+
+A Hybrid Verification Method Definition SHALL combine multiple machine and human methods through explicit composition rules.
+
+It SHALL identify:
+
+* component methods;
+* execution order;
+* authority boundaries;
+* escalation rules;
+* disagreement rules;
+* aggregate result rules;
+* unresolved-result handling.
+
+A hybrid result SHALL preserve all material component findings.
+
+---
+
+# Required Output Artifacts
+
+Every Method Definition SHALL specify the artifacts produced by one method execution.
+
+Outputs MAY include:
+
+* method execution record;
+* proof artifact;
+* proof-checking result;
+* counterexample;
+* replay comparison report;
+* simulation report;
+* test coverage report;
+* fault-injection report;
+* runtime trace;
+* provenance assessment;
+* cryptographic validation report;
+* human-review report;
+* method failure record.
+
+The absence of a mandatory output artifact SHALL prevent the method from being registered as successfully completed.
+
+---
+
+# Method Execution Record
+
+Every performed method SHALL produce a `Verification Method Execution Record`.
+
+The record SHALL contain at minimum:
+
+```text
+method_execution_id
+verification_submission_id
+claim_ids
+verification_method_id
+verification_method_version
+verifier_id
+execution_environment_id
+input_artifact_ids
+input_hashes
+evidence_consumed
+evidence_rejected
+assumptions_applied
+preconditions_evaluated
+execution_started_at
+execution_completed_at
+execution_status
+output_artifact_ids
+limitations
+uncertainties
+method_result
+execution_hash
+verifier_signature_or_integrity_proof
+```
+
+The record SHALL remain distinct from the final External Verification Result.
+
+---
+
+# Method Execution Status
+
+Permitted execution statuses MAY include:
+
+```text
+COMPLETED
+COMPLETED_WITH_LIMITATIONS
+FAILED
+INCONCLUSIVE
+PRECONDITION_FAILED
+UNSUPPORTED
+CANCELLED
+TIMED_OUT
+RESOURCE_EXHAUSTED
+INVALID_INPUT
+```
+
+A completed execution status SHALL not automatically mean that the claim was verified.
+
+Method completion and claim outcome are separate.
+
+---
+
+# Method Result
+
+A method result SHALL express only the finding authorized by that method.
+
+Examples include:
+
+* property satisfied within model bounds;
+* counterexample found;
+* no divergence found within tested inputs;
+* evidence integrity valid;
+* replay matched;
+* replay mismatch found;
+* test coverage achieved;
+* review criteria satisfied;
+* insufficient method coverage.
+
+Contract 012 SHALL not expand a method result into a broader claim result.
+
+---
+
+# Counterexamples and Adverse Findings
+
+A method producing counterexamples, failures, divergences, or adverse findings SHALL preserve them.
+
+Contract 012 and the external verifier SHALL NOT:
+
+* suppress counterexamples;
+* omit failed method executions;
+* rerun until favorable without preserving prior runs;
+* classify adverse findings as irrelevant without a profile-defined rule;
+* exclude evidence because it weakens the claim.
+
+Adverse method outputs are constitutional verification evidence.
+
+---
+
+# Randomness and Sampling
+
+Where a method uses randomness or sampling, the Method Definition SHALL specify:
+
+* random source;
+* seed policy;
+* seed preservation;
+* sample size;
+* sampling distribution;
+* stratification rules;
+* repetition requirements;
+* confidence interpretation;
+* replay expectations.
+
+A statistical confidence level SHALL not be represented as certainty.
+
+---
+
+# Toolchain Identity
+
+Where method validity depends upon tools, the execution SHALL bind exact toolchain identity.
+
+Toolchain bindings MAY include:
+
+```text
+tool_name
+tool_version
+binary_hash
+configuration_hash
+plugin_versions
+solver_version
+compiler_version
+runtime_version
+dependency_manifest_hash
+```
+
+Terms such as:
+
+```text
+current solver
+latest verifier
+standard toolchain
+```
+
+SHALL not establish canonical tool identity.
+
+---
+
+# Method Environment
+
+The method execution environment SHALL be bound where it affects the outcome.
+
+Bindings MAY include:
+
+* hardware;
+* operating system;
+* runtime;
+* resource limits;
+* container identity;
+* network restrictions;
+* clock source;
+* randomness source;
+* secure enclave identity;
+* external service versions.
+
+An environment-sensitive method SHALL not silently transfer its result to another environment.
+
+---
+
+# Method Privacy Requirements
+
+A Method Definition MAY require:
+
+* redacted evidence;
+* pseudonymized data;
+* isolated processing;
+* zero-knowledge proofs;
+* encrypted execution;
+* restricted disclosure;
+* deletion after verification;
+* minimum-data access.
+
+Privacy transformations SHALL not destroy information required to evaluate the claim.
+
+Where privacy and evidence requirements conflict, the conflict SHALL be explicit.
+
+---
+
+# Method Security Requirements
+
+A Method Definition MAY require:
+
+* trusted execution;
+* signed tools;
+* verifier isolation;
+* tamper-evident logs;
+* controlled access;
+* authenticated evidence channels;
+* protected key material;
+* secure result transmission.
+
+Failure of mandatory security conditions SHALL invalidate the method execution.
+
+---
+
+# Method Registry
+
+Every authoritative Verification Method Definition SHALL be resolved through a committed Verification Method Registry snapshot.
+
+The registry SHALL identify:
+
+```text
+verification_method_id
+verification_method_version
+method_status
+method_class
+method_hash
+supported_claim_types
+supported_subject_types
+effective_time
+expiration_time
+supersession_relationship
+```
+
+Mutable runtime lookup SHALL not establish constitutional method authority.
+
+---
+
+# Method Status
+
+A Verification Method Definition SHALL possess one registered status.
+
+Permitted statuses MAY include:
+
+```text
+DRAFT
+PROPOSED
+ADOPTED
+ACTIVE
+RESTRICTED
+DEPRECATED
+SUSPENDED
+REVOKED
+EXPIRED
+ARCHIVED
+```
+
+Only statuses authorized by the Verification Profile SHALL permit new execution.
+
+Historical definitions SHALL remain available for replay and audit.
+
+---
+
+# Method Adoption
+
+A Verification Method Definition becomes authoritative only through the required governance process.
+
+The adoption record SHALL identify:
+
+* proposing authority;
+* reviewing authority;
+* adopting authority;
+* effective time;
+* authorized purposes;
+* authorized claim types;
+* authorized subject types;
+* limitations;
+* adoption record identity.
+
+Contract 012 SHALL not self-adopt a method merely because an implementation supports it.
+
+---
+
+# Method Resolution
+
+Method resolution SHALL use:
+
+* exact method identity;
+* exact version;
+* committed registry snapshot;
+* valid status;
+* effective interval;
+* profile authorization;
+* claim compatibility;
+* subject compatibility.
+
+Terms such as:
+
+```text
+best method
+default method
+latest method
+most accurate method
+```
+
+SHALL not resolve a method unless governed by an explicit deterministic rule.
+
+---
+
+# Method Applicability
+
+A method is applicable only where:
+
+* the method is profile-authorized;
+* the claim type is supported;
+* the subject type is supported;
+* required evidence is available or resolvable;
+* required preconditions may be evaluated;
+* the verifier possesses required capabilities;
+* required environment conditions may be met;
+* version compatibility exists;
+* privacy and security constraints are satisfiable.
+
+Applicability does not guarantee successful method execution.
+
+---
+
+# Method Selection
+
+Method selection SHALL originate from:
+
+* the Verification Profile;
+* the Committed Verification Requirement Set;
+* an explicitly authorized conditional rule;
+* the external verifier where the profile grants bounded discretion.
+
+Contract 012 SHALL not select methods based upon:
+
+* anticipated favorable outcome;
+* lower computational cost unless profile-authorized;
+* reduced evidence requirements;
+* weaker guarantee scope;
+* convenience;
+* implementation preference.
+
+---
+
+# Method Substitution
+
+A required method SHALL not be replaced by another method unless the Verification Profile defines an explicit substitution rule.
+
+A substitution rule SHALL identify:
+
+* original method;
+* permitted substitute;
+* equivalence basis;
+* guarantee relationship;
+* additional limitations;
+* reporting requirement;
+* authorizing authority.
+
+Substitution SHALL be visible in the External Verification Result.
+
+---
+
+# Method Supersession
+
+A new method version MAY supersede an earlier version.
+
+Supersession SHALL identify:
+
+```text
+superseding_method_id
+superseding_method_version
+superseded_method_id
+superseded_method_version
+supersession_basis
+effective_time
+compatibility_rules
+historical_replay_rules
+```
+
+Supersession SHALL not alter prior executions or results.
+
+---
+
+# Method Revocation
+
+A method MAY be revoked where:
+
+* a soundness defect is discovered;
+* a toolchain is compromised;
+* assumptions are invalidated;
+* security is breached;
+* the method no longer satisfies constitutional requirements.
+
+Revocation SHALL not erase historical use.
+
+It SHALL identify whether historical results require:
+
+* status review;
+* limitation registration;
+* reverification;
+* governance notification.
+
+---
+
+# Method Replay
+
+Where replay is required, Contract 012 SHALL preserve sufficient information to reproduce the preparation and interpretation of the method execution.
+
+Replay MAY reproduce:
+
+* method resolution;
+* method configuration;
+* input binding;
+* environment binding;
+* deterministic execution;
+* output comparison.
+
+Replay SHALL not recreate external issuer authority.
+
+For human-dependent or stochastic methods, replay SHALL preserve the original execution conditions and explain which elements cannot be identically reproduced.
+
+---
+
+# Method Auditability
+
+Every method execution SHALL preserve sufficient provenance to determine:
+
+* why the method was required or permitted;
+* which definition and version governed it;
+* which verifier performed it;
+* which inputs were used;
+* which assumptions applied;
+* which preconditions were checked;
+* which tools were used;
+* which environment applied;
+* which outputs were produced;
+* which limitations remained;
+* how the method contributed to the claim result.
+
+---
+
+# Failure Conditions
+
+Verification Method processing SHALL fail when:
+
+* the method cannot be resolved;
+* the method version is ambiguous;
+* the registry snapshot is unavailable;
+* the method hash is invalid;
+* the method status prohibits use;
+* the method is not profile-authorized;
+* the claim type is unsupported;
+* the subject type is unsupported;
+* mandatory inputs are unavailable;
+* mandatory preconditions fail;
+* required assumptions are unresolved;
+* verifier capability is insufficient;
+* required environment cannot be established;
+* method composition conflicts;
+* mandatory output artifacts are missing;
+* toolchain identity is unresolved;
+* integrity proof is invalid;
+* method identity binding fails.
+
+Every failure SHALL be explicitly represented.
+
+---
+
+# Prohibitions
+
+Contract 012 SHALL NOT:
+
+* treat a method name as a complete method definition;
+* use an unregistered method;
+* use a revoked method for new verification;
+* report a method as performed without an execution record;
+* equate method completion with claim verification;
+* infer guarantees beyond method scope;
+* hide assumptions or limitations;
+* suppress counterexamples;
+* silently substitute methods;
+* describe sampled testing as universal proof;
+* describe bounded model checking as unbounded proof;
+* treat replay as replacement history;
+* treat human review as deterministic without explicit rules;
+* select methods based on expected favorable results.
+
+---
+
+# Section 9 Invariants
+
+> **Every verification method used under Contract 012 SHALL resolve to exactly one immutable, versioned, registry-authorized Verification Method Definition that fully specifies its supported claims, subjects, inputs, assumptions, preconditions, procedure, determinism, soundness, completeness, guarantee scope, limitations, required outputs, and failure behavior.**
+
+> **No method may be represented as performed without an authentic method-execution record, and no method result may establish authority beyond the exact claim, subject, evidence, environment, assumptions, and guarantee boundary defined by that method.**

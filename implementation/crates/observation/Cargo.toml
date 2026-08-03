@@ -1,0 +1,18 @@
+[package]
+name = "sacs-observation"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+sacs-canonical-hashing = { path = "../canonical-hashing" }
+sacs-canonical-identity = { path = "../canonical-identity" }
+sacs-canonical-serialization = { path = "../canonical-serialization" }
+sacs-canonical-versioning = { path = "../canonical-versioning" }
+sacs-commitment-engine = { path = "../commitment-engine" }
+sacs-deterministic-ordering = { path = "../deterministic-ordering" }
+sacs-failure-model = { path = "../failure-model" }
+
+[lib]
+name = "sacs_observation"

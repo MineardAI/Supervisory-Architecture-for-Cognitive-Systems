@@ -1,0 +1,393 @@
+# SACS Contract 012 — External Verification Profile and Evidence Interface
+
+## Section 20 — Committed Verification Exchange Record
+
+### Purpose
+
+Section 20 establishes the immutable historical artifact representing one completed inter-constitutional verification exchange.
+
+Where Sections 17 through 19 govern the constitutional execution of the trust exchange, Section 20 preserves that completed exchange as permanent constitutional history.
+
+The Committed Verification Exchange Record is the sole authoritative historical representation of the complete verification exchange.
+
+It records:
+
+* what SACS authorized;
+* what SACS committed;
+* what crossed the constitutional boundary;
+* who assumed constitutional custody;
+* what external verification judgment was issued;
+* how SACS admitted that judgment;
+* how SACS certified and committed its constitutional representation.
+
+Section 20 does not perform verification.
+
+It does not evaluate evidence.
+
+It does not modify the external judgment.
+
+It preserves the completed constitutional exchange exactly as it occurred.
+
+---
+
+# Constitutional Question
+
+> **What immutable constitutional artifact represents one completed inter-constitutional verification exchange in its entirety?**
+
+The answer SHALL be represented by exactly one:
+
+```text
+Committed Verification Exchange Record
+```
+
+or exactly one:
+
+```text
+Committed Verification Exchange Failure
+```
+
+never both and never neither.
+
+---
+
+# Constitutional Identity
+
+The defining constitutional identity of the Committed Verification Exchange Record is:
+
+> **A Committed Verification Exchange Record is the immutable historical representation of one completed inter-constitutional verification exchange, binding one committed submission, one constitutional custody sequence, one externally issued verification judgment, one admission determination, and one committed verification result while preserving the independent constitutional authority of every participating constitutional system.**
+
+Formally:
+
+```text
+Committed Verification Result
+≠
+Committed Verification Exchange Record
+```
+
+The Committed Verification Result preserves SACS' authoritative representation of the verifier's judgment.
+
+The Committed Verification Exchange Record preserves the complete constitutional history of the exchange itself.
+
+---
+
+# Constitutional Authority
+
+Contract 012 exclusively owns:
+
+* exchange-record construction;
+* exchange-record validation;
+* exchange-record commitment;
+* exchange-record lineage;
+* exchange-record replay identity;
+* exchange historical preservation.
+
+Contract 012 SHALL NOT:
+
+* alter committed submissions;
+* alter custody history;
+* alter externally issued judgments;
+* alter admission decisions;
+* alter certification decisions;
+* reinterpret committed verification results.
+
+The Exchange Record preserves constitutional history.
+
+It does not create new constitutional authority.
+
+---
+
+# Canonical Inputs
+
+Section 20 SHALL consume only committed or externally authoritative artifacts.
+
+Mandatory inputs SHALL include:
+
+```text
+Committed Verification Submission
+Verification Submission Commitment Record
+Custody Transfer Record
+External Verification Result
+Verification Result Admission Record
+Verification Result Certification Record
+Committed Verification Result
+```
+
+Where applicable, the Exchange Record MAY also reference:
+
+```text
+Submission Acknowledgement
+Delivery Evidence
+Verifier Credential Snapshot
+Result Validity Interval
+Supersession References
+Withdrawal State
+Expiration State
+Registry Snapshots
+```
+
+Every referenced artifact SHALL possess immutable identity.
+
+---
+
+# Exchange Construction
+
+Section 20 SHALL construct exactly one:
+
+```text
+Constructed Verification Exchange Record
+```
+
+Construction SHALL assemble the constitutional history of the completed verification exchange without modifying any referenced artifact.
+
+Construction SHALL preserve references rather than duplicate constitutional meaning.
+
+The Constructed Verification Exchange Record SHALL remain a pre-commitment artifact.
+
+---
+
+# Exchange Construction Requirements
+
+Construction SHALL verify:
+
+* submission identity;
+* custody identity;
+* verifier identity;
+* result identity;
+* admission identity;
+* certification identity;
+* committed verification-result identity;
+* constitutional lineage;
+* registry references;
+* replay identity.
+
+Construction SHALL fail if any mandatory constitutional relationship cannot be established.
+
+---
+
+# Exchange Commitment
+
+Following successful construction, Section 20 SHALL perform one atomic constitutional commitment.
+
+Exactly one of the following SHALL occur:
+
+* one immutable Committed Verification Exchange Record is produced; or
+* one immutable Committed Verification Exchange Failure is produced.
+
+Partial exchange history SHALL never become canonical.
+
+---
+
+# Exchange Commitment Uniqueness
+
+Exactly one Committed Verification Exchange Record SHALL exist for one committed Verification Submission.
+
+Section 20 SHALL verify:
+
+* unique exchange identity;
+* unique submission identity;
+* unique custody chain;
+* unique external result identity;
+* unique committed verification-result identity;
+* absence of conflicting exchange commitments.
+
+Duplicate exchange commitment SHALL constitute constitutional failure.
+
+---
+
+# Exchange Commitment Idempotency
+
+Repeated execution using identical constitutional inputs SHALL produce an identical Committed Verification Exchange Record.
+
+If an identical committed record already exists, subsequent executions SHALL resolve deterministically without creating duplicate constitutional artifacts.
+
+The commitment SHALL therefore remain replay-safe.
+
+---
+
+# Verification Exchange Commitment Record
+
+Successful commitment SHALL produce one immutable constitutional commitment record containing:
+
+```text
+verification_exchange_commitment_id
+constructed_exchange_record_id
+verification_submission_id
+exchange_identity
+commitment_status
+commitment_timestamp
+commitment_authority
+registry_snapshot_references
+replay_identity
+commitment_hash
+```
+
+The commitment record establishes constitutional evidence that the historical exchange has been committed.
+
+---
+
+# Canonical Committed Verification Exchange Record
+
+The committed record SHALL contain at minimum:
+
+```text
+verification_exchange_record_id
+verification_operation_id
+verification_subject_id
+claim_set_hash
+verification_profile_binding_id
+verification_requirement_set_id
+committed_verification_submission_id
+submission_commitment_id
+custody_transfer_id
+authorized_verifier_identity
+external_verification_result_id
+verification_result_admission_record_id
+verification_result_certification_record_id
+committed_verification_result_id
+verification_exchange_status
+verification_scope
+verification_result_scope
+validity_interval
+limitations
+exclusions
+uncertainties
+supersession_state
+reverification_requirements
+registry_snapshot_ids
+schema_versions
+verification_exchange_hash
+```
+
+The Exchange Record SHALL preserve references to constitutional artifacts rather than reproduce their internal contents.
+
+---
+
+# Exchange Status
+
+Every committed exchange SHALL possess exactly one exchange status.
+
+Canonical exchange statuses SHALL include:
+
+```text
+RESULT_COMMITTED
+SUBMISSION_WITHDRAWN
+EXCHANGE_EXPIRED
+EXCHANGE_SUPERSEDED
+```
+
+Exchange status describes the constitutional state of the exchange.
+
+It SHALL remain distinct from verification-result classes such as:
+
+```text
+VERIFIED
+NOT_VERIFIED
+INCONCLUSIVE
+INSUFFICIENT_EVIDENCE
+```
+
+Formally:
+
+```text
+Verification Result
+≠
+Verification Exchange Status
+```
+
+An unfavorable verification judgment SHALL remain a valid completed exchange.
+
+---
+
+# Provenance Preservation
+
+The Committed Verification Exchange Record SHALL preserve complete constitutional provenance including:
+
+* claim origin;
+* Verification Profile binding;
+* Verification Requirement Set derivation;
+* evidence-package identity;
+* submission commitment;
+* custody transitions;
+* verifier identity;
+* externally issued judgment identity;
+* admission determination;
+* certification determination;
+* committed verification-result identity.
+
+No provenance relationship SHALL be omitted or reconstructed.
+
+---
+
+# Historical Preservation
+
+The Exchange Record SHALL permanently preserve:
+
+* constitutional ownership;
+* constitutional custody history;
+* authority boundaries;
+* verifier identity;
+* trust-domain separation;
+* commitment chronology;
+* lineage;
+* replay identity.
+
+Historical preservation SHALL never merge the constitutional authority of SACS with that of the external verifier.
+
+---
+
+# Exchange Failure
+
+Section 20 SHALL produce one immutable:
+
+```text
+Committed Verification Exchange Failure
+```
+
+when constitutional history cannot be completed.
+
+Exchange Failure SHALL include, but not be limited to:
+
+* unresolved custody lineage;
+* unresolved submission correspondence;
+* verifier-authentication inconsistency;
+* admission inconsistency;
+* certification inconsistency;
+* exchange-commitment conflict;
+* unresolved terminal state;
+* historical integrity failure.
+
+Exchange Failure SHALL remain distinct from an unfavorable verification judgment.
+
+Formally:
+
+```text
+Negative Verification Judgment
+≠
+Verification Exchange Failure
+```
+
+---
+
+# Fundamental Historical Invariants
+
+For every Committed Verification Submission:
+
+* exactly one Committed Verification Exchange Record or exactly one Committed Verification Exchange Failure SHALL exist;
+* every completed exchange SHALL preserve submission identity, custody history, verifier identity, externally issued judgment, admission, certification, and committed verification-result identity;
+* unfavorable verification judgments SHALL remain valid historical outcomes;
+* exchange history SHALL preserve constitutional sovereignty, authority separation, custody, provenance, lineage, and deterministic traceability;
+* identical constitutional inputs SHALL always produce identical committed exchange records.
+
+---
+
+# Constitutional Transition
+
+Section 20 concludes the constitutional execution of Contract 012.
+
+All verification processing has completed.
+
+All constitutional authority has been exercised.
+
+The remaining sections operate exclusively upon completed constitutional history.
+
+Section 21 — **Verification Provenance, Replay, and Audit** governs the deterministic reconstruction, inspection, and independent examination of completed verification exchanges while preserving immutable constitutional history and without recreating or modifying the external verifier's sovereign judgment.
