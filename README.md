@@ -1,49 +1,82 @@
 # SACS — Supervisory Architecture for Cognitive Systems
 
-SACS is a deterministic supervisory architecture for cognitive, generative, agentic, and adaptive systems.
+![SACS Architecture](docs/assets/SACS-image.png)
 
-## What SACS is
+SACS is a deterministic, constitutional supervisory architecture for cognitive, generative, agentic, and adaptive systems. It defines contract-owned authority boundaries, processes committed artifacts, preserves supervisory provenance, and provides a bounded interface for external verification.
 
-SACS is a constitutional supervisory control plane. It separates observation, state estimation, governance, supervisory objectives, bounded control, runtime translation, execution disposition, continuity, constitutional history, and external-verification interfaces into explicit authority boundaries.
+SACS supervises systems; it is not the model, agent, provider runtime, or primary-work execution environment.
 
-Committed artifacts are the only authoritative downstream inputs. Authority may narrow downstream, but it may not broaden. Construction is not commitment. Validation is not certification. Certification is not execution. Execution is not history.
+## What SACS does
 
-## What SACS is not
+SACS provides an explicit supervisory path for:
 
-SACS supervises systems; it does not perform their primary work, host models, or act as a provider runtime. This repository does not include production runtime integration, provider integration, networking, shell execution, deployment topology, UI, or external-verifier implementation.
+- observing operational state;
+- estimating supervisory state;
+- applying governance constraints;
+- evaluating supervisory objectives;
+- activating operational profiles and reference states;
+- computing bounded supervisory control;
+- translating committed supervisory intent;
+- preserving deterministic provenance and replay evidence; and
+- exposing a defined boundary for external verification.
 
-Internal certification is not external verification. SACS does not self-verify and does not issue external verification judgments. Contract 012 is the terminal contract in the v1.0.0 core; institutional learning, constitutional evolution, and successor contracts are outside that core.
+Committed artifacts are the only authoritative downstream inputs. Authority may narrow downstream, but it may not broaden. Construction is not commitment; validation is not certification; certification is not execution; and execution is not history.
 
-## Constitutional flow
+## What SACS does not do
+
+SACS does not generate primary AI content, replace foundation models, host provider runtimes, invent governance, redefine supervised systems, or perform external verification. It does not broaden constitutional authority or claim production deployment readiness, accreditation, certification, or external assurance.
+
+## Architecture overview
 
 ```text
 Observation
-  -> State Estimation
-  -> Operational State Vector
-  -> Governance
-  -> Supervisory Objectives
-  -> Operational Profiles and Reference States
-  -> Controller
-  -> Inference Control
-  -> Execution Interface
-  -> Supervisory Continuity
-  -> Constitutional History
-  -> External Verification Interface
+      ↓
+State Estimation
+      ↓
+Operational State Vector
+      ↓
+Governance
+      ↓
+Supervisory Objectives
+      ↓
+Operational Profiles
+      ↓
+Controller
+      ↓
+Inference Control
+      ↓
+Execution Interface
+      ↓
+Supervisory Continuity and History
+      ↓
+External Verification Boundary
 ```
 
-## Repository structure
+Contract 012 is the terminal contract in the v1.0.0 core. Institutional learning, constitutional evolution, and successor contracts are outside that core.
 
-- `contracts/` — public copies of the Contracts 000–012 source corpus.
+## Core design principles
+
+- deterministic behavior and replayability;
+- explicit authority ownership and commitment boundaries;
+- immutable canonical artifacts;
+- supervisory provenance and auditability;
+- traceable contract-to-implementation relationships; and
+- separation between constitutional authority and implementation realization.
+
+## Repository layout
+
+- `contracts/` — Contracts 000–012 and their normative source corpus.
 - `source-pack/` — subordinate constitutional-supporting guidance.
-- `implementation/` — Rust workspace and bounded reference realization for SACS-IMP-000 through SACS-IMP-012.
-- `docs/` — public release integrity documentation.
-- Baseline and manifest files — adopted integrity records from the original SACS workspace; they are not replaced by this curated public tree.
+- `implementation/` — bounded Rust workspace and reference realization.
+- `implementation/docs/` — implementation profiles, source matrices, and status records.
+- `implementation/evidence/` — conformance-vector and evidence indexes.
+- `docs/` — public release-integrity documentation and repository assets.
 
-## Implementation status
+## Relationship to the Mineard AI ecosystem
 
-SACS Implementation Baseline v1.0.0 is adopted as a derivative realization of SACS Constitutional Baseline v1.0.0. The implementation contracts are conditionally complete within their bounded scope. Conditional completion does not claim production deployment readiness, accreditation, certification, or external verification.
+SACS is a supervisory component of the broader Mineard AI ecosystem. It supervises other systems through explicit interfaces and contract-defined boundaries without owning their internal models, provider authority, or primary-work semantics.
 
-## Verification
+## Quick start
 
 From the repository root:
 
@@ -54,20 +87,22 @@ cargo clippy --manifest-path implementation/Cargo.toml --workspace --all-targets
 cargo metadata --manifest-path implementation/Cargo.toml --no-deps
 ```
 
-The adopted local implementation verification observed 60 unit tests passed, zero failures, and zero doc-tests present. Run the commands locally for the checked-out public tree.
+The checked public tree contains a bounded reference realization. It is not a production runtime or deployment package.
 
-## Non-goals
+## Documentation
 
-SACS does not define domain-specific control laws, production policy catalogs, provider protocols, deployment operations, legal interpretation, institutional learning, or successor constitutional authority.
+- [Constitutional Baseline](SACS_CONSTITUTIONAL_BASELINE_v1.0.0.md)
+- [Implementation Baseline](SACS_IMPLEMENTATION_BASELINE_v1.0.0.md)
+- [Contracts](contracts/)
+- [Source Pack](source-pack/SACS_SOURCE_PACK_INDEX.md)
+- [Implementation profile](implementation/docs/IMPLEMENTATION_PROFILE.md)
+- [Evidence index](implementation/evidence/EVIDENCE_INDEX.md)
+- [Public Release Integrity](docs/PUBLIC_RELEASE_INTEGRITY.md)
 
 ## Contributing and security
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution boundaries and [SECURITY.md](SECURITY.md) for private vulnerability reporting guidance.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution boundaries and [SECURITY.md](SECURITY.md) for vulnerability-reporting guidance.
 
 ## License
 
 SACS is released under the Apache License 2.0. See [LICENSE](LICENSE) and [NOTICE](NOTICE).
-
-## Project status
-
-This branch is a private release-preparation surface. Public visibility, merge, tagging, GitHub Release publication, and deployment approval are not part of this preparation step.
